@@ -1,0 +1,10 @@
+{
+  "name": "@hoepel.app/monorepo",
+  "version": "0.0.1",
+  "description": "hoepel.app monorepo",
+  "repository": "git@github.com:hoepel-app/hoepel-app.git",
+  "author": "Thomas Toye <thomas@toye.io>",
+  "license": "GPL-3",
+  "private": true,
+  "workspaces": ["packages/*"]
+}
