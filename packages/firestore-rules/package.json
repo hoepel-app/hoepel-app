@@ -1,14 +1,17 @@
 {
-  "name": "@hoepel.app/schema",
+  "name": "@hoepel.app/firestore-rules",
   "version": "0.0.1",
-  "main": "dist/index.js",
+  "main": "index.js",
   "license": "GPL-3.0-or-later",
+  "private": true,
   "scripts": {
     "build": "tsc",
-    "test": "jest"
+    "test": "jest",
+    "write-rules-to-file": "yarn ts-node src/write-rules-to-file.ts"
   },
   "dependencies": {
-    "graphql": "^14.5.8"
+    "graphql": "^14.5.8",
+    "@hoepel.app/schema": "0.0.1"
   },
   "devDependencies": {
     "@types/jest": "^24.0.23",
