@@ -1,0 +1,272 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`schema generation schema should not change 1`] = `
+"service cloud.firestore {
+
+  /// Extra rules provided for generation
+
+  // Admin may create tenants
+  match /databases/{database}/documents/tenants/{document=**} {
+    allow create: if request.auth.token.isAdmin;
+    allow read  : if false;
+    allow update: if false;
+    allow delete: if false;
+  }
+  
+  // Allow users to read own tenant, admin and tenant users to CRU
+  match /databases/{database}/documents/tenants/{tenant} {
+    function hasPermission(permission, tenant) { return permission in get(/databases/$(database)/documents/users/$(request.auth.uid)/tenants/$(tenant)).data.permissions; }
+    allow create: if request.auth.token.isAdmin || hasPermission('tenant:write', tenant);
+    allow read  : if request.auth.token.isAdmin || exists(/databases/$(database)/documents/users/$(request.auth.uid)/tenants/$(tenant));
+    allow update: if request.auth.token.isAdmin || hasPermission('tenant:write', tenant);
+    allow delete: if false;
+  }
+
+  /// Automaticaly generated Firestore rules
+
+  // Generated permissions for collection 'age-groups' (collection contains docs with doc.id == tenant name)
+  match /databases/{database}/documents/age-groups/{document} {
+    function hasPermission(permission, tenant) {
+      return permission in get(/databases/$(database)/documents/users/$(request.auth.uid)/tenants/$(tenant)).data.permissions;
+    }
+    allow create: if hasPermission('age-groups:write', document);
+    allow read  : if !exists(/databases/$(database)/documents/age-groups/$(document)) || hasPermission('age-groups:read', document);
+    allow update: if hasPermission('age-groups:write', document);
+    allow delete: if false;
+  }
+  
+  // Generated permissions for collection 'children' (collection contains docs with doc.tenant == tenant name)
+  match /databases/{database}/documents/children/{document} {
+    function hasPermission(permission, tenant) {
+      return permission in get(/databases/$(database)/documents/users/$(request.auth.uid)/tenants/$(tenant)).data.permissions;
+    }
+    allow create: if hasPermission('child:write', request.resource.data.tenant);
+    allow read  : if hasPermission('child:read', resource.data.tenant);
+    allow update: if hasPermission('child:write', resource.data.tenant);
+    allow delete: if hasPermission('child:write', resource.data.tenant);
+  }
+  
+  // Generated permissions for collection 'consumables' (collection contains docs with doc.id == tenant name)
+  match /databases/{database}/documents/consumables/{document} {
+    function hasPermission(permission, tenant) {
+      return permission in get(/databases/$(database)/documents/users/$(request.auth.uid)/tenants/$(tenant)).data.permissions;
+    }
+    allow create: if hasPermission('consumables:write', document);
+    allow read  : if !exists(/databases/$(database)/documents/consumables/$(document)) || hasPermission('consumables:read', document);
+    allow update: if hasPermission('consumables:write', document);
+    allow delete: if false;
+  }
+  
+  // Generated permissions for collection 'consumptions' (collection contains docs with doc.tenant == tenant name)
+  match /databases/{database}/documents/consumptions/{document} {
+    function hasPermission(permission, tenant) {
+      return permission in get(/databases/$(database)/documents/users/$(request.auth.uid)/tenants/$(tenant)).data.permissions;
+    }
+    allow create: if hasPermission('consumption:write', request.resource.data.tenant);
+    allow read  : if hasPermission('consumption:read', resource.data.tenant);
+    allow update: if hasPermission('consumption:write', resource.data.tenant);
+    allow delete: if hasPermission('consumption:write', resource.data.tenant);
+  }
+  
+  // Generated permissions for collection 'contact-people' (collection contains docs with doc.tenant == tenant name)
+  match /databases/{database}/documents/contact-people/{document} {
+    function hasPermission(permission, tenant) {
+      return permission in get(/databases/$(database)/documents/users/$(request.auth.uid)/tenants/$(tenant)).data.permissions;
+    }
+    allow create: if hasPermission('contact-person:write', request.resource.data.tenant);
+    allow read  : if hasPermission('contact-person:read', resource.data.tenant);
+    allow update: if hasPermission('contact-person:write', resource.data.tenant);
+    allow delete: if hasPermission('contact-person:write', resource.data.tenant);
+  }
+  
+  // Generated permissions for collection 'crew-members' (collection contains docs with doc.tenant == tenant name)
+  match /databases/{database}/documents/crew-members/{document} {
+    function hasPermission(permission, tenant) {
+      return permission in get(/databases/$(database)/documents/users/$(request.auth.uid)/tenants/$(tenant)).data.permissions;
+    }
+    allow create: if hasPermission('crew-member:write', request.resource.data.tenant);
+    allow read  : if hasPermission('crew-member:read', resource.data.tenant);
+    allow update: if hasPermission('crew-member:write', resource.data.tenant);
+    allow delete: if hasPermission('crew-member:write', resource.data.tenant);
+  }
+  
+  // Generated permissions for collection 'discounts' (collection contains docs with doc.id == tenant name)
+  match /databases/{database}/documents/discounts/{document} {
+    function hasPermission(permission, tenant) {
+      return permission in get(/databases/$(database)/documents/users/$(request.auth.uid)/tenants/$(tenant)).data.permissions;
+    }
+    allow create: if hasPermission('discounts:write', document);
+    allow read  : if !exists(/databases/$(database)/documents/discounts/$(document)) || hasPermission('discounts:read', document);
+    allow update: if hasPermission('discounts:write', document);
+    allow delete: if false;
+  }
+  
+  // Generated permissions for collection 'reports' (collection contains docs with doc.tenant == tenant name)
+  match /databases/{database}/documents/reports/{document} {
+    function hasPermission(permission, tenant) {
+      return permission in get(/databases/$(database)/documents/users/$(request.auth.uid)/tenants/$(tenant)).data.permissions;
+    }
+    allow create: if false;
+    allow read  : if hasPermission('reports:read', resource.data.tenant);
+    allow update: if false;
+    allow delete: if false;
+  }
+  
+  // Generated permissions for collection 'shift-presets' (collection contains docs with doc.id == tenant name)
+  match /databases/{database}/documents/shift-presets/{document} {
+    function hasPermission(permission, tenant) {
+      return permission in get(/databases/$(database)/documents/users/$(request.auth.uid)/tenants/$(tenant)).data.permissions;
+    }
+    allow create: if hasPermission('shift-preset:write', document);
+    allow read  : if !exists(/databases/$(database)/documents/shift-presets/$(document)) || hasPermission('shift-preset:read', document);
+    allow update: if hasPermission('shift-preset:write', document);
+    allow delete: if false;
+  }
+  
+  // Generated permissions for collection 'shifts' (collection contains docs with doc.tenant == tenant name)
+  match /databases/{database}/documents/shifts/{document} {
+    function hasPermission(permission, tenant) {
+      return permission in get(/databases/$(database)/documents/users/$(request.auth.uid)/tenants/$(tenant)).data.permissions;
+    }
+    allow create: if hasPermission('shift:write', request.resource.data.tenant);
+    allow read  : if hasPermission('shift:read', resource.data.tenant);
+    allow update: if hasPermission('shift:write', resource.data.tenant);
+    allow delete: if hasPermission('shift:write', resource.data.tenant);
+  }
+  
+  // Generated permissions for collection 'templates' (collection contains docs with doc.tenant == tenant name)
+  match /databases/{database}/documents/templates/{document} {
+    function hasPermission(permission, tenant) {
+      return permission in get(/databases/$(database)/documents/users/$(request.auth.uid)/tenants/$(tenant)).data.permissions;
+    }
+    allow create: if hasPermission('template:write', request.resource.data.tenant);
+    allow read  : if hasPermission('template:read', resource.data.tenant);
+    allow update: if hasPermission('template:write', resource.data.tenant);
+    allow delete: if hasPermission('template:write', resource.data.tenant);
+  }
+  
+  // Generated permissions for collection 'child-attendances-by-child' (collection contains docs with doc.tenant == tenant name)
+  match /databases/{database}/documents/child-attendances-by-child/{document} {
+    function hasPermission(permission, tenant) {
+      return permission in get(/databases/$(database)/documents/users/$(request.auth.uid)/tenants/$(tenant)).data.permissions;
+    }
+    allow create: if false;
+    allow read  : if true;
+    allow update: if false;
+    allow delete: if false;
+  }
+  
+  // Generated permissions for collection 'child-attendances-by-shift' (collection contains docs with doc.tenant == tenant name)
+  match /databases/{database}/documents/child-attendances-by-shift/{document} {
+    function hasPermission(permission, tenant) {
+      return permission in get(/databases/$(database)/documents/users/$(request.auth.uid)/tenants/$(tenant)).data.permissions;
+    }
+    allow create: if false;
+    allow read  : if true;
+    allow update: if false;
+    allow delete: if false;
+  }
+  
+  // Generated permissions for collection 'child-attendances-add' (collection contains docs with doc.tenant == tenant name)
+  match /databases/{database}/documents/child-attendances-add/{document} {
+    function hasPermission(permission, tenant) {
+      return permission in get(/databases/$(database)/documents/users/$(request.auth.uid)/tenants/$(tenant)).data.permissions;
+    }
+    allow create: if hasPermission('child-attendance:write', request.resource.data.tenant);
+    allow read  : if true;
+    allow update: if false;
+    allow delete: if false;
+  }
+  
+  // Generated permissions for collection 'child-attendances-delete' (collection contains docs with doc.tenant == tenant name)
+  match /databases/{database}/documents/child-attendances-delete/{document} {
+    function hasPermission(permission, tenant) {
+      return permission in get(/databases/$(database)/documents/users/$(request.auth.uid)/tenants/$(tenant)).data.permissions;
+    }
+    allow create: if hasPermission('child-attendance:write', request.resource.data.tenant);
+    allow read  : if true;
+    allow update: if false;
+    allow delete: if false;
+  }
+  
+  // Generated permissions for collection 'crew-attendances-add' (collection contains docs with doc.tenant == tenant name)
+  match /databases/{database}/documents/crew-attendances-add/{document} {
+    function hasPermission(permission, tenant) {
+      return permission in get(/databases/$(database)/documents/users/$(request.auth.uid)/tenants/$(tenant)).data.permissions;
+    }
+    allow create: if hasPermission('crew-attendance:write', request.resource.data.tenant);
+    allow read  : if true;
+    allow update: if false;
+    allow delete: if false;
+  }
+  
+  // Generated permissions for collection 'crew-attendances-delete' (collection contains docs with doc.tenant == tenant name)
+  match /databases/{database}/documents/crew-attendances-delete/{document} {
+    function hasPermission(permission, tenant) {
+      return permission in get(/databases/$(database)/documents/users/$(request.auth.uid)/tenants/$(tenant)).data.permissions;
+    }
+    allow create: if hasPermission('crew-attendance:write', request.resource.data.tenant);
+    allow read  : if true;
+    allow update: if false;
+    allow delete: if false;
+  }
+  
+  // Generated permissions for collection 'crew-attendances-by-crew' (collection contains docs with doc.tenant == tenant name)
+  match /databases/{database}/documents/crew-attendances-by-crew/{document} {
+    function hasPermission(permission, tenant) {
+      return permission in get(/databases/$(database)/documents/users/$(request.auth.uid)/tenants/$(tenant)).data.permissions;
+    }
+    allow create: if false;
+    allow read  : if true;
+    allow update: if false;
+    allow delete: if false;
+  }
+  
+  // Generated permissions for collection 'crew-attendances-by-shift' (collection contains docs with doc.tenant == tenant name)
+  match /databases/{database}/documents/crew-attendances-by-shift/{document} {
+    function hasPermission(permission, tenant) {
+      return permission in get(/databases/$(database)/documents/users/$(request.auth.uid)/tenants/$(tenant)).data.permissions;
+    }
+    allow create: if false;
+    allow read  : if true;
+    allow update: if false;
+    allow delete: if false;
+  }
+  
+  // Generated permissions for collection 'users' (collection contains docs with doc.id == user id)
+  match /databases/{database}/documents/users/{uid} {
+    allow create: if false;
+    allow read  : if uid == request.auth.uid;
+    allow update: if false;
+    allow delete: if false;
+  }
+  
+  // Generated permissions for collection 'users' (collection contains docs with doc.id == user id)
+  match /databases/{database}/documents/users/{uid}/{document=**} {
+    allow create: if false;
+    allow read  : if uid == request.auth.uid;
+    allow update: if false;
+    allow delete: if false;
+  }
+  
+  // Generated permissions for collection 'users' (collection contains docs with doc.id == user id) - Admin access
+  match /databases/{database}/documents/users/{document=**} {
+    allow create: if false;
+    allow read  : if request.auth.token.isAdmin;
+    allow update: if request.auth.token.isAdmin;
+    allow delete: if false;
+  }
+  
+  // Generated permissions for collection 'tenants' (collection contains docs with doc.id == tenant name)
+  match /databases/{database}/documents/tenants/{document} {
+    function hasPermission(permission, tenant) {
+      return permission in get(/databases/$(database)/documents/users/$(request.auth.uid)/tenants/$(tenant)).data.permissions;
+    }
+    allow create: if hasPermission('TODO:write', document);
+    allow read  : if !exists(/databases/$(database)/documents/tenants/$(document)) || hasPermission('TODO:read', document);
+    allow update: if hasPermission('TODO:write', document);
+    allow delete: if false;
+  }
+
+}"
+`;

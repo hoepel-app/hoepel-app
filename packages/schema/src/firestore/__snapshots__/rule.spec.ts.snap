@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Rule rule with all false 1`] = `
+"// This is my comment
+match /databases/{database}/documents/my-collection/{document} {
+  allow create: if false;
+  allow read  : if false;
+  allow update: if false;
+  allow delete: if false;
+}"
+`;
+
+exports[`Rule rule with all true 1`] = `
+"// This is my comment
+match /databases/{database}/documents/my-collection/{document} {
+  allow create: if true;
+  allow read  : if true;
+  allow update: if true;
+  allow delete: if true;
+}"
+`;
+
+exports[`Rule rule with permissions 1`] = `
+"// This is my comment
+match /databases/{database}/documents/my-collection/{document} {
+  allow create: if request.auth.otherThing;
+  allow read  : if request.auth.isAdmin;
+  allow update: if false;
+  allow delete: if true;
+}"
+`;

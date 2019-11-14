@@ -95,13 +95,11 @@ type CrewAttendanceByShift @firestore(name:"crew-attendances-by-shift", type:IND
 }
 
 
-# TODO permissions here
-type Tenant @firestore(name:"tenants", type:DOC_PER_TENANT, readPermission:"TODO:read", writePermission:"TODO:write", allowUpdate: true, allowDelete: true) {
+type User @firestore(name:"users", type:DOC_PER_USER) {
     id: ID!
 }
 
-# TODO permissions here
-type User @firestore(name:"users", type:INDEXED_BY_TENANT, readPermission:"TODO:read", writePermission:"TODO:write") {
+type Tenant @firestore(name:"tenants", type:DOC_PER_TENANT, readPermission:"TODO:read", writePermission:"TODO:write", allowUpdate: true, allowDelete: true) {
     id: ID!
 }
 
