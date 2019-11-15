@@ -2,7 +2,7 @@ import { Collection } from "./collection"
 import { Rule } from "./rule"
 
 export class DocPerTenantCollection extends Collection {
-    constructor(collectionName: string, permissions: { readPermission: string, writePermission: string }) {
+    constructor(collectionName: string, permissions: { readPermission: string; writePermission: string }) {
         super(collectionName, {
             readPermission: permissions.readPermission,
             writePermission: permissions.writePermission,
@@ -11,7 +11,7 @@ export class DocPerTenantCollection extends Collection {
         })
     }
     
-    get firestoreRules() {
+    get firestoreRules(): readonly Rule[] {
         return [
             new Rule({
             comment: `Generated permissions for collection '${this.collectionName}' (collection contains docs with doc.id == tenant name)`,

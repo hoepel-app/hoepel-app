@@ -11,7 +11,7 @@ export class DocPerUserCollection extends Collection {
         })
     }
     
-    get firestoreRules() {
+    get firestoreRules(): readonly Rule[] {
         const comment = `Generated permissions for collection '${this.collectionName}' (collection contains docs with doc.id == user id)`
         return [
             new Rule({

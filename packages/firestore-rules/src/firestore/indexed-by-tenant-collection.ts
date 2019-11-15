@@ -6,8 +6,8 @@ export class IndexedByTenantCollection extends Collection {
         super(collectionName, permissions);
     }
 
-    get firestoreRules() {
-        const createRuleLine = (permission: string | null, tenant: string) => {
+    get firestoreRules(): readonly Rule[] {
+        const createRuleLine = (permission: string | null, tenant: string): string | boolean => {
             if (permission == null) {
                 return false
             } else {

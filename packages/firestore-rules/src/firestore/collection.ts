@@ -1,10 +1,10 @@
 import { Rule } from "./rule";
 
 export type CollectionPermissions = {
-    readPermission: string | null,
-    writePermission: string | null,
-    deletePermission: string | null,
-    updatePermission: string | null,
+    readPermission: string | null;
+    writePermission: string | null;
+    deletePermission: string | null;
+    updatePermission: string | null;
 }
 
 /** Represents a collection in Firestore */
@@ -14,8 +14,8 @@ export abstract class Collection {
     }
 
     /** Checks if passed permissions pass some simple tests, like making sure 'child:write' is not assigned as a read permission */
-    protected sanityCheckCollectionPermissions(permissions: CollectionPermissions) {
-        const assertPermissionDoesNotInclude = (permission: string | null, operationName: 'read' | 'write' | 'update' | 'delete') => {
+    protected sanityCheckCollectionPermissions(permissions: CollectionPermissions): void {
+        const assertPermissionDoesNotInclude = (permission: string | null, operationName: 'read' | 'write' | 'update' | 'delete'): void => {
             if (permission == null) {
                 return
             }

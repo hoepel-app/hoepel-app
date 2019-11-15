@@ -20,7 +20,7 @@ export const createFirestoreRulesFromSchema = (schema: GraphQLSchema, extraRules
     ].join('\n\n')
 }
 
-const indent = (str: string, indentation = '  ') => str
+const indent = (str: string, indentation = '  '): string => str
     .split('\n')
     .map(line => indentation + line)
     .join('\n')

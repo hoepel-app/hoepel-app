@@ -18,13 +18,13 @@ export class Rule {
      */
     constructor(
         private readonly options: {
-            readonly comment: string,
-            readonly match: string,
-            readonly extra?: string
-            readonly allowCreate: AllowValue,
-            readonly allowRead: AllowValue,
-            readonly allowUpdate: AllowValue,
-            readonly allowDelete: AllowValue,
+            readonly comment: string;
+            readonly match: string;
+            readonly extra?: string;
+            readonly allowCreate: AllowValue;
+            readonly allowRead: AllowValue;
+            readonly allowUpdate: AllowValue;
+            readonly allowDelete: AllowValue;
         }
     ) {
 
@@ -51,7 +51,7 @@ export class Rule {
         }
     }
     
-    private buildExpression(operation: Operation, value: AllowValue) {
+    private buildExpression(operation: Operation, value: AllowValue): string {
         if (value === false || value === true) {
             return `allow ${operation.padEnd(6)}: if ${value.toString()};`
         } else {
