@@ -3,6 +3,8 @@ cache: yarn
 before_install:
 - curl -o- -L https://yarnpkg.com/install.sh | bash
 - export PATH="$HOME/.yarn/bin:$PATH"
+- npm install -g firebase-tools
+
 deploy:
   provider: script
   script: yarn deploy
