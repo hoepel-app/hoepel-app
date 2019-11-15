@@ -12,7 +12,10 @@
   "scripts": {
     "build": "tsc --build packages",
     "lint": "yarn eslint packages/*/src/**/*.ts --fix",
-    "test": "yarn lint && yarn build && lerna run test"
+    "test": "yarn lint && yarn build && lerna run test",
+    "publish": "echo TODO publish step",
+    "deploy": "yarn test && yarn run publish && yarn deploy:firestore",
+    "deploy:firestore": "firebase deploy --project=hoepel-app --only=firestore:rules"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.7.0",

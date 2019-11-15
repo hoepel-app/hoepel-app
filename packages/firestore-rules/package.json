@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "build": "tsc",
-    "test": "jest",
+    "test": "jest && yarn check-rules-file-up-to-date",
     "write-rules-to-file": "yarn ts-node src/write-rules-to-file.ts",
     "check-rules-file-up-to-date": "yarn ts-node src/check-rules-file-up-to-date.ts"
   },
