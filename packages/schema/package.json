@@ -4,8 +4,7 @@
   "main": "dist/index.js",
   "license": "GPL-3.0-or-later",
   "scripts": {
-    "build": "tsc",
-    "test": "jest"
+    "build": "tsc"
   },
   "dependencies": {
     "graphql": "^14.5.8"

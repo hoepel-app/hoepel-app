@@ -1,0 +1,7 @@
+{
+    "files": [],
+    "references": [
+        { "path": "./schema" },
+        { "path": "./firestore-rules" },
+    ]
+}

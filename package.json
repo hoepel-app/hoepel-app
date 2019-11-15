@@ -10,13 +10,16 @@
     "packages/*"
   ],
   "scripts": {
-    "lint": "yarn eslint packages/*/src/**/*.ts --fix"
+    "build": "tsc --build packages",
+    "lint": "yarn eslint packages/*/src/**/*.ts --fix",
+    "test": "yarn lint && yarn build && lerna run test"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.7.0",
     "@typescript-eslint/parser": "^2.7.0",
     "eslint": "^6.6.0",
-    "husky": "^3.0.9"
+    "husky": "^3.0.9",
+    "lerna": "^3.18.4"
   },
   "husky": {
     "hooks": {
