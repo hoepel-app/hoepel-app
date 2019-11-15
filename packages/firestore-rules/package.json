@@ -7,7 +7,8 @@
   "scripts": {
     "build": "tsc",
     "test": "jest",
-    "write-rules-to-file": "yarn ts-node src/write-rules-to-file.ts"
+    "write-rules-to-file": "yarn ts-node src/write-rules-to-file.ts",
+    "check-rules-file-up-to-date": "yarn ts-node src/check-rules-file-up-to-date.ts"
   },
   "dependencies": {
     "graphql": "^14.5.8",
