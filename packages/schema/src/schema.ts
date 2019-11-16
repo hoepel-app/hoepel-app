@@ -1,7 +1,4 @@
-import { GraphQLSchema, buildSchema } from "graphql";
-
 export const schema = `
-
 enum COLLECTION_TYPE {
     INDEXED_BY_TENANT
     DOC_PER_TENANT
@@ -120,5 +117,3 @@ schema {
     query: Query
     #mutation: Mutation
 }`
-
-export const graphqlSchema: GraphQLSchema = buildSchema(schema)

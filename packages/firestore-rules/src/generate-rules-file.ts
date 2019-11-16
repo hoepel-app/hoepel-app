@@ -1,4 +1,4 @@
-import { graphqlSchema } from "@hoepel.app/schema"
+import { graphqlSchema } from "@hoepel.app/schema-firestore"
 import { extraRules } from "./extra-rules"
 import { createFirestoreRulesFromSchema } from "."
 import { join } from "path"

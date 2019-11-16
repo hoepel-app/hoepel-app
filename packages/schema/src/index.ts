@@ -1,1 +1,1 @@
-export { schema, graphqlSchema } from './schema'
+export { schema } from './schema'

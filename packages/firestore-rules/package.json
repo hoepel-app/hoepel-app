@@ -1,5 +1,6 @@
 {
   "name": "@hoepel.app/firestore-rules",
+  "description": "Generate and apply Firestore rules based on GraphQL schema",
   "version": "0.0.1",
   "main": "index.js",
   "license": "GPL-3.0-or-later",
@@ -12,7 +13,7 @@
   },
   "dependencies": {
     "graphql": "^14.5.8",
-    "@hoepel.app/schema": "0.0.1"
+    "@hoepel.app/schema-firestore": "0.0.1"
   },
   "devDependencies": {
     "@types/jest": "^24.0.23",
