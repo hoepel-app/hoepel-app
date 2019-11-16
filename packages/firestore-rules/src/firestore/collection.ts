@@ -1,4 +1,4 @@
-import { Rule } from "./rule";
+import { Rule } from './rule';
 
 export type CollectionPermissions = {
     readPermission: string | null;

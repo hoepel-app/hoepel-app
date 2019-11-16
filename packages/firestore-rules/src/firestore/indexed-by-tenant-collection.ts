@@ -1,5 +1,5 @@
-import { Collection, CollectionPermissions } from "./collection";
-import { Rule } from "./rule";
+import { Collection, CollectionPermissions } from './collection';
+import { Rule } from './rule';
 
 export class IndexedByTenantCollection extends Collection {
     constructor(collectionName: string, permissions: CollectionPermissions, private allowPublicRead = false) {

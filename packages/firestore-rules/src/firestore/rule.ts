@@ -68,7 +68,7 @@ export class Rule {
             `  ${this.readExpression}`,
             `  ${this.updateExpression}`,
             `  ${this.deleteExpression}`,
-            `}`,
+            '}',
         ].filter(line => line.trim() !== '').join('\n')
     }
 }

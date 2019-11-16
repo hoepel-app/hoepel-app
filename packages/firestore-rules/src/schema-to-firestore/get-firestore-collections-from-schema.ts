@@ -1,8 +1,8 @@
-import { DirectiveNode, GraphQLNamedType, GraphQLSchema } from "graphql"
-import { Collection } from "../firestore/collection"
-import { IndexedByTenantCollection } from "../firestore/indexed-by-tenant-collection"
-import { DocPerTenantCollection } from "../firestore/doc-per-tenant-collection"
-import { DocPerUserCollection } from "../firestore/doc-per-user-collection"
+import { DirectiveNode, GraphQLNamedType, GraphQLSchema } from 'graphql'
+import { Collection } from '../firestore/collection'
+import { IndexedByTenantCollection } from '../firestore/indexed-by-tenant-collection'
+import { DocPerTenantCollection } from '../firestore/doc-per-tenant-collection'
+import { DocPerUserCollection } from '../firestore/doc-per-user-collection'
 
 export const getFirestoreCollectionsFromSchema = (schema: GraphQLSchema): readonly Collection[] => {
     const typeMap = schema.getTypeMap()

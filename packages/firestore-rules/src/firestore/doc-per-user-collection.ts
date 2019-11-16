@@ -1,5 +1,5 @@
-import { Rule } from "./rule"
-import { Collection } from "./collection"
+import { Rule } from './rule'
+import { Collection } from './collection'
 
 export class DocPerUserCollection extends Collection {
     constructor(collectionName: string) {
@@ -16,7 +16,7 @@ export class DocPerUserCollection extends Collection {
         return [
             new Rule({
                 comment,
-                match: `/databases/{database}/documents/users/{uid}`,
+                match: '/databases/{database}/documents/users/{uid}',
                 allowRead: 'uid == request.auth.uid',
                 allowDelete: false,
                 allowUpdate: false,
@@ -24,7 +24,7 @@ export class DocPerUserCollection extends Collection {
             }),
             new Rule({
                 comment,
-                match: `/databases/{database}/documents/users/{uid}/{document=**}`,
+                match: '/databases/{database}/documents/users/{uid}/{document=**}',
                 allowRead: 'uid == request.auth.uid',
                 allowDelete: false,
                 allowUpdate: false,
@@ -32,7 +32,7 @@ export class DocPerUserCollection extends Collection {
             }),
             new Rule({
                 comment: comment + ' - Admin access',
-                match: `/databases/{database}/documents/users/{document=**}`,
+                match: '/databases/{database}/documents/users/{document=**}',
                 allowRead: 'request.auth.token.isAdmin',
                 allowDelete: false,
                 allowUpdate: 'request.auth.token.isAdmin',

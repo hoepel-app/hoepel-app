@@ -1,5 +1,5 @@
-import { buildSchema } from "graphql";
-import { createFirestoreRulesFromSchema } from "./create-firestore-rules-from-schema";
+import { buildSchema } from 'graphql';
+import { createFirestoreRulesFromSchema } from './create-firestore-rules-from-schema';
 
 const testSchema = buildSchema(`
 enum COLLECTION_TYPE {

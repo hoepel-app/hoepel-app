@@ -1,6 +1,6 @@
-import { GraphQLSchema } from "graphql";
-import { Rule } from "../firestore/rule";
-import { getFirestoreCollectionsFromSchema } from "./get-firestore-collections-from-schema";
+import { GraphQLSchema } from 'graphql';
+import { Rule } from '../firestore/rule';
+import { getFirestoreCollectionsFromSchema } from './get-firestore-collections-from-schema';
 
 export const createFirestoreRulesFromSchema = (schema: GraphQLSchema, extraRules: readonly Rule[] = []): string => {
     const rulesFromSchemaAsText = getFirestoreCollectionsFromSchema(schema)

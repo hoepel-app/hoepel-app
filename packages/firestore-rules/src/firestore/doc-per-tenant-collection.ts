@@ -1,5 +1,5 @@
-import { Collection } from "./collection"
-import { Rule } from "./rule"
+import { Collection } from './collection'
+import { Rule } from './rule'
 
 export class DocPerTenantCollection extends Collection {
     constructor(collectionName: string, permissions: { readPermission: string; writePermission: string }) {

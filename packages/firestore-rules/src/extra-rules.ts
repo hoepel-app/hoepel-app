@@ -1,4 +1,4 @@
-import { Rule } from "./firestore/rule";
+import { Rule } from './firestore/rule';
 
 /* This file contains extra rules that should be added to the schema (ones that are or cannot be auto-generated) */
 
@@ -15,10 +15,10 @@ export const extraRules = [
     new Rule({
         match: '/databases/{database}/documents/tenants/{tenant}',
         comment: 'Allow users to read own tenant, admin and tenant users to CRU',
-        allowCreate: `request.auth.token.isAdmin || hasPermission('tenant:write', tenant)`,
-        allowRead: `request.auth.token.isAdmin || exists(/databases/$(database)/documents/users/$(request.auth.uid)/tenants/$(tenant))`,
-        allowUpdate: `request.auth.token.isAdmin || hasPermission('tenant:write', tenant)`,
+        allowCreate: 'request.auth.token.isAdmin || hasPermission(\'tenant:write\', tenant)',
+        allowRead: 'request.auth.token.isAdmin || exists(/databases/$(database)/documents/users/$(request.auth.uid)/tenants/$(tenant))',
+        allowUpdate: 'request.auth.token.isAdmin || hasPermission(\'tenant:write\', tenant)',
         allowDelete: false,
-        extra: `function hasPermission(permission, tenant) { return permission in get(/databases/$(database)/documents/users/$(request.auth.uid)/tenants/$(tenant)).data.permissions; }`
+        extra: 'function hasPermission(permission, tenant) { return permission in get(/databases/$(database)/documents/users/$(request.auth.uid)/tenants/$(tenant)).data.permissions; }'
     })
 ];
