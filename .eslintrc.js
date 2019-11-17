@@ -5,15 +5,16 @@ module.exports = {
   },
   plugins: ['@typescript-eslint'],
   extends: [
+    'plugin:prettier/recommended',
     'plugin:@typescript-eslint/recommended',
+    'plugin:import/errors',
+    'plugin:import/warnings',
+    'plugin:import/typescript',
   ],
   rules:  {
-    'quotes': 'off', // Conflicts with @typescript-eslint/quotes
     '@typescript-eslint/no-use-before-define': 'off',
-    '@typescript-eslint/quotes': [ 'error', 'single' ],
-    'object-curly-spacing': ["error", "always"],
     '@typescript-eslint/explicit-function-return-type': [ 'error', { allowExpressions: true } ],
-    // "@typescript-eslint/explicit-function-return-type": "off",
+    '@typescript-eslint/member-delimiter-style': 'off', // Conflicts with Prettier
   }
 }
 

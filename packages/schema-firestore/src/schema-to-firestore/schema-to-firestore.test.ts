@@ -42,7 +42,7 @@ type User @firestore(name:"users", type:DOC_PER_USER) {
 `
 
 describe('getFirestoreCollections', () => {
-    it('create Firestore collections from GraphQL schema', () => {
-        expect(getFirestoreCollections(parse(testSchema))).toMatchSnapshot()
-    })
+  it('create Firestore collections from GraphQL schema', () => {
+    expect(getFirestoreCollections(parse(testSchema))).toMatchSnapshot()
+  })
 })
