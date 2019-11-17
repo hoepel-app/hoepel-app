@@ -12,7 +12,8 @@
   "scripts": {
     "build": "tsc --build packages",
     "clean": "yarn build --clean",
-    "lint": "yarn eslint '**/*.{ts,js}' --ignore-path .gitignore --cache --fix",
+    "lint": "yarn eslint '**/*.{ts,js}' --ignore-path .gitignore --cache",
+    "lint-fix": "yarn lint --fix",
     "test": "yarn lint && yarn clean && yarn build && lerna run test",
     "publish": "echo TODO publish step",
     "predeploy": "yarn test",
@@ -29,7 +30,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn lint"
+      "pre-commit": "yarn lint-fix"
     }
   }
 }
