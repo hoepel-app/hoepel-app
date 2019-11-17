@@ -1,7 +1,7 @@
-import { buildSchema } from 'graphql';
-import { createFirestoreRulesFromSchema } from './create-firestore-rules-from-schema';
+import { parse } from 'graphql'
+import { getFirestoreCollections } from '.'
 
-const testSchema = buildSchema(`
+const testSchema = `
 enum COLLECTION_TYPE {
     INDEXED_BY_TENANT
     DOC_PER_TENANT
@@ -32,17 +32,17 @@ type Consumable @firestore(name:"consumables", type:DOC_PER_TENANT, readPermissi
     id: ID!
 }
 
-type Consumption @firestore(name:"consumptions", type:INDEXED_BY_TENANT, readPermission:"consumption:read", writePermission:"consumption:write", allowUpdate: true, allowDelete: true) {
+type Consumption @firestore(name:"consumptions", type:INDEXED_BY_TENANT, readPermission:"consumption:read", writePermission:"consumption:write", allowUpdate: true, allowDelete: true, allowPublicRead: true) {
     id: ID!
 }
 
 type User @firestore(name:"users", type:DOC_PER_USER) {
     id: ID!
 }
-`)
+`
 
-describe('createFirestoreRulesFromSchema', () => {
-    it('create Firestore rules from schema', () => {
-        expect(createFirestoreRulesFromSchema(testSchema)).toMatchSnapshot()
+describe('getFirestoreCollections', () => {
+    it('create Firestore collections from GraphQL schema', () => {
+        expect(getFirestoreCollections(parse(testSchema))).toMatchSnapshot()
     })
 })

@@ -4,5 +4,8 @@
         "rootDir": "./src",
         "composite": true,
     },
-    "extends": "../../tsconfig.json"
+    "extends": "../../tsconfig.json",
+    "references": [
+        { "path": "../schema" }
+    ]
 }

@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getFirestoreCollections create Firestore collections from GraphQL schema 1`] = `
+Array [
+  DocPerTenantCollection {
+    "collectionName": "age-groups",
+    "permissions": Object {
+      "deletePermission": "age-groups:write",
+      "readPermission": "age-groups:read",
+      "updatePermission": "age-groups:write",
+      "writePermission": "age-groups:write",
+    },
+  },
+  IndexedByTenantCollection {
+    "allowPublicRead": false,
+    "collectionName": "children",
+    "permissions": Object {
+      "deletePermission": "child:write",
+      "readPermission": "child:read",
+      "updatePermission": "child:write",
+      "writePermission": "child:write",
+    },
+  },
+  DocPerTenantCollection {
+    "collectionName": "consumables",
+    "permissions": Object {
+      "deletePermission": "consumables:write",
+      "readPermission": "consumables:read",
+      "updatePermission": "consumables:write",
+      "writePermission": "consumables:write",
+    },
+  },
+  IndexedByTenantCollection {
+    "allowPublicRead": true,
+    "collectionName": "consumptions",
+    "permissions": Object {
+      "deletePermission": "consumption:write",
+      "readPermission": "consumption:read",
+      "updatePermission": "consumption:write",
+      "writePermission": "consumption:write",
+    },
+  },
+  DocPerUserCollection {
+    "collectionName": "users",
+    "permissions": Object {
+      "deletePermission": null,
+      "readPermission": null,
+      "updatePermission": null,
+      "writePermission": null,
+    },
+  },
+]
+`;

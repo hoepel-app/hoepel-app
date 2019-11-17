@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`createFirestoreRulesForCollections creates Firestore rules for a list of collections 1`] = `
+"service cloud.firestore {
+
+  /// Extra rules provided for generation
+
+  // My extra comment
+  match /my/match/thingie {
+    allow create: if true;
+    allow read  : if my custom thingie;
+    allow update: if false;
+    allow delete: if true;
+  }
+
+  /// Automaticaly generated Firestore rules
+
+  // Generated permissions for collection 'tenant-indexed' (collection contains docs with doc.tenant == tenant name)
+  match /databases/{database}/documents/tenant-indexed/{document} {
+    function hasPermission(permission, tenant) {
+      return permission in get(/databases/$(database)/documents/users/$(request.auth.uid)/tenants/$(tenant)).data.permissions;
+    }
+    allow create: if hasPermission('write-permission', request.resource.data.tenant);
+    allow read  : if hasPermission('read-permission', resource.data.tenant);
+    allow update: if hasPermission('update-permission', resource.data.tenant);
+    allow delete: if hasPermission('delete-permission', resource.data.tenant);
+  }
+  
+  // Generated permissions for collection 'doc-per-tenant' (collection contains docs with doc.id == tenant name)
+  match /databases/{database}/documents/doc-per-tenant/{document} {
+    function hasPermission(permission, tenant) {
+      return permission in get(/databases/$(database)/documents/users/$(request.auth.uid)/tenants/$(tenant)).data.permissions;
+    }
+    allow create: if hasPermission('doc-write-perm', document);
+    allow read  : if !exists(/databases/$(database)/documents/doc-per-tenant/$(document)) || hasPermission('doc-read-perm', document);
+    allow update: if hasPermission('doc-write-perm', document);
+    allow delete: if false;
+  }
+  
+  // Generated permissions for collection 'doc-per-user' (collection contains docs with doc.id == user id)
+  match /databases/{database}/documents/users/{uid} {
+    allow create: if false;
+    allow read  : if uid == request.auth.uid;
+    allow update: if false;
+    allow delete: if false;
+  }
+  
+  // Generated permissions for collection 'doc-per-user' (collection contains docs with doc.id == user id)
+  match /databases/{database}/documents/users/{uid}/{document=**} {
+    allow create: if false;
+    allow read  : if uid == request.auth.uid;
+    allow update: if false;
+    allow delete: if false;
+  }
+  
+  // Generated permissions for collection 'doc-per-user' (collection contains docs with doc.id == user id) - Admin access
+  match /databases/{database}/documents/users/{document=**} {
+    allow create: if false;
+    allow read  : if request.auth.token.isAdmin;
+    allow update: if request.auth.token.isAdmin;
+    allow delete: if false;
+  }
+
+}"
+`;

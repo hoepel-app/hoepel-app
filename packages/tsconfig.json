@@ -3,5 +3,6 @@
     "references": [
         { "path": "./schema" },
         { "path": "./firestore-rules" },
+        { "path": "./schema-firestore" },
     ]
 }

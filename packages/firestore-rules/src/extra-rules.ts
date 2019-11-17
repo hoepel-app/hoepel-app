@@ -1,4 +1,4 @@
-import { Rule } from './firestore/rule';
+import { Rule } from '@hoepel.app/schema-firestore';
 
 /* This file contains extra rules that should be added to the schema (ones that are or cannot be auto-generated) */
 

@@ -1,4 +1,6 @@
-import {schema} from '@hoepel.app/schema'
-import { GraphQLSchema, buildSchema } from 'graphql'
+import { schema } from '@hoepel.app/schema'
+import { parse } from 'graphql'
+import { getFirestoreCollections } from './schema-to-firestore';
 
-export const graphqlSchema: GraphQLSchema = buildSchema(schema)
+export const collections = getFirestoreCollections(parse(schema))
+export * from './firestore'

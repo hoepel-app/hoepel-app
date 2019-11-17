@@ -6,6 +6,6 @@
   },
   "extends": "../../tsconfig.json",
   "references": [
-    {"path": "../schema"}
+    {"path": "../schema-firestore"}
   ]
 }

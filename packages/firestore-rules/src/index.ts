@@ -1,1 +1,1 @@
-export { createFirestoreRulesFromSchema } from './schema-to-firestore/create-firestore-rules-from-schema'
+export { createFirestoreRulesForCollections as createFirestoreRulesFromSchema } from './create-firestore-rules-for-collections'

@@ -1,5 +1,5 @@
 import { readFileSync } from 'fs'
-import { rulesPath, allRules } from './generate-rules-file'
+import { rulesPath, allRules } from '../generate-rules-file'
 
 const rulesFileContents = readFileSync(rulesPath).toString()
 

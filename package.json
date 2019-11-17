@@ -11,8 +11,9 @@
   ],
   "scripts": {
     "build": "tsc --build packages",
+    "clean": "yarn build --clean",
     "lint": "yarn eslint '**/*.{ts,js}' --ignore-path .gitignore --cache --fix",
-    "test": "yarn lint && yarn build && lerna run test",
+    "test": "yarn lint && yarn clean && yarn build && lerna run test",
     "publish": "echo TODO publish step",
     "predeploy": "yarn test",
     "deploy": "yarn run publish && yarn deploy:firestore",
