@@ -24,7 +24,7 @@ jobs:
     - name: Run tests
       run: yarn test
     - name: Deploy
-      if: github.ref == "master"
+      if: github.ref == 'master'
       run: yarn deploy
       env:
         CI: true
