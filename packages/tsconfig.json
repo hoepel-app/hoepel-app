@@ -4,5 +4,6 @@
         { "path": "./schema" },
         { "path": "./firestore-rules" },
         { "path": "./schema-firestore" },
+        { "path": "./firebase-functions" },
     ]
 }

@@ -1,0 +1,57 @@
+{
+  "name": "@hoepel.app/firebase-functions",
+  "description": "Serverless functions for hoepel.app implemented as Firebase functions",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "license": "GPL-3.0-or-later",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "serve": "#yarn build && firebase serve --only functions",
+    "shell": "#yarn build && firebase functions:shell",
+    "start": "#yarn shell",
+    "deploy": "#firebase deploy --only functions",
+    "deploy:only-api": "#firebase deploy --only functions:api",
+    "logs": "#firebase functions:log",
+    "backup-firestore": "#gcloud beta firestore export gs://hoepel-app-backups/manual/$(date +\"%s\") --project=hoepel-app",
+    "test": "#mocha -r ts-node/register 'src/**/*.test.ts'"
+  },
+  "dependencies": {
+    "@hoepel.app/types": "^1.6.0",
+    "@sentry/node": "^5.10.1",
+    "@slack/client": "^5.0.2",
+    "apollo-server-express": "^2.9.13",
+    "cors": "^2.8.5",
+    "docxtemplater": "^3.13.6",
+    "express": "^4.17.1",
+    "firebase-admin": "^8.6.0",
+    "firebase-functions": "^3.3.0",
+    "graphql": "^14.5.8",
+    "graphql-tools": "^4.0.6",
+    "jsonwebtoken": "^8.5.1",
+    "jszip": "^2.6.1",
+    "lodash": "^4.17.15",
+    "nodemailer": "^6.3.1",
+    "nodemailer-mailgun-transport": "^1.4.0",
+    "xlsx": "^0.15.1"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.3",
+    "@types/jsonwebtoken": "^8.3.7",
+    "@types/lodash": "^4.14.138",
+    "@types/node": "^8.10.59",
+    "@types/nodemailer": "^6.2.2",
+    "@types/sinon": "^7.5.1",
+    "chai": "^4.2.0",
+    "firebase-functions-test": "^0.1.6",
+    "grpc": "^1.24.2",
+    "mocha": "^6.2.2",
+    "sinon": "^7.5.0",
+    "ts-node": "^8.5.4",
+    "tslint": "^5.20.0",
+    "typescript": "^3.7.3"
+  },
+  "engines": {
+    "node": "10"
+  }
+}

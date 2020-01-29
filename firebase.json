@@ -1,5 +1,8 @@
 {
   "firestore": {
     "rules": "packages/firestore-rules/firestore.rules"
+  },
+  "functions": {
+    "source": "packages/firebase-functions"
   }
 }
