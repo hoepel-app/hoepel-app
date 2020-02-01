@@ -22,7 +22,7 @@ jobs:
     - name: Install dependencies
       run: yarn install
     - name: Set release id
-      run: sed -i "s|NO RELEASE ID SPECIFIED|$GITHUB_SHA|g" functions/src/release.ts
+      run: sed -i "s|NO RELEASE ID SPECIFIED|$GITHUB_SHA|g" ./packages/firebase-functions/src/release.ts
     - name: Run tests
       run: yarn test
     - name: Deploy
