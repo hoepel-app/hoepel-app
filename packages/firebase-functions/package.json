@@ -14,7 +14,7 @@
     "deploy:only-api": "#firebase deploy --only functions:api",
     "logs": "#firebase functions:log",
     "backup-firestore": "#gcloud beta firestore export gs://hoepel-app-backups/manual/$(date +\"%s\") --project=hoepel-app",
-    "test": "#mocha -r ts-node/register 'src/**/*.test.ts'"
+    "test": "mocha -r ts-node/register 'src/**/*.test.ts'"
   },
   "dependencies": {
     "@hoepel.app/types": "^1.6.0",
