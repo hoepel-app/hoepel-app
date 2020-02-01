@@ -51,8 +51,5 @@
     "ts-node": "^8.5.4",
     "tslint": "^5.20.0",
     "typescript": "^3.7.3"
-  },
-  "engines": {
-    "node": "10"
   }
 }
