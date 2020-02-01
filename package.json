@@ -20,7 +20,8 @@
     "predeploy": "yarn test",
     "deploy": "yarn run publish && yarn deploy:firestore && yarn deploy:functions",
     "deploy:firestore": "firebase deploy --project=hoepel-app --only=firestore:rules",
-    "deploy:functions": "firebase deploy --project=hoepel-app --only=functions"
+    "deploy:functions": "firebase deploy --project=hoepel-app --only=functions",
+    "backup:firestore": "gcloud beta firestore export gs://hoepel-app-backups/manual/$(date +\"%s\") --project=hoepel-app"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.7.0",

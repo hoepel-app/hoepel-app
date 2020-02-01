@@ -7,13 +7,10 @@
   "private": true,
   "scripts": {
     "build": "tsc",
-    "serve": "#yarn build && firebase serve --only functions",
-    "shell": "#yarn build && firebase functions:shell",
-    "start": "#yarn shell",
-    "deploy": "#firebase deploy --only functions",
-    "deploy:only-api": "#firebase deploy --only functions:api",
-    "logs": "#firebase functions:log",
-    "backup-firestore": "#gcloud beta firestore export gs://hoepel-app-backups/manual/$(date +\"%s\") --project=hoepel-app",
+    "serve": "yarn build && firebase serve --only functions",
+    "shell": "yarn build && firebase functions:shell",
+    "start": "yarn shell",
+    "logs": "firebase functions:log",
     "test": "mocha -r ts-node/register 'src/**/*.test.ts'"
   },
   "dependencies": {
