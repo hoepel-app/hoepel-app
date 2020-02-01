@@ -22,11 +22,12 @@ type Context = {
  */
 const getTenant = (
   collectionId: string,
-  beforeDoc?: any,
-  afterDoc?: any
+  beforeDoc?: unknown,
+  afterDoc?: unknown
 ): string | undefined => {
   const collectionsWithTenantIds = Object.entries(store)
-    .map(([key, collection]: [string, Collection<any>]) => collection)
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    .map(([key, collection]: [string, Collection<unknown>]) => collection)
     .filter(collection => collection.docIdIsTenantName)
     .map(collection => collection.collectionName)
 
@@ -34,9 +35,9 @@ const getTenant = (
     return collectionId
   } else if (collectionId === store.users.collectionName) {
     return 'global' // user document in this collection are global or may span tenants
-  } else if (afterDoc && afterDoc.tenant) {
+  } else if (afterDoc && hasTenantField(afterDoc)) {
     return afterDoc.tenant
-  } else if (beforeDoc && beforeDoc.tenant) {
+  } else if (beforeDoc && hasTenantField(beforeDoc)) {
     return beforeDoc.tenant
   } else {
     return undefined
@@ -47,11 +48,11 @@ const getTenant = (
  * For every Firestore collection, create a class that allows us to create common events
  */
 const firestoreEventCreators: ReadonlyArray<FirestoreCollectionEvents<
-  any
+  unknown
 >> = Object.entries(store).map(
-  ([field, collection]: [string, Collection<any>]) => {
-    return new FirestoreCollectionEvents(collection)
-  }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  ([field, collection]: [string, Collection<unknown>]) =>
+    new FirestoreCollectionEvents(collection)
 )
 
 /**
@@ -60,7 +61,7 @@ const firestoreEventCreators: ReadonlyArray<FirestoreCollectionEvents<
 const getContextIds = (
   collectionId: string,
   documentId: string,
-  entity: any
+  entity: { childId?: string; shiftId?: string; crewId?: string }
 ): Context => {
   switch (collectionId) {
     case store.childAttendanceAdd.collectionName:
@@ -89,8 +90,8 @@ const getContextIdsForEvent = (
   type: 'updated' | 'created' | 'deleted',
   collectionId: string,
   documentId: string,
-  before: any,
-  after: any
+  before: unknown,
+  after: unknown
 ): Context => {
   switch (type) {
     case 'created':
@@ -114,7 +115,7 @@ const createEvent = (
   documentId: string,
   timestamp: string,
   change: functions.Change<DocumentSnapshot>
-): IEvent<any> => {
+): IEvent<unknown> => {
   const before = change.before ? change.before.data() : undefined
   const after = change.after ? change.after.data() : undefined
 
@@ -255,3 +256,9 @@ export const onDocumentCreate = functions
       new functions.Change(undefined, snap)
     )
   })
+
+const hasTenantField = (value: unknown): value is { tenant: string } => {
+  return (
+    typeof value === 'object' && (value as { tenant?: string }).tenant != null
+  )
+}

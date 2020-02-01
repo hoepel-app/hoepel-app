@@ -49,5 +49,3 @@ export const assertHasPermission = async (
     }
   }
 }
-
-export default assertHasPermission

@@ -53,7 +53,7 @@ const createSlackMessage = (build: Build): IncomingWebhookSendArguments => {
 export const onCloudBuildPubsub = functions
   .region('europe-west1')
   .pubsub.topic('cloud-builds')
-  .onPublish((message, context) => {
+  .onPublish(message => {
     const build = eventToBuild(message.data)
 
     const interestingStatus = [

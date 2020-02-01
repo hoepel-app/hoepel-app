@@ -12,7 +12,7 @@ const userService = new UserService(db, auth)
 export const router = Router()
 
 // Parse Firebase tokens
-router.use(firebaseIsAuthenticatedMiddleware(admin))
+router.use(firebaseIsAuthenticatedMiddleware)
 
 // Routes
 router.get(

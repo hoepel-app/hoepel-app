@@ -18,8 +18,11 @@ import dropTenant from '../util/drop-tenant'
 import { IContactPersonRepository } from './contact-person.service'
 import JSZip from 'jszip'
 import Docxtemplater from 'docxtemplater'
+import { Bucket } from '@google-cloud/storage'
 
-type MyDocxTemplater = any
+// TODO no types for docxtemplater yet...
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type DocxTemplaterType = any
 
 interface CertificateTemplateFillInData {
   readonly kind_naam: string
@@ -109,8 +112,8 @@ const exampleData: CertificateTemplateFillInData = {
 export class TemplateService {
   constructor(
     private db: admin.firestore.Firestore,
-    private templatesStorage: any, // Bucket
-    private reportsStorage: any, // Bucket
+    private templatesStorage: Bucket,
+    private reportsStorage: Bucket,
     private childRepository: IChildRepository,
     private contactPersonRepository: IContactPersonRepository,
     private addressService: AddressService,
@@ -345,7 +348,7 @@ export class TemplateService {
   /**
    * Load a .docx file (provided as a buffer) and turn it into a Docxtemplater object
    */
-  private loadDocument(template: Buffer): MyDocxTemplater {
+  private loadDocument(template: Buffer): DocxTemplaterType {
     const zip = new JSZip(template) // DocxTemplater only supports loading zips from JSZip, create zipped template
     const doc = new Docxtemplater()
     doc.loadZip(zip)
@@ -368,7 +371,10 @@ export class TemplateService {
   /**
    * Fill in a document and return it as a buffer
    */
-  private fillIn(doc: MyDocxTemplater, data: any): Buffer {
+  private fillIn(
+    doc: DocxTemplaterType,
+    data: CertificateTemplateFillInData
+  ): Buffer {
     try {
       doc.setData(data)
       doc.render()
@@ -423,7 +429,7 @@ export class TemplateService {
     const numberOfUniqueDays = ShiftService.numberOfUniqueDays(shifts)
 
     const totalPricePaid = _.toPairs(allAttendances)
-      .filter(([shiftId, details]) => shifts.map(s => s.id).includes(shiftId)) // Only keep attendances in this year
+      .filter(([shiftId]) => shifts.map(s => s.id).includes(shiftId)) // Only keep attendances in this year
       .map(att => att[1].amountPaid)
       .map(iprice => new Price(iprice))
       .reduce((x, y) => x.add(y), new Price({ cents: 0, euro: 0 }))
@@ -433,7 +439,7 @@ export class TemplateService {
         const day = DayDate.fromDayId(shift.dayId).toString()
         const price = new Price(
           _.toPairs(allAttendances).find(
-            ([shiftId, details]) => shiftId === shift.id
+            ([shiftId]) => shiftId === shift.id
           )[1].amountPaid
         )
 

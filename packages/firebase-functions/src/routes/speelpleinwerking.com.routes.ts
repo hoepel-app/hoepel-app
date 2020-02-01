@@ -9,7 +9,7 @@ const db = admin.firestore()
 
 export const router = Router()
 
-router.use(firebaseIsAuthenticatedSpeelpleinwerkingDotComMiddleware(admin))
+router.use(firebaseIsAuthenticatedSpeelpleinwerkingDotComMiddleware)
 
 router.get(
   '/organisation',

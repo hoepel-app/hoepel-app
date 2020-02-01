@@ -24,7 +24,7 @@ import { XlsxExporter } from '../../services/exporters/xlsx-exporter'
 import { OrganisationService } from '../../services/organisation.service'
 import { FileService } from '../../services/file.service'
 import { TemplateService } from '../../services/template.service'
-import assertHasPermission from '../assert-has-permission'
+import { assertHasPermission } from '../assert-has-permission'
 import { Permission } from '@hoepel.app/types'
 import { AuthorizationService } from '../authorization-service'
 
@@ -86,19 +86,18 @@ const templateService = new TemplateService(
 
 export const resolvers: IResolvers = {
   Mutation: {
-    acceptPrivacyPolicy: async (obj, args, context: Context, info) => {
+    acceptPrivacyPolicy: async (obj, args, context: Context) => {
       new AuthorizationService(context).assertLoggedIn()
       await userService.acceptPrivacyPolicy(context.token.uid)
     },
-    acceptTermsAndConditions: async (obj, args, context: Context, info) => {
+    acceptTermsAndConditions: async (obj, args, context: Context) => {
       new AuthorizationService(context).assertLoggedIn()
       await userService.acceptTermsAndConditions(context.token.uid)
     },
     changeDisplayName: async (
       obj,
       { name }: { name: string },
-      context: Context,
-      info
+      context: Context
     ) => {
       new AuthorizationService(context).assertLoggedIn()
       await userService.updateDisplayName(context.token.uid, name)
@@ -106,8 +105,7 @@ export const resolvers: IResolvers = {
     deleteReport: async (
       obj,
       { tenant, fileName }: { tenant: string; fileName: string },
-      context: Context,
-      info
+      context: Context
     ) => {
       new AuthorizationService(context).assertLoggedIn()
       await assertHasPermission(
@@ -125,8 +123,7 @@ export const resolvers: IResolvers = {
         format,
         year,
       }: { tenant: string; type: string; format: string; year?: number },
-      context: Context,
-      info
+      context: Context
     ) => {
       new AuthorizationService(context).assertLoggedIn()
       await assertHasPermission(
@@ -196,8 +193,7 @@ export const resolvers: IResolvers = {
     testTemplate: async (
       obj,
       args: { tenant: string; templateFileName: string },
-      context: Context,
-      info
+      context: Context
     ) => {
       new AuthorizationService(context).assertLoggedIn()
       await assertHasPermission(
@@ -221,8 +217,7 @@ export const resolvers: IResolvers = {
         templateFileName: string
         year?: number
       },
-      context: Context,
-      info
+      context: Context
     ) => {
       new AuthorizationService(context).assertLoggedIn()
       await assertHasPermission(
@@ -247,8 +242,7 @@ export const resolvers: IResolvers = {
     deleteTemplate: async (
       obj,
       args: { tenant: string; templateFileName: string },
-      context: Context,
-      info
+      context: Context
     ) => {
       new AuthorizationService(context).assertLoggedIn()
       await assertHasPermission(

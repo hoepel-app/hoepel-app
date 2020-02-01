@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { expect } from 'chai'
 import { AddressService } from './address.service'
 import { Address, Child, ContactPerson } from '@hoepel.app/types'

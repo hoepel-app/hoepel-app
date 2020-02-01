@@ -30,7 +30,7 @@ app.use('/speelpleinwerking.com', spwDotComRouter)
 app.use('/user', userRouter)
 app.use('/organisation', organisationRouter)
 
-app.use('/version', (req, res, next) => res.json({ release: RELEASE_ID }))
+app.use('/version', (req, res) => res.json({ release: RELEASE_ID }))
 
 server.applyMiddleware({ path: '/graphql', app })
 
@@ -54,7 +54,7 @@ app.use((err, req, res, next) => {
   })
 }, Sentry.Handlers.errorHandler())
 
-const errorRequestHandler: ErrorRequestHandler = (err, req, res, next) => {
+const errorRequestHandler: ErrorRequestHandler = (err, req, res) => {
   console.error(err)
   if (err.cause) {
     console.error('Cause:')

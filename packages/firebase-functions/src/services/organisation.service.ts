@@ -1,6 +1,10 @@
 import * as admin from 'firebase-admin'
-import { permissions as allPermissions, Tenant } from '@hoepel.app/types'
+import { permissions as allPermissions, Tenant, IUser } from '@hoepel.app/types'
 import { nodemailerMailgun } from './mailgun'
+
+type TenantClaims = {
+  [tenantName: string]: true
+}
 
 export class OrganisationService {
   constructor(
@@ -32,9 +36,10 @@ export class OrganisationService {
 
     // Remove tenant name from the user's auth claims
     const user = await this.auth.getUser(uid)
-    const tenants =
-      user.customClaims && (user.customClaims as any).tenants
-        ? (user.customClaims as any).tenants
+    const tenants: TenantClaims =
+      user.customClaims &&
+      (user.customClaims as { tenants?: TenantClaims }).tenants
+        ? (user.customClaims as { tenants: TenantClaims }).tenants
         : {}
     delete tenants[organisationId]
     const newClaims = { ...(user.customClaims || {}), tenants: tenants }
@@ -61,8 +66,9 @@ export class OrganisationService {
     // Add tenant name to the user's auth claims
     const user = await this.auth.getUser(uid)
     const tenants =
-      user.customClaims && (user.customClaims as any).tenants
-        ? (user.customClaims as any).tenants
+      user.customClaims &&
+      (user.customClaims as { tenants?: TenantClaims }).tenants
+        ? (user.customClaims as { tenants: TenantClaims }).tenants
         : {}
     tenants[organisationId] = true
     const newClaims = { ...(user.customClaims || {}), tenants: tenants }
@@ -76,7 +82,7 @@ export class OrganisationService {
     organisationId: string
   ): Promise<
     ReadonlyArray<{
-      user: any
+      user: IUser
       permissions: ReadonlyArray<string>
     }>
   > {
@@ -84,7 +90,7 @@ export class OrganisationService {
 
     const members: ReadonlyArray<{
       belongsToTenant: boolean
-      user: any
+      user: IUser
       permissions: ReadonlyArray<string>
     }> = await Promise.all(
       allUsers.docs.map(userDoc =>
@@ -95,7 +101,10 @@ export class OrganisationService {
           .then(tenantDoc => {
             return {
               belongsToTenant: tenantDoc.exists,
-              user: { ...userDoc.data(), uid: userDoc.id },
+              user: ({
+                ...userDoc.data(),
+                uid: userDoc.id,
+              } as unknown) as IUser,
               permissions:
                 tenantDoc.exists &&
                 tenantDoc.data() &&
@@ -114,13 +123,16 @@ export class OrganisationService {
    * List all possible members of an organisation (users that can be added to the organisation)
    */
   async listPossibleMembers(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     organisationId: string
-  ): Promise<ReadonlyArray<any>> {
+  ): Promise<ReadonlyArray<IUser>> {
     // TODO should filter out users that are already part of organisation
-    return (await this.db.collection('users').get()).docs.map(user => ({
-      ...user.data(),
-      uid: user.id,
-    }))
+    return (await this.db.collection('users').get()).docs.map(user => {
+      return ({
+        ...user.data(),
+        uid: user.id,
+      } as unknown) as IUser
+    })
   }
 
   /**
@@ -131,7 +143,7 @@ export class OrganisationService {
    */
   async requestCreateNewOrganisation(
     organisation: Tenant,
-    user: Record<string, any>
+    user: Record<string, unknown>
   ): Promise<void> {
     return await nodemailerMailgun.sendMail({
       from: 'noreply@mail.hoepel.app',

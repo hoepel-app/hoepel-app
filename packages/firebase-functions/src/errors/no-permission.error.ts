@@ -20,7 +20,7 @@ export class NoPermissionError extends Error {
       /** The permissions the user has */
       permissions?: ReadonlyArray<string>
     },
-    caused?: Error
+    public cause?: Error
   ) {
     super(message) // 'Error' breaks prototype chain here
     Object.setPrototypeOf(this, new.target.prototype) // restore prototype chain

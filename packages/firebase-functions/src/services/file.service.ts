@@ -8,6 +8,7 @@ import { ChildAttendanceService } from './child-attendance.service'
 import { CrewAttendanceService } from './crew-attendance.service'
 import { SpreadsheetData, XlsxExporter } from './exporters/xlsx-exporter'
 import { LocalFile } from './exporters/exporter'
+import { Bucket } from '@google-cloud/storage'
 
 type FirestoreFileDocument = IReport & { id?: string; tenant: string }
 
@@ -21,7 +22,7 @@ export class FileService {
     private childAttendanceService: ChildAttendanceService,
     private crewAttendanceService: CrewAttendanceService,
     private db: admin.firestore.Firestore, // TODO refactor so this service does not use db directly
-    private storage: any // Bucket
+    private storage: Bucket
   ) {}
 
   async exportAllChildren(

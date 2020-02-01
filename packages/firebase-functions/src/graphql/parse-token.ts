@@ -11,5 +11,3 @@ export const parseToken = async (
 
   return await admin.auth().verifyIdToken(token)
 }
-
-export default parseToken

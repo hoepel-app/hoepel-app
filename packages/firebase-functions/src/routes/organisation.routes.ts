@@ -11,7 +11,7 @@ const organisationService = new OrganisationService(db, auth)
 
 export const router = Router()
 
-router.use(firebaseIsAuthenticatedMiddleware(admin))
+router.use(firebaseIsAuthenticatedMiddleware)
 
 router.post(
   '/request',

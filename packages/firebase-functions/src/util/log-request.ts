@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import { decode } from 'jsonwebtoken'
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Logger = (message?: any, ...optionalParams: any[]) => void
 
 const getLoggerForStatusCode = (statusCode: number): Logger => {

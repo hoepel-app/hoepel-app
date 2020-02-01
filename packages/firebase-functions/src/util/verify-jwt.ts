@@ -1,5 +1,6 @@
 import * as jwt from 'jsonwebtoken'
 import { get } from 'https'
+import * as admin from 'firebase-admin'
 
 interface GoogleKeyResponse {
   [indexer: string]: string
@@ -47,23 +48,26 @@ const aud = 'speelpleinwerking-com'
  */
 export const verifyJwt = async (
   token: string
-): Promise<false | { user_id: string; [key: string]: any }> => {
+): Promise<false | admin.auth.DecodedIdToken> => {
   const jwtKeys = await getJwtKeys()
 
-  let result: { user_id: string; [key: string]: any }
+  let result: admin.auth.DecodedIdToken
   const errors: Error[] = []
 
   const isValid =
     jwtKeys
       .map(cert => {
         try {
-          const verifiedToken: any = jwt.verify(token, cert, {
+          const verifiedToken = jwt.verify(token, cert, {
             audience: aud,
             issuer: iss,
             algorithms: [algorithm],
-          })
+          }) as admin.auth.DecodedIdToken | string
 
-          if (verifiedToken.user_id != null) {
+          if (
+            typeof verifiedToken !== 'string' &&
+            verifiedToken.user_id != null
+          ) {
             result = verifiedToken
             return true
           } else {
