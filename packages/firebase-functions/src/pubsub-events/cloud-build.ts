@@ -31,7 +31,7 @@ const eventToBuild = (data: string): Build => {
 
 const createSlackMessage = (build: Build): IncomingWebhookSendArguments => {
   const message = {
-    text: `Build \`${build.id}\` (${build.status.toLocaleLowerCase})`,
+    text: `Build \`${build.id}\` (${build.status.toLocaleLowerCase()})`,
     mrkdwn: true,
     attachments: [
       {
