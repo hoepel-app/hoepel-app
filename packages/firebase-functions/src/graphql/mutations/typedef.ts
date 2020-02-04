@@ -34,7 +34,6 @@ export const typeDef = gql`
     requestOrganisation(input: RequestOrganisationInput!): String
     removeMemberFromOrganisation(tenant: ID!, uidToRemove: ID!): User!
     addUserToOrganisation(tenant: ID!, uidToAdd: ID!): User! # TODO addUser... => addMember...
-
     throwTestException: String
   }
 `

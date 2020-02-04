@@ -65,7 +65,7 @@ app.use((err, req, res, next) => {
 
         next(err)
       })
-      .catch(_ => next(err))
+      .catch(() => next(err))
   })
 }, Sentry.Handlers.errorHandler())
 
