@@ -14,7 +14,8 @@ Set these keys using `firebase functions:config`.
   "mailgun": {
     "apikey": "...",
     "domain": "..."
-  }
+  },
+  "environment": "production"
 }
 ```
 
