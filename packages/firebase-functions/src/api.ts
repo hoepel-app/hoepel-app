@@ -30,9 +30,10 @@ app.use('/speelpleinwerking.com', spwDotComRouter)
 app.use('/user', userRouter)
 app.use('/organisation', organisationRouter)
 
-app.use('/version', (req, res) => res.json({ release: RELEASE_ID }))
-
 server.applyMiddleware({ path: '/graphql', app })
+
+app.use('/version', (req, res) => res.json({ release: RELEASE_ID }))
+app.use('/', (req, res) => res.json({}))
 
 // Error handlers
 

@@ -6,6 +6,7 @@ type TenantClaims = {
   [tenantName: string]: true
 }
 
+// TODO rename and merge with TenantService
 export class OrganisationService {
   constructor(
     private db: admin.firestore.Firestore,

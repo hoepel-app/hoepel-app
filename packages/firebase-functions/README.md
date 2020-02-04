@@ -20,22 +20,22 @@ Set these keys using `firebase functions:config`.
 
 ## Run functions locally
 
-First, get the config:
+First, get the config (do this in the repo root, next to `firebase.json`):
 
 ```
-firebase functions:config:get > .runtimeconfig.json
+$ firebase functions:config:get > .runtimeconfig.json
 ```
 
 Get a service account key and export it:
 
 ```
-export GOOGLE_APPLICATION_CREDENTIALS=key.json
+$ export GOOGLE_APPLICATION_CREDENTIALS=key.json
 ```
 
 Then, serve using Firebase emulator:
 
 ```
-firebase emulators:start --only functions
+$ yarn shell
 ```
 
 ## Enabling CORS on GCP buckets
@@ -55,6 +55,6 @@ firebase emulators:start --only functions
 Then run:
 
 ```
-gsutil cors set cors.json gs://hoepel-app.appspot.com
+$ gsutil cors set cors.json gs://hoepel-app.appspot.com
 ```
 

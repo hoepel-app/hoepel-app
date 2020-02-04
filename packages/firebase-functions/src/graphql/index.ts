@@ -8,6 +8,7 @@ import { parseToken } from './parse-token'
 import { IUser } from '@hoepel.app/types'
 import { formatError } from 'graphql'
 import * as Sentry from '@sentry/node'
+import { tenant } from './tenant'
 
 const db = admin.firestore()
 const auth = admin.auth()
@@ -85,12 +86,19 @@ export const server = new ApolloServer({
     Sentry.captureException(err)
     return formatError(err)
   },
-  typeDefs: [typeDef, me.typeDef, mutations.typeDef, application.typeDef],
+  typeDefs: [
+    typeDef,
+    me.typeDef,
+    mutations.typeDef,
+    application.typeDef,
+    tenant.typeDef,
+  ],
   resolvers: [
     resolvers,
     me.resolvers,
     mutations.resolvers,
     application.resolvers,
+    tenant.resolvers,
   ],
   introspection: true,
   playground: {
