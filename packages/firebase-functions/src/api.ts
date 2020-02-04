@@ -10,6 +10,7 @@ import * as Sentry from '@sentry/node'
 import { router as userRouter } from './routes/user.routes'
 import { router as organisationRouter } from './routes/organisation.routes'
 import { router as spwDotComRouter } from './routes/speelpleinwerking.com.routes'
+import admin from 'firebase-admin'
 
 const app = express()
 
@@ -41,19 +42,30 @@ app.use('/', (req, res) => res.json({}))
 
 app.use((err, req, res, next) => {
   Sentry.configureScope(scope => {
-    scope.setUser({
-      email: res.locals.user?.email,
-      id: res.locals.user?.uid,
-      username: res.locals.user?.name,
-      // eslint-disable-next-line @typescript-eslint/camelcase
-      ip_address: req.header('X-Forwarded-For'),
-    })
+    const authorization = req.header('Authorization')
 
-    if (req.params.tenant) {
-      scope.setExtra('tenant', req.params.tenant)
+    if (!authorization || !authorization?.split(' ')?.[0]) {
+      next(err)
+      return
     }
 
-    next(err)
+    const token = authorization.split(' ')
+
+    admin
+      .auth()
+      .verifyIdToken(token[1])
+      .then(user => {
+        scope.setUser({
+          email: user.email,
+          id: user.uid,
+          username: user.name,
+          // eslint-disable-next-line @typescript-eslint/camelcase
+          ip_address: req.header('X-Forwarded-For'),
+        })
+
+        next(err)
+      })
+      .catch(_ => next(err))
   })
 }, Sentry.Handlers.errorHandler())
 
