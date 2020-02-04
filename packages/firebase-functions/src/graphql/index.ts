@@ -6,7 +6,6 @@ import * as admin from 'firebase-admin'
 import { UserService } from '../services/user.service'
 import { parseToken } from './parse-token'
 import { IUser } from '@hoepel.app/types'
-import { formatError } from 'graphql'
 import * as Sentry from '@sentry/node'
 import { tenant } from './tenant'
 
@@ -81,11 +80,50 @@ export type Context = {
   user?: IUser
 }
 
+const getUserAndTokenFromHeader = async (
+  authorizationHeader: string
+): Promise<{ user: IUser; token: admin.auth.DecodedIdToken } | null> => {
+  try {
+    const decodedToken = await parseToken(authorizationHeader)
+    const user = await userService.getUserFromDb(decodedToken.uid)
+
+    return { token: decodedToken, user }
+  } catch (err) {
+    return null
+  }
+}
+
 export const server = new ApolloServer({
-  formatError: err => {
-    Sentry.captureException(err)
-    return formatError(err)
-  },
+  plugins: [
+    {
+      requestDidStart: () => {
+        return {
+          didEncounterErrors: async requestContext => {
+            const header = requestContext.request.http.headers.get(
+              'Authorization'
+            )
+
+            const userInfo = await getUserAndTokenFromHeader(header)
+
+            Sentry.configureScope(scope => {
+              if (userInfo != null) {
+                scope.setUser({
+                  email: userInfo.user.email,
+                  username: userInfo.user.displayName,
+                  id: userInfo.token.uid,
+                })
+              }
+
+              requestContext.errors.forEach(err => {
+                console.error(err)
+                Sentry.captureException(err)
+              })
+            })
+          },
+        }
+      },
+    },
+  ],
   typeDefs: [
     typeDef,
     me.typeDef,
@@ -105,17 +143,7 @@ export const server = new ApolloServer({
     endpoint: '/api/graphql',
   },
   tracing: true,
-  context: async ({ req }) => {
-    try {
-      const decodedToken = await parseToken(req.headers.authorization)
-      const user = await userService.getUserFromDb(decodedToken.uid)
-
-      return {
-        token: decodedToken,
-        user,
-      }
-    } catch (err) {
-      return {}
-    }
+  context: async ({ req }): Promise<Context> => {
+    return (await getUserAndTokenFromHeader(req.headers.authorization)) || {}
   },
 })

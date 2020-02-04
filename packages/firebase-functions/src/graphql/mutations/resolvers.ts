@@ -261,5 +261,8 @@ export const resolvers: IResolvers = {
         created: result.created.getTime().toString(),
       }
     },
+    throwTestException: () => {
+      throw new Error('Test exception requested by user through mutation')
+    },
   },
 }
