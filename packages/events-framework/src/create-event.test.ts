@@ -39,7 +39,7 @@ describe('createEvent', () => {
         new Date(1581267843117)
       )
     ).toThrowErrorMatchingInlineSnapshot(
-      `"Could not create event 'my-event' for organisation 'null' with value {\\"x\\":\\"aoeu\\"} and timestamp Sun Feb 09 2020 18:04:03 GMT+0100 (Central European Standard Time), triggered by user {\\"uid\\":\\"my-id\\",\\"email\\":\\"help\\"}"`
+      `"Could not create event 'my-event' for organisation 'null' with value {\\"x\\":\\"aoeu\\"} and timestamp Sun, 09 Feb 2020 17:04:03 GMT, triggered by user {\\"uid\\":\\"my-id\\",\\"email\\":\\"help\\"}"`
     )
   })
 })
