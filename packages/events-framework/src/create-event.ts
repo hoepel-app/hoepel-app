@@ -30,7 +30,9 @@ export const createEvent = <NAME extends EventName, T>(
     throw new Error(
       `Could not create event '${name}' for organisation '${organisationId}' with value ${JSON.stringify(
         payload
-      )} and timestamp ${timestamp}, triggered by user ${JSON.stringify(user)}`
+      )} and timestamp ${timestamp.toUTCString()}, triggered by user ${JSON.stringify(
+        user
+      )}`
     )
   }
 
