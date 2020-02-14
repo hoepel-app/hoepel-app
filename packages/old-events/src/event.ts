@@ -12,7 +12,7 @@ export interface IEventContext {
   readonly contactPersonId?: string
 
   /**
-   * User that caused or initiated this event
+   * Id of the user that caused or initiated this event
    */
   readonly uid?: string
 
