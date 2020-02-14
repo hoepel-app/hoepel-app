@@ -1,2 +1,2 @@
-export * from "./event";
-export * from "./firestore-collection-events";
+export * from './event'
+export * from './firestore-collection-events'
