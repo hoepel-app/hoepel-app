@@ -18,7 +18,7 @@
     "@hoepel.app/types": "^1.6.0",
     "@sentry/node": "^5.10.1",
     "@slack/client": "^5.0.2",
-    "apollo-server-express": "^2.9.13",
+    "apollo-server-express": "^2.10.1",
     "cors": "^2.8.5",
     "docxtemplater": "^3.13.6",
     "express": "^4.17.1",
