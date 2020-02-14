@@ -1,6 +1,6 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
-import { IEvent } from '@hoepel.app/types'
+import { IEvent } from '@hoepel.app/old-events'
 
 const db = admin.firestore()
 

@@ -739,10 +739,10 @@
     lodash.camelcase "^4.3.0"
     protobufjs "^6.8.6"
 
-"@hoepel.app/types@^1.6.0":
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/@hoepel.app/types/-/types-1.7.0.tgz#91ee689bd3e4479f5e9f6de1f93c2d606a4b7924"
-  integrity sha512-lKeiIsn9sC3q76k5lnc36tbji7vL7M6Y0RbETA7Ngf0c5etGbPtjcabnbEF4/1oWh52TESOpr8ZLO+QZqUeExg==
+"@hoepel.app/types@^1.6.0", "@hoepel.app/types@^1.8.0":
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/@hoepel.app/types/-/types-1.8.0.tgz#1f52b84123185445a22fb43922ec9801edeecd9b"
+  integrity sha512-5bO/1BaPkiYrZLgqlr4arwoPsB2KlNKh1AK/NKktBKbAJU3lbeuNeVhLWlOSwf5eOTQ2pnZj/6E4acDSqSp7Sw==
   dependencies:
     virginity-ts "^0.1.0"
 

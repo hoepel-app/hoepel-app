@@ -30,7 +30,8 @@
     "lodash": "^4.17.15",
     "nodemailer": "^6.3.1",
     "nodemailer-mailgun-transport": "^1.4.0",
-    "xlsx": "^0.15.1"
+    "xlsx": "^0.15.1",
+    "@hoepel.app/old-events": "^0.0.1"
   },
   "devDependencies": {
     "@google-cloud/storage": "^4.3.0",

@@ -1,11 +1,7 @@
 import * as functions from 'firebase-functions'
 import { DocumentSnapshot } from 'firebase-functions/lib/providers/firestore'
-import {
-  Collection,
-  FirestoreCollectionEvents,
-  IEvent,
-  store,
-} from '@hoepel.app/types'
+import { Collection, store } from '@hoepel.app/types'
+import { FirestoreCollectionEvents, IEvent } from '@hoepel.app/old-events'
 import * as admin from 'firebase-admin'
 
 const db = admin.firestore()

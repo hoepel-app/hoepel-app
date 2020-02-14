@@ -7,6 +7,7 @@
     { "path": "./firebase-functions" },
     { "path": "./events-framework" },
     { "path": "./events" },
-    { "path": "./firestore-admin-log" }
+    { "path": "./firestore-admin-log" },
+    { "path": "./old-events" }
   ]
 }
