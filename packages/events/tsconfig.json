@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+  },
+  "references": [
+    { "path": "../events-framework" }
+  ],
+  "extends": "../../tsconfig.json"
+}

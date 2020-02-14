@@ -1,9 +1,12 @@
 {
-    "files": [],
-    "references": [
-        { "path": "./schema" },
-        { "path": "./firestore-rules" },
-        { "path": "./schema-firestore" },
-        { "path": "./firebase-functions" },
-    ]
+  "files": [],
+  "references": [
+    { "path": "./schema" },
+    { "path": "./firestore-rules" },
+    { "path": "./schema-firestore" },
+    { "path": "./firebase-functions" },
+    { "path": "./events-framework" },
+    { "path": "./events" },
+    { "path": "./firestore-admin-log" }
+  ]
 }

@@ -1,0 +1,10 @@
+{
+  "firestore": {
+    "rules": "firestore-admin-log-test.rules"
+  },
+  "emulators": {
+    "firestore": {
+      "port": "8403"
+    }
+  }
+}
