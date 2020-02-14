@@ -1,7 +1,7 @@
 {
   "name": "@hoepel.app/firebase-functions",
   "description": "Serverless functions for hoepel.app implemented as Firebase functions",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "main": "dist/index.js",
   "license": "GPL-3.0-or-later",
   "private": true,
@@ -14,7 +14,7 @@
     "test": "mocha -r ts-node/register 'src/**/*.test.ts'"
   },
   "dependencies": {
-    "@hoepel.app/old-events": "^0.1.0",
+    "@hoepel.app/old-events": "^0.2.0",
     "@hoepel.app/types": "^1.6.0",
     "@sentry/node": "^5.10.1",
     "@slack/client": "^5.0.2",
