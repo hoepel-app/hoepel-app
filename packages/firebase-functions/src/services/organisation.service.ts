@@ -19,7 +19,6 @@ export class OrganisationService {
       .doc(organisationId)
       .get()
 
-    // tslint:disable-next-line:no-unnecessary-type-assertion
     return organisation.exists ? (organisation.data() as Tenant) : null
   }
 
