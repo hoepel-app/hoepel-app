@@ -4,6 +4,9 @@
     "rootDir": "./src",
     "strictNullChecks": false // TODO
   },
-  "references": [{ "path": "../old-events" }],
+  "references": [
+    { "path": "../old-events" },
+    { "path": "../firestore-events" }
+  ],
   "extends": "../../tsconfig.json"
 }
