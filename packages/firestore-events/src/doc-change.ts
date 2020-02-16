@@ -1,8 +1,10 @@
 import * as functions from 'firebase-functions'
-import { DocumentSnapshot } from 'firebase-functions/lib/providers/firestore'
+import * as admin from 'firebase-admin'
 import { Collection, store } from '@hoepel.app/types'
 import { FirestoreCollectionEvents, IEvent } from '@hoepel.app/old-events'
-import * as admin from 'firebase-admin'
+import { FIRESTORE_EVENTS_COLLECTION } from './constants'
+
+type DocumentSnapshot = admin.firestore.DocumentSnapshot
 
 const db = admin.firestore()
 
@@ -23,7 +25,12 @@ const getTenant = (
 ): string | undefined => {
   const collectionsWithTenantIds = Object.entries(store)
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    .map(([key, collection]: [string, Collection<unknown>]) => collection)
+    .map(
+      ([key, collection]: [
+        string,
+        Collection<{ readonly [key: string]: unknown }>
+      ]) => collection
+    )
     .filter(collection => collection.docIdIsTenantName)
     .map(collection => collection.collectionName)
 
@@ -47,8 +54,10 @@ const firestoreEventCreators: ReadonlyArray<FirestoreCollectionEvents<
   unknown
 >> = Object.entries(store).map(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  ([field, collection]: [string, Collection<unknown>]) =>
-    new FirestoreCollectionEvents(collection)
+  ([field, collection]: [
+    string,
+    Collection<{ readonly [key: string]: unknown }>
+  ]) => new FirestoreCollectionEvents(collection)
 )
 
 /**
@@ -57,8 +66,12 @@ const firestoreEventCreators: ReadonlyArray<FirestoreCollectionEvents<
 const getContextIds = (
   collectionId: string,
   documentId: string,
-  entity: { childId?: string; shiftId?: string; crewId?: string }
+  entity: { childId?: string; shiftId?: string; crewId?: string } | undefined
 ): Context => {
+  if (entity == null) {
+    return {}
+  }
+
   switch (collectionId) {
     case store.childAttendanceAdd.collectionName:
     case store.childAttendanceDelete.collectionName:
@@ -86,8 +99,8 @@ const getContextIdsForEvent = (
   type: 'updated' | 'created' | 'deleted',
   collectionId: string,
   documentId: string,
-  before: unknown,
-  after: unknown
+  before: { [key: string]: unknown } | undefined,
+  after: { [key: string]: unknown } | undefined
 ): Context => {
   switch (type) {
     case 'created':
@@ -110,8 +123,8 @@ const createEvent = (
   collectionId: string,
   documentId: string,
   timestamp: string,
-  change: functions.Change<DocumentSnapshot>
-): IEvent<unknown> => {
+  change: functions.Change<DocumentSnapshot | undefined>
+): IEvent<unknown> | null => {
   const before = change.before ? change.before.data() : undefined
   const after = change.after ? change.after.data() : undefined
 
@@ -197,16 +210,16 @@ const handleDocumentChange = async (
   collectionId: string,
   documentId: string,
   timestamp: string,
-  change: functions.Change<DocumentSnapshot>
+  change: functions.Change<DocumentSnapshot | undefined>
 ): Promise<void> => {
-  if (collectionId === 'events') {
+  if (collectionId === FIRESTORE_EVENTS_COLLECTION) {
     return Promise.resolve() // No infinite loops
   }
 
   const event = createEvent(type, collectionId, documentId, timestamp, change)
 
   if (event) {
-    await db.collection('events').add(event)
+    await db.collection(FIRESTORE_EVENTS_COLLECTION).add(event)
   } else {
     throw new Error(
       `Could not create an event for ${collectionId}/${documentId} (operation: ${type})!`

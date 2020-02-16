@@ -8,6 +8,7 @@
     { "path": "./events-framework" },
     { "path": "./events" },
     { "path": "./firestore-admin-log" },
-    { "path": "./old-events" }
+    { "path": "./old-events" },
+    { "path": "./firestore-events" }
   ]
 }

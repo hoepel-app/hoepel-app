@@ -24,7 +24,8 @@ export const onChildAttendanceCreate = functions
       .get()
       .then(doc => {
         if (doc.exists) {
-          if (doc.data().tenant === tenant) {
+          const data = doc.data()
+          if (data != null && data.tenant === tenant) {
             const update: { [key: string]: IDetailedChildAttendance } = {}
             update['attendances.' + childId] = details
             db.collection('child-attendances-by-shift')
@@ -54,7 +55,8 @@ export const onChildAttendanceCreate = functions
       .get()
       .then(doc => {
         if (doc.exists) {
-          if (doc.data().tenant === tenant) {
+          const data = doc.data()
+          if (data != null && data.tenant === tenant) {
             const update: { [key: string]: IDetailedChildAttendance } = {}
             update['attendances.' + shiftId] = details
             db.collection('child-attendances-by-child')
@@ -92,6 +94,10 @@ export const onChildAttendanceDelete = functions
   .onCreate(async (snap, context) => {
     const value = snap.data()
 
+    if (value == null) {
+      throw new Error(`Undefined body for child-attendances-delete/${snap.id}`)
+    }
+
     const childId = value.childId
     const shiftId = value.shiftId
     const tenant = value.tenant
@@ -102,8 +108,9 @@ export const onChildAttendanceDelete = functions
       .get()
       .then(doc => {
         if (doc.exists) {
-          if (doc.data().tenant === tenant) {
-            const update = doc.data()
+          const data = doc.data()
+          if (data != null && data.tenant === tenant) {
+            const update = { ...data }
             delete update.attendances[childId]
             db.collection('child-attendances-by-shift')
               .doc(shiftId)
@@ -130,8 +137,9 @@ export const onChildAttendanceDelete = functions
       .get()
       .then(doc => {
         if (doc.exists) {
-          if (doc.data().tenant === tenant) {
-            const update = doc.data()
+          const data = doc.data()
+          if (data != null && data.tenant === tenant) {
+            const update = { ...data }
             delete update.attendances[shiftId]
             db.collection('child-attendances-by-child')
               .doc(childId)

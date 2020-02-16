@@ -2,8 +2,7 @@
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "./src",
-    "strictNullChecks": false // TODO
+    "composite": true
   },
-  "references": [{ "path": "../old-events" }],
   "extends": "../../tsconfig.json"
 }
