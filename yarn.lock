@@ -4132,9 +4132,9 @@ doctrine@^3.0.0:
     esutils "^2.0.2"
 
 docxtemplater@^3.13.6:
-  version "3.16.9"
-  resolved "https://registry.yarnpkg.com/docxtemplater/-/docxtemplater-3.16.9.tgz#4ddb6729284cf50295e9396a087e57c37e811bb6"
-  integrity sha512-WJml4hyukbj1bo/7hSFvQv7zxusJkt85hJQqdUVvIWDIszhu0KeihsNy3QKa+6Jrq+9junKD2ZXa9dKIE0BIQw==
+  version "3.17.0"
+  resolved "https://registry.yarnpkg.com/docxtemplater/-/docxtemplater-3.17.0.tgz#4ea26569bff2476e7e41631b1bfe0af9a79cedae"
+  integrity sha512-nuqA+Nvl49t5IybaifZXjlp7JANRgJ84yA5Kn0gzdBLWVNT4c+JD1Y90gxLn/cXNJLmzz6JecozqOkfmOCmDDA==
   dependencies:
     xmldom "^0.2.1"
 
