@@ -4,7 +4,6 @@
   "version": "0.2.3",
   "main": "dist/index.js",
   "license": "GPL-3.0-or-later",
-  "private": true,
   "scripts": {
     "build": "tsc",
     "serve": "yarn build && GOOGLE_APPLICATION_CREDENTIALS=key.json firebase serve --only functions",
