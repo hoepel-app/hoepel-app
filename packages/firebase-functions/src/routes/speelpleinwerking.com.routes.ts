@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import * as admin from 'firebase-admin'
-import { Child, IChild, Tenant } from '@hoepel.app/types'
+import { Child, IChild } from '@hoepel.app/types'
 import { firebaseIsAuthenticatedSpeelpleinwerkingDotComMiddleware } from '../middleware/is-authenticated.middleware'
 import { DocumentSnapshot } from 'firebase-functions/lib/providers/firestore'
 import { asyncMiddleware } from '../util/async-middleware'
