@@ -1,7 +1,7 @@
 {
   "name": "@hoepel.app/old-events",
   "description": "Old events system from hoepel.app - temporarily retained for compatibility",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "main": "dist/index.js",
   "license": "GPL-3.0-or-later",
   "dependencies": {

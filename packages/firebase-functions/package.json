@@ -1,7 +1,7 @@
 {
   "name": "@hoepel.app/firebase-functions",
   "description": "Serverless functions for hoepel.app implemented as Firebase functions",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "main": "dist/index.js",
   "license": "GPL-3.0-or-later",
   "scripts": {
@@ -13,9 +13,9 @@
     "test": "mocha -r ts-node/register 'src/**/*.test.ts'"
   },
   "dependencies": {
-    "@hoepel.app/cloud-build-notifier": "^0.2.3",
-    "@hoepel.app/firestore-events": "^0.2.2",
-    "@hoepel.app/old-events": "^0.2.1",
+    "@hoepel.app/cloud-build-notifier": "^0.3.0",
+    "@hoepel.app/firestore-events": "^0.3.0",
+    "@hoepel.app/old-events": "^0.3.0",
     "@hoepel.app/types": "^1.6.0",
     "@sentry/node": "^5.10.1",
     "apollo-server-express": "^2.10.1",

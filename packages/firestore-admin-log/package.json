@@ -1,11 +1,11 @@
 {
   "name": "@hoepel.app/firestore-admin-log",
   "description": "Events for hoepel.app",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "main": "dist/index.js",
   "license": "GPL-3.0-or-later",
   "dependencies": {
-    "@hoepel.app/events-framework": "^0.2.0"
+    "@hoepel.app/events-framework": "^0.3.0"
   },
   "devDependencies": {
     "@firebase/testing": "^0.17.1",

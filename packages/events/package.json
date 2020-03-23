@@ -1,14 +1,14 @@
 {
   "name": "@hoepel.app/events",
   "description": "Events for hoepel.app",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "main": "dist/index.js",
   "license": "GPL-3.0-or-later",
   "devDependencies": {
     "firebase-admin": "^8.9.2"
   },
   "dependencies": {
-    "@hoepel.app/events-framework": "^0.2.0"
+    "@hoepel.app/events-framework": "^0.3.0"
   },
   "scripts": {
     "test": "jest"
