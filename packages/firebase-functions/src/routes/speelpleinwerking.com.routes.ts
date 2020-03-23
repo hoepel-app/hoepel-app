@@ -12,40 +12,6 @@ export const router = Router()
 router.use(firebaseIsAuthenticatedSpeelpleinwerkingDotComMiddleware)
 
 router.get(
-  '/organisation',
-  asyncMiddleware(async (req, res) => {
-    // Hide these organisations
-    const filteredOrganisationIds = ['example', 'demo']
-
-    // TODO Don't show all properties, such as contact person
-    const all: ReadonlyArray<Tenant> = (
-      await db.collection('tenants').get()
-    ).docs.map(doc => {
-      return { ...doc.data(), id: doc.id } as Tenant
-    })
-
-    res.json(all.filter(org => filteredOrganisationIds.indexOf(org.id) === -1))
-  })
-)
-
-router.get(
-  '/organisation/:organisation',
-  asyncMiddleware(async (req, res) => {
-    // TODO Don't show all properties, such as contact person
-    const org = await db
-      .collection('tenants')
-      .doc(req.params.organisation)
-      .get()
-
-    if (org.exists) {
-      res.json(org.data())
-    } else {
-      res.status(404).json({})
-    }
-  })
-)
-
-router.get(
   '/organisation/:organisation/children/managed-by/me',
   asyncMiddleware(async (req, res) => {
     const parentUid = res.locals.user.uid
