@@ -9,6 +9,7 @@
     { "path": "./events" },
     { "path": "./firestore-admin-log" },
     { "path": "./old-events" },
-    { "path": "./firestore-events" }
+    { "path": "./firestore-events" },
+    { "path": "./cloud-build-notifier" },
   ]
 }

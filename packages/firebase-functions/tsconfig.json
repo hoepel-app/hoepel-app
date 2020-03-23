@@ -6,7 +6,8 @@
   },
   "references": [
     { "path": "../old-events" },
-    { "path": "../firestore-events" }
+    { "path": "../firestore-events" },
+    { "path": "../cloud-build-notifier" },
   ],
   "extends": "../../tsconfig.json"
 }

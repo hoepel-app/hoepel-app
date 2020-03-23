@@ -15,10 +15,10 @@
   },
   "dependencies": {
     "@hoepel.app/firestore-events": "^0.2.2",
+    "@hoepel.app/cloud-build-notifier": "^0.2.0",
     "@hoepel.app/old-events": "^0.2.1",
     "@hoepel.app/types": "^1.6.0",
     "@sentry/node": "^5.10.1",
-    "@slack/client": "^5.0.2",
     "apollo-server-express": "^2.10.1",
     "cors": "^2.8.5",
     "docxtemplater": "^3.13.6",
