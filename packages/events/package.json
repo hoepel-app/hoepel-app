@@ -4,7 +4,6 @@
   "version": "0.2.0",
   "main": "dist/index.js",
   "license": "GPL-3.0-or-later",
-  "private": true,
   "devDependencies": {
     "firebase-admin": "^8.9.2"
   },
