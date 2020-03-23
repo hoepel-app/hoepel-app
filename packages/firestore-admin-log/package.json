@@ -10,5 +10,8 @@
   "devDependencies": {
     "@firebase/testing": "^0.17.1",
     "firebase-admin": "^8.9.2"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

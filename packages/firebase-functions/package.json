@@ -12,6 +12,7 @@
     "logs": "firebase functions:log",
     "test": "mocha -r ts-node/register 'src/**/*.test.ts'"
   },
+  "private": true,
   "dependencies": {
     "@hoepel.app/cloud-build-notifier": "^0.3.3",
     "@hoepel.app/firestore-events": "^0.3.3",

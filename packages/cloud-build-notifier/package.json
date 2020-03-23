@@ -9,5 +9,8 @@
   "dependencies": {
     "@slack/client": "^5.0.2",
     "firebase-functions": "^3.5.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

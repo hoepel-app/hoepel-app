@@ -10,5 +10,8 @@
   "devDependencies": {
     "@types/jest": "^25.1.2",
     "jest": "^25.1.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
