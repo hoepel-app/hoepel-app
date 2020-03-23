@@ -8,6 +8,6 @@ db.settings({ timestampsInSnapshots: true })
 
 export * from '@hoepel.app/firestore-events'
 export * from './user-events/'
-export {  } from '@hoepel.app/cloud-build-notifier'
+export { onCloudBuildPubsub } from '@hoepel.app/cloud-build-notifier'
 
 export * from './api'
