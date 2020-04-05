@@ -53,10 +53,10 @@ describe('AddressService#getAddressForChild', () => {
     const address = await addressService.getAddressForChild('tenant1', child)
 
     expect(address).not.to.be.null
-    expect(address!.city).to.equal('city1')
-    expect(address!.street).to.equal('street1')
-    expect(address!.number).to.equal('number1')
-    expect(address!.zipCode).to.equal(12345)
+    expect(address?.city).to.equal('city1')
+    expect(address?.street).to.equal('street1')
+    expect(address?.number).to.equal('number1')
+    expect(address?.zipCode).to.equal(12345)
   })
 
   it('Get address from primary contact person when child has no valid address', async () => {
@@ -112,9 +112,9 @@ describe('AddressService#getAddressForChild', () => {
     const address = await addressService.getAddressForChild('tenant2', child)
 
     expect(address).to.be.not.null
-    expect(address!.city).to.equal('contact city 1')
-    expect(address!.street).to.equal('contact street 1')
-    expect(address!.number).to.equal('contact number 1')
-    expect(address!.zipCode).to.equal(654)
+    expect(address?.city).to.equal('contact city 1')
+    expect(address?.street).to.equal('contact street 1')
+    expect(address?.number).to.equal('contact number 1')
+    expect(address?.zipCode).to.equal(654)
   })
 })
