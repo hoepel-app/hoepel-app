@@ -81,11 +81,19 @@ export type Context = {
 }
 
 const getUserAndTokenFromHeader = async (
-  authorizationHeader: string
+  authorizationHeader: string | null
 ): Promise<{ user: IUser; token: admin.auth.DecodedIdToken } | null> => {
+  if (authorizationHeader == null) {
+    return null
+  }
+
   try {
     const decodedToken = await parseToken(authorizationHeader)
     const user = await userService.getUserFromDb(decodedToken.uid)
+
+    if (user == null) {
+      return null
+    }
 
     return { token: decodedToken, user }
   } catch (err) {
@@ -99,9 +107,8 @@ export const server = new ApolloServer({
       requestDidStart: () => {
         return {
           didEncounterErrors: async requestContext => {
-            const header = requestContext.request.http.headers.get(
-              'Authorization'
-            )
+            const header =
+              requestContext.request.http?.headers.get('Authorization') ?? null
 
             const userInfo = await getUserAndTokenFromHeader(header)
 
@@ -144,6 +151,8 @@ export const server = new ApolloServer({
   },
   tracing: true,
   context: async ({ req }): Promise<Context> => {
-    return (await getUserAndTokenFromHeader(req.headers.authorization)) || {}
+    return (
+      (await getUserAndTokenFromHeader(req.headers.authorization ?? null)) || {}
+    )
   },
 })

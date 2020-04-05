@@ -12,7 +12,7 @@ import { NoPermissionError } from '../errors/no-permission.error'
  */
 export const firebaseHasPermissionMiddleware = (
   db: admin.firestore.Firestore,
-  permissionNeeded: string,
+  permissionNeeded: string | null,
   allowAdmin = true
 ): RequestHandler => {
   return asyncMiddleware(
@@ -50,16 +50,14 @@ export const firebaseHasPermissionMiddleware = (
           .doc(tenant)
           .get()
 
-        if (
-          !permissionNeeded ||
-          !permissionsDoc.exists ||
-          !permissionsDoc.data() ||
-          !permissionsDoc.data().permissions ||
-          !permissionsDoc.data().permissions.includes(permissionNeeded)
-        ) {
+        const permissionIncluded =
+          permissionsDoc.data()?.permissions?.includes(permissionNeeded) ||
+          false
+
+        if (permissionNeeded == null || !permissionIncluded) {
           throw new NoPermissionError('No permission to access this resource', {
             permissionsDocExists: permissionsDoc.exists,
-            permissionNeeded,
+            permissionNeeded: permissionNeeded ?? undefined,
             permissions: permissionsDoc.data()?.permissions,
             tenant,
           })

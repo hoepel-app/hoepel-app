@@ -42,8 +42,8 @@ export class UserService {
       .then(snap => {
         if (snap.exists) {
           const data = snap.data()
-          const acceptedPrivacyPolicy: Date = data.acceptedPrivacyPolicy?.toDate()
-          const acceptedTermsAndConditions: Date = data.acceptedTermsAndConditions?.toDate()
+          const acceptedPrivacyPolicy: Date | null = data?.acceptedPrivacyPolicy?.toDate()
+          const acceptedTermsAndConditions: Date | null = data?.acceptedTermsAndConditions?.toDate()
 
           return {
             ...data,

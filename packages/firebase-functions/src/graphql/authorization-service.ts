@@ -1,10 +1,10 @@
 import { Context } from '.'
 
 export class AuthorizationService {
-  constructor(private context: Context) {}
-
-  assertLoggedIn(): void {
-    if (!this.context.user) {
+  static assertLoggedIn(
+    context: Context
+  ): asserts context is NonNullable<Required<Context>> {
+    if (context.user == null || context.token == null) {
       throw new Error('Not logged in')
     }
   }

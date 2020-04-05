@@ -105,12 +105,7 @@ export class OrganisationService {
                 ...userDoc.data(),
                 uid: userDoc.id,
               } as unknown) as IUser,
-              permissions:
-                tenantDoc.exists &&
-                tenantDoc.data() &&
-                (tenantDoc.data().permissions as string[])
-                  ? tenantDoc.data().permissions
-                  : [],
+              permissions: (tenantDoc.data()?.permissions as string[]) ?? [],
             }
           })
       )

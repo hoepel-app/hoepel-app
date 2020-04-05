@@ -73,7 +73,7 @@ export class CrewAttendanceService {
 
     const all = await this.byShiftRepository.getMany(
       tenant,
-      shifts.map(shift => shift.id).filter(id => id)
+      shifts.map(shift => shift.id).filter(id => id != null) as string[]
     )
 
     return all.map(attendance => {

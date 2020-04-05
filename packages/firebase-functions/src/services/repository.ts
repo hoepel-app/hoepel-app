@@ -71,7 +71,7 @@ export class FirebaseTenantIndexedRepository<IT extends Omit<IT, 'tenant'>, T>
       return snapshots
         .filter(snapshot => snapshot.exists)
         .map(snapshot => {
-          const { tenant: actualTenant, ...obj } = snapshot.data()
+          const { tenant: actualTenant, ...obj } = snapshot.data()!
           return this.collection.mapper.lift(
             snapshot.id,
             obj as Pick<IT & { tenant: string }, Exclude<keyof IT, 'tenant'>>

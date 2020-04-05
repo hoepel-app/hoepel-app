@@ -1,13 +1,20 @@
 import { Router } from 'express'
 import * as admin from 'firebase-admin'
-import { Child, IChild } from '@hoepel.app/types'
+import {
+  Child,
+  IChild,
+  DocumentNotFoundError,
+  IncorrectTenantError,
+} from '@hoepel.app/types'
 import { firebaseIsAuthenticatedSpeelpleinwerkingDotComMiddleware } from '../middleware/is-authenticated.middleware'
-import { DocumentSnapshot } from 'firebase-functions/lib/providers/firestore'
 import { asyncMiddleware } from '../util/async-middleware'
+import { createChildRepository } from '../services/child.service'
 
 const db = admin.firestore()
 
 export const router = Router()
+
+const childRepo = createChildRepository(db)
 
 router.use(firebaseIsAuthenticatedSpeelpleinwerkingDotComMiddleware)
 
@@ -65,44 +72,45 @@ router.put(
     const organisationId = req.params.organisation
     const parentUid = res.locals.user.uid
 
-    const snapshot: DocumentSnapshot = await db
-      .collection('children')
-      .doc(childId)
-      .get()
+    try {
+      const child = await childRepo.get(organisationId, childId)
 
-    if (!snapshot.exists) {
-      res.status(404).json({ error: 'Child not found' })
-    } else if (snapshot.data().tenant !== organisationId) {
-      res.status(403).json({
-        error: `Tenant id on child (${
-          snapshot.data().tenant
-        }) does not match given tenant id (${organisationId})`,
-      })
-    } else if (
-      (
-        snapshot.data().managedByParents || ([] as ReadonlyArray<string>)
-      ).indexOf(parentUid) === -1
-    ) {
-      res.status(403).json({
-        error: `Parent can not edit child since parent uid (${parentUid}) is not included in ${JSON.stringify(
-          snapshot.data().managedByParents
-        )}`,
-      })
-    } else {
-      // First, create a new child object. This way, only valid properties are kept
-      // Then stringify and parse as JSON. We get a plain JS object
-      // Finally, drop the id
-      const { id, ...newChild } = JSON.parse(
-        JSON.stringify(new Child(req.body.child))
-      )
-      const newChildWithTenant = { ...newChild, tenant: organisationId }
+      if (
+        !(child.managedByParents || ([] as ReadonlyArray<string>)).includes(
+          parentUid
+        )
+      ) {
+        res.status(403).json({
+          error: `Parent can not edit child since parent uid (${parentUid}) is not included in ${JSON.stringify(
+            child.managedByParents
+          )}`,
+        })
+      } else {
+        // First, create a new child object. This way, only valid properties are kept
+        // Then stringify and parse as JSON. We get a plain JS object
+        // Finally, drop the id
+        const { id, ...newChild } = JSON.parse(
+          JSON.stringify(new Child(req.body.child))
+        )
+        const newChildWithTenant = { ...newChild, tenant: organisationId }
 
-      await db
-        .collection('children')
-        .doc(childId)
-        .set(newChildWithTenant)
+        await db
+          .collection('children')
+          .doc(childId)
+          .set(newChildWithTenant)
 
-      res.status(200).json({})
+        res.status(200).json({})
+      }
+    } catch (err) {
+      if (err instanceof DocumentNotFoundError) {
+        res.status(404).json({ error: 'Child not found' })
+      } else if (err instanceof IncorrectTenantError) {
+        res.status(403).json({
+          error: `Tenant id on child (${err.expectedTenant}) does not match given tenant id (${err.foundTenant})`,
+        })
+      } else {
+        throw err
+      }
     }
   })
 )

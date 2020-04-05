@@ -1,8 +1,7 @@
 {
   "compilerOptions": {
     "outDir": "./dist",
-    "rootDir": "./src",
-    "strictNullChecks": false // TODO
+    "rootDir": "./src"
   },
   "references": [
     { "path": "../old-events" },

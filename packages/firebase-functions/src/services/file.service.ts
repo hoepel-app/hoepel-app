@@ -265,7 +265,7 @@ export class FileService {
       created: new Date(),
       createdBy,
       createdByUid: uid,
-      description: localFile.description,
+      description: localFile.description ?? '',
       format: localFile.format,
       refPath: bucketFileName,
       tenant,

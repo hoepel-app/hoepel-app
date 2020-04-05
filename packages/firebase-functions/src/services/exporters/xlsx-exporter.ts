@@ -19,7 +19,13 @@ import * as _ from 'lodash'
 import { LocalFile } from './exporter'
 
 /** Supported types for spreadsheet cells */
-export type SpreadsheetCellValue = string | number | boolean | DayDate | Price
+export type SpreadsheetCellValue =
+  | string
+  | number
+  | boolean
+  | DayDate
+  | Price
+  | undefined
 
 /** Represents an Excel/spreadsheet worksheet (a "tab" in a spreadsheet) */
 export interface SpreadsheetWorksheet {
@@ -252,7 +258,7 @@ export class XlsxExporter {
       )
     )
     const filteredCrew = Crew.sorted(allCrew).filter(
-      crew => richAttendances.numberOfCrewMemberAttendances(crew.id) > 0
+      crew => richAttendances.numberOfCrewMemberAttendances(crew.id!) > 0
     )
 
     return {
@@ -286,7 +292,7 @@ export class XlsxExporter {
                   shift.kind,
                   shift.description,
                   ...filteredCrew.map(crew =>
-                    richAttendances.didCrewMemberAttend(crew.id, shift.id)
+                    richAttendances.didCrewMemberAttend(crew.id!, shift.id!)
                   ),
                 ],
                 width: 22,
@@ -316,7 +322,7 @@ export class XlsxExporter {
     )
 
     const filteredChildren = Child.sorted(allChildren).filter(
-      child => richAttendances.numberOfChildAttendances(child.id) > 0
+      child => richAttendances.numberOfChildAttendances(child.id!) > 0
     ) // Only children with attendances
 
     return {
@@ -350,7 +356,7 @@ export class XlsxExporter {
                   shift.kind,
                   shift.description,
                   ...filteredChildren.map(child =>
-                    richAttendances.didChildAttend(child.id, shift.id)
+                    richAttendances.didChildAttend(child.id!, shift.id!)
                   ),
                 ],
                 width: 22,
@@ -380,7 +386,7 @@ export class XlsxExporter {
       )
     )
     const sortedChildren = Child.sorted(allChildren).filter(
-      child => richAttendances.numberOfChildAttendances(child.id) > 0
+      child => richAttendances.numberOfChildAttendances(child.id!) > 0
     )
 
     const spacer = ['', '', '']
@@ -413,7 +419,7 @@ export class XlsxExporter {
                 ...spacer,
                 'Totaal (incl. korting)',
                 ...sortedChildren.map(child =>
-                  richAttendances.amountPaidByChild(child.id)
+                  richAttendances.amountPaidByChild(child.id!)
                 ),
               ],
             },
@@ -505,7 +511,7 @@ export class XlsxExporter {
                   shift.price,
                   shift.description,
                   ...sortedChildren.map(child =>
-                    richAttendances.didChildAttend(child.id, shift.id)
+                    richAttendances.didChildAttend(child.id!, shift.id!)
                   ),
                 ],
               }
@@ -539,7 +545,7 @@ export class XlsxExporter {
     const list = _.toPairs(_.groupBy(shifts, shift => shift.dayId))
       .map(([dayId, shiftsOnDay]) => {
         const uniqueAttendancesOnDay = detailedAttendances.uniqueChildAttendances(
-          shiftsOnDay.map(shift => shift.id)
+          shiftsOnDay.map(shift => shift.id!)
         )
 
         return {
@@ -583,7 +589,7 @@ export class XlsxExporter {
         return { v: v.nativeDate, t: 'd' }
       } else if (v instanceof Price) {
         return { v: v.toString(), t: 's' } // TODO currency formatting
-      } else if (v === undefined) {
+      } else if (v == undefined) {
         return { t: 'z' }
       } else {
         throw new Error(

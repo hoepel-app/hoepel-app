@@ -15,15 +15,23 @@ const getLoggerForStatusCode = (statusCode: number): Logger => {
   return console.log.bind(console)
 }
 
-const getUid = (req: Request): string => {
-  if (
-    req.header('Authorization') &&
-    req.header('Authorization').startsWith('Bearer: ')
-  ) {
-    const token = decode(req.header('Authorization').slice('Bearer: '.length))
+const getUid = (req: Request): string | null => {
+  const header = req.header('Authorization')
+  const bearerPrefix = 'Bearer: '
+
+  if (header == null) {
+    return null
+  }
+
+  if (!header.startsWith(bearerPrefix)) {
+    return null
+  }
+
+  try {
+    const token = decode(header.slice(bearerPrefix.length))
     return token ? 'uid:' + token.sub : ''
-  } else {
-    return ''
+  } catch (err) {
+    return null
   }
 }
 
@@ -32,7 +40,7 @@ export const logRequestStart = (
   res: Response,
   next: NextFunction
 ): void => {
-  const uid = getUid(req)
+  const uid = getUid(req) || '(no uid)'
   console.info(`${req.method} ${req.originalUrl} ${uid}`)
 
   const logFn = (): void => {

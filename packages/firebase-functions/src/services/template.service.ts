@@ -195,6 +195,13 @@ export class TemplateService {
       tenant,
       options.templateFileName
     )
+
+    if (fileMetadata == null) {
+      throw new Error(
+        `Could not get file metadata for ${options.templateFileName} (tenant: ${tenant})`
+      )
+    }
+
     const reportType = fileMetadata.type
     const fileNamePrefix = this.getFileNamePrefix(reportType)
 
@@ -437,11 +444,11 @@ export class TemplateService {
     const pricePerShift = shifts
       .map(shift => {
         const day = DayDate.fromDayId(shift.dayId).toString()
-        const price = new Price(
-          _.toPairs(allAttendances).find(
-            ([shiftId]) => shiftId === shift.id
-          )[1].amountPaid
+        const attendanceForShift = _.toPairs(allAttendances).find(
+          ([shiftId]) => shiftId === shift.id
         )
+
+        const price = new Price(attendanceForShift![1].amountPaid)
 
         return `${day.toString()} (${shift.kind}): ${price.toString()}`
       })
@@ -455,13 +462,13 @@ export class TemplateService {
       .join('\n')
 
     const organisationAddress =
-      (organisation.address.street || '') +
+      (organisation?.address.street || '') +
       ' ' +
-      (organisation.address.number || '') +
+      (organisation?.address.number || '') +
       ', ' +
-      (organisation.address.zipCode || '') +
+      (organisation?.address.zipCode || '') +
       ' ' +
-      (organisation.address.city || '')
+      (organisation?.address.city || '')
 
     return {
       kind_naam: child.fullName,
@@ -475,15 +482,11 @@ export class TemplateService {
         ? primaryContactPerson.fullName
         : '(geen contactpersoon toegevoegd)',
 
-      organisator_naam: organisation.name,
+      organisator_naam: organisation?.name || '',
       organisator_adres: organisationAddress,
-      organisator_email: organisation.email,
-      organisator_telefoon: organisation.contactPerson
-        ? organisation.contactPerson.phone || ''
-        : '',
-      organisator_verantwoordelijke: organisation.contactPerson
-        ? organisation.contactPerson.name || ''
-        : '',
+      organisator_email: organisation?.email || '',
+      organisator_telefoon: organisation?.contactPerson.phone || '',
+      organisator_verantwoordelijke: organisation?.contactPerson.name || '',
 
       jaar: year.toString(),
       concrete_data: specificDates,

@@ -51,44 +51,41 @@ export const verifyJwt = async (
 ): Promise<false | admin.auth.DecodedIdToken> => {
   const jwtKeys = await getJwtKeys()
 
-  let result: admin.auth.DecodedIdToken
-  const errors: Error[] = []
+  const list: (
+    | { error: string; token: null }
+    | { token: admin.auth.DecodedIdToken }
+  )[] = jwtKeys.map(cert => {
+    try {
+      const verifiedToken = jwt.verify(token, cert, {
+        audience: aud,
+        issuer: iss,
+        algorithms: [algorithm],
+      }) as admin.auth.DecodedIdToken | string
 
-  const isValid =
-    jwtKeys
-      .map(cert => {
-        try {
-          const verifiedToken = jwt.verify(token, cert, {
-            audience: aud,
-            issuer: iss,
-            algorithms: [algorithm],
-          }) as admin.auth.DecodedIdToken | string
-
-          if (
-            typeof verifiedToken !== 'string' &&
-            verifiedToken.user_id != null
-          ) {
-            result = verifiedToken
-            return true
-          } else {
-            return false
-          }
-        } catch (e) {
-          errors.push(e)
-          return false
+      if (typeof verifiedToken !== 'string' && verifiedToken.user_id != null) {
+        return { token: verifiedToken }
+      } else {
+        return {
+          error: 'Verified token was not string or user_id was not set',
+          token: null,
         }
-      })
-      .indexOf(true) !== -1
+      }
+    } catch (e) {
+      return { error: e.message, token: null }
+    }
+  })
 
-  if (!isValid) {
+  const verifiedToken = list.find(el => el.token != null)?.token || null
+
+  if (verifiedToken == null) {
     console.error(
       `Invalid token! Token:\n ${token}\n\nKeys used:\n${jwtKeys.join(
         '\n'
       )}\n\nErrors: `,
-      errors
+      JSON.stringify(list)
     )
     return false // Instead of returning false, this could reject the promise?
   }
 
-  return result
+  return verifiedToken
 }
