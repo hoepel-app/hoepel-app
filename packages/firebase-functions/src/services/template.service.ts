@@ -448,7 +448,10 @@ export class TemplateService {
           ([shiftId]) => shiftId === shift.id
         )
 
-        const price = new Price(attendanceForShift![1].amountPaid)
+        const price =
+          attendanceForShift == null
+            ? Price.zero
+            : new Price(attendanceForShift[1].amountPaid)
 
         return `${day.toString()} (${shift.kind}): ${price.toString()}`
       })

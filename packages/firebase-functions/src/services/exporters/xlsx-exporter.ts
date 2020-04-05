@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import * as XLSX from 'xlsx'
 import {
   Address,

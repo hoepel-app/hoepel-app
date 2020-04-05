@@ -71,6 +71,8 @@ export class FirebaseTenantIndexedRepository<IT extends Omit<IT, 'tenant'>, T>
       return snapshots
         .filter(snapshot => snapshot.exists)
         .map(snapshot => {
+          // We know snapshot.data() is defined because of filtering on exists
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           const { tenant: actualTenant, ...obj } = snapshot.data()!
           return this.collection.mapper.lift(
             snapshot.id,

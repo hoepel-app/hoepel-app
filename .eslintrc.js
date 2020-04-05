@@ -11,10 +11,11 @@
     'plugin:import/warnings',
     'plugin:import/typescript',
   ],
-  rules:  {
+   rules: {
+    '@typescript-eslint/no-non-null-assertion': 'error',
     '@typescript-eslint/no-use-before-define': 'off',
     '@typescript-eslint/explicit-function-return-type': [ 'error', { allowExpressions: true } ],
-    '@typescript-eslint/member-delimiter-style': 'off', // Conflicts with Prettier#
+    '@typescript-eslint/member-delimiter-style': 'off', // Conflicts with Prettier
     '@typescript-eslint/no-unused-vars': ["warn", { "ignoreRestSiblings": true }],
     '@typescript-eslint/no-explicit-any': 'off'
   }
