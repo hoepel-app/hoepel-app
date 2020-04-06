@@ -8,7 +8,7 @@
     "@hoepel.app/events-framework": "^0.3.4"
   },
   "devDependencies": {
-    "@firebase/testing": "^0.17.1",
+    "@firebase/testing": "^0.18.2",
     "firebase-admin": "^8.9.2"
   },
   "publishConfig": {
