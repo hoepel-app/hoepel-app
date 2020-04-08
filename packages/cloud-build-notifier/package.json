@@ -1,6 +1,6 @@
 {
   "name": "@hoepel.app/cloud-build-notifier",
-  "version": "0.3.4",
+  "version": "0.3.6",
   "main": "dist/index.js",
   "license": "GPL-3.0-or-later",
   "scripts": {
