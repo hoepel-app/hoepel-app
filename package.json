@@ -16,7 +16,7 @@
     "pretest": "yarn clean && yarn build",
     "test": "yarn lint && lerna run test",
     "prepublish": "yarn test",
-    "publish": "yarn clean && yarn build && lerna publish",
+    "publish": "lerna publish",
     "predeploy": "yarn test",
     "deploy": "yarn deploy:firestore && yarn deploy:functions",
     "deploy:firestore": "firebase deploy --project=hoepel-app --only=firestore:rules",
