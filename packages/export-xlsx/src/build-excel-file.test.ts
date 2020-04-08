@@ -34,17 +34,7 @@ const spreadSheetData: SpreadsheetData = {
           width: 25,
         },
         {
-          values: [
-            '',
-            '',
-            '',
-            'Geboortedatum',
-            new DayDate({
-              day: 2,
-              month: 3,
-              year: 2014,
-            }),
-          ],
+          values: ['', '', '', 'Geboortedatum', 'My date'],
           width: 25,
         },
         {
@@ -76,11 +66,7 @@ const spreadSheetData: SpreadsheetData = {
         },
         {
           values: [
-            new DayDate({
-              day: 3,
-              month: 4,
-              year: 2019,
-            }),
+            'A date here',
             'Voormiddag',
             new Price({
               cents: 50,
@@ -94,11 +80,7 @@ const spreadSheetData: SpreadsheetData = {
         },
         {
           values: [
-            new DayDate({
-              day: 3,
-              month: 4,
-              year: 2019,
-            }),
+            'Here goes date',
             'Namiddag',
             new Price({
               cents: 50,
@@ -112,11 +94,7 @@ const spreadSheetData: SpreadsheetData = {
         },
         {
           values: [
-            new DayDate({
-              day: 5,
-              month: 8,
-              year: 2019,
-            }),
+            'Some date here',
             'Externe activiteit',
             new Price({
               cents: 0,
@@ -127,6 +105,33 @@ const spreadSheetData: SpreadsheetData = {
             false,
           ],
           width: 22,
+        },
+      ],
+      name: 'Data fiscale attesten 2019',
+    },
+  ],
+}
+
+const differentTypes: SpreadsheetData = {
+  filename: 'Different types',
+  worksheets: [
+    {
+      columns: [
+        {
+          values: [
+            'A string',
+            true,
+            false,
+            'Now for some numbers',
+            0,
+            1000,
+            3.14,
+            undefined,
+            'And a few prices',
+            Price.zero,
+            new Price({ euro: 2, cents: 50 }),
+          ],
+          width: 20,
         },
       ],
       name: 'Data fiscale attesten 2019',
@@ -146,10 +151,32 @@ describe('buildExcelFile', () => {
 
   test('built Excel file contains expected data', () => {
     const res = buildExcelFile(spreadSheetData)
-    const readFile = read(res.file, {
-      cellDates: true,
-    })
+    const readFile = read(res.file)
 
     expect(readFile).toMatchSnapshot()
+  })
+
+  test('serializes string, numbers, booleans, prices and undefineds', () => {
+    const res = buildExcelFile(differentTypes)
+    const readFile = read(res.file)
+
+    expect(readFile).toMatchSnapshot()
+  })
+
+  test('serializes dates', () => {
+    const res = buildExcelFile({
+      worksheets: [
+        {
+          name: 'My Worksheet',
+          columns: [{ values: [DayDate.fromISO8601('2020-08-23')] }],
+        },
+      ],
+    })
+    const readFile = read(res.file)
+
+    // 
+    expect(readFile.Sheets['My Worksheet']['A1']['w']).toBe('8/23/20')
+    expect(readFile.Sheets['My Worksheet']['A1']['t']).toBe('n')
+    expect(typeof readFile.Sheets['My Worksheet']['A1']['v']).toBe('number')
   })
 })
