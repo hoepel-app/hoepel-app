@@ -9,8 +9,10 @@
     "test": "jest"
   },
   "dependencies": {
-    "@hoepel.app/types": "^1.6.0",
     "@hoepel.app/domain": "^0.3.4",
+    "@hoepel.app/types": "^1.6.0",
+    "@types/lodash.groupby": "^4.6.6",
+    "lodash.groupby": "^4.6.0",
     "xlsx": "^0.15.1"
   },
   "devDependencies": {

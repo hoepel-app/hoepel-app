@@ -1,7 +1,8 @@
 export { LocalFile } from './local-file'
+export { XlsxExporter } from './xlsx-exporter'
+export { buildExcelFile } from './build-excel-file'
 export {
   SpreadsheetCellValue,
-  SpreadsheetData,
   SpreadsheetWorksheet,
-  XlsxExporter,
-} from './xlsx-exporter'
+  SpreadsheetData,
+} from './spreadsheet-types'

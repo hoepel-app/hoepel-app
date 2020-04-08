@@ -7,10 +7,12 @@ import { IContactPersonRepository } from './contact-person.service'
 import { ChildAttendanceService } from './child-attendance.service'
 import { CrewAttendanceService } from './crew-attendance.service'
 import {
+  buildExcelFile,
   SpreadsheetData,
   XlsxExporter,
   LocalFile,
 } from '@hoepel.app/export-xlsx'
+
 import { Bucket } from '@google-cloud/storage'
 
 type FirestoreFileDocument = IReport & { id?: string; tenant: string }
@@ -246,7 +248,7 @@ export class FileService {
     type: FileType
   ): Promise<FirestoreFileDocument> {
     return this.saveFile(
-      this.xlsxExporter.buildExcelFile(spreadsheet),
+      buildExcelFile(spreadsheet),
       tenant,
       createdBy,
       uid,
