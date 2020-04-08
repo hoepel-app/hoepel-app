@@ -1,15 +1,14 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { expect } from 'chai'
-import { AddressService } from './address.service'
-import { Address, Child, ContactPerson } from '@hoepel.app/types'
-import { IContactPersonRepository } from './contact-person.service'
+import { AddressDomainService } from './address.domain-service'
+import {
+  Address,
+  Child,
+  ContactPerson,
+  TenantIndexedRepository,
+} from '@hoepel.app/types'
 
 describe('AddressService#getAddressForChild', () => {
-  it('Get address from child when it is valid', async () => {
-    const contactPersonRepository: IContactPersonRepository = {
-      delete(tenant: string, id: string) {
-        throw new Error()
-      },
+  it('gets address from child when it is valid', async () => {
+    const contactPersonRepository = {
       get(tenant: string, id: string) {
         if (tenant === 'tenant2' && id === 'id-123') {
           return Promise.resolve(
@@ -31,15 +30,9 @@ describe('AddressService#getAddressForChild', () => {
           throw new Error('Unexpected contact person id')
         }
       },
-      getAll(tenant: string) {
-        throw new Error()
-      },
-      getMany(tenant: string, ids: ReadonlyArray<string>) {
-        throw new Error()
-      },
-    }
+    } as TenantIndexedRepository<ContactPerson>
 
-    const addressService = new AddressService(contactPersonRepository)
+    const addressService = new AddressDomainService(contactPersonRepository)
 
     const child = Child.empty().withAddress(
       new Address({
@@ -52,18 +45,18 @@ describe('AddressService#getAddressForChild', () => {
 
     const address = await addressService.getAddressForChild('tenant1', child)
 
-    expect(address).not.to.be.null
-    expect(address?.city).to.equal('city1')
-    expect(address?.street).to.equal('street1')
-    expect(address?.number).to.equal('number1')
-    expect(address?.zipCode).to.equal(12345)
+    expect(address).toMatchInlineSnapshot(`
+      Address {
+        "city": "city1",
+        "number": "number1",
+        "street": "street1",
+        "zipCode": 12345,
+      }
+    `)
   })
 
   it('Get address from primary contact person when child has no valid address', async () => {
-    const contactPersonRepository: IContactPersonRepository = {
-      delete(tenant: string, id: string) {
-        throw new Error()
-      },
+    const contactPersonRepository = {
       get(tenant: string, id: string) {
         if (tenant === 'tenant2' && id === 'id-123') {
           return Promise.resolve(
@@ -85,15 +78,9 @@ describe('AddressService#getAddressForChild', () => {
           throw new Error('Unexpected contact person id')
         }
       },
-      getAll(tenant: string) {
-        throw new Error()
-      },
-      getMany(tenant: string, ids: ReadonlyArray<string>) {
-        throw new Error()
-      },
-    }
+    } as TenantIndexedRepository<ContactPerson>
 
-    const addressService = new AddressService(contactPersonRepository)
+    const addressService = new AddressDomainService(contactPersonRepository)
 
     const child = Child.empty()
       .withAddress(
@@ -106,15 +93,18 @@ describe('AddressService#getAddressForChild', () => {
         { contactPersonId: 'id-456', relationship: 'rel' },
       ])
 
-    expect(child.primaryContactPerson.contactPersonId).to.equal('id-123')
-    expect(child.address.isValid).to.be.false
+    expect(child.primaryContactPerson.contactPersonId).toEqual('id-123')
+    expect(child.address.isValid).toBe(false)
 
     const address = await addressService.getAddressForChild('tenant2', child)
 
-    expect(address).to.be.not.null
-    expect(address?.city).to.equal('contact city 1')
-    expect(address?.street).to.equal('contact street 1')
-    expect(address?.number).to.equal('contact number 1')
-    expect(address?.zipCode).to.equal(654)
+    expect(address).toMatchInlineSnapshot(`
+      Address {
+        "city": "contact city 1",
+        "number": "contact number 1",
+        "street": "contact street 1",
+        "zipCode": 654,
+      }
+    `)
   })
 })

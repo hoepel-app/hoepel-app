@@ -1,0 +1,651 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`XlsxExporter createAllFiscalCertificates 1`] = `
+Object {
+  "filename": "Data fiscale attesten 2019",
+  "worksheets": Array [
+    Object {
+      "columns": Array [
+        Object {
+          "values": Array [
+            "",
+            "",
+            "",
+            "Voornaam",
+            "Kind 1",
+            "Kind 2",
+          ],
+          "width": 20,
+        },
+        Object {
+          "values": Array [
+            "",
+            "",
+            "",
+            "Familienaam",
+            "Achter",
+            "Achter",
+          ],
+          "width": 25,
+        },
+        Object {
+          "values": Array [
+            "",
+            "",
+            "",
+            "Totaal (incl. korting)",
+            Price {
+              "cents": 20,
+              "euro": 13,
+            },
+            Price {
+              "cents": 0,
+              "euro": 5,
+            },
+          ],
+          "width": 25,
+        },
+        Object {
+          "values": Array [
+            "",
+            "",
+            "",
+            "Geboortedatum",
+            DayDate {
+              "day": 2,
+              "month": 3,
+              "year": 2014,
+            },
+            undefined,
+          ],
+          "width": 25,
+        },
+        Object {
+          "values": Array [
+            "",
+            "",
+            "",
+            "Contactpersoon",
+            "",
+            "Mieke Contact",
+          ],
+          "width": 25,
+        },
+        Object {
+          "values": Array [
+            "",
+            "",
+            "",
+            "Straat en nummer",
+            "Straat 12A",
+            "Contactstraat 123",
+          ],
+          "width": 25,
+        },
+        Object {
+          "values": Array [
+            "",
+            "",
+            "",
+            "Postcode",
+            4444,
+            7777,
+          ],
+          "width": 25,
+        },
+        Object {
+          "values": Array [
+            "",
+            "",
+            "",
+            "Stad",
+            "Stad",
+            "Stadt",
+          ],
+          "width": 25,
+        },
+        Object {
+          "values": Array [
+            "Dag",
+            "Type",
+            "Prijs",
+          ],
+          "width": 25,
+        },
+        Object {
+          "values": Array [
+            DayDate {
+              "day": 3,
+              "month": 4,
+              "year": 2019,
+            },
+            "Voormiddag",
+            Price {
+              "cents": 50,
+              "euro": 5,
+            },
+            "Omschrijving 1",
+            true,
+            false,
+          ],
+          "width": 22,
+        },
+        Object {
+          "values": Array [
+            DayDate {
+              "day": 3,
+              "month": 4,
+              "year": 2019,
+            },
+            "Namiddag",
+            Price {
+              "cents": 50,
+              "euro": 2,
+            },
+            "Omschrijving 2",
+            true,
+            true,
+          ],
+          "width": 22,
+        },
+        Object {
+          "values": Array [
+            DayDate {
+              "day": 5,
+              "month": 8,
+              "year": 2019,
+            },
+            "Externe activiteit",
+            Price {
+              "cents": 0,
+              "euro": 20,
+            },
+            "Bellewaerde met de tieners",
+            false,
+            false,
+          ],
+          "width": 22,
+        },
+      ],
+      "name": "Data fiscale attesten 2019",
+    },
+  ],
+}
+`;
+
+exports[`XlsxExporter createChildAttendanceList 1`] = `
+Object {
+  "filename": "Aanwezigheden kinderen 2019",
+  "worksheets": Array [
+    Object {
+      "columns": Array [
+        Object {
+          "values": Array [
+            "",
+            "",
+            "Voornaam",
+            "Kind 1",
+            "Kind 2",
+          ],
+          "width": 20,
+        },
+        Object {
+          "values": Array [
+            "",
+            "",
+            "Familienaam",
+            "Achter",
+            "Achter",
+          ],
+          "width": 25,
+        },
+        Object {
+          "values": Array [
+            DayDate {
+              "day": 3,
+              "month": 4,
+              "year": 2019,
+            },
+            "Voormiddag",
+            "Omschrijving 1",
+            true,
+            false,
+          ],
+          "width": 22,
+        },
+        Object {
+          "values": Array [
+            DayDate {
+              "day": 3,
+              "month": 4,
+              "year": 2019,
+            },
+            "Namiddag",
+            "Omschrijving 2",
+            true,
+            true,
+          ],
+          "width": 22,
+        },
+        Object {
+          "values": Array [
+            DayDate {
+              "day": 5,
+              "month": 8,
+              "year": 2019,
+            },
+            "Externe activiteit",
+            "Bellewaerde met de tieners",
+            false,
+            false,
+          ],
+          "width": 22,
+        },
+      ],
+      "name": "Aanwezigheden kinderen 2019",
+    },
+  ],
+}
+`;
+
+exports[`XlsxExporter createChildList 1`] = `
+Object {
+  "filename": "Alle kinderen",
+  "worksheets": Array [
+    Object {
+      "columns": Array [
+        Object {
+          "values": Array [
+            "Voornaam",
+            "Kind 1",
+            "Kind 2",
+            "Kind 3",
+          ],
+          "width": 20,
+        },
+        Object {
+          "values": Array [
+            "Familienaam",
+            "Achter",
+            "Achter",
+            "Achter",
+          ],
+          "width": 25,
+        },
+        Object {
+          "values": Array [
+            "Geboortedatum",
+            DayDate {
+              "day": 2,
+              "month": 3,
+              "year": 2014,
+            },
+            undefined,
+            undefined,
+          ],
+          "width": 15,
+        },
+        Object {
+          "values": Array [
+            "Telefoonnummer",
+            "+1111, +2222 (comment)",
+            "",
+            "",
+          ],
+          "width": 25,
+        },
+        Object {
+          "values": Array [
+            "Emailadres",
+            "aoeu@test.com, test@hello.com",
+            "",
+            "",
+          ],
+          "width": 25,
+        },
+        Object {
+          "values": Array [
+            "Adres",
+            "Straat 12A, 4444 Stad",
+            "",
+            "",
+          ],
+          "width": 30,
+        },
+        Object {
+          "values": Array [
+            "Gender",
+            "Man",
+            "",
+            "",
+          ],
+        },
+        Object {
+          "values": Array [
+            "Uitpasnummer",
+            "11-1111-11",
+            "",
+            "",
+          ],
+          "width": 25,
+        },
+        Object {
+          "values": Array [
+            "Opmerkingen",
+            "Remarks here",
+            "",
+            "",
+          ],
+          "width": 75,
+        },
+      ],
+      "name": "Alle kinderen",
+    },
+  ],
+}
+`;
+
+exports[`XlsxExporter createChildrenPerDayList 1`] = `
+Object {
+  "filename": "Aantal unieke kinderen per dag 2019",
+  "worksheets": Array [
+    Object {
+      "columns": Array [
+        Object {
+          "values": Array [
+            "Dag",
+            DayDate {
+              "day": 3,
+              "month": 4,
+              "year": 2019,
+            },
+            DayDate {
+              "day": 5,
+              "month": 8,
+              "year": 2019,
+            },
+          ],
+          "width": 20,
+        },
+        Object {
+          "values": Array [
+            "Aantal unieke kinderen",
+            2,
+            0,
+          ],
+          "width": 25,
+        },
+      ],
+      "name": "Unieke kinderen per dag 2019",
+    },
+  ],
+}
+`;
+
+exports[`XlsxExporter createChildrenWithCommentList 1`] = `
+Object {
+  "filename": "Kinderen met opmerking",
+  "worksheets": Array [
+    Object {
+      "columns": Array [
+        Object {
+          "values": Array [
+            "Voornaam",
+            "Kind 1",
+          ],
+          "width": 20,
+        },
+        Object {
+          "values": Array [
+            "Familienaam",
+            "Achter",
+          ],
+          "width": 25,
+        },
+        Object {
+          "values": Array [
+            "Geboortedatum",
+            DayDate {
+              "day": 2,
+              "month": 3,
+              "year": 2014,
+            },
+          ],
+          "width": 15,
+        },
+        Object {
+          "values": Array [
+            "Telefoonnummer",
+            "+1111, +2222 (comment)",
+          ],
+          "width": 25,
+        },
+        Object {
+          "values": Array [
+            "Emailadres",
+            "aoeu@test.com, test@hello.com",
+          ],
+          "width": 25,
+        },
+        Object {
+          "values": Array [
+            "Adres",
+            "Straat 12A, 4444 Stad",
+          ],
+          "width": 30,
+        },
+        Object {
+          "values": Array [
+            "Gender",
+            "Man",
+          ],
+        },
+        Object {
+          "values": Array [
+            "Uitpasnummer",
+            "11-1111-11",
+          ],
+          "width": 25,
+        },
+        Object {
+          "values": Array [
+            "Opmerkingen",
+            "Remarks here",
+          ],
+          "width": 75,
+        },
+      ],
+      "name": "Kinderen met opmerking",
+    },
+  ],
+}
+`;
+
+exports[`XlsxExporter createCrewMemberList 1`] = `
+Object {
+  "filename": "Alle animatoren",
+  "worksheets": Array [
+    Object {
+      "columns": Array [
+        Object {
+          "values": Array [
+            "Voornaam",
+            "Animator 1",
+            "Animator 2",
+            "Animator 3",
+          ],
+          "width": 20,
+        },
+        Object {
+          "values": Array [
+            "Familienaam",
+            "Achernaam",
+            "Achernaam",
+            "Achernaam",
+          ],
+          "width": 25,
+        },
+        Object {
+          "values": Array [
+            "Geboortedatum",
+            DayDate {
+              "day": 2,
+              "month": 3,
+              "year": 2014,
+            },
+            undefined,
+            undefined,
+          ],
+          "width": 15,
+        },
+        Object {
+          "values": Array [
+            "Telefoonnummer",
+            "+2132, +4321 (comment)",
+            "",
+            "",
+          ],
+          "width": 25,
+        },
+        Object {
+          "values": Array [
+            "Emailadres",
+            "aoeu@test.com, hello@example.com",
+            "",
+            "",
+          ],
+          "width": 25,
+        },
+        Object {
+          "values": Array [
+            "Adres",
+            "Straat 12A, 4444 Stad",
+            "",
+            "",
+          ],
+          "width": 30,
+        },
+        Object {
+          "values": Array [
+            "Actief",
+            "Nee",
+            "Ja",
+            "Ja",
+          ],
+        },
+        Object {
+          "values": Array [
+            "Rekeningnummer",
+            "BE44 4444 4444",
+            "",
+            "",
+          ],
+          "width": 25,
+        },
+        Object {
+          "values": Array [
+            "Gestart in",
+            2019,
+            undefined,
+            undefined,
+          ],
+        },
+        Object {
+          "values": Array [
+            "Attesten",
+            "Attest animator, Attest hoofdanimator, Attest instructeur",
+            "Attest animator",
+            "",
+          ],
+          "width": 35,
+        },
+        Object {
+          "values": Array [
+            "Opmerkingen",
+            "Remarks here",
+            "",
+            "",
+          ],
+          "width": 75,
+        },
+      ],
+      "name": "Alle animatoren",
+    },
+  ],
+}
+`;
+
+exports[`XlsxExporter createCrewMembersAttendanceList 1`] = `
+Object {
+  "filename": "Aanwezigheden animatoren 2019",
+  "worksheets": Array [
+    Object {
+      "columns": Array [
+        Object {
+          "values": Array [
+            "",
+            "",
+            "Voornaam",
+            "Animator 1",
+            "Animator 2",
+          ],
+          "width": 20,
+        },
+        Object {
+          "values": Array [
+            "",
+            "",
+            "Familienaam",
+            "Achernaam",
+            "Achernaam",
+          ],
+          "width": 25,
+        },
+        Object {
+          "values": Array [
+            DayDate {
+              "day": 3,
+              "month": 4,
+              "year": 2019,
+            },
+            "Voormiddag",
+            "Omschrijving 1",
+            true,
+            false,
+          ],
+          "width": 22,
+        },
+        Object {
+          "values": Array [
+            DayDate {
+              "day": 3,
+              "month": 4,
+              "year": 2019,
+            },
+            "Namiddag",
+            "Omschrijving 2",
+            true,
+            true,
+          ],
+          "width": 22,
+        },
+        Object {
+          "values": Array [
+            DayDate {
+              "day": 5,
+              "month": 8,
+              "year": 2019,
+            },
+            "Externe activiteit",
+            "Bellewaerde met de tieners",
+            false,
+            false,
+          ],
+          "width": 22,
+        },
+      ],
+      "name": "Aanwezigheden animatoren 2019",
+    },
+  ],
+}
+`;

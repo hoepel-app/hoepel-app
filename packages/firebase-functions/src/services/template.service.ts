@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import * as admin from 'firebase-admin'
 import { IChildRepository } from './child.service'
-import { AddressService } from './address.service'
 import { OrganisationService } from './organisation.service'
 import { ChildAttendanceService } from './child-attendance.service'
 import { IShiftRepository, ShiftService } from './shift.service'
@@ -19,6 +18,7 @@ import { IContactPersonRepository } from './contact-person.service'
 import JSZip from 'jszip'
 import Docxtemplater from 'docxtemplater'
 import { Bucket } from '@google-cloud/storage'
+import { AddressDomainService } from '@hoepel.app/domain'
 
 // TODO no types for docxtemplater yet...
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -116,7 +116,7 @@ export class TemplateService {
     private reportsStorage: Bucket,
     private childRepository: IChildRepository,
     private contactPersonRepository: IContactPersonRepository,
-    private addressService: AddressService,
+    private addressService: AddressDomainService,
     private organisationService: OrganisationService,
     private childAttendanceService: ChildAttendanceService,
     private shiftRepository: IShiftRepository
@@ -475,7 +475,7 @@ export class TemplateService {
 
     return {
       kind_naam: child.fullName,
-      kind_adres: AddressService.formatAddress(address),
+      kind_adres: AddressDomainService.formatAddress(address),
       kind_telefoon: child.phone[0] ? child.phone[0].phoneNumber || '' : '',
       kind_geboortedatum: child.birthDate
         ? child.birthDate.toDDMMYYYY('/')

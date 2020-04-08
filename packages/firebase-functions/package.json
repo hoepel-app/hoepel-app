@@ -9,15 +9,16 @@
     "serve": "yarn build && GOOGLE_APPLICATION_CREDENTIALS=key.json firebase serve --only functions",
     "shell": "yarn build && GOOGLE_APPLICATION_CREDENTIALS=key.json firebase functions:shell",
     "start": "yarn shell",
-    "logs": "firebase functions:log",
-    "test": "mocha -r ts-node/register 'src/**/*.test.ts'"
+    "logs": "firebase functions:log"
   },
   "private": true,
   "dependencies": {
     "@hoepel.app/cloud-build-notifier": "^0.3.4",
     "@hoepel.app/firestore-events": "^0.3.4",
     "@hoepel.app/old-events": "^0.3.4",
+    "@hoepel.app/export-xlsx": "^0.3.4",
     "@hoepel.app/types": "^1.6.0",
+    "@hoepel.app/domain": "^0.3.4",
     "@sentry/node": "^5.10.1",
     "apollo-server-express": "^2.10.1",
     "cors": "^2.8.5",
@@ -36,15 +37,12 @@
   },
   "devDependencies": {
     "@google-cloud/storage": "^4.3.0",
-    "@types/chai": "^4.2.9",
     "@types/jsonwebtoken": "^8.3.7",
     "@types/lodash": "^4.14.138",
     "@types/node": "^8.10.59",
     "@types/nodemailer": "^6.2.2",
-    "@types/sinon": "^7.5.1",
     "@typescript-eslint/eslint-plugin": "^2.19.2",
     "@typescript-eslint/parser": "^2.19.2",
-    "chai": "^4.2.0",
     "eslint": "^6.6.0",
     "eslint-config-prettier": "^6.6.0",
     "eslint-plugin-import": "^2.18.2",
@@ -54,7 +52,6 @@
     "husky": "^4.2.3",
     "lerna": "^3.18.4",
     "lint-staged": "^10.0.7",
-    "mocha": "^7.0.1",
     "ts-node": "^8.5.4",
     "typescript": "^3.7.2"
   },

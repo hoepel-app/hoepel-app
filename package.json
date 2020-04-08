@@ -12,7 +12,7 @@
   "scripts": {
     "build": "tsc --build packages",
     "clean": "yarn build --clean",
-    "lint": "yarn eslint '**/*.{ts,js}' --ignore-path .gitignore --cache",
+    "lint": "yarn eslint '**/*.{ts,js}' --ignore-path .gitignore --cache --fix",
     "lint-fix": "yarn lint --fix",
     "pretest": "yarn clean && yarn build",
     "test": "yarn lint && lerna run test",

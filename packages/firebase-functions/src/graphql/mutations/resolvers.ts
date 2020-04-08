@@ -19,8 +19,8 @@ import {
   createChildAttendanceByChildRepository,
   createChildAttendanceByShiftRepository,
 } from '../../services/child-attendance.service'
-import { AddressService } from '../../services/address.service'
-import { XlsxExporter } from '../../services/exporters/xlsx-exporter'
+import { AddressDomainService } from '@hoepel.app/domain'
+import { XlsxExporter } from '@hoepel.app/export-xlsx'
 import { OrganisationService } from '../../services/organisation.service'
 import { FileService } from '../../services/file.service'
 import { TemplateService } from '../../services/template.service'
@@ -50,7 +50,7 @@ const crewAttendanceByShiftRepository = createCrewAttendanceByShiftRepository(
   db
 )
 
-const addressService = new AddressService(contactPersonRepository)
+const addressService = new AddressDomainService(contactPersonRepository)
 const organisationService = new OrganisationService(db, auth)
 const shiftService = new ShiftService(shiftRepository)
 const childAttendanceService = new ChildAttendanceService(

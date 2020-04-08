@@ -2,10 +2,10 @@
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "./src",
+    "composite": true,
   },
   "references": [
-    { "path": "../events-framework" },
-    { "path": "../export-xlsx" },
+    { "path": "../domain" },
   ],
   "extends": "../../tsconfig.json"
 }

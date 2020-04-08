@@ -6,8 +6,11 @@ import { ShiftService } from './shift.service'
 import { IContactPersonRepository } from './contact-person.service'
 import { ChildAttendanceService } from './child-attendance.service'
 import { CrewAttendanceService } from './crew-attendance.service'
-import { SpreadsheetData, XlsxExporter } from './exporters/xlsx-exporter'
-import { LocalFile } from './exporters/exporter'
+import {
+  SpreadsheetData,
+  XlsxExporter,
+  LocalFile,
+} from '@hoepel.app/export-xlsx'
 import { Bucket } from '@google-cloud/storage'
 
 type FirestoreFileDocument = IReport & { id?: string; tenant: string }

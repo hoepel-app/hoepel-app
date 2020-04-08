@@ -15,9 +15,9 @@ import {
   Price,
   Shift,
 } from '@hoepel.app/types'
-import { AddressService } from '../address.service'
+import { AddressDomainService } from '@hoepel.app/domain'
 import * as _ from 'lodash'
-import { LocalFile } from './exporter'
+import { LocalFile } from './local-file'
 
 /** Supported types for spreadsheet cells */
 export type SpreadsheetCellValue =
@@ -461,7 +461,7 @@ export class XlsxExporter {
                 'Straat en nummer',
                 ...sortedChildren.map(child => {
                   const address =
-                    AddressService.getAddressForChildWithExistingContacts(
+                    AddressDomainService.getAddressForChildWithExistingContacts(
                       child,
                       allContacts
                     ) || new Address({})
@@ -476,7 +476,7 @@ export class XlsxExporter {
                 'Postcode',
                 ...sortedChildren.map(child => {
                   const address =
-                    AddressService.getAddressForChildWithExistingContacts(
+                    AddressDomainService.getAddressForChildWithExistingContacts(
                       child,
                       allContacts
                     ) || new Address({})
@@ -491,7 +491,7 @@ export class XlsxExporter {
                 'Stad',
                 ...sortedChildren.map(child => {
                   const address =
-                    AddressService.getAddressForChildWithExistingContacts(
+                    AddressDomainService.getAddressForChildWithExistingContacts(
                       child,
                       allContacts
                     ) || new Address({})

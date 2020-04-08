@@ -1,8 +1,14 @@
-import { IContactPersonRepository } from './contact-person.service'
-import { Child, ContactPerson, IAddress } from '@hoepel.app/types'
+import {
+  Child,
+  ContactPerson,
+  IAddress,
+  TenantIndexedRepository,
+} from '@hoepel.app/types'
 
-export class AddressService {
-  constructor(private contactPersonRepository: IContactPersonRepository) {}
+export class AddressDomainService {
+  constructor(
+    private contactPersonRepository: TenantIndexedRepository<ContactPerson>
+  ) {}
 
   async getAddressForChild(
     tenant: string,
