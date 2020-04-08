@@ -146,7 +146,9 @@ describe('buildExcelFile', () => {
 
   test('built Excel file contains expected data', () => {
     const res = buildExcelFile(spreadSheetData)
-    const readFile = read(res.file)
+    const readFile = read(res.file, {
+      cellDates: true,
+    })
 
     expect(readFile).toMatchSnapshot()
   })
