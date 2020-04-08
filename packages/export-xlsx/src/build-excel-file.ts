@@ -17,7 +17,7 @@ export const buildExcelFile = (data: SpreadsheetData): LocalFile => {
     } else if (typeof v === 'boolean') {
       return { v: v ? 1 : 0, t: 'n' }
     } else if (v instanceof DayDate) {
-      return { v: v.nativeDate, t: 'd' }
+      return { v: v.nativeDate.toISOString(), t: 'd' }
     } else if (v instanceof Price) {
       return { v: v.toString(), t: 's' } // TODO currency formatting
     } else if (v == undefined) {
