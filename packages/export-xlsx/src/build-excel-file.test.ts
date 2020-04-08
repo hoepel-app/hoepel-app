@@ -1,6 +1,7 @@
 import { buildExcelFile } from './build-excel-file'
 import { SpreadsheetData } from './spreadsheet-types'
 import { Price, DayDate } from '@hoepel.app/types'
+import { read } from 'xlsx'
 
 const spreadSheetData: SpreadsheetData = {
   filename: 'Data fiscale attesten 2019',
@@ -141,5 +142,12 @@ describe('buildExcelFile', () => {
     expect(res.downloadFileName).toEqual('Data fiscale attesten 2019.xlsx')
     expect(res.format).toEqual('XLSX')
     expect(res.file.length).toBeGreaterThan(15000)
+  })
+
+  test('built Excel file contains expected data', () => {
+    const res = buildExcelFile(spreadSheetData)
+    const readFile = read(res.file)
+
+    expect(readFile).toMatchSnapshot()
   })
 })
