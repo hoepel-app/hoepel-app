@@ -23,7 +23,9 @@ export class ShiftService {
     year: number
   ): Promise<ReadonlyArray<Shift>> {
     const shifts = await this.shiftRepository.getAll(tenant)
-    return shifts.filter(shift => DayDate.fromDayId(shift.dayId).year === year)
+    return shifts.filter(
+      (shift) => DayDate.fromDayId(shift.dayId).year === year
+    )
   }
 
   async getShiftsOnDay(
@@ -31,13 +33,13 @@ export class ShiftService {
     day: DayDate
   ): Promise<ReadonlyArray<Shift>> {
     const shifts = await this.shiftRepository.getAll(tenant)
-    return shifts.filter(shift => shift.dayId === day.toDayId())
+    return shifts.filter((shift) => shift.dayId === day.toDayId())
   }
 
   /**
    * Given an array of shifts, get the number of unique days (multiple shifts can happen on the same day)
    */
   static numberOfUniqueDays(shifts: ReadonlyArray<Shift>): number {
-    return new Set(shifts.map(shift => shift.dayId)).size
+    return new Set(shifts.map((shift) => shift.dayId)).size
   }
 }

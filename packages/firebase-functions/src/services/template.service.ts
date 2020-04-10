@@ -140,9 +140,7 @@ export class TemplateService {
       exampleData
     )
 
-    const fileName = Math.random()
-      .toString(36)
-      .substring(2)
+    const fileName = Math.random().toString(36).substring(2)
 
     await this.templatesStorage
       .file('test-template/' + fileName)
@@ -273,10 +271,7 @@ export class TemplateService {
       )
     }
 
-    await this.db
-      .collection('templates')
-      .doc(docs.docs[0].id)
-      .delete()
+    await this.db.collection('templates').doc(docs.docs[0].id).delete()
     await this.templatesStorage.file(tenant + '/' + templateFileName).delete()
 
     return { ...data, created: data.created.toDate() } as ITemplate
@@ -431,18 +426,18 @@ export class TemplateService {
     const allShiftIds = Object.keys(allAttendances)
     const shifts = Shift.sort(
       await this.shiftRepository.getMany(tenant, allShiftIds)
-    ).filter(shift => shift && DayDate.fromDayId(shift.dayId).year === year) // Only keep shifts in this year
+    ).filter((shift) => shift && DayDate.fromDayId(shift.dayId).year === year) // Only keep shifts in this year
 
     const numberOfUniqueDays = ShiftService.numberOfUniqueDays(shifts)
 
     const totalPricePaid = _.toPairs(allAttendances)
-      .filter(([shiftId]) => shifts.map(s => s.id).includes(shiftId)) // Only keep attendances in this year
-      .map(att => att[1].amountPaid)
-      .map(iprice => new Price(iprice))
+      .filter(([shiftId]) => shifts.map((s) => s.id).includes(shiftId)) // Only keep attendances in this year
+      .map((att) => att[1].amountPaid)
+      .map((iprice) => new Price(iprice))
       .reduce((x, y) => x.add(y), new Price({ cents: 0, euro: 0 }))
 
     const pricePerShift = shifts
-      .map(shift => {
+      .map((shift) => {
         const day = DayDate.fromDayId(shift.dayId).toString()
         const attendanceForShift = _.toPairs(allAttendances).find(
           ([shiftId]) => shiftId === shift.id
@@ -459,7 +454,7 @@ export class TemplateService {
 
     const specificDates = shifts
       .map(
-        shift =>
+        (shift) =>
           DayDate.fromDayId(shift.dayId).toString() + ' (' + shift.kind + ')'
       )
       .join('\n')

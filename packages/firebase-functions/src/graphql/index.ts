@@ -106,13 +106,13 @@ export const server = new ApolloServer({
     {
       requestDidStart: () => {
         return {
-          didEncounterErrors: async requestContext => {
+          didEncounterErrors: async (requestContext) => {
             const header =
               requestContext.request.http?.headers.get('Authorization') ?? null
 
             const userInfo = await getUserAndTokenFromHeader(header)
 
-            Sentry.configureScope(scope => {
+            Sentry.configureScope((scope) => {
               if (userInfo != null) {
                 scope.setUser({
                   email: userInfo.user.email,
@@ -121,7 +121,7 @@ export const server = new ApolloServer({
                 })
               }
 
-              requestContext.errors.forEach(err => {
+              requestContext.errors.forEach((err) => {
                 console.error(err)
                 Sentry.captureException(err)
               })

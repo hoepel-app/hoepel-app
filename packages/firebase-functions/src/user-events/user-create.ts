@@ -7,12 +7,14 @@ const db = admin.firestore()
 export const onUserCreatedSendMail = functions
   .region('europe-west1')
   .auth.user()
-  .onCreate(async user => {
+  .onCreate(async (user) => {
     await notifyAdmin({
-      subject: `Nieuwe persoon geregistreerd: ${user.displayName ||
-        user.email}`,
-      text: `Een nieuwe persoon heeft zich geregistreerd. Naam: ${user.displayName ||
-        '<geen naam>'}, contact: ${user.email}. Details als bijlage.`,
+      subject: `Nieuwe persoon geregistreerd: ${
+        user.displayName || user.email
+      }`,
+      text: `Een nieuwe persoon heeft zich geregistreerd. Naam: ${
+        user.displayName || '<geen naam>'
+      }, contact: ${user.email}. Details als bijlage.`,
       attachments: [
         {
           content: JSON.stringify(user, null, 2),
@@ -25,7 +27,7 @@ export const onUserCreatedSendMail = functions
 export const onUserCreatedSaveUserDocument = functions
   .region('europe-west1')
   .auth.user()
-  .onCreate(async user => {
+  .onCreate(async (user) => {
     await db
       .collection('users')
       .doc(user.uid)
