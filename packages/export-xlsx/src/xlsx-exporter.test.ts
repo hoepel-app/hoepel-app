@@ -120,7 +120,7 @@ describe('XlsxExporter', () => {
     dayId: '2019-08-05',
     price: new Price({ euro: 20, cents: 0 }),
     kind: 'Externe activiteit',
-    description: 'Bellewaerde met de tieners'
+    description: 'Bellewaerde met de tieners',
   })
 
   const contactPerson1 = ContactPerson.empty()
