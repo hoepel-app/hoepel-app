@@ -1,6 +1,0 @@
-service cloud.firestore {
-  match /databases/{database}/documents/my-events-collection/{document=**} {
-    allow create: if true;
-    allow read: if true;
-  }
-}
