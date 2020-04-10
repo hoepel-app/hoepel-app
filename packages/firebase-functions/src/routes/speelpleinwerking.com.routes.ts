@@ -31,7 +31,8 @@ router.get(
         .where('tenant', '==', organisationId)
         .get()
     ).docs.map(
-      snapshot => new Child({ ...(snapshot.data() as IChild), id: snapshot.id })
+      (snapshot) =>
+        new Child({ ...(snapshot.data() as IChild), id: snapshot.id })
     )
 
     res.json(children)
@@ -58,7 +59,8 @@ router.get(
         .where('tenant', '==', organisationId)
         .get()
     ).docs.map(
-      snapshot => new Child({ ...(snapshot.data() as IChild), id: snapshot.id })
+      (snapshot) =>
+        new Child({ ...(snapshot.data() as IChild), id: snapshot.id })
     )
 
     res.json(children)
@@ -94,10 +96,7 @@ router.put(
         )
         const newChildWithTenant = { ...newChild, tenant: organisationId }
 
-        await db
-          .collection('children')
-          .doc(childId)
-          .set(newChildWithTenant)
+        await db.collection('children').doc(childId).set(newChildWithTenant)
 
         res.status(200).json({})
       }
