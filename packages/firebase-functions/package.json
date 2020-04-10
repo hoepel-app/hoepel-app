@@ -1,7 +1,7 @@
 {
   "name": "@hoepel.app/firebase-functions",
   "description": "Serverless functions for hoepel.app implemented as Firebase functions",
-  "version": "0.3.10",
+  "version": "0.3.11",
   "main": "dist/index.js",
   "license": "GPL-3.0-or-later",
   "scripts": {
@@ -14,10 +14,10 @@
   },
   "private": true,
   "dependencies": {
-    "@hoepel.app/cloud-build-notifier": "^0.3.6",
-    "@hoepel.app/domain": "^0.3.7",
-    "@hoepel.app/export-xlsx": "^0.3.9",
-    "@hoepel.app/firestore-events": "^0.3.7",
+    "@hoepel.app/cloud-build-notifier": "^0.3.11",
+    "@hoepel.app/domain": "^0.3.11",
+    "@hoepel.app/export-xlsx": "^0.3.11",
+    "@hoepel.app/firestore-events": "^0.3.11",
     "@hoepel.app/old-events": "^0.3.7",
     "@hoepel.app/types": "^1.9.0",
     "@sentry/node": "^5.10.1",
