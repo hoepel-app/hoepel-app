@@ -37,7 +37,7 @@ export class UserService {
       .collection('users')
       .doc(uid)
       .get()
-      .then(snap => {
+      .then((snap) => {
         if (snap.exists) {
           const data = snap.data()
           const acceptedPrivacyPolicy: Date | null = data?.acceptedPrivacyPolicy?.toDate()
