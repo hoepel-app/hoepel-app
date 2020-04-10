@@ -20,7 +20,7 @@
     "eslint": "eslint --ignore-path .gitignore --cache '**/*.{ts,js}'",
     "pretest": "yarn clean && yarn build",
     "test": "yarn lint:no-fix && lerna run test",
-    "prepublish": "yarn test",
+    "prepublishOnly": "yarn test",
     "publish": "lerna publish",
     "predeploy": "yarn test",
     "deploy": "yarn deploy:firestore && yarn deploy:functions",
