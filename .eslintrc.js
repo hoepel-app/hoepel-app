@@ -1,11 +1,17 @@
 module.exports = {
-  extends: "standard",
+  extends: ["plugin:prettier/recommended"],
+  parserOptions: {
+    ecmaVersion: 2017,
+  },
+  env: {
+    es6: true,
+  },
   overrides: [
     {
       files: ["*.ts"],
       parser: "@typescript-eslint/parser",
       parserOptions: {
-        project: "./tsconfig.json"
+        project: "./tsconfig.json",
       },
       plugins: ["@typescript-eslint"],
       extends: [
@@ -13,7 +19,7 @@ module.exports = {
         "plugin:@typescript-eslint/recommended",
         "plugin:import/errors",
         "plugin:import/warnings",
-        "plugin:import/typescript"
+        "plugin:import/typescript",
       ],
       rules: {
         "no-useless-constructor": "off",
@@ -21,18 +27,18 @@ module.exports = {
         "@typescript-eslint/no-use-before-define": "off",
         "@typescript-eslint/explicit-function-return-type": [
           "error",
-          { allowExpressions: true }
+          { allowExpressions: true },
         ],
         "@typescript-eslint/member-delimiter-style": "off", // Conflicts with Prettier
         "@typescript-eslint/no-unused-vars": [
           "warn",
-          { ignoreRestSiblings: true }
+          { ignoreRestSiblings: true },
         ],
-        "@typescript-eslint/no-explicit-any": "off"
+        "@typescript-eslint/no-explicit-any": "off",
       },
       env: {
-        jest: true
-      }
-    }
-  ]
+        jest: true,
+      },
+    },
+  ],
 };
