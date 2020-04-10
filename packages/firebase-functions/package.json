@@ -40,15 +40,7 @@
     "@types/lodash": "^4.14.138",
     "@types/mailgun-js": "^0.22.4",
     "@types/node": "^8.10.59",
-    "@types/nodemailer": "^6.2.2",
-    "@typescript-eslint/eslint-plugin": "^2.19.2",
-    "@typescript-eslint/parser": "^2.19.2",
-    "eslint": "^6.6.0",
-    "eslint-config-prettier": "^6.6.0",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-prettier": "^3.1.1",
     "firebase-functions-test": "^0.2.0",
-    "grpc": "^1.24.2",
     "husky": "^4.2.3",
     "lerna": "^3.18.4",
     "lint-staged": "^10.0.7",
@@ -56,8 +48,7 @@
     "ts-node": "^8.5.4",
     "typescript": "^3.7.2",
     "webpack": "^4.42.1",
-    "webpack-cli": "^3.3.11",
-    "webpack-node-externals": "^1.7.2"
+    "webpack-cli": "^3.3.11"
   },
   "engines": {
     "node": "10"
