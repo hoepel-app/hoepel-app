@@ -93,12 +93,12 @@ export class OrganisationService {
       user: IUser
       permissions: ReadonlyArray<string>
     }> = await Promise.all(
-      allUsers.docs.map(userDoc =>
+      allUsers.docs.map((userDoc) =>
         userDoc.ref
           .collection('tenants')
           .doc(organisationId)
           .get()
-          .then(tenantDoc => {
+          .then((tenantDoc) => {
             return {
               belongsToTenant: tenantDoc.exists,
               user: ({
@@ -111,7 +111,7 @@ export class OrganisationService {
       )
     )
 
-    return members.filter(member => member.belongsToTenant)
+    return members.filter((member) => member.belongsToTenant)
   }
 
   /**
@@ -122,7 +122,7 @@ export class OrganisationService {
     organisationId: string
   ): Promise<ReadonlyArray<IUser>> {
     // TODO should filter out users that are already part of organisation
-    return (await this.db.collection('users').get()).docs.map(user => {
+    return (await this.db.collection('users').get()).docs.map((user) => {
       return ({
         ...user.data(),
         uid: user.id,
