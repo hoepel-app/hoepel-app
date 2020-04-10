@@ -16,19 +16,18 @@ const getLoggerForStatusCode = (statusCode: number): Logger => {
 }
 
 const getUid = (req: Request): string | null => {
-  const header = req.header('Authorization')
-  const bearerPrefix = 'Bearer: '
+  const header = req
+    .header('Authorization')
+    ?.trim()
+    ?.replace('Bearer: ', '')
+    ?.replace('Bearer ', '')
 
   if (header == null) {
     return null
   }
 
-  if (!header.startsWith(bearerPrefix)) {
-    return null
-  }
-
   try {
-    const token = decode(header.slice(bearerPrefix.length))
+    const token = decode(header)
     return token ? 'uid:' + token.sub : ''
   } catch (err) {
     return null
