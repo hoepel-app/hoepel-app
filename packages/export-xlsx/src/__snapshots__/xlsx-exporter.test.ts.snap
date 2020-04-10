@@ -675,6 +675,7 @@ Object {
           "width": 25,
         },
         Object {
+          "hideIfNoSetValues": true,
           "title": "Leeftijdsgroep",
           "values": Array [
             undefined,
@@ -693,11 +694,22 @@ Object {
           "width": 20,
         },
         Object {
+          "hideIfNoSetValues": true,
           "title": "Beschrijving",
           "values": Array [
             "Omschrijving 2",
             "Omschrijving 2",
             "Omschrijving 1",
+          ],
+          "width": 25,
+        },
+        Object {
+          "hideIfNoSetValues": true,
+          "title": "Locatie",
+          "values": Array [
+            "Gewoon op het speelplein",
+            "Gewoon op het speelplein",
+            undefined,
           ],
           "width": 25,
         },

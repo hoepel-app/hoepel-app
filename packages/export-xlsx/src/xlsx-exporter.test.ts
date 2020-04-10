@@ -111,6 +111,7 @@ describe('XlsxExporter', () => {
       start: { hour: 13, minute: 0 },
       end: { hour: 17, minute: 30 },
     },
+    location: 'Gewoon op het speelplein',
   })
   const shift3 = new Shift({
     id: 'shift-id-4',
@@ -119,7 +120,7 @@ describe('XlsxExporter', () => {
     dayId: '2019-08-05',
     price: new Price({ euro: 20, cents: 0 }),
     kind: 'Externe activiteit',
-    description: 'Bellewaerde met de tieners',
+    description: 'Bellewaerde met de tieners'
   })
 
   const contactPerson1 = ContactPerson.empty()

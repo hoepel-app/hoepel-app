@@ -9,16 +9,18 @@ export type SpreadsheetCellValue =
   | Price
   | undefined
 
+export type SpreadsheetWorksheetColumn = {
+  title?: SpreadsheetCellValue
+  values: ReadonlyArray<SpreadsheetCellValue>
+  width?: number
+  hideIfNoSetValues?: boolean
+}
+
 /** Represents an Excel/spreadsheet worksheet (a "tab" in a spreadsheet) */
 export interface SpreadsheetWorksheet {
   name: string
 
-  columns: ReadonlyArray<{
-    title?: SpreadsheetCellValue
-    values: ReadonlyArray<SpreadsheetCellValue>
-    width?: number
-    hideIfNoSetValues?: boolean
-  }>
+  columns: ReadonlyArray<SpreadsheetWorksheetColumn>
 }
 
 // This interface decouples the results so they don't use SheetJS directly

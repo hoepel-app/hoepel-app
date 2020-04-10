@@ -340,6 +340,7 @@ export class XlsxExporter {
               title: 'Leeftijdsgroep',
               values: rows.map(row => row.ageGroupName),
               width: 20,
+              hideIfNoSetValues: true,
             },
             {
               title: 'Soort',
@@ -350,6 +351,13 @@ export class XlsxExporter {
               title: 'Beschrijving',
               values: rows.map(row => row.shift.description),
               width: 25,
+              hideIfNoSetValues: true,
+            },
+            {
+              title: 'Locatie',
+              values: rows.map(row => row.shift.location),
+              width: 25,
+              hideIfNoSetValues: true,
             },
           ],
         },

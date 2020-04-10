@@ -106,6 +106,12 @@ const spreadSheetData: SpreadsheetData = {
           ],
           width: 22,
         },
+        {
+          title: 'This column has no set values',
+          values: [undefined, undefined, undefined, ''],
+          width: 22,
+          hideIfNoSetValues: true,
+        },
       ],
       name: 'Data fiscale attesten 2019',
     },

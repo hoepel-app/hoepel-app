@@ -4,6 +4,7 @@ import {
   SpreadsheetData,
   SpreadsheetCellValue,
   SpreadsheetWorksheet,
+  SpreadsheetWorksheetColumn,
 } from './spreadsheet-types'
 import { DayDate, Price } from '@hoepel.app/types'
 
@@ -32,10 +33,23 @@ export const buildExcelFile = (data: SpreadsheetData): LocalFile => {
     }
   }
 
+  const columnShouldBeDropped = (
+    column: SpreadsheetWorksheetColumn
+  ): boolean => {
+    return (
+      column.hideIfNoSetValues === true &&
+      column.values.filter(value => value != null && value != '').length === 0
+    )
+  }
+
   const createWorksheet = (ws: SpreadsheetWorksheet): XLSX.WorkSheet => {
     const result: XLSX.WorkSheet = {}
 
-    ws.columns.forEach((column, columnIdx) => {
+    const filteredColumns = ws.columns.filter(
+      column => !columnShouldBeDropped(column)
+    )
+
+    filteredColumns.forEach((column, columnIdx) => {
       const columnValues =
         column.title == null ? column.values : [column.title, ...column.values]
 
@@ -47,13 +61,15 @@ export const buildExcelFile = (data: SpreadsheetData): LocalFile => {
     })
 
     // Set column widths
-    result['!cols'] = ws.columns.map(column =>
+    result['!cols'] = filteredColumns.map(column =>
       column.width ? { wch: column.width } : {}
     )
 
     // Set sheet range
-    const numColumns = ws.columns.length
-    const numRows = Math.max(...ws.columns.map(column => column.values.length))
+    const numColumns = filteredColumns.length
+    const numRows = Math.max(
+      ...filteredColumns.map(column => column.values.length)
+    )
     result['!ref'] =
       XLSX.utils.encode_cell({ c: 0, r: 0 }) +
       ':' +
