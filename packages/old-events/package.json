@@ -7,7 +7,5 @@
   "dependencies": {
     "@hoepel.app/types": "^1.9.0"
   },
-  "publishConfig": {
-    "access": "public"
-  }
+  "private": true
 }

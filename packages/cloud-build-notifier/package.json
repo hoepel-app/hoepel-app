@@ -10,7 +10,5 @@
     "@slack/webhook": "^5.0.3",
     "firebase-functions": "^3.5.0"
   },
-  "publishConfig": {
-    "access": "public"
-  }
+  "private": true
 }

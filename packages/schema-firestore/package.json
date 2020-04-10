@@ -18,8 +18,5 @@
         "ts-node": "^8.4.1",
         "typescript": "^3.7.2"
     },
-    "private": false,
-    "publishConfig": {
-        "access": "public"
-    }
+    "private": true
 }
