@@ -212,7 +212,11 @@ const handleDocumentChange = async (
   timestamp: string,
   change: functions.Change<DocumentSnapshot | undefined>
 ): Promise<void> => {
-  if (collectionId === FIRESTORE_EVENTS_COLLECTION) {
+  if (
+    collectionId === FIRESTORE_EVENTS_COLLECTION ||
+    collectionId === 'events'
+  ) {
+    // TODO 'events' is used by user creation/deletion/... events
     return Promise.resolve() // No infinite loops
   }
 

@@ -1,5 +1,5 @@
 import * as functions from 'firebase-functions'
-import { nodemailerMailgun } from '../services/mailgun'
+import { notifyAdmin } from '../services/mailgun'
 import * as admin from 'firebase-admin'
 
 const db = admin.firestore()
@@ -20,11 +20,8 @@ export const onUserDeletedSendMailAndDeleteDoc = functions
       .collection('tenants')
       .get()
 
-    await nodemailerMailgun.sendMail({
-      from: 'noreply@mail.hoepel.app',
-      to: 'thomas@toye.io',
+    await notifyAdmin({
       subject: `Persoon verwijderd: ${user.displayName || user.email}`,
-      replyTo: 'help@hoepel.app',
       text: `Een persoon heeft zijn/haar account verwijderd. Naam: ${user.displayName ||
         '<geen naam>'}, contact: ${
         user.email

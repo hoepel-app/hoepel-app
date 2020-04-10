@@ -1,4 +1,4 @@
-import { IncomingWebhook } from '@slack/client'
+import { IncomingWebhook } from '@slack/webhook'
 import * as functions from 'firebase-functions'
 
 // Send Slack message on build events

@@ -1,5 +1,5 @@
 import * as functions from 'firebase-functions'
-import { nodemailerMailgun } from '../services/mailgun'
+import { notifyAdmin } from '../services/mailgun'
 import * as admin from 'firebase-admin'
 
 const db = admin.firestore()
@@ -8,12 +8,9 @@ export const onUserCreatedSendMail = functions
   .region('europe-west1')
   .auth.user()
   .onCreate(async user => {
-    await nodemailerMailgun.sendMail({
-      from: 'noreply@mail.hoepel.app',
-      to: 'thomas@toye.io',
+    await notifyAdmin({
       subject: `Nieuwe persoon geregistreerd: ${user.displayName ||
         user.email}`,
-      replyTo: 'help@hoepel.app',
       text: `Een nieuwe persoon heeft zich geregistreerd. Naam: ${user.displayName ||
         '<geen naam>'}, contact: ${user.email}. Details als bijlage.`,
       attachments: [

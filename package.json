@@ -10,11 +10,14 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "tsc --build packages",
+    "build": "yarn run build:ts && yarn run build:functions-bundle",
+    "build:ts": "tsc --build packages",
+    "build:functions-bundle": "yarn workspace @hoepel.app/firebase-functions run bundle",
     "clean": "yarn build --clean",
     "lint": "yarn eslint '**/*.{ts,js}' --ignore-path .gitignore --cache --fix",
+    "lint:no-fix": "yarn eslint '**/*.{ts,js}' --ignore-path .gitignore --cache",
     "pretest": "yarn clean && yarn build",
-    "test": "yarn lint && lerna run test",
+    "test": "yarn lint:no-fix && lerna run test",
     "prepublish": "yarn test",
     "publish": "lerna publish",
     "predeploy": "yarn test",
@@ -28,8 +31,12 @@
     "@typescript-eslint/parser": "^2.19.2",
     "eslint": "^6.6.0",
     "eslint-config-prettier": "^6.6.0",
+    "eslint-config-standard": "^14.1.1",
     "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
     "husky": "^4.2.3",
     "lerna": "^3.18.4",
     "lint-staged": "^10.0.7",
@@ -43,6 +50,9 @@
   },
   "lint-staged": {
     "*.js": [
+      "eslint --fix"
+    ],
+    "*.ts": [
       "eslint --fix"
     ]
   }

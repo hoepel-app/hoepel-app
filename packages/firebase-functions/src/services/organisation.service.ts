@@ -1,6 +1,6 @@
 import * as admin from 'firebase-admin'
 import { permissions as allPermissions, Tenant, IUser } from '@hoepel.app/types'
-import { nodemailerMailgun } from './mailgun'
+import { notifyAdmin } from './mailgun'
 
 type TenantClaims = {
   [tenantName: string]: true
@@ -140,11 +140,8 @@ export class OrganisationService {
     organisation: Tenant,
     user: Record<string, unknown>
   ): Promise<void> {
-    return await nodemailerMailgun.sendMail({
-      from: 'noreply@mail.hoepel.app',
-      to: 'thomas@toye.io',
+    return await notifyAdmin({
       subject: `Nieuwe organisatie geregistreerd: ${organisation.name}`,
-      replyTo: 'help@hoepel.app',
       text: `Een nieuwe organisatie heeft zich geregistreerd. Naam: ${organisation.name}, contact: ${organisation.contactPerson.name}. Details als bijlage.`,
       attachments: [
         {

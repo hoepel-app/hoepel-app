@@ -12,7 +12,6 @@ export class UserService {
       .collection('users')
       .doc(uid)
       .set({ acceptedPrivacyPolicy: new Date() }, { merge: true })
-    return
   }
 
   async acceptTermsAndConditions(uid: string): Promise<void> {
@@ -20,7 +19,6 @@ export class UserService {
       .collection('users')
       .doc(uid)
       .set({ acceptedTermsAndConditions: new Date() }, { merge: true })
-    return
   }
 
   getUsers(

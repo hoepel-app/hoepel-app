@@ -9,7 +9,8 @@
     "serve": "yarn build && GOOGLE_APPLICATION_CREDENTIALS=key.json firebase serve --only functions",
     "shell": "yarn build && GOOGLE_APPLICATION_CREDENTIALS=key.json firebase functions:shell",
     "start": "yarn shell",
-    "logs": "firebase functions:log"
+    "logs": "firebase functions:log",
+    "bundle": "./create-bundle.sh"
   },
   "private": true,
   "dependencies": {
@@ -31,13 +32,13 @@
     "jsonwebtoken": "^8.5.1",
     "jszip": "^2.6.1",
     "lodash": "^4.17.15",
-    "nodemailer": "^6.3.1",
-    "nodemailer-mailgun-transport": "^2.0.0"
+    "mailgun-js": "^0.22.0"
   },
   "devDependencies": {
     "@google-cloud/storage": "^4.3.0",
     "@types/jsonwebtoken": "^8.3.7",
     "@types/lodash": "^4.14.138",
+    "@types/mailgun-js": "^0.22.4",
     "@types/node": "^8.10.59",
     "@types/nodemailer": "^6.2.2",
     "@typescript-eslint/eslint-plugin": "^2.19.2",
@@ -51,8 +52,12 @@
     "husky": "^4.2.3",
     "lerna": "^3.18.4",
     "lint-staged": "^10.0.7",
+    "ts-loader": "^6.2.2",
     "ts-node": "^8.5.4",
-    "typescript": "^3.7.2"
+    "typescript": "^3.7.2",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11",
+    "webpack-node-externals": "^1.7.2"
   },
   "engines": {
     "node": "10"

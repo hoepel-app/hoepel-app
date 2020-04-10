@@ -184,8 +184,8 @@ describe('buildExcelFile', () => {
     // > Excel has no native concept of universal time
     // > All times are specified in the local time zone.
     // > Excel limitations prevent specifying true absolute dates.
-    expect(readFile.Sheets['My Worksheet']['A1']['w']).toBe('8/23/20')
-    expect(readFile.Sheets['My Worksheet']['A1']['t']).toBe('n')
-    expect(typeof readFile.Sheets['My Worksheet']['A1']['v']).toBe('number')
+    expect(readFile.Sheets['My Worksheet'].A1.w).toBe('8/23/20')
+    expect(readFile.Sheets['My Worksheet'].A1.t).toBe('n')
+    expect(typeof readFile.Sheets['My Worksheet'].A1.v).toBe('number')
   })
 })

@@ -3,7 +3,7 @@ import { OrganisationId } from './organisation-id'
 
 type UserInfo = { uid: string; email: string }
 
-/**Type of a function that creates an event with payload of type T */
+/** Type of a function that creates an event with payload of type T */
 export type CreateEvent<NAME extends EventName, T> = (
   data: T,
   organisationId: string,
@@ -23,7 +23,7 @@ export const createEvent = <NAME extends EventName, T>(
     name == null ||
     payload == null ||
     organisationId == null ||
-    organisationId == '' ||
+    organisationId === '' ||
     timestamp == null ||
     user == null
   ) {

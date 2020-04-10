@@ -31,12 +31,15 @@ export class Rule {
   private get createExpression(): string | null {
     return this.buildExpression('create', this.options.allowCreate)
   }
+
   private get readExpression(): string | null {
     return this.buildExpression('read', this.options.allowRead)
   }
+
   private get updateExpression(): string | null {
     return this.buildExpression('update', this.options.allowUpdate)
   }
+
   private get deleteExpression(): string | null {
     return this.buildExpression('delete', this.options.allowDelete)
   }

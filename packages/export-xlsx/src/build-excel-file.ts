@@ -24,7 +24,7 @@ export const buildExcelFile = (data: SpreadsheetData): LocalFile => {
       }
     } else if (v instanceof Price) {
       return { v: v.toString(), t: 's' } // TODO currency formatting
-    } else if (v == undefined) {
+    } else if (v == null) {
       return { t: 'z' }
     } else {
       throw new Error(
@@ -38,7 +38,7 @@ export const buildExcelFile = (data: SpreadsheetData): LocalFile => {
   ): boolean => {
     return (
       column.hideIfNoSetValues === true &&
-      column.values.filter(value => value != null && value != '').length === 0
+      column.values.filter(value => value != null && value !== '').length === 0
     )
   }
 

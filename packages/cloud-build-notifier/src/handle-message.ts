@@ -1,5 +1,5 @@
 import * as functions from 'firebase-functions'
-import { IncomingWebhookSendArguments, IncomingWebhook } from '@slack/client'
+import { IncomingWebhookSendArguments, IncomingWebhook } from '@slack/webhook'
 
 type Build = {
   status:
@@ -19,7 +19,7 @@ type Build = {
 }
 
 const eventToBuild = (data: string): Build => {
-  return JSON.parse(new Buffer(data, 'base64').toString())
+  return JSON.parse(Buffer.from(data, 'base64').toString())
 }
 
 const createSlackMessage = (build: Build): IncomingWebhookSendArguments => {
