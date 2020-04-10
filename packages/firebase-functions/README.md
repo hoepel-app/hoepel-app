@@ -21,17 +21,13 @@ Set these keys using `firebase functions:config`.
 
 ## Run functions locally
 
-First, get the config (do this in the repo root, next to `firebase.json`):
+First, get the config:
 
 ```
 $ firebase functions:config:get > .runtimeconfig.json
 ```
 
-Get a service account key and export it:
-
-```
-$ export GOOGLE_APPLICATION_CREDENTIALS=key.json
-```
+Get a service account key and place it in this directory as `key.json`.
 
 Then, serve using Firebase emulator:
 

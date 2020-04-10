@@ -6,8 +6,8 @@
   "license": "GPL-3.0-or-later",
   "scripts": {
     "build": "tsc",
-    "serve": "yarn build && GOOGLE_APPLICATION_CREDENTIALS=key.json firebase serve --only functions",
-    "shell": "yarn build && GOOGLE_APPLICATION_CREDENTIALS=key.json firebase functions:shell",
+    "serve": "yarn build && GOOGLE_APPLICATION_CREDENTIALS=\"$PWD/key.json\" firebase serve --only functions",
+    "shell": "yarn build && GOOGLE_APPLICATION_CREDENTIALS=\"$PWD/key.json\" firebase functions:shell",
     "start": "yarn shell",
     "logs": "firebase functions:log",
     "bundle": "./create-bundle.sh"
