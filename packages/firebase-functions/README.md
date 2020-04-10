@@ -21,17 +21,13 @@ Set these keys using `firebase functions:config`.
 
 ## Run functions locally
 
-First, get the config (do this in the repo root, next to `firebase.json`):
+First, get the config:
 
 ```
 $ firebase functions:config:get > .runtimeconfig.json
 ```
 
-Get a service account key and export it:
-
-```
-$ export GOOGLE_APPLICATION_CREDENTIALS=key.json
-```
+Get a service account key and place it in this directory as `key.json`.
 
 Then, serve using Firebase emulator:
 
@@ -41,7 +37,7 @@ $ yarn shell
 
 ## Why functions are bundled before shipping them to Firebase
 
-Webpack is used to bundle functions in `dist-webpack` with a minimal `package.json` file before deploying that folder to Firebase Functions. The reason is that Firebase Functions uses `package.json` to load dependencies on invocation. They cache heavily used packages, but if you use an obscure package or version, you may run into long cold start-up times. Also, it seems to have problems with packages that were recently (<15m ago) published to NPM, leading to non-deterministic behaviour (often only for a subset of functions, even when they depend on the same package!).
+Webpack is used to bundle functions in `dist-webpack` with a minimal `package.json` file before deploying that folder to Firebase Functions. The reason is that Firebase Functions uses `package.json` to load dependencies on invocation. They cache heavily used packages, but if you use an obscure package or version, you may run into long cold start-up times. Also, it seems to have problems with packages that were recently (<15m ago) published to NPM, leading to non-deterministic behaviour (often only for a subset of functions, even when they depend on the same package!). This breaks a monorepo CI workflow, where packages are dependent on others in the same monorepo, and get published right before deployment.
 
 Therefore, functions are bundled locally. Firebase is then asked to publish the bundled functions.
 
@@ -68,4 +64,3 @@ Then run:
 ```
 $ gsutil cors set cors.json gs://hoepel-app.appspot.com
 ```
-
