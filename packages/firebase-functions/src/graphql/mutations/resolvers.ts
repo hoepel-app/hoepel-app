@@ -25,7 +25,7 @@ import { OrganisationService } from '../../services/organisation.service'
 import { FileService } from '../../services/file.service'
 import { TemplateService } from '../../services/template.service'
 import { assertHasPermission } from '../assert-has-permission'
-import { Permission } from '@hoepel.app/types'
+import { Permission, DayDate } from '@hoepel.app/types'
 import { AuthorizationService } from '../authorization-service'
 
 const db = admin.firestore()
@@ -186,9 +186,44 @@ export const resolvers: IResolvers = {
             context.token.uid,
             reportYear
           )
+        case 'day-overview':
+          throw new Error(
+            'Use createDayOverviewReport to create day overview reports'
+          )
         default:
           throw new Error(`No exporter found for ${type}`)
       }
+    },
+    createDayOverviewReport: async (
+      obj,
+      {
+        tenant,
+        format,
+        dayId,
+      }: { tenant: string; format: string; dayId: string },
+      context: Context
+    ) => {
+      AuthorizationService.assertLoggedIn(context)
+      await assertHasPermission(
+        context.token.uid,
+        tenant,
+        Permission.ReportsRequest
+      )
+
+      const day = DayDate.fromDayId(dayId)
+
+      const createdBy = context.user.displayName || context.user.email || ''
+
+      if (format !== 'XLSX') {
+        throw new Error('Only XLSX is supported as format')
+      }
+
+      return await fileService.exportDayOverview(
+        tenant,
+        createdBy,
+        context.token.uid,
+        day
+      )
     },
     testTemplate: async (
       obj,

@@ -6,6 +6,7 @@ import {
   Crew,
   Price,
   Shift,
+  DayDate,
 } from '@hoepel.app/types'
 
 describe('XlsxExporter', () => {
@@ -236,6 +237,51 @@ describe('XlsxExporter', () => {
     expect(res.filename).toBe('Aanwezigheden kinderen 2019')
     expect(res.worksheets).toHaveLength(1)
     expect(res.worksheets[0].name).toBe('Aanwezigheden kinderen 2019')
+    expect(res.worksheets[0].name.length).toBeLessThan(31) // Excel worksheet names must be <31 characters
+
+    expect(res).toMatchSnapshot()
+  })
+
+  it('createDayOverview', () => {
+    const res = exporter.createDayOverview(
+      [child1, child2, child3],
+      [shift2, shift1, shift3],
+      [
+        {
+          shiftId: 'shift-id-2',
+          attendances: {
+            'child-id-2': {
+              didAttend: true,
+              amountPaid: { euro: 5, cents: 0 },
+            },
+            'child-id-1': {
+              didAttend: true,
+              amountPaid: { euro: 6, cents: 0 },
+            },
+            'child-id-3': {
+              didAttend: false,
+              amountPaid: { euro: 2, cents: 50 },
+              ageGroupName: 'Kleuters',
+            },
+          },
+        },
+        {
+          shiftId: 'shift-id-1',
+          attendances: {
+            'child-id-1': {
+              didAttend: true,
+              amountPaid: { euro: 7, cents: 20 },
+              ageGroupName: 'Tieners',
+            },
+          },
+        },
+      ],
+      new DayDate({ year: 2019, month: 4, day: 3 })
+    )
+
+    expect(res.filename).toBe('Overzicht voor 03-04-2019')
+    expect(res.worksheets).toHaveLength(1)
+    expect(res.worksheets[0].name).toBe('Aanwezigheden kinderen')
     expect(res.worksheets[0].name.length).toBeLessThan(31) // Excel worksheet names must be <31 characters
 
     expect(res).toMatchSnapshot()

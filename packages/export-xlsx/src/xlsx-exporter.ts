@@ -16,6 +16,7 @@ import {
 import { AddressDomainService } from '@hoepel.app/domain'
 import { SpreadsheetData } from './spreadsheet-types'
 import groupBy from 'lodash.groupby'
+import flatMap from 'lodash.flatmap'
 
 export class XlsxExporter {
   createChildList(list: ReadonlyArray<IChild>): SpreadsheetData {
@@ -275,6 +276,80 @@ export class XlsxExporter {
         },
       ],
       filename: `Aanwezigheden animatoren ${year}`,
+    }
+  }
+
+  /**
+   * Create a spreadsheet showing information for a specific day
+   * @param allChildren All crew members for this tenant
+   * @param shifts All shifts on day
+   * @param childAttendances Child attendances for the given shifts
+   * @param day The day for which this spreadsheet is requested
+   */
+  createDayOverview(
+    allChildren: ReadonlyArray<Child>,
+    shifts: ReadonlyArray<Shift>,
+    childAttendances: ReadonlyArray<{
+      shiftId: string
+      attendances: { [childId: string]: IDetailedChildAttendance }
+    }>,
+    day: DayDate
+  ): SpreadsheetData {
+    const relevantShifts = shifts.filter(shift => shift.dayId === day.toDayId())
+
+    const rows: {
+      firstName: string
+      lastName: string
+      ageGroupName?: string
+      shift: Shift
+    }[] = flatMap(
+      relevantShifts.map(shift => {
+        const childAttendancesForShift =
+          childAttendances.find(att => att.shiftId === shift.id)?.attendances ??
+          {}
+        const richAttendances = new DetailedAttendancesOnShift(
+          shift.id!,
+          childAttendancesForShift,
+          {}
+        )
+
+        const filteredChildren = richAttendances
+          .attendingChildren()
+          .map(childId => allChildren.find(child => child.id === childId))
+          .filter(child => child != null) as readonly Child[]
+
+        return filteredChildren.map(child => {
+          return {
+            firstName: child.firstName,
+            lastName: child.lastName,
+            ageGroupName: childAttendancesForShift[child.id!]?.ageGroupName,
+            shift,
+          }
+        })
+      })
+    )
+
+    return {
+      filename: `Overzicht voor ${day.toDDMMYYYY('-')}`,
+      worksheets: [
+        {
+          name: 'Aanwezigheden kinderen',
+          columns: [
+            { values: ['Voornaam', ...rows.map(row => row.firstName)] },
+            { values: ['Achternaam', ...rows.map(row => row.lastName)] },
+            {
+              values: ['Leeftijdsgroep', ...rows.map(row => row.ageGroupName)],
+            },
+            { values: ['Soort', ...rows.map(row => row.shift.kind)] },
+            {
+              values: [
+                'Beschrijving',
+                ...rows.map(row => row.shift.description),
+              ],
+            },
+          ],
+        },
+      ],
     }
   }
 

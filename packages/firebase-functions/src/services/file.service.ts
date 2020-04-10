@@ -1,4 +1,4 @@
-import { FileType, IReport } from '@hoepel.app/types'
+import { FileType, IReport, DayDate } from '@hoepel.app/types'
 import * as admin from 'firebase-admin'
 import { IChildRepository } from './child.service'
 import { ICrewRepository } from './crew.service'
@@ -147,6 +147,36 @@ export class FileService {
       createdBy,
       uid,
       'child-attendances'
+    )
+  }
+
+  async exportDayOverview(
+    tenant: string,
+    createdBy: string,
+    uid: string,
+    day: DayDate
+  ): Promise<FirestoreFileDocument> {
+    const allChildren = await this.childRepository.getAll(tenant)
+    const shifts = await this.shiftService.getShiftsOnDay(tenant, day)
+
+    const childAttendances = await this.childAttendanceService.getChildAttendancesOnShifts(
+      tenant,
+      shifts
+    )
+
+    const spreadsheet = this.xlsxExporter.createDayOverview(
+      allChildren,
+      shifts,
+      childAttendances,
+      day
+    )
+
+    return await this.saveXlsxFile(
+      spreadsheet,
+      tenant,
+      createdBy,
+      uid,
+      'day-overview'
     )
   }
 

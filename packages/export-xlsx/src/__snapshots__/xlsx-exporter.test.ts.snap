@@ -649,3 +649,56 @@ Object {
   ],
 }
 `;
+
+exports[`XlsxExporter createDayOverview 1`] = `
+Object {
+  "filename": "Overzicht voor 03-04-2019",
+  "worksheets": Array [
+    Object {
+      "columns": Array [
+        Object {
+          "values": Array [
+            "Voornaam",
+            "Kind 2",
+            "Kind 1",
+            "Kind 1",
+          ],
+        },
+        Object {
+          "values": Array [
+            "Achternaam",
+            "Achter",
+            "Achter",
+            "Achter",
+          ],
+        },
+        Object {
+          "values": Array [
+            "Leeftijdsgroep",
+            undefined,
+            undefined,
+            "Tieners",
+          ],
+        },
+        Object {
+          "values": Array [
+            "Soort",
+            "Namiddag",
+            "Namiddag",
+            "Voormiddag",
+          ],
+        },
+        Object {
+          "values": Array [
+            "Beschrijving",
+            "Omschrijving 2",
+            "Omschrijving 2",
+            "Omschrijving 1",
+          ],
+        },
+      ],
+      "name": "Aanwezigheden kinderen",
+    },
+  ],
+}
+`;

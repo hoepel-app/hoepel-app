@@ -707,10 +707,10 @@
     lodash.camelcase "^4.3.0"
     protobufjs "^6.8.6"
 
-"@hoepel.app/types@^1.6.0", "@hoepel.app/types@^1.8.0":
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/@hoepel.app/types/-/types-1.8.0.tgz#1f52b84123185445a22fb43922ec9801edeecd9b"
-  integrity sha512-5bO/1BaPkiYrZLgqlr4arwoPsB2KlNKh1AK/NKktBKbAJU3lbeuNeVhLWlOSwf5eOTQ2pnZj/6E4acDSqSp7Sw==
+"@hoepel.app/types@^1.9.0":
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/@hoepel.app/types/-/types-1.9.0.tgz#c298d8e0923908898bfbab66eed85d522c5cb152"
+  integrity sha512-3IoPDdX4mCRpAc6h/0D/RFc5CbXJULW2XrzMl5JgShmKRyYaAKEh5+9izT4GzYhD5xAF99HMV4JfWFpNE58pzA==
   dependencies:
     virginity-ts "^0.1.0"
 
@@ -2287,6 +2287,13 @@
     "@types/keygrip" "*"
     "@types/koa-compose" "*"
     "@types/node" "*"
+
+"@types/lodash.flatmap@^4.5.6":
+  version "4.5.6"
+  resolved "https://registry.yarnpkg.com/@types/lodash.flatmap/-/lodash.flatmap-4.5.6.tgz#5f1ea80cebe403f0fbfcc1b5ad75cd09dd8b5785"
+  integrity sha512-ELNrUL9q+MB7AACaHivWIsKDFDgYhHE3/svXhqvDJgONtn2c467Cy87nEb7CEDvfaGCPv91lPaW596I8s5oiNQ==
+  dependencies:
+    "@types/lodash" "*"
 
 "@types/lodash.groupby@^4.6.6":
   version "4.6.6"
@@ -7526,6 +7533,11 @@ lodash.clonedeep@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz#e23f3f9c4f8fbdde872529c1071857a086e5ccef"
   integrity sha1-4j8/nE+Pvd6HJSnBBxhXoIblzO8=
+
+lodash.flatmap@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/lodash.flatmap/-/lodash.flatmap-4.5.0.tgz#ef8cbf408f6e48268663345305c6acc0b778702e"
+  integrity sha1-74y/QI9uSCaGYzRTBcaswLd4cC4=
 
 lodash.get@^4.4.2:
   version "4.4.2"

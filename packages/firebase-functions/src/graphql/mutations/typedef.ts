@@ -21,6 +21,11 @@ export const typeDef = gql`
       format: ReportFileFormat!
       year: Int
     ): Report!
+    createDayOverviewReport(
+      tenant: ID!
+      format: ReportFileFormat!
+      dayId: String!
+    ): Report!
 
     testTemplate(tenant: ID!, templateFileName: String!): TestTemplateOutput!
     fillInTemplate(
