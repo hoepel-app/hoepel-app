@@ -5,7 +5,9 @@ import { createTenantRepository } from '../../services/tenant.service'
 const tenantRepo = createTenantRepository(admin.firestore())
 
 export class Tenant {
-  static async tenants(user: IUser): Promise<readonly Partial<ITenant>[]> {
+  static async tenants(
+    user: IUser | null
+  ): Promise<readonly Partial<ITenant>[]> {
     const tenants = await tenantRepo.getAll()
 
     if (user == null) {
@@ -15,7 +17,10 @@ export class Tenant {
     return tenants
   }
 
-  static async tenant(user: IUser, id: string): Promise<Partial<ITenant>> {
+  static async tenant(
+    user: IUser | null,
+    id: string
+  ): Promise<Partial<ITenant>> {
     const tenant = await tenantRepo.get(id)
 
     if (user == null) {
