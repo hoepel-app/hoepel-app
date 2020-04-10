@@ -39,7 +39,7 @@ export class AddressDomainService {
       return child.address
     } else if (child.primaryContactPerson) {
       const primaryContactPerson = contactPeople.find(
-        (person) => person.id === child.primaryContactPerson.contactPersonId
+        person => person.id === child.primaryContactPerson.contactPersonId
       )
 
       if (primaryContactPerson && primaryContactPerson.address.isValid) {
@@ -60,9 +60,8 @@ export class AddressDomainService {
     if (!address) {
       return '(geen adres opgegeven)'
     } else {
-      return `${address.street || ''} ${address.number || ''}, ${
-        address.zipCode || ''
-      } ${address.city || ''}`
+      return `${address.street || ''} ${address.number ||
+        ''}, ${address.zipCode || ''} ${address.city || ''}`
     }
   }
 }

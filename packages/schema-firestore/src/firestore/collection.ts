@@ -37,7 +37,7 @@ export abstract class Collection {
 
       const forbiddenWords = forbidden[operationName]
 
-      forbiddenWords.forEach((forbiddenWord) => {
+      forbiddenWords.forEach(forbiddenWord => {
         if (permission.includes(forbiddenWord)) {
           throw new Error(
             `Permission for ${operationName} operation '${permission}' contains confusing word '${forbiddenWord}'. This is probably a mistake.`

@@ -22,7 +22,7 @@ export const onCrewAttendanceCreate = functions
       .collection('crew-attendances-by-shift')
       .doc(shiftId)
       .get()
-      .then((doc) => {
+      .then(doc => {
         if (doc.exists) {
           const data = doc.data()
           if (data != null && data.tenant === tenant) {
@@ -53,13 +53,15 @@ export const onCrewAttendanceCreate = functions
       .collection('crew-attendances-by-crew')
       .doc(crewId)
       .get()
-      .then((doc) => {
+      .then(doc => {
         if (doc.exists) {
           const data = doc.data()
           if (data != null && data.tenant === tenant) {
             const update: { [key: string]: IDetailedCrewAttendance } = {}
             update['attendances.' + shiftId] = details
-            db.collection('crew-attendances-by-crew').doc(crewId).update(update)
+            db.collection('crew-attendances-by-crew')
+              .doc(crewId)
+              .update(update)
           } else {
             console.error(
               'Tried to update a crew attendance document belonging to a different tenant! Existing doc: ' +
@@ -104,13 +106,15 @@ export const onCrewAttendanceDelete = functions
       .collection('crew-attendances-by-shift')
       .doc(shiftId)
       .get()
-      .then((doc) => {
+      .then(doc => {
         if (doc.exists) {
           const data = doc.data()
           if (data != null && data.tenant === tenant) {
             const update = { ...data }
             delete update.attendances[crewId]
-            db.collection('crew-attendances-by-shift').doc(shiftId).set(update)
+            db.collection('crew-attendances-by-shift')
+              .doc(shiftId)
+              .set(update)
           } else {
             console.error(
               'Tried to update a crew attendance document belonging to a different tenant! Existing doc: ' +
@@ -131,13 +135,15 @@ export const onCrewAttendanceDelete = functions
       .collection('crew-attendances-by-crew')
       .doc(crewId)
       .get()
-      .then((doc) => {
+      .then(doc => {
         if (doc.exists) {
           const data = doc.data()
           if (data != null && data.tenant === tenant) {
             const update = { ...data }
             delete update.attendances[shiftId]
-            db.collection('crew-attendances-by-crew').doc(crewId).set(update)
+            db.collection('crew-attendances-by-crew')
+              .doc(crewId)
+              .set(update)
           } else {
             console.error(
               'Tried to set a crew attendance document belonging to a different tenant! Existing doc: ' +

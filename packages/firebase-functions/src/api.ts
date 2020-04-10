@@ -41,7 +41,7 @@ app.use('/', (req, res) => res.json({}))
 // Error handlers
 
 app.use((err, req, res, next) => {
-  Sentry.configureScope((scope) => {
+  Sentry.configureScope(scope => {
     const authorization = req.header('Authorization')
 
     if (!authorization || !authorization?.split(' ')?.[0]) {
@@ -54,7 +54,7 @@ app.use((err, req, res, next) => {
     admin
       .auth()
       .verifyIdToken(token[1])
-      .then((user) => {
+      .then(user => {
         scope.setUser({
           email: user.email,
           id: user.uid,

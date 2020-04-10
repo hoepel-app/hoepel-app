@@ -23,7 +23,7 @@ type NotifyAdminPayload = {
 
 export const mail = async (mail: Mail): Promise<void> => {
   const attachments = mail.attachments.map(
-    (att) =>
+    att =>
       new mailgun.Attachment({
         data: Buffer.from(att.content, 'utf-8'),
         filename: att.filename,

@@ -5,11 +5,11 @@ export const createFirestoreRulesForCollections = (
   extraRules: readonly Rule[] = []
 ): string => {
   const rulesFromSchemaAsText = collections
-    .map((collection) => collection.firestoreRules)
-    .map((rules) => rules.map((rule) => rule.toString()).join('\n\n'))
+    .map(collection => collection.firestoreRules)
+    .map(rules => rules.map(rule => rule.toString()).join('\n\n'))
     .join('\n\n')
 
-  const extraRulesText = extraRules.map((rule) => rule.toString()).join('\n\n')
+  const extraRulesText = extraRules.map(rule => rule.toString()).join('\n\n')
 
   return [
     'service cloud.firestore {',
@@ -24,5 +24,5 @@ export const createFirestoreRulesForCollections = (
 const indent = (str: string, indentation = '  '): string =>
   str
     .split('\n')
-    .map((line) => indentation + line)
+    .map(line => indentation + line)
     .join('\n')

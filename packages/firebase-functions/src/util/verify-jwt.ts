@@ -11,17 +11,17 @@ const getJwtKeys = (): Promise<ReadonlyArray<string>> =>
   new Promise((resolve, reject) => {
     get(
       'https://www.googleapis.com/robot/v1/metadata/x509/securetoken@system.gserviceaccount.com',
-      (res) => {
+      res => {
         let data = ''
 
-        res.on('data', (chunk) => {
+        res.on('data', chunk => {
           data += chunk
         })
 
         res.on('end', () => {
           try {
             const parsed: GoogleKeyResponse = JSON.parse(data)
-            resolve(Object.keys(parsed).map((name) => parsed[name]))
+            resolve(Object.keys(parsed).map(name => parsed[name]))
           } catch (err) {
             console.error(
               'Error while parsing response of Google JWT keys',
@@ -31,7 +31,7 @@ const getJwtKeys = (): Promise<ReadonlyArray<string>> =>
           }
         })
       }
-    ).on('error', (err) => {
+    ).on('error', err => {
       console.error('Could not get JWT keys', err)
       reject(err)
     })
@@ -54,7 +54,7 @@ export const verifyJwt = async (
   const list: (
     | { error: string; token: null }
     | { token: admin.auth.DecodedIdToken }
-  )[] = jwtKeys.map((cert) => {
+  )[] = jwtKeys.map(cert => {
     try {
       const verifiedToken = jwt.verify(token, cert, {
         audience: aud,
@@ -75,7 +75,7 @@ export const verifyJwt = async (
     }
   })
 
-  const verifiedToken = list.find((el) => el.token != null)?.token || null
+  const verifiedToken = list.find(el => el.token != null)?.token || null
 
   if (verifiedToken == null) {
     console.error(

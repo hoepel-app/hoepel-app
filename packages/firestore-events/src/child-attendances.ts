@@ -22,7 +22,7 @@ export const onChildAttendanceCreate = functions
       .collection('child-attendances-by-shift')
       .doc(shiftId)
       .get()
-      .then((doc) => {
+      .then(doc => {
         if (doc.exists) {
           const data = doc.data()
           if (data != null && data.tenant === tenant) {
@@ -53,7 +53,7 @@ export const onChildAttendanceCreate = functions
       .collection('child-attendances-by-child')
       .doc(childId)
       .get()
-      .then((doc) => {
+      .then(doc => {
         if (doc.exists) {
           const data = doc.data()
           if (data != null && data.tenant === tenant) {
@@ -106,13 +106,15 @@ export const onChildAttendanceDelete = functions
       .collection('child-attendances-by-shift')
       .doc(shiftId)
       .get()
-      .then((doc) => {
+      .then(doc => {
         if (doc.exists) {
           const data = doc.data()
           if (data != null && data.tenant === tenant) {
             const update = { ...data }
             delete update.attendances[childId]
-            db.collection('child-attendances-by-shift').doc(shiftId).set(update)
+            db.collection('child-attendances-by-shift')
+              .doc(shiftId)
+              .set(update)
           } else {
             console.error(
               'Tried to update a child attendance document belonging to a different tenant! Existing doc: ' +
@@ -133,13 +135,15 @@ export const onChildAttendanceDelete = functions
       .collection('child-attendances-by-child')
       .doc(childId)
       .get()
-      .then((doc) => {
+      .then(doc => {
         if (doc.exists) {
           const data = doc.data()
           if (data != null && data.tenant === tenant) {
             const update = { ...data }
             delete update.attendances[shiftId]
-            db.collection('child-attendances-by-child').doc(childId).set(update)
+            db.collection('child-attendances-by-child')
+              .doc(childId)
+              .set(update)
           } else {
             console.error(
               'Tried to set a child attendance document belonging to a different tenant! Existing doc: ' +

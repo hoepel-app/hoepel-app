@@ -70,7 +70,7 @@ export class FileService {
     uid: string
   ): Promise<FirestoreFileDocument> {
     const children = (await this.childRepository.getAll(tenant)).filter(
-      (child) => child.remarks
+      child => child.remarks
     )
     const spreadsheet = this.xlsxExporter.createChildrenWithCommentList(
       children
@@ -91,7 +91,7 @@ export class FileService {
     year: number
   ): Promise<FirestoreFileDocument> {
     const allCrewForAtt = (await this.crewRepository.getAll(tenant)).filter(
-      (crew) => crew.active
+      crew => crew.active
     )
 
     const shiftsForCrewAtt = await this.shiftService.getShiftsInYear(
@@ -262,7 +262,10 @@ export class FileService {
     }
 
     await this.storage.file(fileName).delete()
-    await this.db.collection('reports').doc(docs.docs[0].id).delete()
+    await this.db
+      .collection('reports')
+      .doc(docs.docs[0].id)
+      .delete()
   }
 
   private async saveXlsxFile(
@@ -332,7 +335,9 @@ export class FileService {
       metadata: {
         metadata: {
           tenant: tenant,
-          expires: this.getFileExpirationDate().getTime().toString(),
+          expires: this.getFileExpirationDate()
+            .getTime()
+            .toString(),
         },
 
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition

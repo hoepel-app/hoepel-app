@@ -73,10 +73,10 @@ export class ChildAttendanceService {
 
     const all = await this.byShiftRepository.getMany(
       tenant,
-      shifts.map((shift) => shift.id).filter((id) => id != null) as string[]
+      shifts.map(shift => shift.id).filter(id => id != null) as string[]
     )
 
-    return all.map((attendance) => {
+    return all.map(attendance => {
       return {
         shiftId: attendance.id,
         attendances: attendance.attendances,

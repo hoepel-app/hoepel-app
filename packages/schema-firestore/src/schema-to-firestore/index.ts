@@ -131,7 +131,7 @@ const getCollectionType = (
   node: DirectiveNode,
   argName = 'type'
 ): CollectionType => {
-  const argument = node.arguments?.find((arg) => arg.name.value === argName)
+  const argument = node.arguments?.find(arg => arg.name.value === argName)
     ?.value
 
   const isValidCollectionType = (value: string): boolean =>
@@ -150,7 +150,7 @@ const getArgumentAsStringValue = (
   node: DirectiveNode,
   argName: string
 ): string | null => {
-  const argument = node.arguments?.find((arg) => arg.name.value === argName)
+  const argument = node.arguments?.find(arg => arg.name.value === argName)
     ?.value
 
   if (argument?.kind === 'StringValue') {
@@ -163,7 +163,7 @@ const getArgumentAsBooleanValue = (
   node: DirectiveNode,
   argName: string
 ): boolean | null => {
-  const argument = node.arguments?.find((arg) => arg.name.value === argName)
+  const argument = node.arguments?.find(arg => arg.name.value === argName)
     ?.value
 
   if (argument?.kind === 'BooleanValue') {

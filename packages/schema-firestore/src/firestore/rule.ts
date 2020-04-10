@@ -48,7 +48,7 @@ export class Rule {
     if (this.options.extra) {
       return this.options.extra
         .split('\n')
-        .map((line) => `  ${line}`)
+        .map(line => `  ${line}`)
         .join('\n')
     } else {
       return ''
@@ -74,7 +74,7 @@ export class Rule {
       `  ${this.deleteExpression}`,
       '}',
     ]
-      .filter((line) => line.trim() !== '')
+      .filter(line => line.trim() !== '')
       .join('\n')
   }
 }

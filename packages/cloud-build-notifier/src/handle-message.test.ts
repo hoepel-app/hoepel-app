@@ -2,7 +2,7 @@ import { handleMessage } from './handle-message'
 
 describe('Cloud Build Notifier', () => {
   test('notifies Slack when a build completes', async () => {
-    const send = jest.fn((x) => 42 + x)
+    const send = jest.fn(x => 42 + x)
 
     const json = JSON.stringify({
       status: 'SUCCESS',

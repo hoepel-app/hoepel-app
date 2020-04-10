@@ -5,4 +5,4 @@ import { webhook } from './slack-webhook'
 export const onCloudBuildPubsub = functions
   .region('europe-west1')
   .pubsub.topic('cloud-builds')
-  .onPublish((message) => handleMessage(message, webhook))
+  .onPublish(message => handleMessage(message, webhook))

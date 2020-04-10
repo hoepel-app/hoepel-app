@@ -27,27 +27,27 @@ export class XlsxExporter {
           columns: [
             {
               title: 'Voornaam',
-              values: list.map((row) => row.firstName),
+              values: list.map(row => row.firstName),
               width: 20,
             },
             {
               title: 'Familienaam',
-              values: list.map((row) => row.lastName),
+              values: list.map(row => row.lastName),
               width: 25,
             },
             {
               title: 'Geboortedatum',
-              values: list.map((row) =>
+              values: list.map(row =>
                 row.birthDate ? new DayDate(row.birthDate) : undefined
               ),
               width: 15,
             },
             {
               title: 'Telefoonnummer',
-              values: list.map((row) => {
+              values: list.map(row => {
                 return row.phone
                   .map(
-                    (p) => p.phoneNumber + (p.comment ? ` (${p.comment})` : '')
+                    p => p.phoneNumber + (p.comment ? ` (${p.comment})` : '')
                   )
                   .join(', ')
               }),
@@ -55,17 +55,17 @@ export class XlsxExporter {
             },
             {
               title: 'Emailadres',
-              values: list.map((row) => row.email.join(', ')),
+              values: list.map(row => row.email.join(', ')),
               width: 25,
             },
             {
               title: 'Adres',
-              values: list.map((row) => new Address(row.address).formatted()),
+              values: list.map(row => new Address(row.address).formatted()),
               width: 30,
             },
             {
               title: 'Gender',
-              values: list.map((row) => {
+              values: list.map(row => {
                 switch (row.gender) {
                   case 'male':
                     return 'Man'
@@ -80,12 +80,12 @@ export class XlsxExporter {
             },
             {
               title: 'Uitpasnummer',
-              values: list.map((row) => row.uitpasNumber || ''),
+              values: list.map(row => row.uitpasNumber || ''),
               width: 25,
             },
             {
               title: 'Opmerkingen',
-              values: list.map((row) => row.remarks),
+              values: list.map(row => row.remarks),
               width: 75,
             },
           ],
@@ -103,17 +103,17 @@ export class XlsxExporter {
           columns: [
             {
               title: 'Voornaam',
-              values: list.map((row) => row.firstName),
+              values: list.map(row => row.firstName),
               width: 20,
             },
             {
               title: 'Familienaam',
-              values: list.map((row) => row.lastName),
+              values: list.map(row => row.lastName),
               width: 25,
             },
             {
               title: 'Geboortedatum',
-              values: list.map((row) =>
+              values: list.map(row =>
                 row.birthDate ? new DayDate(row.birthDate) : undefined
               ),
               width: 15,
@@ -121,11 +121,10 @@ export class XlsxExporter {
             {
               title: 'Telefoonnummer',
               values: [
-                ...list.map((row) => {
+                ...list.map(row => {
                   return row.phone
                     .map(
-                      (p) =>
-                        p.phoneNumber + (p.comment ? ` (${p.comment})` : '')
+                      p => p.phoneNumber + (p.comment ? ` (${p.comment})` : '')
                     )
                     .join(', ')
                 }),
@@ -134,30 +133,30 @@ export class XlsxExporter {
             },
             {
               title: 'Emailadres',
-              values: list.map((row) => row.email.join(', ')),
+              values: list.map(row => row.email.join(', ')),
               width: 25,
             },
             {
               title: 'Adres',
-              values: list.map((row) => new Address(row.address).formatted()),
+              values: list.map(row => new Address(row.address).formatted()),
               width: 30,
             },
             {
               title: 'Actief',
-              values: list.map((row) => (row.active ? 'Ja' : 'Nee')),
+              values: list.map(row => (row.active ? 'Ja' : 'Nee')),
             },
             {
               title: 'Rekeningnummer',
-              values: list.map((row) => row.bankAccount || ''),
+              values: list.map(row => row.bankAccount || ''),
               width: 25,
             },
             {
               title: 'Gestart in',
-              values: list.map((row) => row.yearStarted),
+              values: list.map(row => row.yearStarted),
             },
             {
               title: 'Attesten',
-              values: list.map((row) => {
+              values: list.map(row => {
                 if (!row.certificates) {
                   return ''
                 }
@@ -173,14 +172,14 @@ export class XlsxExporter {
                     ? 'Attest instructeur'
                     : '',
                 ]
-                  .filter((x) => x)
+                  .filter(x => x)
                   .join(', ')
               }),
               width: 35,
             },
             {
               title: 'Opmerkingen',
-              values: list.map((row) => row.remarks),
+              values: list.map(row => row.remarks),
               width: 75,
             },
           ],
@@ -220,12 +219,11 @@ export class XlsxExporter {
     const sortedShifts = Shift.sort(shifts)
     const richAttendances = new DetailedAttendancesOnShifts(
       attendances.map(
-        (att) =>
-          new DetailedAttendancesOnShift(att.shiftId, {}, att.attendances)
+        att => new DetailedAttendancesOnShift(att.shiftId, {}, att.attendances)
       )
     )
     const filteredCrew = Crew.sorted(allCrew).filter(
-      (crew) => richAttendances.numberOfCrewMemberAttendances(crew.id!) > 0
+      crew => richAttendances.numberOfCrewMemberAttendances(crew.id!) > 0
     )
 
     return {
@@ -238,7 +236,7 @@ export class XlsxExporter {
                 '',
                 '',
                 'Voornaam',
-                ...filteredCrew.map((row) => row.firstName),
+                ...filteredCrew.map(row => row.firstName),
               ],
               width: 20,
             },
@@ -247,18 +245,18 @@ export class XlsxExporter {
                 '',
                 '',
                 'Familienaam',
-                ...filteredCrew.map((row) => row.lastName),
+                ...filteredCrew.map(row => row.lastName),
               ],
               width: 25,
             },
 
-            ...sortedShifts.map((shift) => {
+            ...sortedShifts.map(shift => {
               return {
                 values: [
                   DayDate.fromDayId(shift.dayId),
                   shift.kind,
                   shift.description,
-                  ...filteredCrew.map((crew) =>
+                  ...filteredCrew.map(crew =>
                     richAttendances.didCrewMemberAttend(crew.id!, shift.id!)
                   ),
                 ],
@@ -288,9 +286,7 @@ export class XlsxExporter {
     }>,
     day: DayDate
   ): SpreadsheetData {
-    const relevantShifts = shifts.filter(
-      (shift) => shift.dayId === day.toDayId()
-    )
+    const relevantShifts = shifts.filter(shift => shift.dayId === day.toDayId())
 
     const rows: {
       firstName: string
@@ -298,10 +294,10 @@ export class XlsxExporter {
       ageGroupName?: string
       shift: Shift
     }[] = flatMap(
-      relevantShifts.map((shift) => {
+      relevantShifts.map(shift => {
         const childAttendancesForShift =
-          childAttendances.find((att) => att.shiftId === shift.id)
-            ?.attendances ?? {}
+          childAttendances.find(att => att.shiftId === shift.id)?.attendances ??
+          {}
         const richAttendances = new DetailedAttendancesOnShift(
           shift.id!,
           childAttendancesForShift,
@@ -310,10 +306,10 @@ export class XlsxExporter {
 
         const filteredChildren = richAttendances
           .attendingChildren()
-          .map((childId) => allChildren.find((child) => child.id === childId))
-          .filter((child) => child != null) as readonly Child[]
+          .map(childId => allChildren.find(child => child.id === childId))
+          .filter(child => child != null) as readonly Child[]
 
-        return filteredChildren.map((child) => {
+        return filteredChildren.map(child => {
           return {
             firstName: child.firstName,
             lastName: child.lastName,
@@ -332,34 +328,34 @@ export class XlsxExporter {
           columns: [
             {
               title: 'Voornaam',
-              values: rows.map((row) => row.firstName),
+              values: rows.map(row => row.firstName),
               width: 20,
             },
             {
               title: 'Achternaam',
-              values: rows.map((row) => row.lastName),
+              values: rows.map(row => row.lastName),
               width: 25,
             },
             {
               title: 'Leeftijdsgroep',
-              values: rows.map((row) => row.ageGroupName),
+              values: rows.map(row => row.ageGroupName),
               width: 20,
               hideIfNoSetValues: true,
             },
             {
               title: 'Soort',
-              values: rows.map((row) => row.shift.kind),
+              values: rows.map(row => row.shift.kind),
               width: 20,
             },
             {
               title: 'Beschrijving',
-              values: rows.map((row) => row.shift.description),
+              values: rows.map(row => row.shift.description),
               width: 25,
               hideIfNoSetValues: true,
             },
             {
               title: 'Locatie',
-              values: rows.map((row) => row.shift.location),
+              values: rows.map(row => row.shift.location),
               width: 25,
               hideIfNoSetValues: true,
             },
@@ -381,13 +377,12 @@ export class XlsxExporter {
     const sortedShifts = Shift.sort(shifts)
     const richAttendances = new DetailedAttendancesOnShifts(
       attendances.map(
-        (att) =>
-          new DetailedAttendancesOnShift(att.shiftId, att.attendances, {})
+        att => new DetailedAttendancesOnShift(att.shiftId, att.attendances, {})
       )
     )
 
     const filteredChildren = Child.sorted(allChildren).filter(
-      (child) => richAttendances.numberOfChildAttendances(child.id!) > 0
+      child => richAttendances.numberOfChildAttendances(child.id!) > 0
     ) // Only children with attendances
 
     return {
@@ -400,7 +395,7 @@ export class XlsxExporter {
                 '',
                 '',
                 'Voornaam',
-                ...filteredChildren.map((row) => row.firstName),
+                ...filteredChildren.map(row => row.firstName),
               ],
               width: 20,
             },
@@ -409,18 +404,18 @@ export class XlsxExporter {
                 '',
                 '',
                 'Familienaam',
-                ...filteredChildren.map((row) => row.lastName),
+                ...filteredChildren.map(row => row.lastName),
               ],
               width: 25,
             },
 
-            ...sortedShifts.map((shift) => {
+            ...sortedShifts.map(shift => {
               return {
                 values: [
                   DayDate.fromDayId(shift.dayId),
                   shift.kind,
                   shift.description,
-                  ...filteredChildren.map((child) =>
+                  ...filteredChildren.map(child =>
                     richAttendances.didChildAttend(child.id!, shift.id!)
                   ),
                 ],
@@ -447,12 +442,11 @@ export class XlsxExporter {
     const sortedShifts = Shift.sort(shifts)
     const richAttendances = new DetailedAttendancesOnShifts(
       attendances.map(
-        (att) =>
-          new DetailedAttendancesOnShift(att.shiftId, att.attendances, {})
+        att => new DetailedAttendancesOnShift(att.shiftId, att.attendances, {})
       )
     )
     const sortedChildren = Child.sorted(allChildren).filter(
-      (child) => richAttendances.numberOfChildAttendances(child.id!) > 0
+      child => richAttendances.numberOfChildAttendances(child.id!) > 0
     )
 
     const spacer = ['', '', '']
@@ -468,7 +462,7 @@ export class XlsxExporter {
               values: [
                 ...spacer,
                 'Voornaam',
-                ...sortedChildren.map((child) => child.firstName),
+                ...sortedChildren.map(child => child.firstName),
               ],
             },
             {
@@ -476,7 +470,7 @@ export class XlsxExporter {
               values: [
                 ...spacer,
                 'Familienaam',
-                ...sortedChildren.map((child) => child.lastName),
+                ...sortedChildren.map(child => child.lastName),
               ],
             },
             {
@@ -484,7 +478,7 @@ export class XlsxExporter {
               values: [
                 ...spacer,
                 'Totaal (incl. korting)',
-                ...sortedChildren.map((child) =>
+                ...sortedChildren.map(child =>
                   richAttendances.amountPaidByChild(child.id!)
                 ),
               ],
@@ -494,7 +488,7 @@ export class XlsxExporter {
               values: [
                 ...spacer,
                 'Geboortedatum',
-                ...sortedChildren.map((child) =>
+                ...sortedChildren.map(child =>
                   child.birthDate ? new DayDate(child.birthDate) : undefined
                 ),
               ],
@@ -504,10 +498,10 @@ export class XlsxExporter {
               values: [
                 ...spacer,
                 'Contactpersoon',
-                ...sortedChildren.map((child) => {
+                ...sortedChildren.map(child => {
                   const primaryContactPerson = child.primaryContactPerson
                     ? allContacts.find(
-                        (contact) =>
+                        contact =>
                           contact.id ===
                           child.primaryContactPerson.contactPersonId
                       ) || null
@@ -524,7 +518,7 @@ export class XlsxExporter {
               values: [
                 ...spacer,
                 'Straat en nummer',
-                ...sortedChildren.map((child) => {
+                ...sortedChildren.map(child => {
                   const address =
                     AddressDomainService.getAddressForChildWithExistingContacts(
                       child,
@@ -539,7 +533,7 @@ export class XlsxExporter {
               values: [
                 ...spacer,
                 'Postcode',
-                ...sortedChildren.map((child) => {
+                ...sortedChildren.map(child => {
                   const address =
                     AddressDomainService.getAddressForChildWithExistingContacts(
                       child,
@@ -554,7 +548,7 @@ export class XlsxExporter {
               values: [
                 ...spacer,
                 'Stad',
-                ...sortedChildren.map((child) => {
+                ...sortedChildren.map(child => {
                   const address =
                     AddressDomainService.getAddressForChildWithExistingContacts(
                       child,
@@ -568,7 +562,7 @@ export class XlsxExporter {
               width: 25,
               values: ['Dag', 'Type', 'Prijs'],
             },
-            ...sortedShifts.map((shift) => {
+            ...sortedShifts.map(shift => {
               return {
                 width: 22,
                 values: [
@@ -576,7 +570,7 @@ export class XlsxExporter {
                   shift.kind,
                   shift.price,
                   shift.description,
-                  ...sortedChildren.map((child) =>
+                  ...sortedChildren.map(child =>
                     richAttendances.didChildAttend(child.id!, shift.id!)
                   ),
                 ],
@@ -598,7 +592,7 @@ export class XlsxExporter {
   ): SpreadsheetData {
     const detailedAttendances = new DetailedAttendancesOnShifts(
       allAttendances.map(
-        (detailed) =>
+        detailed =>
           new DetailedAttendancesOnShift(
             detailed.shiftId,
             detailed.attendances,
@@ -607,10 +601,10 @@ export class XlsxExporter {
       )
     )
 
-    const list = Object.entries(groupBy(shifts, (shift) => shift.dayId))
+    const list = Object.entries(groupBy(shifts, shift => shift.dayId))
       .map(([dayId, shiftsOnDay]) => {
         const uniqueAttendancesOnDay = detailedAttendances.uniqueChildAttendances(
-          shiftsOnDay.map((shift) => shift.id!)
+          shiftsOnDay.map(shift => shift.id!)
         )
 
         return {
@@ -626,10 +620,10 @@ export class XlsxExporter {
         {
           name: `Unieke kinderen per dag ${year}`,
           columns: [
-            { title: 'Dag', values: list.map((row) => row.day), width: 20 },
+            { title: 'Dag', values: list.map(row => row.day), width: 20 },
             {
               title: 'Aantal unieke kinderen',
-              values: list.map((row) => row.uniqueAttendancesOnDay),
+              values: list.map(row => row.uniqueAttendancesOnDay),
               width: 25,
             },
           ],

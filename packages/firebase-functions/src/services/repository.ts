@@ -48,8 +48,8 @@ export class FirebaseTenantIndexedRepository<IT extends Omit<IT, 'tenant'>, T>
       .get()
 
     return snapshot.docs
-      .filter((docSnapshot) => docSnapshot.data().tenant === tenant)
-      .map((docSnapshot) => {
+      .filter(docSnapshot => docSnapshot.data().tenant === tenant)
+      .map(docSnapshot => {
         const { tenant: actualTenant, ...obj } = docSnapshot.data()
         return this.collection.mapper.lift(
           docSnapshot.id,
@@ -69,9 +69,9 @@ export class FirebaseTenantIndexedRepository<IT extends Omit<IT, 'tenant'>, T>
       const snapshots = await this.db.getAll(...docReferences)
 
       return snapshots
-        .filter((snapshot) => snapshot.exists)
-        .filter((snapshot) => snapshot.data()?.tenant === tenant)
-        .map((snapshot) => {
+        .filter(snapshot => snapshot.exists)
+        .filter(snapshot => snapshot.data()?.tenant === tenant)
+        .map(snapshot => {
           // We know snapshot.data() is defined because of filtering on exists
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           const { tenant: actualTenant, ...obj } = snapshot.data()!
@@ -87,7 +87,10 @@ export class FirebaseTenantIndexedRepository<IT extends Omit<IT, 'tenant'>, T>
 
   async delete(tenant: string, id: string): Promise<void> {
     await this.get(tenant, id) // will throw if incorrect tenant
-    await this.db.collection(this.collection.collectionName).doc(id).delete()
+    await this.db
+      .collection(this.collection.collectionName)
+      .doc(id)
+      .delete()
   }
 }
 
@@ -115,7 +118,7 @@ export class FirebaseRepository<IT, T> implements Repository<T> {
       .collection(this.collection.collectionName)
       .get()
 
-    return snapshot.docs.map((docSnapshot) => {
+    return snapshot.docs.map(docSnapshot => {
       const obj = docSnapshot.data()
       return this.collection.mapper.lift(docSnapshot.id, obj as IT)
     })
@@ -129,8 +132,8 @@ export class FirebaseRepository<IT, T> implements Repository<T> {
       const snapshots = await this.db.getAll(...docReferences)
 
       return snapshots
-        .filter((snapshot) => snapshot.exists)
-        .map((snapshot) => {
+        .filter(snapshot => snapshot.exists)
+        .map(snapshot => {
           return this.collection.mapper.lift(snapshot.id, snapshot.data() as IT)
         })
     } else {
@@ -139,6 +142,9 @@ export class FirebaseRepository<IT, T> implements Repository<T> {
   }
 
   async delete(id: string): Promise<void> {
-    await this.db.collection(this.collection.collectionName).doc(id).delete()
+    await this.db
+      .collection(this.collection.collectionName)
+      .doc(id)
+      .delete()
   }
 }

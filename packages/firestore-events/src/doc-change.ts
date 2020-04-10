@@ -31,8 +31,8 @@ const getTenant = (
         Collection<{ readonly [key: string]: unknown }>
       ]) => collection
     )
-    .filter((collection) => collection.docIdIsTenantName)
-    .map((collection) => collection.collectionName)
+    .filter(collection => collection.docIdIsTenantName)
+    .map(collection => collection.collectionName)
 
   if (collectionsWithTenantIds.includes(collectionId)) {
     return collectionId
@@ -136,7 +136,7 @@ const createEvent = (
     )
   }
 
-  const eventCreator = firestoreEventCreators.find((creator) =>
+  const eventCreator = firestoreEventCreators.find(creator =>
     creator.isAppropriateFor(collectionId)
   )
 
