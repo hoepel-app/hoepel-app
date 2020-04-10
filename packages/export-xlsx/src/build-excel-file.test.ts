@@ -118,8 +118,8 @@ const differentTypes: SpreadsheetData = {
     {
       columns: [
         {
+          title: 'A string',
           values: [
-            'A string',
             true,
             false,
             'Now for some numbers',

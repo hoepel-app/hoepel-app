@@ -14,8 +14,10 @@ export interface SpreadsheetWorksheet {
   name: string
 
   columns: ReadonlyArray<{
+    title?: SpreadsheetCellValue
     values: ReadonlyArray<SpreadsheetCellValue>
     width?: number
+    hideIfNoSetValues?: boolean
   }>
 }
 

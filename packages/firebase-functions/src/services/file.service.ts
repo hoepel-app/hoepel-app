@@ -223,7 +223,6 @@ export class FileService {
     uid: string,
     year: number
   ): Promise<FirestoreFileDocument> {
-    const allChildrenForFiscalCerts = await this.childRepository.getAll(tenant)
     const shifts = await this.shiftService.getShiftsInYear(tenant, year)
     const childAttendances = await this.childAttendanceService.getChildAttendancesOnShifts(
       tenant,
@@ -231,7 +230,6 @@ export class FileService {
     )
 
     const spreadsheet = this.xlsxExporter.createChildrenPerDayList(
-      allChildrenForFiscalCerts,
       shifts,
       childAttendances,
       year

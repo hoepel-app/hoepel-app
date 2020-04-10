@@ -26,72 +26,66 @@ export class XlsxExporter {
           name: 'Alle kinderen',
           columns: [
             {
-              values: ['Voornaam', ...list.map(row => row.firstName)],
+              title: 'Voornaam',
+              values: list.map(row => row.firstName),
               width: 20,
             },
             {
-              values: ['Familienaam', ...list.map(row => row.lastName)],
+              title: 'Familienaam',
+              values: list.map(row => row.lastName),
               width: 25,
             },
             {
-              values: [
-                'Geboortedatum',
-                ...list.map(row =>
-                  row.birthDate ? new DayDate(row.birthDate) : undefined
-                ),
-              ],
+              title: 'Geboortedatum',
+              values: list.map(row =>
+                row.birthDate ? new DayDate(row.birthDate) : undefined
+              ),
               width: 15,
             },
             {
-              values: [
-                'Telefoonnummer',
-                ...list.map(row => {
-                  return row.phone
-                    .map(
-                      p => p.phoneNumber + (p.comment ? ` (${p.comment})` : '')
-                    )
-                    .join(', ')
-                }),
-              ],
+              title: 'Telefoonnummer',
+              values: list.map(row => {
+                return row.phone
+                  .map(
+                    p => p.phoneNumber + (p.comment ? ` (${p.comment})` : '')
+                  )
+                  .join(', ')
+              }),
               width: 25,
             },
             {
-              values: ['Emailadres', ...list.map(row => row.email.join(', '))],
+              title: 'Emailadres',
+              values: list.map(row => row.email.join(', ')),
               width: 25,
             },
             {
-              values: [
-                'Adres',
-                ...list.map(row => new Address(row.address).formatted()),
-              ],
+              title: 'Adres',
+              values: list.map(row => new Address(row.address).formatted()),
               width: 30,
             },
             {
-              values: [
-                'Gender',
-                ...list.map(row => {
-                  switch (row.gender) {
-                    case 'male':
-                      return 'Man'
-                    case 'female':
-                      return 'Vrouw'
-                    case 'other':
-                      return 'Anders'
-                    default:
-                      return ''
-                  }
-                }),
-              ],
+              title: 'Gender',
+              values: list.map(row => {
+                switch (row.gender) {
+                  case 'male':
+                    return 'Man'
+                  case 'female':
+                    return 'Vrouw'
+                  case 'other':
+                    return 'Anders'
+                  default:
+                    return ''
+                }
+              }),
             },
             {
-              values: [
-                'Uitpasnummer',
-                ...list.map(row => row.uitpasNumber || ''),
-              ],
+              title: 'Uitpasnummer',
+              values: list.map(row => row.uitpasNumber || ''),
               width: 25,
             },
             {
-              values: ['Opmerkingen', ...list.map(row => row.remarks)],
+              title: 'Opmerkingen',
+              values: list.map(row => row.remarks),
               width: 75,
             },
           ],
@@ -108,25 +102,25 @@ export class XlsxExporter {
           name: 'Alle animatoren',
           columns: [
             {
-              values: ['Voornaam', ...list.map(row => row.firstName)],
+              title: 'Voornaam',
+              values: list.map(row => row.firstName),
               width: 20,
             },
             {
-              values: ['Familienaam', ...list.map(row => row.lastName)],
+              title: 'Familienaam',
+              values: list.map(row => row.lastName),
               width: 25,
             },
             {
-              values: [
-                'Geboortedatum',
-                ...list.map(row =>
-                  row.birthDate ? new DayDate(row.birthDate) : undefined
-                ),
-              ],
+              title: 'Geboortedatum',
+              values: list.map(row =>
+                row.birthDate ? new DayDate(row.birthDate) : undefined
+              ),
               width: 15,
             },
             {
+              title: 'Telefoonnummer',
               values: [
-                'Telefoonnummer',
                 ...list.map(row => {
                   return row.phone
                     .map(
@@ -138,57 +132,54 @@ export class XlsxExporter {
               width: 25,
             },
             {
-              values: ['Emailadres', ...list.map(row => row.email.join(', '))],
+              title: 'Emailadres',
+              values: list.map(row => row.email.join(', ')),
               width: 25,
             },
             {
-              values: [
-                'Adres',
-                ...list.map(row => new Address(row.address).formatted()),
-              ],
+              title: 'Adres',
+              values: list.map(row => new Address(row.address).formatted()),
               width: 30,
             },
             {
-              values: [
-                'Actief',
-                ...list.map(row => (row.active ? 'Ja' : 'Nee')),
-              ],
+              title: 'Actief',
+              values: list.map(row => (row.active ? 'Ja' : 'Nee')),
             },
             {
-              values: [
-                'Rekeningnummer',
-                ...list.map(row => row.bankAccount || ''),
-              ],
+              title: 'Rekeningnummer',
+              values: list.map(row => row.bankAccount || ''),
               width: 25,
             },
-            { values: ['Gestart in', ...list.map(row => row.yearStarted)] },
             {
-              values: [
-                'Attesten',
-                ...list.map(row => {
-                  if (!row.certificates) {
-                    return ''
-                  }
+              title: 'Gestart in',
+              values: list.map(row => row.yearStarted),
+            },
+            {
+              title: 'Attesten',
+              values: list.map(row => {
+                if (!row.certificates) {
+                  return ''
+                }
 
-                  return [
-                    row.certificates.hasPlayworkerCertificate
-                      ? 'Attest animator'
-                      : '',
-                    row.certificates.hasTeamleaderCertificate
-                      ? 'Attest hoofdanimator'
-                      : '',
-                    row.certificates.hasTrainerCertificate
-                      ? 'Attest instructeur'
-                      : '',
-                  ]
-                    .filter(x => x)
-                    .join(', ')
-                }),
-              ],
+                return [
+                  row.certificates.hasPlayworkerCertificate
+                    ? 'Attest animator'
+                    : '',
+                  row.certificates.hasTeamleaderCertificate
+                    ? 'Attest hoofdanimator'
+                    : '',
+                  row.certificates.hasTrainerCertificate
+                    ? 'Attest instructeur'
+                    : '',
+                ]
+                  .filter(x => x)
+                  .join(', ')
+              }),
               width: 35,
             },
             {
-              values: ['Opmerkingen', ...list.map(row => row.remarks)],
+              title: 'Opmerkingen',
+              values: list.map(row => row.remarks),
               width: 75,
             },
           ],
@@ -335,17 +326,30 @@ export class XlsxExporter {
         {
           name: 'Aanwezigheden kinderen',
           columns: [
-            { values: ['Voornaam', ...rows.map(row => row.firstName)] },
-            { values: ['Achternaam', ...rows.map(row => row.lastName)] },
             {
-              values: ['Leeftijdsgroep', ...rows.map(row => row.ageGroupName)],
+              title: 'Voornaam',
+              values: rows.map(row => row.firstName),
+              width: 20,
             },
-            { values: ['Soort', ...rows.map(row => row.shift.kind)] },
             {
-              values: [
-                'Beschrijving',
-                ...rows.map(row => row.shift.description),
-              ],
+              title: 'Achternaam',
+              values: rows.map(row => row.lastName),
+              width: 25,
+            },
+            {
+              title: 'Leeftijdsgroep',
+              values: rows.map(row => row.ageGroupName),
+              width: 20,
+            },
+            {
+              title: 'Soort',
+              values: rows.map(row => row.shift.kind),
+              width: 20,
+            },
+            {
+              title: 'Beschrijving',
+              values: rows.map(row => row.shift.description),
+              width: 25,
             },
           ],
         },
@@ -571,7 +575,6 @@ export class XlsxExporter {
   }
 
   createChildrenPerDayList(
-    allChildren: ReadonlyArray<Child>,
     shifts: ReadonlyArray<Shift>,
     allAttendances: ReadonlyArray<{
       shiftId: string
@@ -609,12 +612,10 @@ export class XlsxExporter {
         {
           name: `Unieke kinderen per dag ${year}`,
           columns: [
-            { values: ['Dag', ...list.map(row => row.day)], width: 20 },
+            { title: 'Dag', values: list.map(row => row.day), width: 20 },
             {
-              values: [
-                'Aantal unieke kinderen',
-                ...list.map(row => row.uniqueAttendancesOnDay),
-              ],
+              title: 'Aantal unieke kinderen',
+              values: list.map(row => row.uniqueAttendancesOnDay),
               width: 25,
             },
           ],

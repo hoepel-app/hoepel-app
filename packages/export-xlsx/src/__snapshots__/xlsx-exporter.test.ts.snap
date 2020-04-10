@@ -255,8 +255,8 @@ Object {
     Object {
       "columns": Array [
         Object {
+          "title": "Voornaam",
           "values": Array [
-            "Voornaam",
             "Kind 1",
             "Kind 2",
             "Kind 3",
@@ -264,8 +264,8 @@ Object {
           "width": 20,
         },
         Object {
+          "title": "Familienaam",
           "values": Array [
-            "Familienaam",
             "Achter",
             "Achter",
             "Achter",
@@ -273,8 +273,8 @@ Object {
           "width": 25,
         },
         Object {
+          "title": "Geboortedatum",
           "values": Array [
-            "Geboortedatum",
             DayDate {
               "day": 2,
               "month": 3,
@@ -286,8 +286,8 @@ Object {
           "width": 15,
         },
         Object {
+          "title": "Telefoonnummer",
           "values": Array [
-            "Telefoonnummer",
             "+1111, +2222 (comment)",
             "",
             "",
@@ -295,8 +295,8 @@ Object {
           "width": 25,
         },
         Object {
+          "title": "Emailadres",
           "values": Array [
-            "Emailadres",
             "aoeu@test.com, test@hello.com",
             "",
             "",
@@ -304,8 +304,8 @@ Object {
           "width": 25,
         },
         Object {
+          "title": "Adres",
           "values": Array [
-            "Adres",
             "Straat 12A, 4444 Stad",
             "",
             "",
@@ -313,16 +313,16 @@ Object {
           "width": 30,
         },
         Object {
+          "title": "Gender",
           "values": Array [
-            "Gender",
             "Man",
             "",
             "",
           ],
         },
         Object {
+          "title": "Uitpasnummer",
           "values": Array [
-            "Uitpasnummer",
             "11-1111-11",
             "",
             "",
@@ -330,8 +330,8 @@ Object {
           "width": 25,
         },
         Object {
+          "title": "Opmerkingen",
           "values": Array [
-            "Opmerkingen",
             "Remarks here",
             "",
             "",
@@ -352,8 +352,8 @@ Object {
     Object {
       "columns": Array [
         Object {
+          "title": "Dag",
           "values": Array [
-            "Dag",
             DayDate {
               "day": 3,
               "month": 4,
@@ -368,8 +368,8 @@ Object {
           "width": 20,
         },
         Object {
+          "title": "Aantal unieke kinderen",
           "values": Array [
-            "Aantal unieke kinderen",
             2,
             0,
           ],
@@ -389,22 +389,22 @@ Object {
     Object {
       "columns": Array [
         Object {
+          "title": "Voornaam",
           "values": Array [
-            "Voornaam",
             "Kind 1",
           ],
           "width": 20,
         },
         Object {
+          "title": "Familienaam",
           "values": Array [
-            "Familienaam",
             "Achter",
           ],
           "width": 25,
         },
         Object {
+          "title": "Geboortedatum",
           "values": Array [
-            "Geboortedatum",
             DayDate {
               "day": 2,
               "month": 3,
@@ -414,42 +414,42 @@ Object {
           "width": 15,
         },
         Object {
+          "title": "Telefoonnummer",
           "values": Array [
-            "Telefoonnummer",
             "+1111, +2222 (comment)",
           ],
           "width": 25,
         },
         Object {
+          "title": "Emailadres",
           "values": Array [
-            "Emailadres",
             "aoeu@test.com, test@hello.com",
           ],
           "width": 25,
         },
         Object {
+          "title": "Adres",
           "values": Array [
-            "Adres",
             "Straat 12A, 4444 Stad",
           ],
           "width": 30,
         },
         Object {
+          "title": "Gender",
           "values": Array [
-            "Gender",
             "Man",
           ],
         },
         Object {
+          "title": "Uitpasnummer",
           "values": Array [
-            "Uitpasnummer",
             "11-1111-11",
           ],
           "width": 25,
         },
         Object {
+          "title": "Opmerkingen",
           "values": Array [
-            "Opmerkingen",
             "Remarks here",
           ],
           "width": 75,
@@ -468,8 +468,8 @@ Object {
     Object {
       "columns": Array [
         Object {
+          "title": "Voornaam",
           "values": Array [
-            "Voornaam",
             "Animator 1",
             "Animator 2",
             "Animator 3",
@@ -477,8 +477,8 @@ Object {
           "width": 20,
         },
         Object {
+          "title": "Familienaam",
           "values": Array [
-            "Familienaam",
             "Achernaam",
             "Achernaam",
             "Achernaam",
@@ -486,8 +486,8 @@ Object {
           "width": 25,
         },
         Object {
+          "title": "Geboortedatum",
           "values": Array [
-            "Geboortedatum",
             DayDate {
               "day": 2,
               "month": 3,
@@ -499,8 +499,8 @@ Object {
           "width": 15,
         },
         Object {
+          "title": "Telefoonnummer",
           "values": Array [
-            "Telefoonnummer",
             "+2132, +4321 (comment)",
             "",
             "",
@@ -508,8 +508,8 @@ Object {
           "width": 25,
         },
         Object {
+          "title": "Emailadres",
           "values": Array [
-            "Emailadres",
             "aoeu@test.com, hello@example.com",
             "",
             "",
@@ -517,8 +517,8 @@ Object {
           "width": 25,
         },
         Object {
+          "title": "Adres",
           "values": Array [
-            "Adres",
             "Straat 12A, 4444 Stad",
             "",
             "",
@@ -526,16 +526,16 @@ Object {
           "width": 30,
         },
         Object {
+          "title": "Actief",
           "values": Array [
-            "Actief",
             "Nee",
             "Ja",
             "Ja",
           ],
         },
         Object {
+          "title": "Rekeningnummer",
           "values": Array [
-            "Rekeningnummer",
             "BE44 4444 4444",
             "",
             "",
@@ -543,16 +543,16 @@ Object {
           "width": 25,
         },
         Object {
+          "title": "Gestart in",
           "values": Array [
-            "Gestart in",
             2019,
             undefined,
             undefined,
           ],
         },
         Object {
+          "title": "Attesten",
           "values": Array [
-            "Attesten",
             "Attest animator, Attest hoofdanimator, Attest instructeur",
             "Attest animator",
             "",
@@ -560,8 +560,8 @@ Object {
           "width": 35,
         },
         Object {
+          "title": "Opmerkingen",
           "values": Array [
-            "Opmerkingen",
             "Remarks here",
             "",
             "",
@@ -657,44 +657,49 @@ Object {
     Object {
       "columns": Array [
         Object {
+          "title": "Voornaam",
           "values": Array [
-            "Voornaam",
             "Kind 2",
             "Kind 1",
             "Kind 1",
           ],
+          "width": 20,
         },
         Object {
+          "title": "Achternaam",
           "values": Array [
-            "Achternaam",
             "Achter",
             "Achter",
             "Achter",
           ],
+          "width": 25,
         },
         Object {
+          "title": "Leeftijdsgroep",
           "values": Array [
-            "Leeftijdsgroep",
             undefined,
             undefined,
             "Tieners",
           ],
+          "width": 20,
         },
         Object {
+          "title": "Soort",
           "values": Array [
-            "Soort",
             "Namiddag",
             "Namiddag",
             "Voormiddag",
           ],
+          "width": 20,
         },
         Object {
+          "title": "Beschrijving",
           "values": Array [
-            "Beschrijving",
             "Omschrijving 2",
             "Omschrijving 2",
             "Omschrijving 1",
           ],
+          "width": 25,
         },
       ],
       "name": "Aanwezigheden kinderen",

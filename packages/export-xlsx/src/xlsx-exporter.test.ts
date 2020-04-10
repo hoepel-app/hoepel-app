@@ -333,7 +333,6 @@ describe('XlsxExporter', () => {
 
   it('createChildrenPerDayList', () => {
     const res = exporter.createChildrenPerDayList(
-      [child1, child2, child3],
       [shift2, shift1, shift3],
       [
         {

@@ -66252,7 +66252,7 @@ Object {
   ],
   "Sheets": Object {
     "Data fiscale attesten 2019": Object {
-      "!ref": "A1:C13",
+      "!ref": "A1:C12",
       "A1": Object {
         "h": "A string",
         "t": "s",

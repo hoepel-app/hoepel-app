@@ -36,7 +36,10 @@ export const buildExcelFile = (data: SpreadsheetData): LocalFile => {
     const result: XLSX.WorkSheet = {}
 
     ws.columns.forEach((column, columnIdx) => {
-      column.values.forEach((cellValue, rowIdx) => {
+      const columnValues =
+        column.title == null ? column.values : [column.title, ...column.values]
+
+      columnValues.forEach((cellValue, rowIdx) => {
         result[
           XLSX.utils.encode_cell({ c: columnIdx, r: rowIdx })
         ] = transformCellValue(cellValue)
