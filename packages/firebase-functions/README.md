@@ -27,12 +27,18 @@ First, get the config:
 $ firebase functions:config:get > .runtimeconfig.json
 ```
 
+Check the config - you may want to change keys (e.g. `environment`).
+
 Get a service account key and place it in this directory as `key.json`.
 
 Then, serve using Firebase emulator:
 
 ```
 $ yarn shell
+
+  (or)
+
+$ yarn serve
 ```
 
 ## Why functions are bundled before shipping them to Firebase
