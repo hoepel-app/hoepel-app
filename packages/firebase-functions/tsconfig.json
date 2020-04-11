@@ -9,6 +9,7 @@
     { "path": "../cloud-build-notifier" },
     { "path": "../export-xlsx" },
     { "path": "../domain" },
+    { "path": "../export-docx" },
   ],
   "extends": "../../tsconfig.json"
 }

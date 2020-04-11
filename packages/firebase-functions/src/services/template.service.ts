@@ -15,39 +15,13 @@ import {
 import _ from 'lodash'
 import dropTenant from '../util/drop-tenant'
 import { IContactPersonRepository } from './contact-person.service'
-import JSZip from 'jszip'
-import Docxtemplater from 'docxtemplater'
 import { Bucket } from '@google-cloud/storage'
 import { AddressDomainService } from '@hoepel.app/domain'
-
-// TODO no types for docxtemplater yet...
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type DocxTemplaterType = any
-
-interface CertificateTemplateFillInData {
-  readonly kind_naam: string
-  readonly kind_adres: string
-  readonly kind_telefoon: string
-  readonly kind_geboortedatum: string
-
-  readonly contactpersoon_naam: string
-
-  readonly organisator_naam: string
-  readonly organisator_adres: string
-  readonly organisator_email: string
-  readonly organisator_telefoon: string
-  readonly organisator_verantwoordelijke: string
-
-  readonly jaar: string
-  readonly concrete_data: string
-  readonly aantal_dagen: string
-  readonly prijs_per_dag: string
-  readonly totale_prijs: string
-
-  readonly attest_id: string
-
-  readonly aanmaakdatum: string
-}
+import {
+  exampleData,
+  CertificateTemplateFillInData,
+  fillIn,
+} from '@hoepel.app/export-docx'
 
 interface CertificateTemplateFillInOptions {
   /**
@@ -82,31 +56,6 @@ interface TemplateMetadata {
   displayName: string
   fileName: string
   type: FileType
-}
-
-const exampleData: CertificateTemplateFillInData = {
-  kind_naam: 'Voornaam Achternaam',
-  kind_adres: 'Voorbeeld adres',
-  kind_telefoon: 'Voorbeeld telefoon kind',
-  kind_geboortedatum: 'Voorbeeld geboortedatum',
-
-  contactpersoon_naam: 'Naam contactpersoon komt hier',
-
-  organisator_naam: 'Naam organisator komt hier',
-  organisator_adres: 'Adres organisator komt hier',
-  organisator_email: 'Email organisator komt hier',
-  organisator_telefoon: 'Telefoon organisator komt hier',
-  organisator_verantwoordelijke: 'Verantwoordelijke organisator komt hier',
-
-  jaar: 'Jaar komt hier',
-  concrete_data: 'Concrete data komen hier',
-  aantal_dagen: 'Aantal dagen komt hier',
-  prijs_per_dag: 'Prijs per dag komt hier',
-  totale_prijs: 'Totale prijs komt hier',
-
-  attest_id: 'Attest identificatie',
-
-  aanmaakdatum: 'Aanmaakdatum komt hier',
 }
 
 export class TemplateService {
@@ -322,10 +271,8 @@ export class TemplateService {
     templateFileName: string,
     data: CertificateTemplateFillInData
   ): Promise<Buffer> {
-    const template = this.loadDocument(
-      await this.getTemplate(tenant, templateFileName)
-    )
-    return this.fillIn(template, data)
+    const template = await this.getTemplate(tenant, templateFileName)
+    return fillIn(template, data)
   }
 
   /**
@@ -345,55 +292,6 @@ export class TemplateService {
     }
 
     return (await templateFile.download())[0]
-  }
-
-  /**
-   * Load a .docx file (provided as a buffer) and turn it into a Docxtemplater object
-   */
-  private loadDocument(template: Buffer): DocxTemplaterType {
-    const zip = new JSZip(template) // DocxTemplater only supports loading zips from JSZip, create zipped template
-    const doc = new Docxtemplater()
-    doc.loadZip(zip)
-    doc.setOptions({
-      linebreaks: true,
-      nullGetter: (part: { module: string }) => {
-        if (!part.module) {
-          return '[Geen waarde gevonden]'
-        }
-        if (part.module === 'rawxml') {
-          return ''
-        }
-        return ''
-      },
-    })
-
-    return doc
-  }
-
-  /**
-   * Fill in a document and return it as a buffer
-   */
-  private fillIn(
-    doc: DocxTemplaterType,
-    data: CertificateTemplateFillInData
-  ): Buffer {
-    try {
-      doc.setData(data)
-      doc.render()
-      return doc.getZip().generate({ type: 'nodebuffer' })
-    } catch (error) {
-      const err = {
-        message: error.message,
-        name: error.name,
-        stack: error.stack,
-        properties: error.properties,
-      }
-
-      console.error('Could not fill in DOCX template')
-      console.error(JSON.stringify({ error: err }))
-      // The error thrown here contains additional information when logged with JSON.stringify (it contains a property object).
-      throw error
-    }
   }
 
   private getExpirationDate(creationDate: Date): Date {

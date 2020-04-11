@@ -51,7 +51,6 @@ describe('filling in a Docx template', () => {
     )
 
     const result = fillIn(template, exampleData)
-    writeFileSync('filled.docx', result)
 
     const zip = new PizZip(result)
     const fileContent = zip.filter(() => true).map((file) => file.asText())

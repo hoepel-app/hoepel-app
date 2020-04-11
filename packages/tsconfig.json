@@ -8,5 +8,7 @@
     { "path": "./old-events" },
     { "path": "./firestore-events" },
     { "path": "./cloud-build-notifier" },
+    { "path": "./export-xlsx" },
+    { "path": "./export-docx" },
   ]
 }

@@ -4194,10 +4194,10 @@ doctrine@^3.0.0:
   dependencies:
     esutils "^2.0.2"
 
-docxtemplater@^3.13.6:
-  version "3.17.2"
-  resolved "https://registry.yarnpkg.com/docxtemplater/-/docxtemplater-3.17.2.tgz#8e5b89ceac45bb9e2d962df08b72ce69bdc0fe72"
-  integrity sha512-8eP/D2b4VVnTCLE8bkaNXqekDal3dZLguOR6kAEnr0bm6KGJ9oEPCX9cE3fMtcRIGXGoedMDymJRsDa1dDkg+w==
+docxtemplater@^3.17.5:
+  version "3.17.5"
+  resolved "https://registry.yarnpkg.com/docxtemplater/-/docxtemplater-3.17.5.tgz#3cc2fce56cc49cc0e461cdd6b6684b03a06923ef"
+  integrity sha512-3APaBtnZVCm4+/WGeWnxgJKueosMASMasDmwuBwkcI6eUr+0yIeDc4MbaOSDZJ4c2oKLAC4ZOmXR8i9KcfMhYw==
   dependencies:
     xmldom "^0.3.0"
 
@@ -7042,13 +7042,6 @@ jsprim@^1.2.2:
     json-schema "0.2.3"
     verror "1.10.0"
 
-jszip@^2.6.1:
-  version "2.6.1"
-  resolved "https://registry.yarnpkg.com/jszip/-/jszip-2.6.1.tgz#b88f3a7b2e67a2a048152982c7a3756d9c4828f0"
-  integrity sha1-uI86ey5noqBIFSmCx6N1bZxIKPA=
-  dependencies:
-    pako "~1.0.2"
-
 jwa@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/jwa/-/jwa-1.4.1.tgz#743c32985cb9e98655530d53641b66c8645b039a"
@@ -8748,6 +8741,13 @@ pirates@^4.0.1:
   integrity sha512-WuNqLTbMI3tmfef2TKxlQmAiLHKtFhlsCZnPIpuv2Ow0RDVO8lfy1Opf4NUzlMXLjPl+Men7AuVdX6TA+s+uGA==
   dependencies:
     node-modules-regexp "^1.0.0"
+
+pizzip@^3.0.6:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/pizzip/-/pizzip-3.0.6.tgz#223485511f9e23abbb2888fd67734e12fc7861a8"
+  integrity sha512-CYmQJQ6ShNhScp2zrpGetRfamQ2CtUdsfcXaauqsQ0h/HVdQTTlHNUaNzMO0i+l8XTNctHJ6PrmFP+YZoF4iZw==
+  dependencies:
+    pako "~1.0.2"
 
 pkg-dir@^2.0.0:
   version "2.0.0"

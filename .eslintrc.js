@@ -34,7 +34,6 @@ module.exports = {
           "warn",
           { ignoreRestSiblings: true },
         ],
-        "@typescript-eslint/no-explicit-any": "off",
       },
       env: {
         jest: true,

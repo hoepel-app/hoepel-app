@@ -1,4 +1,6 @@
+import { pubsub } from 'firebase-functions'
 import { handleMessage } from './handle-message'
+import { IncomingWebhook } from '@slack/webhook'
 
 describe('Cloud Build Notifier', () => {
   test('notifies Slack when a build completes', async () => {
@@ -13,8 +15,8 @@ describe('Cloud Build Notifier', () => {
     })
 
     await handleMessage(
-      { data: Buffer.from(json).toString('base64') } as any,
-      { send } as any
+      { data: Buffer.from(json).toString('base64') } as pubsub.Message,
+      ({ send } as unknown) as IncomingWebhook
     )
 
     expect(send).toHaveBeenCalledTimes(1)

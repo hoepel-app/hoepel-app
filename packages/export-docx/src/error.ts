@@ -24,6 +24,7 @@ export class TemplatingError extends Error {
   }
 
   private static getTemplateErrors(docxError: Error): string[] {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errors = (docxError as any)?.properties?.errors
 
     if (Array.isArray(errors)) {
