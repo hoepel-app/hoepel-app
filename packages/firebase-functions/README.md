@@ -15,6 +15,10 @@ Set these keys using `firebase functions:config`.
     "apikey": "...",
     "domain": "..."
   },
+  "backupfire": {
+    "token": "...",
+    "password": "..."
+  },
   "environment": "production"
 }
 ```
@@ -40,6 +44,12 @@ $ yarn shell
 
 $ yarn serve
 ```
+
+## Firestore backup
+
+Automatic backups are done through [BackupFire](https://backupfire.dev/). The keys are stored in the function function runtime configuration.
+
+There's a also `yarn run backup:firestore` at the top of the monorepo. This manually backs up a binary file to GCP.
 
 ## Why functions are bundled before shipping them to Firebase
 
