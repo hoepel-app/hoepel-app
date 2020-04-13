@@ -290,10 +290,10 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@backupfire/firebase@^0.12.0":
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/@backupfire/firebase/-/firebase-0.12.0.tgz#626c5d99c9465f0aae0bf02fd5399813c36ac194"
-  integrity sha512-2ApAEGc+1R/DQjh5qwqNfFig6iRi2t0OgW2aiZ4nkroid+KlLVt8IeQ121HPXxNsdFMtwxiVQGz7XShLSVMQcA==
+"@backupfire/firebase@^0.13.0":
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/@backupfire/firebase/-/firebase-0.13.0.tgz#08c3d5ce4c42ba7bc551ebf0b864ab95ba09d647"
+  integrity sha512-/gomEmdc1TYqmCEmoYSj3IXiT/zeH+pnJ13zpoaU/r6FowQj8e6EN3pk3ZtED+nDY3DsKud0qicc9IPCkOduFw==
   dependencies:
     "@google-cloud/firestore" "^2.3.0"
     "@google-cloud/storage" "^4.1.2"

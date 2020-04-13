@@ -11,6 +11,8 @@ export * from '@hoepel.app/firestore-events'
 export * from './user-events/'
 export { onCloudBuildPubsub } from '@hoepel.app/cloud-build-notifier'
 
-export const backupfire = backupfireAgent()
+export const backupfire = backupfireAgent({
+  region: 'europe-west3',
+})
 
 export * from './api'
