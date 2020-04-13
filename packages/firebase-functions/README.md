@@ -47,7 +47,7 @@ $ yarn serve
 
 ## Firestore backup
 
-Automatic backups are done through [BackupFire](https://backupfire.dev/). The keys are stored in the function function runtime configuration.
+Automatic backups are done through [BackupFire](https://backupfire.dev/). The keys are stored in the function runtime configuration.
 
 There's a also `yarn run backup:firestore` at the top of the monorepo. This manually backs up a binary file to GCP.
 
