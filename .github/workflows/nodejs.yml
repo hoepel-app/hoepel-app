@@ -17,6 +17,13 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+    - name: restore lerna
+      uses: actions/cache@master
+      with:
+        path: |
+          node_modules
+          */*/node_modules
+        key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
     - name: Install Firebase CLI
       run: npm install -g firebase-tools
     - name: Install dependencies
@@ -27,9 +34,15 @@ jobs:
       run: yarn run build
     - name: Run tests
       run: yarn test
-    - name: Deploy
-      if: matrix.node-version == '13.x' && github.ref == 'refs/heads/master'
-      run: yarn deploy
-      env:
-        CI: true
-        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
+  deploy:
+    on:
+      push:
+        tags:
+    steps:
+    - name: Deploy to Firebase
+    if: matrix.node-version == '13.x' && github.ref == 'refs/heads/master'
+    run: yarn deploy
+    env:
+      CI: true
+      FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
