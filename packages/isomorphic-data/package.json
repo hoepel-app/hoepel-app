@@ -1,0 +1,19 @@
+{
+  "name": "@hoepel.app/isomorphic-data",
+  "version": "0.3.12",
+  "main": "dist/index.js",
+  "license": "GPL-3.0-or-later",
+  "devDependencies": {
+    "@types/jest": "^25.2.1",
+    "jest": "^25.3.0",
+    "typescript": "^3.7.2"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "echo TODO || firebase emulators:exec --only firestore 'yarn jest'"
+  },
+  "dependencies": {
+    "@hoepel.app/isomorphic-domain": "^0.3.12",
+    "typesaurus": "^6.0.0"
+  }
+}

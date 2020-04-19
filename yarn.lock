@@ -526,7 +526,7 @@
     p-defer "^3.0.0"
     protobufjs "^6.8.1"
 
-"@google-cloud/storage@^4.1.2", "@google-cloud/storage@^4.3.0":
+"@google-cloud/storage@^4.1.2":
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/@google-cloud/storage/-/storage-4.7.0.tgz#a7466086a83911c7979cc238d00a127ffb645615"
   integrity sha512-f0guAlbeg7Z0m3gKjCfBCu7FG9qS3M3oL5OQQxlvGoPtK7/qg3+W+KQV73O2/sbuS54n0Kh2mvT5K2FWzF5vVQ==
@@ -4406,6 +4406,11 @@ date-fns@^1.27.2:
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.30.1.tgz#2e71bf0b119153dbb4cc4e88d9ea5acfb50dc05c"
   integrity sha512-hBSVCvSmWC+QypYObzwGOd9wqdDpOt+0wl0KbU+R+uuZBS1jN8VsD1ss3irQDknRj5NvxiTF6oj/nDRnN/UQNw==
 
+date-fns@^2.12.0:
+  version "2.12.0"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.12.0.tgz#01754c8a2f3368fc1119cf4625c3dad8c1845ee6"
+  integrity sha512-qJgn99xxKnFgB1qL4jpxU7Q2t0LOn1p8KMIveef3UZD7kqjT3tpFNNdXJelEHhE+rUgffriXriw/sOSU+cS1Hw==
+
 dateformat@^3.0.0:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/dateformat/-/dateformat-3.0.3.tgz#a6e37499a4d9a9cf85ef5872044d62901c9889ae"
@@ -5658,10 +5663,10 @@ firebase-admin@^8.6.0, firebase-admin@^8.9.2:
     "@google-cloud/firestore" "^3.0.0"
     "@google-cloud/storage" "^4.1.2"
 
-firebase-functions-test@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/firebase-functions-test/-/firebase-functions-test-0.2.0.tgz#797125d56c23ac6b175a9308cc7887c669d4bdb0"
-  integrity sha512-ItONnirBztDIMVgrUeb3sTFfNHnlRhaMopQfTjWt2FZ8COvX946FzgvKMQT708LGwiUVXW/4OjfAOKaW8A2nMw==
+firebase-functions-test@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/firebase-functions-test/-/firebase-functions-test-0.2.1.tgz#cdc23b6c7203d2c80cd79a273493f60fbd9b913b"
+  integrity sha512-+ZaNrDoRVy0ar4NGtrYbqVTsnitL3/Ud5yC7ElZUkX3956j+AzPCcrsCfa+5GJnpnVODXkMKpw9AySFJ/12nvA==
   dependencies:
     "@types/lodash" "^4.14.104"
     lodash "^4.17.5"
@@ -12152,6 +12157,11 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
+
+typesaurus@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/typesaurus/-/typesaurus-6.0.0.tgz#25d05223f8427712fa34f4b3b42edfa2ff97339c"
+  integrity sha512-N4Hw0cJ4exL4Ga+d9RApH/B4rswhVCTJ+gxsRyZubrbnPEASJa8MgFsYb25FzEGUcXuSLSAsaxSczDAKmUshkQ==
 
 typescript@^3.7.2:
   version "3.8.3"

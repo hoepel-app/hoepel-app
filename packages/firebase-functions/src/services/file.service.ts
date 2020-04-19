@@ -12,8 +12,7 @@ import {
   XlsxExporter,
   LocalFile,
 } from '@hoepel.app/export-xlsx'
-
-import { Bucket } from '@google-cloud/storage'
+import { Bucket } from './bucket-type'
 
 type FirestoreFileDocument = IReport & { id?: string; tenant: string }
 

@@ -15,13 +15,13 @@ import {
 import _ from 'lodash'
 import dropTenant from '../util/drop-tenant'
 import { IContactPersonRepository } from './contact-person.service'
-import { Bucket } from '@google-cloud/storage'
 import { AddressDomainService } from '@hoepel.app/domain'
 import {
   exampleData,
   CertificateTemplateFillInData,
   fillIn,
 } from '@hoepel.app/export-docx'
+import { Bucket } from './bucket-type'
 
 interface CertificateTemplateFillInOptions {
   /**

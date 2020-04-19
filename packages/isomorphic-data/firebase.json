@@ -1,0 +1,10 @@
+{	
+  "firestore": {	
+    "rules": "testing.rules"	
+  },	
+  "emulators": {	
+    "firestore": {
+      "port": "8403"
+    }	
+  }	
+}

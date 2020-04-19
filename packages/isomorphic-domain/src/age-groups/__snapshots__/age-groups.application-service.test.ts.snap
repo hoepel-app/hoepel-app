@@ -1,0 +1,134 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AgeGroupsApplicationService addAgeGroup accepts if age group can be added 1`] = `
+Array [
+  "my-tenant",
+  AgeGroups {
+    "props": Object {
+      "ageGroups": Array [
+        Object {
+          "name": "Kleuters",
+          "validForAges": Array [
+            2,
+            3,
+            4,
+          ],
+        },
+        Object {
+          "name": "Mini",
+          "validForAges": Array [
+            5,
+            6,
+            7,
+            8,
+          ],
+        },
+        Object {
+          "name": "Maxi",
+          "validForAges": Array [
+            9,
+            10,
+          ],
+        },
+        Object {
+          "name": "Tieners",
+          "validForAges": Array [
+            11,
+            12,
+            13,
+          ],
+        },
+        Object {
+          "name": "Oudere tieners",
+          "validForAges": Array [
+            14,
+          ],
+        },
+      ],
+      "switchOverOn": "new-school-year",
+    },
+  },
+]
+`;
+
+exports[`AgeGroupsApplicationService changeSwitchOverOn changes switchover of age groups 1`] = `
+Array [
+  "some-tenant",
+  AgeGroups {
+    "props": Object {
+      "ageGroups": Array [
+        Object {
+          "name": "Kleuters",
+          "validForAges": Array [
+            2,
+            3,
+            4,
+          ],
+        },
+        Object {
+          "name": "Mini",
+          "validForAges": Array [
+            5,
+            6,
+            7,
+            8,
+          ],
+        },
+        Object {
+          "name": "Maxi",
+          "validForAges": Array [
+            9,
+            10,
+          ],
+        },
+        Object {
+          "name": "Tieners",
+          "validForAges": Array [
+            11,
+            12,
+            13,
+          ],
+        },
+      ],
+      "switchOverOn": "childs-birthday",
+    },
+  },
+]
+`;
+
+exports[`AgeGroupsApplicationService removeAgeGroup removes an age group by name 1`] = `
+Array [
+  "some-tenant",
+  AgeGroups {
+    "props": Object {
+      "ageGroups": Array [
+        Object {
+          "name": "Kleuters",
+          "validForAges": Array [
+            2,
+            3,
+            4,
+          ],
+        },
+        Object {
+          "name": "Mini",
+          "validForAges": Array [
+            5,
+            6,
+            7,
+            8,
+          ],
+        },
+        Object {
+          "name": "Maxi",
+          "validForAges": Array [
+            9,
+            10,
+          ],
+        },
+      ],
+      "switchOverOn": "new-school-year",
+    },
+  },
+]
+`;

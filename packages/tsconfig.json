@@ -10,5 +10,7 @@
     { "path": "./cloud-build-notifier" },
     { "path": "./export-xlsx" },
     { "path": "./export-docx" },
+    { "path": "./isomorphic-data" },
+    { "path": "./isomorphic-domain" },
   ]
 }

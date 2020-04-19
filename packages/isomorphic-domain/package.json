@@ -1,0 +1,19 @@
+{
+  "name": "@hoepel.app/isomorphic-domain",
+  "version": "0.3.12",
+  "main": "dist/index.js",
+  "license": "GPL-3.0-or-later",
+  "devDependencies": {
+    "@types/jest": "^25.2.1",
+    "jest": "^25.3.0",
+    "typescript": "^3.7.2"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@hoepel.app/types": "^1.9.0",
+    "date-fns": "^2.12.0"
+  }
+}
