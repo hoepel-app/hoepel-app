@@ -35,7 +35,7 @@ jobs:
     - name: Run tests
       run: yarn test
     - name: Deploy to Firebase
-      if: matrix.node-version == '13.x' && startsWith(github.ref, 'v')
+      if: matrix.node-version == '13.x' && startsWith(github.ref, 'refs/tags/v')
       run: yarn deploy
       env:
         CI: true
