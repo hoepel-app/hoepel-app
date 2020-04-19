@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "license": "GPL-3.0-or-later",
   "scripts": {
-    "build": "tsc && yarn build",
+    "build": "tsc && yarn bundle",
     "serve": "yarn build && GOOGLE_APPLICATION_CREDENTIALS=\"$PWD/key.json\" firebase serve --only functions",
     "shell": "yarn build && GOOGLE_APPLICATION_CREDENTIALS=\"$PWD/key.json\" firebase functions:shell",
     "start": "yarn shell",
@@ -13,8 +13,7 @@
     "bundle": "./create-bundle.sh"
   },
   "private": true,
-  "dependencies": {
-    "@backupfire/firebase": "^0.13.0",
+  "dependencies": { 
     "@hoepel.app/cloud-build-notifier": "^0.3.12",
     "@hoepel.app/domain": "^0.3.12",
     "@hoepel.app/export-docx": "^0.3.12",
