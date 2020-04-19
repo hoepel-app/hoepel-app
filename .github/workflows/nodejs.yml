@@ -36,12 +36,22 @@ jobs:
       run: yarn test
 
   deploy:
+
+    runs-on: ubuntu-latest
+
     on:
       push:
         tags:
+
+
+    strategy:
+      matrix:
+        node-version: [13.x]
+
     steps:
+    - uses: actions/checkout@v2
     - name: Deploy to Firebase
-    if: matrix.node-version == '13.x' && github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/master'
     run: yarn deploy
     env:
       CI: true
