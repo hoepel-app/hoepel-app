@@ -19,6 +19,13 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: Install Firebase CLI
       run: npm install -g firebase-tools
+    - name: restore lerna
+      uses: actions/cache@master
+      with:
+        path: |
+          node_modules
+          */*/node_modules
+        key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
     - name: Install dependencies
       run: yarn install
     - name: Set release id
