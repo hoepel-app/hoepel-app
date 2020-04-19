@@ -1,6 +1,6 @@
 {
   "name": "@hoepel.app/export-docx",
-  "version": "0.3.12",
+  "version": "0.3.13",
   "main": "dist/index.js",
   "license": "GPL-3.0-or-later",
   "devDependencies": {
