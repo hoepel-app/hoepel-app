@@ -17,49 +17,6 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: restore lerna
-      uses: actions/cache@master
-      with:
-        path: |
-          node_modules
-          */*/node_modules
-        key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
-    - name: Install Firebase CLI
-      run: npm install -g firebase-tools
-    - name: Install dependencies
-      run: yarn install
-    - name: Set release id
-      run: sed -i "s|NO RELEASE ID SPECIFIED|$GITHUB_SHA|g" ./packages/firebase-functions/src/release.ts
-    - name: Build
-      run: yarn run build
-    - name: Run tests
-      run: yarn test
-
-  deploy:
-
-    runs-on: ubuntu-latest
-
-    on:
-      push:
-        tags:
-
-    strategy:
-      matrix:
-        node-version: [13.x]
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: restore lerna
-      uses: actions/cache@master
-      with:
-        path: |
-          node_modules
-          */*/node_modules
-        key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
     - name: Install Firebase CLI
       run: npm install -g firebase-tools
     - name: Install dependencies
@@ -71,6 +28,7 @@ jobs:
     - name: Run tests
       run: yarn test
     - name: Deploy to Firebase
+      if: matrix.node-version == '13.x' && startsWith(github.ref, 'v')
       run: yarn deploy
       env:
         CI: true
