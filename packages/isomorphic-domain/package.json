@@ -15,5 +15,6 @@
   "dependencies": {
     "@hoepel.app/types": "^1.9.0",
     "date-fns": "^2.12.0"
-  }
+  },
+  "private": true
 }
