@@ -4,16 +4,22 @@ import { AddAgeGroupCommand } from './add-age-group.command'
 import { ChangeSwitchOverOnCommand } from './change-switch-over-on.command'
 import { RemoveAgeGroupCommand } from './remove-age-group.command'
 import { AgeGroups } from './age-groups'
+import { Observable } from 'rxjs'
+import { first } from 'rxjs/operators'
 
 export class AgeGroupsApplicationService {
   constructor(private repo: AgeGroupsRepository) {}
 
-  async findAgeGroups(tenantId: string): Promise<AgeGroups> {
+  findAgeGroups(tenantId: string): Observable<AgeGroups> {
     return this.repo.findForTenant(tenantId)
   }
 
   async addAgeGroup(command: AddAgeGroupCommand): Promise<CommandResult> {
-    const ageGroups = await this.repo.findForTenant(command.tenantId)
+    const ageGroups = await this.repo
+      .findForTenant(command.tenantId)
+      .pipe(first())
+      .toPromise()
+
     if (!ageGroups.mayAddAgeGroup(command.ageGroup)) {
       return { status: 'rejected' }
     }
@@ -27,7 +33,11 @@ export class AgeGroupsApplicationService {
   async changeSwitchOverOn(
     command: ChangeSwitchOverOnCommand
   ): Promise<CommandResult> {
-    const ageGroups = await this.repo.findForTenant(command.tenantId)
+    const ageGroups = await this.repo
+      .findForTenant(command.tenantId)
+      .pipe(first())
+      .toPromise()
+
     await this.repo.putForTenant(
       command.tenantId,
       ageGroups.withSwitchOverOn(command.switchOverOn)
@@ -37,7 +47,10 @@ export class AgeGroupsApplicationService {
   }
 
   async removeAgeGroup(command: RemoveAgeGroupCommand): Promise<CommandResult> {
-    const ageGroups = await this.repo.findForTenant(command.tenantId)
+    const ageGroups = await this.repo
+      .findForTenant(command.tenantId)
+      .pipe(first())
+      .toPromise()
 
     await this.repo.putForTenant(
       command.tenantId,

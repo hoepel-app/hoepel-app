@@ -4,6 +4,8 @@ import { AddAgeGroupCommand } from './add-age-group.command'
 import { AgeGroup } from './age-group'
 import { ChangeSwitchOverOnCommand } from './change-switch-over-on.command'
 import { RemoveAgeGroupCommand } from './remove-age-group.command'
+import { of } from 'rxjs'
+import { first } from 'rxjs/operators'
 
 describe('AgeGroupsApplicationService', () => {
   const exampleGroups = AgeGroups.create('new-school-year')
@@ -15,7 +17,7 @@ describe('AgeGroupsApplicationService', () => {
   describe('addAgeGroup', () => {
     it('rejects if age group with name already exists', async () => {
       const repo = {
-        findForTenant: jest.fn(() => Promise.resolve(exampleGroups)),
+        findForTenant: jest.fn(() => of(exampleGroups)),
         putForTenant: jest.fn(() => Promise.resolve()),
       }
       const service = new AgeGroupsApplicationService(repo)
@@ -33,7 +35,7 @@ describe('AgeGroupsApplicationService', () => {
 
     it('accepts if age group can be added', async () => {
       const repo = {
-        findForTenant: jest.fn(() => Promise.resolve(exampleGroups)),
+        findForTenant: jest.fn(() => of(exampleGroups)),
         putForTenant: jest.fn(() => Promise.resolve()),
       }
       const service = new AgeGroupsApplicationService(repo)
@@ -54,7 +56,7 @@ describe('AgeGroupsApplicationService', () => {
   describe('changeSwitchOverOn', () => {
     it('changes switchover of age groups', async () => {
       const repo = {
-        findForTenant: jest.fn(() => Promise.resolve(exampleGroups)),
+        findForTenant: jest.fn(() => of(exampleGroups)),
         putForTenant: jest.fn(() => Promise.resolve()),
       }
       const service = new AgeGroupsApplicationService(repo)
@@ -75,7 +77,7 @@ describe('AgeGroupsApplicationService', () => {
   describe('removeAgeGroup', () => {
     it('removes an age group by name', async () => {
       const repo = {
-        findForTenant: jest.fn(() => Promise.resolve(exampleGroups)),
+        findForTenant: jest.fn(() => of(exampleGroups)),
         putForTenant: jest.fn(() => Promise.resolve()),
       }
       const service = new AgeGroupsApplicationService(repo)
@@ -93,12 +95,15 @@ describe('AgeGroupsApplicationService', () => {
   describe('findAgeGroups', () => {
     it('find age groups for a tenant', async () => {
       const repo = {
-        findForTenant: jest.fn(() => Promise.resolve(exampleGroups)),
+        findForTenant: jest.fn(() => of(exampleGroups)),
         putForTenant: jest.fn(() => Promise.resolve()),
       }
       const service = new AgeGroupsApplicationService(repo)
 
-      const group = await service.findAgeGroups('my-tenant-name')
+      const group = await service
+        .findAgeGroups('my-tenant-name')
+        .pipe(first())
+        .toPromise()
 
       expect(group).toEqual(exampleGroups)
       expect(repo.findForTenant).toHaveBeenCalledTimes(1)

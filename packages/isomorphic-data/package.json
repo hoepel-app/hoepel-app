@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@hoepel.app/isomorphic-domain": "^0.3.13",
+    "rxjs": "^6.5.5",
     "typesaurus": "^6.0.0"
   },
   "private": true
