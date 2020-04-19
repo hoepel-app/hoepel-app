@@ -13,7 +13,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@hoepel.app/types": "^1.9.0",
+    "@hoepel.app/types": "^1.10.0",
     "date-fns": "^2.12.0",
     "rxjs": "^6.5.5"
   },

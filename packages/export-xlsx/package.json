@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@hoepel.app/domain": "^0.3.12",
-    "@hoepel.app/types": "^1.9.0",
+    "@hoepel.app/types": "^1.10.0",
     "@types/lodash.groupby": "^4.6.6",
     "lodash.flatmap": "^4.5.0",
     "lodash.groupby": "^4.6.0",
