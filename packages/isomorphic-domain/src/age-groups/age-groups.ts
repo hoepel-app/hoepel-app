@@ -20,6 +20,23 @@ export class AgeGroups {
     return this.props.switchOverOn
   }
 
+  /** Ages that are not in use yet by any age group */
+  get unusedAges(): ReadonlySet<number> {
+    const usedAges = this.usedAges
+    return new Set(
+      [...AgeGroups.validAges.values()].filter((age) => !usedAges.has(age))
+    )
+  }
+
+  get usedAges(): ReadonlySet<number> {
+    const ages = this.ageGroups.map((group) => group.validForAges)
+
+    return ages.reduce(
+      (acc, curr) => new Set([...acc, ...curr]),
+      new Set<number>()
+    )
+  }
+
   static fromProps(props: AgeGroupsProps): AgeGroups {
     return new AgeGroups(props)
   }
@@ -33,6 +50,10 @@ export class AgeGroups {
 
   static createEmpty(): AgeGroups {
     return this.create('childs-birthday')
+  }
+
+  static get validAges(): ReadonlySet<number> {
+    return new Set([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16])
   }
 
   toProps(): AgeGroupsProps {

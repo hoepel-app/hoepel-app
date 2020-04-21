@@ -149,4 +149,32 @@ describe('AgeGroups', () => {
   it('serializing and deserializing yields same object', () => {
     expect(AgeGroups.fromProps(exampleGroups.toProps())).toEqual(exampleGroups)
   })
+
+  describe('usedAges', () => {
+    it('be empty when there are no age groups', () => {
+      const groups = AgeGroups.create('childs-birthday')
+
+      expect(groups.usedAges).toEqual(new Set())
+    })
+
+    it('return a set of used ages', () => {
+      expect(exampleGroups.usedAges).toEqual(
+        new Set([2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13])
+      )
+    })
+  })
+
+  describe('unusedAges', () => {
+    it('be empty when there are no age groups', () => {
+      const groups = AgeGroups.create('childs-birthday')
+
+      expect(groups.unusedAges).toEqual(
+        new Set([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16])
+      )
+    })
+
+    it('return a set of unused ages', () => {
+      expect(exampleGroups.unusedAges).toEqual(new Set([1, 14, 15, 16]))
+    })
+  })
 })
