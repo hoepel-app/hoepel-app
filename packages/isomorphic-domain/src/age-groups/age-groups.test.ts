@@ -193,7 +193,7 @@ describe('AgeGroups', () => {
   })
 
   describe('withAgeRemovedFromAgeGroup', () => {
-    it('removess age to existing age group', () => {
+    it('removes age from existing age group', () => {
       expect(
         exampleGroups.withAgeRemovedFromAgeGroup('Tieners', 13)
       ).toMatchSnapshot()
@@ -202,6 +202,26 @@ describe('AgeGroups', () => {
     it('does nothing for non-existing age group', () => {
       expect(
         exampleGroups.withAgeRemovedFromAgeGroup('non-existant', 10)
+      ).toEqual(exampleGroups)
+    })
+  })
+
+  describe('withAgeGroupRenamed', () => {
+    it('renames an age group', () => {
+      expect(
+        exampleGroups.withAgeGroupRenamed('Tieners', 'Oudere kinderen')
+      ).toMatchSnapshot()
+    })
+
+    it('disallows renaming if the name is in use already', () => {
+      expect(() =>
+        exampleGroups.withAgeGroupRenamed('Tieners', 'Maxi')
+      ).toThrow(new Error('Another age group is using that name already'))
+    })
+
+    it('does nothing for non-existing age group', () => {
+      expect(
+        exampleGroups.withAgeGroupRenamed('non-existant', 'something else')
       ).toEqual(exampleGroups)
     })
   })

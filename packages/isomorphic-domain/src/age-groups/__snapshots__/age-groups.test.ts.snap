@@ -43,7 +43,49 @@ AgeGroups {
 }
 `;
 
-exports[`AgeGroups withAgeRemovedFromAgeGroup removess age to existing age group 1`] = `
+exports[`AgeGroups withAgeGroupRenamed renames an age group 1`] = `
+AgeGroups {
+  "props": Object {
+    "ageGroups": Array [
+      Object {
+        "name": "Kleuters",
+        "validForAges": Array [
+          2,
+          3,
+          4,
+        ],
+      },
+      Object {
+        "name": "Mini",
+        "validForAges": Array [
+          5,
+          6,
+          7,
+          8,
+        ],
+      },
+      Object {
+        "name": "Maxi",
+        "validForAges": Array [
+          9,
+          10,
+        ],
+      },
+      Object {
+        "name": "Oudere kinderen",
+        "validForAges": Array [
+          11,
+          12,
+          13,
+        ],
+      },
+    ],
+    "switchOverOn": "childs-birthday",
+  },
+}
+`;
+
+exports[`AgeGroups withAgeRemovedFromAgeGroup removes age from existing age group 1`] = `
 AgeGroups {
   "props": Object {
     "ageGroups": Array [

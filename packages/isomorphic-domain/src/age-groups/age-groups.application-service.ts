@@ -8,6 +8,7 @@ import { AgeGroups } from './age-groups'
 import { Observable } from 'rxjs'
 import { first } from 'rxjs/operators'
 import { RemoveAgeFromAgeGroupCommand } from './remove-age-from-age-group.command'
+import { ChangeAgeGroupNameCommand } from './change-age-group-name.command'
 
 export class AgeGroupsApplicationService {
   constructor(private repo: AgeGroupsRepository) {}
@@ -89,6 +90,25 @@ export class AgeGroupsApplicationService {
     await this.repo.putForTenant(
       command.tenantId,
       ageGroups.withAgeAddedToAgeGroup(command.ageGroupName, command.age)
+    )
+
+    return { status: 'accepted' }
+  }
+
+  async changeAgeGroupName(
+    command: ChangeAgeGroupNameCommand
+  ): Promise<CommandResult> {
+    const ageGroups = await this.repo
+      .findForTenant(command.tenantId)
+      .pipe(first())
+      .toPromise()
+
+    await this.repo.putForTenant(
+      command.tenantId,
+      ageGroups.withAgeGroupRenamed(
+        command.ageGroupCurrentName,
+        command.ageGroupNewName
+      )
     )
 
     return { status: 'accepted' }

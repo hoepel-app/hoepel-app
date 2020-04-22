@@ -74,6 +74,13 @@ export class AgeGroup {
     })
   }
 
+  withName(name: string): AgeGroup {
+    return AgeGroup.fromProps({
+      ...this.toProps(),
+      name,
+    })
+  }
+
   agesOverlapWith(other: AgeGroup): ReadonlySet<number> {
     const otherAges = [...other.validForAges]
 

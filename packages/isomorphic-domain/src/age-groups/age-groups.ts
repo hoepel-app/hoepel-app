@@ -112,6 +112,26 @@ export class AgeGroups {
     })
   }
 
+  withAgeGroupRenamed(
+    ageGroupCurrentName: string,
+    ageGroupNewName: string
+  ): AgeGroups {
+    if (this.names.has(ageGroupNewName)) {
+      throw new Error('Another age group is using that name already')
+    }
+
+    return AgeGroups.fromProps({
+      ...this.toProps(),
+      ageGroups: this.ageGroups.map((ageGroup) => {
+        if (ageGroup.name !== ageGroupCurrentName) {
+          return ageGroup.toProps()
+        }
+
+        return ageGroup.withName(ageGroupNewName).toProps()
+      }),
+    })
+  }
+
   classifyPerson(
     birthDate: DayDate,
     currentDate: DayDate = DayDate.today()

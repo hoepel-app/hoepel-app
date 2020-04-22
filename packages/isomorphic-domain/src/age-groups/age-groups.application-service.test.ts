@@ -8,6 +8,7 @@ import { of } from 'rxjs'
 import { first } from 'rxjs/operators'
 import { RemoveAgeFromAgeGroupCommand } from './remove-age-from-age-group.command'
 import { AddAgeToAgeGroupCommand } from './add-age-to-age-group.command'
+import { ChangeAgeGroupNameCommand } from './change-age-group-name.command'
 
 describe('AgeGroupsApplicationService', () => {
   const exampleGroups = AgeGroups.create('new-school-year')
@@ -114,7 +115,7 @@ describe('AgeGroupsApplicationService', () => {
   })
 
   describe('removeAgeFromAgeGroup', () => {
-    it('removes age from age group and persists that', async () => {
+    it('removes age from age group and persists', async () => {
       const repo = {
         findForTenant: jest.fn(() => of(exampleGroups)),
         putForTenant: jest.fn(() => Promise.resolve()),
@@ -133,7 +134,7 @@ describe('AgeGroupsApplicationService', () => {
   })
 
   describe('addAgeToAgeGroup', () => {
-    it('adds age to age group and persists that', async () => {
+    it('adds age to age group and persists', async () => {
       const repo = {
         findForTenant: jest.fn(() => of(exampleGroups)),
         putForTenant: jest.fn(() => Promise.resolve()),
@@ -142,6 +143,25 @@ describe('AgeGroupsApplicationService', () => {
 
       const group = await service.addAgeToAgeGroup(
         AddAgeToAgeGroupCommand.create('tenantid', 'Tieners', 14)
+      )
+
+      expect(group.status).toEqual('accepted')
+      expect(repo.findForTenant).toHaveBeenCalledTimes(1)
+      expect(repo.putForTenant).toHaveBeenCalledTimes(1)
+      expect(repo.putForTenant.mock.calls[0]).toMatchSnapshot()
+    })
+  })
+
+  describe('changeAgeGroupName', () => {
+    it('changes the name of an age group and persists', async () => {
+      const repo = {
+        findForTenant: jest.fn(() => of(exampleGroups)),
+        putForTenant: jest.fn(() => Promise.resolve()),
+      }
+      const service = new AgeGroupsApplicationService(repo)
+
+      const group = await service.changeAgeGroupName(
+        ChangeAgeGroupNameCommand.create('sometenant', 'Tieners', 'Nieuwe Naam')
       )
 
       expect(group.status).toEqual('accepted')

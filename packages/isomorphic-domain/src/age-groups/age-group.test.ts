@@ -168,4 +168,12 @@ describe('AgeGroup', () => {
       )
     })
   })
+
+  describe('withName', () => {
+    it('changes the name', () => {
+      const group = AgeGroup.create('Tieners', new Set([10, 11, 12]))
+
+      expect(group.withName('Andere naam').name).toEqual('Andere naam')
+    })
+  })
 })
