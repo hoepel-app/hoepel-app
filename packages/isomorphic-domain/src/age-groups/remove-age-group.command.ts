@@ -7,6 +7,8 @@ export type RemoveAgeGroupCommandProps = {
 
 export class RemoveAgeGroupCommand
   implements Command<RemoveAgeGroupCommandProps> {
+  name = 'remove-age-group-command' as const
+
   private constructor(private readonly props: RemoveAgeGroupCommandProps) {}
 
   static create(tenantId: string, ageGroupName: string): RemoveAgeGroupCommand {

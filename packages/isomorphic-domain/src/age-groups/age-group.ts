@@ -60,6 +60,20 @@ export class AgeGroup {
     return this.props
   }
 
+  withAgeAdded(age: number): AgeGroup {
+    return AgeGroup.fromProps({
+      ...this.toProps(),
+      validForAges: [...new Set([...this.validForAges, age])],
+    })
+  }
+
+  withAgeRemoved(age: number): AgeGroup {
+    return AgeGroup.fromProps({
+      ...this.toProps(),
+      validForAges: [...this.validForAges].filter((a) => a !== age),
+    })
+  }
+
   agesOverlapWith(other: AgeGroup): ReadonlySet<number> {
     const otherAges = [...other.validForAges]
 

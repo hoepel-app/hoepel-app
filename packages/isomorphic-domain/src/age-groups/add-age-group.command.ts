@@ -7,6 +7,7 @@ export type AddAgeGroupCommandProps = {
 }
 
 export class AddAgeGroupCommand implements Command<AddAgeGroupCommandProps> {
+  name = 'add-age-group-command' as const
   private constructor(private readonly props: AddAgeGroupCommandProps) {}
 
   static create(tenantId: string, ageGroup: AgeGroup): AddAgeGroupCommand {

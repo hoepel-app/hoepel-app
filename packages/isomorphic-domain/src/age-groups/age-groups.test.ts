@@ -177,4 +177,32 @@ describe('AgeGroups', () => {
       expect(exampleGroups.unusedAges).toEqual(new Set([1, 14, 15, 16]))
     })
   })
+
+  describe('withAgeAddedToAgeGroup', () => {
+    it('adds age to existing age group', () => {
+      expect(
+        exampleGroups.withAgeAddedToAgeGroup('Tieners', 14)
+      ).toMatchSnapshot()
+    })
+
+    it('does nothing for non-existing age group', () => {
+      expect(exampleGroups.withAgeAddedToAgeGroup('non-existant', 14)).toEqual(
+        exampleGroups
+      )
+    })
+  })
+
+  describe('withAgeRemovedFromAgeGroup', () => {
+    it('removess age to existing age group', () => {
+      expect(
+        exampleGroups.withAgeRemovedFromAgeGroup('Tieners', 13)
+      ).toMatchSnapshot()
+    })
+
+    it('does nothing for non-existing age group', () => {
+      expect(
+        exampleGroups.withAgeRemovedFromAgeGroup('non-existant', 10)
+      ).toEqual(exampleGroups)
+    })
+  })
 })

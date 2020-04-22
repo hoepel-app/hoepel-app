@@ -10,7 +10,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "jest"
+    "test": "jest --collect-coverage"
   },
   "dependencies": {
     "@hoepel.app/types": "^1.10.0",

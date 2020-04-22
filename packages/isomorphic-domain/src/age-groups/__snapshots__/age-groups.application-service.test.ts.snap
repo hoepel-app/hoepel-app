@@ -51,6 +51,52 @@ Array [
 ]
 `;
 
+exports[`AgeGroupsApplicationService addAgeToAgeGroup adds age to age group and persists that 1`] = `
+Array [
+  "tenantid",
+  AgeGroups {
+    "props": Object {
+      "ageGroups": Array [
+        Object {
+          "name": "Kleuters",
+          "validForAges": Array [
+            2,
+            3,
+            4,
+          ],
+        },
+        Object {
+          "name": "Mini",
+          "validForAges": Array [
+            5,
+            6,
+            7,
+            8,
+          ],
+        },
+        Object {
+          "name": "Maxi",
+          "validForAges": Array [
+            9,
+            10,
+          ],
+        },
+        Object {
+          "name": "Tieners",
+          "validForAges": Array [
+            11,
+            12,
+            13,
+            14,
+          ],
+        },
+      ],
+      "switchOverOn": "new-school-year",
+    },
+  },
+]
+`;
+
 exports[`AgeGroupsApplicationService changeSwitchOverOn changes switchover of age groups 1`] = `
 Array [
   "some-tenant",
@@ -91,6 +137,50 @@ Array [
         },
       ],
       "switchOverOn": "childs-birthday",
+    },
+  },
+]
+`;
+
+exports[`AgeGroupsApplicationService removeAgeFromAgeGroup removes age from age group and persists that 1`] = `
+Array [
+  "tenantid",
+  AgeGroups {
+    "props": Object {
+      "ageGroups": Array [
+        Object {
+          "name": "Kleuters",
+          "validForAges": Array [
+            2,
+            3,
+            4,
+          ],
+        },
+        Object {
+          "name": "Mini",
+          "validForAges": Array [
+            5,
+            6,
+            7,
+            8,
+          ],
+        },
+        Object {
+          "name": "Maxi",
+          "validForAges": Array [
+            9,
+            10,
+          ],
+        },
+        Object {
+          "name": "Tieners",
+          "validForAges": Array [
+            11,
+            13,
+          ],
+        },
+      ],
+      "switchOverOn": "new-school-year",
     },
   },
 ]

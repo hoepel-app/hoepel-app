@@ -8,6 +8,8 @@ export type ChangeSwitchOverOnCommandProps = {
 
 export class ChangeSwitchOverOnCommand
   implements Command<ChangeSwitchOverOnCommandProps> {
+  name = 'change-switchover-on-agegroup-command' as const
+
   private constructor(private readonly props: ChangeSwitchOverOnCommandProps) {}
 
   static create(

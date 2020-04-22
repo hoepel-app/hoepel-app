@@ -136,4 +136,36 @@ describe('AgeGroup', () => {
 
     expect(AgeGroup.fromProps(group.toProps())).toEqual(group)
   })
+
+  describe('withAgeAdded', () => {
+    it('adds new age group', () => {
+      const group = AgeGroup.create('Tieners', new Set([10, 11, 12]))
+
+      expect(group.withAgeAdded(13).validForAges).toEqual(
+        new Set([10, 11, 12, 13])
+      )
+    })
+
+    it('does not add duplicate age', () => {
+      const group = AgeGroup.create('Tieners', new Set([10, 11, 12]))
+
+      expect(group.withAgeAdded(12).validForAges).toEqual(new Set([10, 11, 12]))
+    })
+  })
+
+  describe('withAgeRemoved', () => {
+    it('removes existing age', () => {
+      const group = AgeGroup.create('Tieners', new Set([10, 11, 12]))
+
+      expect(group.withAgeRemoved(11).validForAges).toEqual(new Set([10, 12]))
+    })
+
+    it('does nothing when age is not added', () => {
+      const group = AgeGroup.create('Tieners', new Set([10, 11, 12]))
+
+      expect(group.withAgeRemoved(13).validForAges).toEqual(
+        new Set([10, 11, 12])
+      )
+    })
+  })
 })

@@ -6,6 +6,8 @@ import { ChangeSwitchOverOnCommand } from './change-switch-over-on.command'
 import { RemoveAgeGroupCommand } from './remove-age-group.command'
 import { of } from 'rxjs'
 import { first } from 'rxjs/operators'
+import { RemoveAgeFromAgeGroupCommand } from './remove-age-from-age-group.command'
+import { AddAgeToAgeGroupCommand } from './add-age-to-age-group.command'
 
 describe('AgeGroupsApplicationService', () => {
   const exampleGroups = AgeGroups.create('new-school-year')
@@ -108,6 +110,44 @@ describe('AgeGroupsApplicationService', () => {
       expect(group).toEqual(exampleGroups)
       expect(repo.findForTenant).toHaveBeenCalledTimes(1)
       expect(repo.findForTenant.mock.calls[0]).toEqual(['my-tenant-name'])
+    })
+  })
+
+  describe('removeAgeFromAgeGroup', () => {
+    it('removes age from age group and persists that', async () => {
+      const repo = {
+        findForTenant: jest.fn(() => of(exampleGroups)),
+        putForTenant: jest.fn(() => Promise.resolve()),
+      }
+      const service = new AgeGroupsApplicationService(repo)
+
+      const group = await service.removeAgeFromAgeGroup(
+        RemoveAgeFromAgeGroupCommand.create('tenantid', 'Tieners', 12)
+      )
+
+      expect(group.status).toEqual('accepted')
+      expect(repo.findForTenant).toHaveBeenCalledTimes(1)
+      expect(repo.putForTenant).toHaveBeenCalledTimes(1)
+      expect(repo.putForTenant.mock.calls[0]).toMatchSnapshot()
+    })
+  })
+
+  describe('addAgeToAgeGroup', () => {
+    it('adds age to age group and persists that', async () => {
+      const repo = {
+        findForTenant: jest.fn(() => of(exampleGroups)),
+        putForTenant: jest.fn(() => Promise.resolve()),
+      }
+      const service = new AgeGroupsApplicationService(repo)
+
+      const group = await service.addAgeToAgeGroup(
+        AddAgeToAgeGroupCommand.create('tenantid', 'Tieners', 14)
+      )
+
+      expect(group.status).toEqual('accepted')
+      expect(repo.findForTenant).toHaveBeenCalledTimes(1)
+      expect(repo.putForTenant).toHaveBeenCalledTimes(1)
+      expect(repo.putForTenant.mock.calls[0]).toMatchSnapshot()
     })
   })
 })

@@ -86,6 +86,32 @@ export class AgeGroups {
     })
   }
 
+  withAgeAddedToAgeGroup(ageGroupName: string, age: number): AgeGroups {
+    return AgeGroups.fromProps({
+      ...this.toProps(),
+      ageGroups: this.ageGroups.map((ageGroup) => {
+        if (ageGroup.name !== ageGroupName) {
+          return ageGroup.toProps()
+        }
+
+        return ageGroup.withAgeAdded(age).toProps()
+      }),
+    })
+  }
+
+  withAgeRemovedFromAgeGroup(ageGroupName: string, age: number): AgeGroups {
+    return AgeGroups.fromProps({
+      ...this.toProps(),
+      ageGroups: this.ageGroups.map((ageGroup) => {
+        if (ageGroup.name !== ageGroupName) {
+          return ageGroup.toProps()
+        }
+
+        return ageGroup.withAgeRemoved(age).toProps()
+      }),
+    })
+  }
+
   classifyPerson(
     birthDate: DayDate,
     currentDate: DayDate = DayDate.today()
