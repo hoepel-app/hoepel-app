@@ -13,7 +13,7 @@ export class FirebaseTenantIndexedRepository<IT extends Omit<IT, 'tenant'>, T>
   implements TenantIndexedRepository<T> {
   constructor(
     private readonly db: admin.firestore.Firestore,
-    private collection: TenantIndexedMappingCollection<IT, T>
+    private readonly collection: TenantIndexedMappingCollection<IT, T>
   ) {}
 
   async get(tenant: string, id: string): Promise<T> {
@@ -94,7 +94,7 @@ export class FirebaseTenantIndexedRepository<IT extends Omit<IT, 'tenant'>, T>
 export class FirebaseRepository<IT, T> implements Repository<T> {
   constructor(
     private readonly db: admin.firestore.Firestore,
-    private collection: MappingCollection<IT, T>
+    private readonly collection: MappingCollection<IT, T>
   ) {}
 
   async get(id: string): Promise<T> {

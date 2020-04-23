@@ -16,7 +16,7 @@ export const createShiftRepository = (
   new FirebaseTenantIndexedRepository<IShift, Shift>(db, store.shifts)
 
 export class ShiftService {
-  constructor(private shiftRepository: IShiftRepository) {}
+  constructor(private readonly shiftRepository: IShiftRepository) {}
 
   async getShiftsInYear(
     tenant: string,

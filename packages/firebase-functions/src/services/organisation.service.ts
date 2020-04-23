@@ -9,8 +9,8 @@ type TenantClaims = {
 // TODO rename and merge with TenantService
 export class OrganisationService {
   constructor(
-    private db: admin.firestore.Firestore,
-    private auth: admin.auth.Auth
+    private readonly db: admin.firestore.Firestore,
+    private readonly auth: admin.auth.Auth
   ) {}
 
   async getDetails(organisationId: string): Promise<Tenant | null> {

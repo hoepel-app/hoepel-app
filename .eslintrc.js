@@ -24,6 +24,7 @@ module.exports = {
       rules: {
         "no-useless-constructor": "off",
         "@typescript-eslint/no-non-null-assertion": "error",
+        "@typescript-eslint/prefer-readonly": "error",
         "@typescript-eslint/no-use-before-define": "off",
         "@typescript-eslint/explicit-function-return-type": [
           "error",

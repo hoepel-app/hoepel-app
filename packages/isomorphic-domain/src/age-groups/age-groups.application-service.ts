@@ -11,7 +11,7 @@ import { RemoveAgeFromAgeGroupCommand } from './remove-age-from-age-group.comman
 import { ChangeAgeGroupNameCommand } from './change-age-group-name.command'
 
 export class AgeGroupsApplicationService {
-  constructor(private repo: AgeGroupsRepository) {}
+  constructor(private readonly repo: AgeGroupsRepository) {}
 
   findAgeGroups(tenantId: string): Observable<AgeGroups> {
     return this.repo.findForTenant(tenantId)

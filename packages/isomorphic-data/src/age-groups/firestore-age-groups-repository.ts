@@ -8,7 +8,7 @@ import { Observable, from } from 'rxjs'
 import { map } from 'rxjs/operators'
 
 export class FirestoreAgeGroupsRepository implements AgeGroupsRepository {
-  private collection = collection<AgeGroupsProps>('age-groups')
+  private readonly collection = collection<AgeGroupsProps>('age-groups')
 
   findForTenant(tenantId: string): Observable<AgeGroups> {
     return from(get(this.collection, tenantId)).pipe(

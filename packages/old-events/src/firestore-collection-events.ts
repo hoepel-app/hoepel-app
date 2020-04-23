@@ -2,7 +2,7 @@ import { Collection } from '@hoepel.app/types'
 import { IEvent, IEventContext } from './event'
 
 export class FirestoreCollectionEvents<T> {
-  constructor(private collection: Collection<T>) {}
+  constructor(private readonly collection: Collection<T>) {}
 
   isAppropriateFor(collectionId: string): boolean {
     return this.collection.collectionName === collectionId

@@ -37,8 +37,8 @@ export const createChildAttendanceByShiftRepository = (
 
 export class ChildAttendanceService {
   constructor(
-    private byChildRepository: IChildAttendanceByChildRepository,
-    private byShiftRepository: IChildAttendanceByShiftRepository
+    private readonly byChildRepository: IChildAttendanceByChildRepository,
+    private readonly byShiftRepository: IChildAttendanceByShiftRepository
   ) {}
 
   async getAttendancesForChild(

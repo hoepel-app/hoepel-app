@@ -60,15 +60,15 @@ interface TemplateMetadata {
 
 export class TemplateService {
   constructor(
-    private db: admin.firestore.Firestore,
-    private templatesStorage: Bucket,
-    private reportsStorage: Bucket,
-    private childRepository: IChildRepository,
-    private contactPersonRepository: IContactPersonRepository,
-    private addressService: AddressDomainService,
-    private organisationService: OrganisationService,
-    private childAttendanceService: ChildAttendanceService,
-    private shiftRepository: IShiftRepository
+    private readonly db: admin.firestore.Firestore,
+    private readonly templatesStorage: Bucket,
+    private readonly reportsStorage: Bucket,
+    private readonly childRepository: IChildRepository,
+    private readonly contactPersonRepository: IContactPersonRepository,
+    private readonly addressService: AddressDomainService,
+    private readonly organisationService: OrganisationService,
+    private readonly childAttendanceService: ChildAttendanceService,
+    private readonly shiftRepository: IShiftRepository
   ) {}
 
   /**

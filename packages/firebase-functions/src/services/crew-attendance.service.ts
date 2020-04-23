@@ -37,8 +37,8 @@ export const createCrewAttendanceByShiftRepository = (
 
 export class CrewAttendanceService {
   constructor(
-    private byCrewRepository: ICrewAttendanceByCrewRepository,
-    private byShiftRepository: ICrewAttendanceByShiftRepository
+    private readonly byCrewRepository: ICrewAttendanceByCrewRepository,
+    private readonly byShiftRepository: ICrewAttendanceByShiftRepository
   ) {}
 
   async getAttendancesForCrew(

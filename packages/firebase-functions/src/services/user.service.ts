@@ -3,8 +3,8 @@ import { IUser } from '@hoepel.app/types'
 
 export class UserService {
   constructor(
-    private db: admin.firestore.Firestore,
-    private auth: admin.auth.Auth
+    private readonly db: admin.firestore.Firestore,
+    private readonly auth: admin.auth.Auth
   ) {}
 
   async acceptPrivacyPolicy(uid: string): Promise<void> {

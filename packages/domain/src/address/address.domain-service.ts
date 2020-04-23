@@ -7,7 +7,9 @@ import {
 
 export class AddressDomainService {
   constructor(
-    private contactPersonRepository: TenantIndexedRepository<ContactPerson>
+    private readonly contactPersonRepository: TenantIndexedRepository<
+      ContactPerson
+    >
   ) {}
 
   async getAddressForChild(

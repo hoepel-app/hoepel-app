@@ -18,15 +18,15 @@ type FirestoreFileDocument = IReport & { id?: string; tenant: string }
 
 export class FileService {
   constructor(
-    private xlsxExporter: XlsxExporter,
-    private childRepository: IChildRepository,
-    private crewRepository: ICrewRepository,
-    private contactPersonRepository: IContactPersonRepository,
-    private shiftService: ShiftService,
-    private childAttendanceService: ChildAttendanceService,
-    private crewAttendanceService: CrewAttendanceService,
-    private db: admin.firestore.Firestore, // TODO refactor so this service does not use db directly
-    private storage: Bucket
+    private readonly xlsxExporter: XlsxExporter,
+    private readonly childRepository: IChildRepository,
+    private readonly crewRepository: ICrewRepository,
+    private readonly contactPersonRepository: IContactPersonRepository,
+    private readonly shiftService: ShiftService,
+    private readonly childAttendanceService: ChildAttendanceService,
+    private readonly crewAttendanceService: CrewAttendanceService,
+    private readonly db: admin.firestore.Firestore, // TODO refactor so this service does not use db directly
+    private readonly storage: Bucket
   ) {}
 
   async exportAllChildren(

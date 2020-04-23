@@ -5,7 +5,7 @@ export class IndexedByTenantCollection extends Collection {
   constructor(
     collectionName: string,
     permissions: CollectionPermissions,
-    private allowPublicRead = false
+    private readonly allowPublicRead = false
   ) {
     super(collectionName, permissions)
   }
