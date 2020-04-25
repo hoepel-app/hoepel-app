@@ -1,6 +1,6 @@
 {
   "name": "@hoepel.app/isomorphic-domain",
-  "version": "0.3.18",
+  "version": "0.3.19",
   "main": "dist/index.js",
   "license": "GPL-3.0-or-later",
   "devDependencies": {
@@ -13,8 +13,8 @@
     "test": "jest --collect-coverage"
   },
   "dependencies": {
+    "@hoepel.app/ddd-library": "^0.3.19",
     "@hoepel.app/types": "^1.10.0",
-    "@hoepel.app/ddd-library": "^0.3.18",
     "date-fns": "^2.12.0",
     "rxjs": "^6.5.5"
   },
