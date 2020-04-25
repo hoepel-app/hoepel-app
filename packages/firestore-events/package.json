@@ -1,11 +1,11 @@
 {
   "name": "@hoepel.app/firestore-events",
   "description": "Firebase functions that listen for Firestore changes",
-  "version": "0.3.15",
+  "version": "0.3.18",
   "main": "dist/index.js",
   "license": "GPL-3.0-or-later",
   "dependencies": {
-    "@hoepel.app/old-events": "^0.3.15",
+    "@hoepel.app/old-events": "^0.3.18",
     "@hoepel.app/types": "^1.10.0",
     "firebase-admin": "^8.9.2",
     "firebase-functions": "^3.3.0"

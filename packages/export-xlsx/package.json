@@ -1,6 +1,6 @@
 {
   "name": "@hoepel.app/export-xlsx",
-  "version": "0.3.15",
+  "version": "0.3.18",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "license": "GPL-3.0-or-later",
@@ -9,7 +9,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@hoepel.app/domain": "^0.3.15",
+    "@hoepel.app/domain": "^0.3.18",
     "@hoepel.app/types": "^1.10.0",
     "@types/lodash.groupby": "^4.6.6",
     "lodash.flatmap": "^4.5.0",
