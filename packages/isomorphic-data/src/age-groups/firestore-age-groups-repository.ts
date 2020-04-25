@@ -1,8 +1,4 @@
-import {
-  AgeGroupsRepository,
-  AgeGroups,
-  AgeGroupsProps,
-} from '@hoepel.app/isomorphic-domain'
+import { AgeGroupsRepository, AgeGroups } from '@hoepel.app/isomorphic-domain'
 import { collection, get, set } from 'typesaurus'
 import { Observable, from } from 'rxjs'
 import { map } from 'rxjs/operators'
