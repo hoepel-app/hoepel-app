@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@hoepel.app/types": "^1.10.0",
+    "@hoepel.app/ddd-library": "^0.3.18",
     "date-fns": "^2.12.0",
     "rxjs": "^6.5.5"
   },

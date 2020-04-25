@@ -10,11 +10,11 @@ import { map } from 'rxjs/operators'
 export class FirestoreAgeGroupsRepository implements AgeGroupsRepository {
   private readonly collection = collection<AgeGroupsProps>('age-groups')
 
-  findForTenant(tenantId: string): Observable<AgeGroups> {
+  getForTenant(tenantId: string): Observable<AgeGroups> {
     return from(get(this.collection, tenantId)).pipe(
       map((result) => {
         if (result == null) {
-          return AgeGroups.createEmpty()
+          return AgeGroups.createEmpty(tenantId)
         }
 
         return AgeGroups.fromProps(result.data)
@@ -22,7 +22,7 @@ export class FirestoreAgeGroupsRepository implements AgeGroupsRepository {
     )
   }
 
-  async putForTenant(tenantId: string, entity: AgeGroups): Promise<void> {
-    await set(this.collection, tenantId, entity.toProps())
+  async put(entity: AgeGroups): Promise<void> {
+    await set(this.collection, entity.tenantId, entity.toProps())
   }
 }

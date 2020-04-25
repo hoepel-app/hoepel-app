@@ -3,7 +3,7 @@ import { DayDate } from '@hoepel.app/types'
 import { AgeGroup } from './age-group'
 
 describe('Age groups based on current age', () => {
-  const ageGroups = AgeGroups.create('childs-birthday')
+  const ageGroups = AgeGroups.create('my-tenant-id', 'childs-birthday')
     .withAddedAgeGroup(AgeGroup.create('Kleuters', new Set([2, 3, 4])))
     .withAddedAgeGroup(AgeGroup.create('Mini', new Set([5, 6, 7, 8])))
     .withAddedAgeGroup(AgeGroup.create('Maxi', new Set([9, 10])))
@@ -58,7 +58,7 @@ describe('Age groups based on current age', () => {
 })
 
 describe('Age groups switching only when a new school year starts', () => {
-  const ageGroups = AgeGroups.create('new-school-year')
+  const ageGroups = AgeGroups.create('my-tenant-id', 'new-school-year')
     .withAddedAgeGroup(AgeGroup.create('Kleuters', new Set([2, 3, 4])))
     .withAddedAgeGroup(AgeGroup.create('Mini', new Set([5, 6, 7, 8])))
     .withAddedAgeGroup(AgeGroup.create('Maxi', new Set([9, 10])))
@@ -104,7 +104,7 @@ describe('Age groups switching only when a new school year starts', () => {
 })
 
 describe('AgeGroups', () => {
-  const exampleGroups = AgeGroups.create('childs-birthday')
+  const exampleGroups = AgeGroups.create('my-tenant-id', 'childs-birthday')
     .withAddedAgeGroup(AgeGroup.create('Kleuters', new Set([2, 3, 4])))
     .withAddedAgeGroup(AgeGroup.create('Mini', new Set([5, 6, 7, 8])))
     .withAddedAgeGroup(AgeGroup.create('Maxi', new Set([9, 10])))
@@ -152,7 +152,7 @@ describe('AgeGroups', () => {
 
   describe('usedAges', () => {
     it('be empty when there are no age groups', () => {
-      const groups = AgeGroups.create('childs-birthday')
+      const groups = AgeGroups.create('my-tenant-id', 'childs-birthday')
 
       expect(groups.usedAges).toEqual(new Set())
     })
@@ -166,7 +166,7 @@ describe('AgeGroups', () => {
 
   describe('unusedAges', () => {
     it('be empty when there are no age groups', () => {
-      const groups = AgeGroups.create('childs-birthday')
+      const groups = AgeGroups.create('my-tenant-id', 'childs-birthday')
 
       expect(groups.unusedAges).toEqual(
         new Set([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16])
@@ -223,6 +223,12 @@ describe('AgeGroups', () => {
       expect(
         exampleGroups.withAgeGroupRenamed('non-existant', 'something else')
       ).toEqual(exampleGroups)
+    })
+  })
+
+  describe('id', () => {
+    it('makes id based on the tenant id with a suffix', () => {
+      expect(exampleGroups.id).toEqual('my-tenant-id-agegroups')
     })
   })
 })

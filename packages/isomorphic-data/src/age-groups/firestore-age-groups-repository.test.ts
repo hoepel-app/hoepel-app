@@ -7,7 +7,7 @@ import { first } from 'rxjs/operators'
 describe('FirestoreAgeGroupsRepository', () => {
   let app: ReturnType<typeof firebase.initializeAdminApp> | undefined
 
-  const exampleGroups = AgeGroups.create('new-school-year')
+  const exampleGroups = AgeGroups.create('my-tenant-id', 'new-school-year')
     .withAddedAgeGroup(AgeGroup.create('Kleuters', new Set([2, 3, 4])))
     .withAddedAgeGroup(AgeGroup.create('Mini', new Set([5, 6, 7, 8])))
     .withAddedAgeGroup(AgeGroup.create('Maxi', new Set([9, 10])))
@@ -26,20 +26,20 @@ describe('FirestoreAgeGroupsRepository', () => {
     const repo = new FirestoreAgeGroupsRepository()
 
     const result = await repo
-      .findForTenant('my-tenant-name')
+      .getForTenant('something-tenant')
       .pipe(first())
       .toPromise()
 
-    expect(result).toEqual(AgeGroups.createEmpty())
+    expect(result).toEqual(AgeGroups.createEmpty('something-tenant'))
   })
 
   it('can save and load age groups', async () => {
     const repo = new FirestoreAgeGroupsRepository()
 
-    await repo.putForTenant('my-tenant', exampleGroups)
+    await repo.put(exampleGroups)
 
     const result = await repo
-      .findForTenant('my-tenant')
+      .getForTenant('my-tenant-id')
       .pipe(first())
       .toPromise()
 

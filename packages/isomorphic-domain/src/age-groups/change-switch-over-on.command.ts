@@ -1,36 +1,26 @@
-import { Command } from '../command/command'
+import { CommandBase, CommandMetadata } from '@hoepel.app/ddd-library'
 import { SwitchOverOn } from './age-group'
 
-export type ChangeSwitchOverOnCommandProps = {
-  tenantId: string
+type Payload = {
   switchOverOn: SwitchOverOn
 }
 
-export class ChangeSwitchOverOnCommand
-  implements Command<ChangeSwitchOverOnCommandProps> {
+export class ChangeSwitchOverOnCommand extends CommandBase<Payload> {
   name = 'change-switchover-on-agegroup-command' as const
 
-  private constructor(private readonly props: ChangeSwitchOverOnCommandProps) {}
-
   static create(
-    tenantId: string,
-    switchOverOn: SwitchOverOn
+    switchOverOn: SwitchOverOn,
+    commandMetadata: CommandMetadata
   ): ChangeSwitchOverOnCommand {
-    return new ChangeSwitchOverOnCommand({
-      tenantId,
-      switchOverOn,
-    })
-  }
-
-  toProps(): ChangeSwitchOverOnCommandProps {
-    return this.props
-  }
-
-  get tenantId(): string {
-    return this.props.tenantId
+    return new ChangeSwitchOverOnCommand(
+      {
+        switchOverOn,
+      },
+      commandMetadata
+    )
   }
 
   get switchOverOn(): SwitchOverOn {
-    return this.props.switchOverOn
+    return this.payload.switchOverOn
   }
 }

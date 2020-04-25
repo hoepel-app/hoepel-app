@@ -12,5 +12,6 @@
     { "path": "./export-docx" },
     { "path": "./isomorphic-data" },
     { "path": "./isomorphic-domain" },
+    { "path": "./ddd-library" },
   ]
 }

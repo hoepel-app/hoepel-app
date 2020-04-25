@@ -2,7 +2,6 @@
 
 exports[`AgeGroupsApplicationService addAgeGroup accepts if age group can be added 1`] = `
 Array [
-  "my-tenant",
   AgeGroups {
     "props": Object {
       "ageGroups": Array [
@@ -46,6 +45,7 @@ Array [
         },
       ],
       "switchOverOn": "new-school-year",
+      "tenantId": "some-tenant-id",
     },
   },
 ]
@@ -53,7 +53,6 @@ Array [
 
 exports[`AgeGroupsApplicationService addAgeToAgeGroup adds age to age group and persists 1`] = `
 Array [
-  "tenantid",
   AgeGroups {
     "props": Object {
       "ageGroups": Array [
@@ -92,6 +91,7 @@ Array [
         },
       ],
       "switchOverOn": "new-school-year",
+      "tenantId": "some-tenant-id",
     },
   },
 ]
@@ -99,7 +99,6 @@ Array [
 
 exports[`AgeGroupsApplicationService changeAgeGroupName changes the name of an age group and persists 1`] = `
 Array [
-  "sometenant",
   AgeGroups {
     "props": Object {
       "ageGroups": Array [
@@ -137,6 +136,7 @@ Array [
         },
       ],
       "switchOverOn": "new-school-year",
+      "tenantId": "some-tenant-id",
     },
   },
 ]
@@ -144,7 +144,6 @@ Array [
 
 exports[`AgeGroupsApplicationService changeSwitchOverOn changes switchover of age groups 1`] = `
 Array [
-  "some-tenant",
   AgeGroups {
     "props": Object {
       "ageGroups": Array [
@@ -182,6 +181,7 @@ Array [
         },
       ],
       "switchOverOn": "childs-birthday",
+      "tenantId": "some-tenant-id",
     },
   },
 ]
@@ -189,7 +189,6 @@ Array [
 
 exports[`AgeGroupsApplicationService removeAgeFromAgeGroup removes age from age group and persists 1`] = `
 Array [
-  "tenantid",
   AgeGroups {
     "props": Object {
       "ageGroups": Array [
@@ -226,6 +225,7 @@ Array [
         },
       ],
       "switchOverOn": "new-school-year",
+      "tenantId": "some-tenant-id",
     },
   },
 ]
@@ -233,7 +233,6 @@ Array [
 
 exports[`AgeGroupsApplicationService removeAgeGroup removes an age group by name 1`] = `
 Array [
-  "some-tenant",
   AgeGroups {
     "props": Object {
       "ageGroups": Array [
@@ -263,6 +262,7 @@ Array [
         },
       ],
       "switchOverOn": "new-school-year",
+      "tenantId": "some-tenant-id",
     },
   },
 ]

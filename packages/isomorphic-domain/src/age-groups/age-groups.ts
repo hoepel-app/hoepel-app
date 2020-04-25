@@ -1,11 +1,13 @@
 import { AgeGroupProps, AgeGroup, SwitchOverOn } from './age-group'
 import { DayDate } from '@hoepel.app/types'
+import { Aggregate } from '@hoepel.app/ddd-library/src'
 
 export type AgeGroupsProps = {
   ageGroups: readonly AgeGroupProps[]
   switchOverOn: SwitchOverOn
+  tenantId: string
 }
-export class AgeGroups {
+export class AgeGroups implements Aggregate {
   private constructor(private readonly props: AgeGroupsProps) {}
 
   get ageGroups(): readonly AgeGroup[] {
@@ -18,6 +20,10 @@ export class AgeGroups {
 
   get switchOverOn(): SwitchOverOn {
     return this.props.switchOverOn
+  }
+
+  get id(): string {
+    return `${this.tenantId}-agegroups`
   }
 
   /** Ages that are not in use yet by any age group */
@@ -37,19 +43,24 @@ export class AgeGroups {
     )
   }
 
+  get tenantId(): string {
+    return this.props.tenantId
+  }
+
   static fromProps(props: AgeGroupsProps): AgeGroups {
     return new AgeGroups(props)
   }
 
-  static create(switchOverOn: SwitchOverOn): AgeGroups {
+  static create(tenantId: string, switchOverOn: SwitchOverOn): AgeGroups {
     return this.fromProps({
+      tenantId,
       switchOverOn,
       ageGroups: [],
     })
   }
 
-  static createEmpty(): AgeGroups {
-    return this.create('childs-birthday')
+  static createEmpty(tenantId: string): AgeGroups {
+    return this.create(tenantId, 'childs-birthday')
   }
 
   static get validAges(): ReadonlySet<number> {
@@ -58,6 +69,7 @@ export class AgeGroups {
 
   toProps(): AgeGroupsProps {
     return {
+      tenantId: this.tenantId,
       switchOverOn: this.switchOverOn,
       ageGroups: this.ageGroups.map((group) => group.toProps()),
     }

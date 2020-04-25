@@ -1,42 +1,32 @@
-import { Command } from '../command/command'
+import { CommandBase, CommandMetadata } from '@hoepel.app/ddd-library'
 
-export type ChangeAgeGroupNameCommandProps = {
-  tenantId: string
+type Payload = {
   ageGroupCurrentName: string
   ageGroupNewName: string
 }
 
-export class ChangeAgeGroupNameCommand
-  implements Command<ChangeAgeGroupNameCommandProps> {
+export class ChangeAgeGroupNameCommand extends CommandBase<Payload> {
   name = 'change-age-group-name-command' as const
 
-  private constructor(private readonly props: ChangeAgeGroupNameCommandProps) {}
-
   static create(
-    tenantId: string,
     ageGroupCurrentName: string,
-    ageGroupNewName: string
+    ageGroupNewName: string,
+    commandMetadata: CommandMetadata
   ): ChangeAgeGroupNameCommand {
-    return new ChangeAgeGroupNameCommand({
-      tenantId,
-      ageGroupCurrentName,
-      ageGroupNewName,
-    })
-  }
-
-  toProps(): ChangeAgeGroupNameCommandProps {
-    return this.props
-  }
-
-  get tenantId(): string {
-    return this.props.tenantId
+    return new ChangeAgeGroupNameCommand(
+      {
+        ageGroupCurrentName,
+        ageGroupNewName,
+      },
+      commandMetadata
+    )
   }
 
   get ageGroupCurrentName(): string {
-    return this.props.ageGroupCurrentName
+    return this.payload.ageGroupCurrentName
   }
 
   get ageGroupNewName(): string {
-    return this.props.ageGroupNewName
+    return this.payload.ageGroupNewName
   }
 }

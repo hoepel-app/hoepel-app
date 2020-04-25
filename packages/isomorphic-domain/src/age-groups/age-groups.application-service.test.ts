@@ -9,165 +9,204 @@ import { first } from 'rxjs/operators'
 import { RemoveAgeFromAgeGroupCommand } from './remove-age-from-age-group.command'
 import { AddAgeToAgeGroupCommand } from './add-age-to-age-group.command'
 import { ChangeAgeGroupNameCommand } from './change-age-group-name.command'
+import { CommandMetadata } from '@hoepel.app/ddd-library/src'
 
 describe('AgeGroupsApplicationService', () => {
-  const exampleGroups = AgeGroups.create('new-school-year')
-    .withAddedAgeGroup(AgeGroup.create('Kleuters', new Set([2, 3, 4])))
-    .withAddedAgeGroup(AgeGroup.create('Mini', new Set([5, 6, 7, 8])))
-    .withAddedAgeGroup(AgeGroup.create('Maxi', new Set([9, 10])))
-    .withAddedAgeGroup(AgeGroup.create('Tieners', new Set([11, 12, 13])))
+  const exampleGroups = (tenantId: string): AgeGroups =>
+    AgeGroups.create(tenantId, 'new-school-year')
+      .withAddedAgeGroup(AgeGroup.create('Kleuters', new Set([2, 3, 4])))
+      .withAddedAgeGroup(AgeGroup.create('Mini', new Set([5, 6, 7, 8])))
+      .withAddedAgeGroup(AgeGroup.create('Maxi', new Set([9, 10])))
+      .withAddedAgeGroup(AgeGroup.create('Tieners', new Set([11, 12, 13])))
+
+  const commandMetadata: CommandMetadata = {
+    commandId: 'my-command-id-123',
+    requestedBy: {
+      email: 'test@example.org',
+      type: 'user',
+      uid: 'my-uid-123',
+    },
+    tenantId: 'some-tenant-id',
+    timestamp: new Date('2020-04-25T19:43:29.161Z'),
+  }
 
   describe('addAgeGroup', () => {
     it('rejects if age group with name already exists', async () => {
       const repo = {
-        findForTenant: jest.fn(() => of(exampleGroups)),
-        putForTenant: jest.fn(() => Promise.resolve()),
+        getForTenant: jest.fn((tenantId: string) =>
+          of(exampleGroups(tenantId))
+        ),
+        put: jest.fn(() => Promise.resolve()),
       }
       const service = new AgeGroupsApplicationService(repo)
 
       const command = AddAgeGroupCommand.create(
-        'my-tenant',
-        AgeGroup.create('Tieners', new Set([12]))
+        AgeGroup.create('Tieners', new Set([12])),
+        commandMetadata
       )
 
       const commandResult = await service.addAgeGroup(command)
 
       expect(commandResult).toEqual({ status: 'rejected' })
-      expect(repo.putForTenant).not.toHaveBeenCalled()
+      expect(repo.put).not.toHaveBeenCalled()
     })
 
     it('accepts if age group can be added', async () => {
       const repo = {
-        findForTenant: jest.fn(() => of(exampleGroups)),
-        putForTenant: jest.fn(() => Promise.resolve()),
+        getForTenant: jest.fn((tenantId: string) =>
+          of(exampleGroups(tenantId))
+        ),
+        put: jest.fn(() => Promise.resolve()),
       }
+
       const service = new AgeGroupsApplicationService(repo)
 
       const command = AddAgeGroupCommand.create(
-        'my-tenant',
-        AgeGroup.create('Oudere tieners', new Set([14]))
+        AgeGroup.create('Oudere tieners', new Set([14])),
+        commandMetadata
       )
 
       const commandResult = await service.addAgeGroup(command)
 
       expect(commandResult).toEqual({ status: 'accepted' })
-      expect(repo.putForTenant).toHaveBeenCalledTimes(1)
-      expect(repo.putForTenant.mock.calls[0]).toMatchSnapshot()
+      expect(repo.put).toHaveBeenCalledTimes(1)
+      expect(repo.put.mock.calls[0]).toMatchSnapshot()
     })
   })
 
   describe('changeSwitchOverOn', () => {
     it('changes switchover of age groups', async () => {
       const repo = {
-        findForTenant: jest.fn(() => of(exampleGroups)),
-        putForTenant: jest.fn(() => Promise.resolve()),
+        getForTenant: jest.fn((tenantId: string) =>
+          of(exampleGroups(tenantId))
+        ),
+        put: jest.fn(() => Promise.resolve()),
       }
       const service = new AgeGroupsApplicationService(repo)
 
       const command = ChangeSwitchOverOnCommand.create(
-        'some-tenant',
-        'childs-birthday'
+        'childs-birthday',
+        commandMetadata
       )
 
       const commandResult = await service.changeSwitchOverOn(command)
 
       expect(commandResult).toEqual({ status: 'accepted' })
-      expect(repo.putForTenant).toHaveBeenCalledTimes(1)
-      expect(repo.putForTenant.mock.calls[0]).toMatchSnapshot()
+      expect(repo.put).toHaveBeenCalledTimes(1)
+      expect(repo.put.mock.calls[0]).toMatchSnapshot()
     })
   })
 
   describe('removeAgeGroup', () => {
     it('removes an age group by name', async () => {
       const repo = {
-        findForTenant: jest.fn(() => of(exampleGroups)),
-        putForTenant: jest.fn(() => Promise.resolve()),
+        getForTenant: jest.fn((tenantId: string) =>
+          of(exampleGroups(tenantId))
+        ),
+        put: jest.fn(() => Promise.resolve()),
       }
+
       const service = new AgeGroupsApplicationService(repo)
 
-      const command = RemoveAgeGroupCommand.create('some-tenant', 'Tieners')
+      const command = RemoveAgeGroupCommand.create('Tieners', commandMetadata)
 
       const commandResult = await service.removeAgeGroup(command)
 
       expect(commandResult).toEqual({ status: 'accepted' })
-      expect(repo.putForTenant).toHaveBeenCalledTimes(1)
-      expect(repo.putForTenant.mock.calls[0]).toMatchSnapshot()
+      expect(repo.put).toHaveBeenCalledTimes(1)
+      expect(repo.put.mock.calls[0]).toMatchSnapshot()
     })
   })
 
   describe('findAgeGroups', () => {
     it('find age groups for a tenant', async () => {
+      const groups = exampleGroups('my-tenant')
+
       const repo = {
-        findForTenant: jest.fn(() => of(exampleGroups)),
-        putForTenant: jest.fn(() => Promise.resolve()),
+        getForTenant: jest.fn(() => of(groups)),
+        put: jest.fn(() => Promise.resolve()),
       }
+
       const service = new AgeGroupsApplicationService(repo)
 
-      const group = await service
+      const result = await service
         .findAgeGroups('my-tenant-name')
         .pipe(first())
         .toPromise()
 
-      expect(group).toEqual(exampleGroups)
-      expect(repo.findForTenant).toHaveBeenCalledTimes(1)
-      expect(repo.findForTenant.mock.calls[0]).toEqual(['my-tenant-name'])
+      expect(result).toEqual(groups)
+      expect(repo.getForTenant).toHaveBeenCalledTimes(1)
+      expect(repo.getForTenant.mock.calls[0]).toEqual(['my-tenant-name'])
     })
   })
 
   describe('removeAgeFromAgeGroup', () => {
     it('removes age from age group and persists', async () => {
       const repo = {
-        findForTenant: jest.fn(() => of(exampleGroups)),
-        putForTenant: jest.fn(() => Promise.resolve()),
+        getForTenant: jest.fn((tenantId: string) =>
+          of(exampleGroups(tenantId))
+        ),
+        put: jest.fn(() => Promise.resolve()),
       }
+
       const service = new AgeGroupsApplicationService(repo)
 
       const group = await service.removeAgeFromAgeGroup(
-        RemoveAgeFromAgeGroupCommand.create('tenantid', 'Tieners', 12)
+        RemoveAgeFromAgeGroupCommand.create('Tieners', 12, commandMetadata)
       )
 
       expect(group.status).toEqual('accepted')
-      expect(repo.findForTenant).toHaveBeenCalledTimes(1)
-      expect(repo.putForTenant).toHaveBeenCalledTimes(1)
-      expect(repo.putForTenant.mock.calls[0]).toMatchSnapshot()
+      expect(repo.getForTenant).toHaveBeenCalledTimes(1)
+      expect(repo.put).toHaveBeenCalledTimes(1)
+      expect(repo.put.mock.calls[0]).toMatchSnapshot()
     })
   })
 
   describe('addAgeToAgeGroup', () => {
     it('adds age to age group and persists', async () => {
       const repo = {
-        findForTenant: jest.fn(() => of(exampleGroups)),
-        putForTenant: jest.fn(() => Promise.resolve()),
+        getForTenant: jest.fn((tenantId: string) =>
+          of(exampleGroups(tenantId))
+        ),
+        put: jest.fn(() => Promise.resolve()),
       }
+
       const service = new AgeGroupsApplicationService(repo)
 
       const group = await service.addAgeToAgeGroup(
-        AddAgeToAgeGroupCommand.create('tenantid', 'Tieners', 14)
+        AddAgeToAgeGroupCommand.create('Tieners', 14, commandMetadata)
       )
 
       expect(group.status).toEqual('accepted')
-      expect(repo.findForTenant).toHaveBeenCalledTimes(1)
-      expect(repo.putForTenant).toHaveBeenCalledTimes(1)
-      expect(repo.putForTenant.mock.calls[0]).toMatchSnapshot()
+      expect(repo.getForTenant).toHaveBeenCalledTimes(1)
+      expect(repo.put).toHaveBeenCalledTimes(1)
+      expect(repo.put.mock.calls[0]).toMatchSnapshot()
     })
   })
 
   describe('changeAgeGroupName', () => {
     it('changes the name of an age group and persists', async () => {
       const repo = {
-        findForTenant: jest.fn(() => of(exampleGroups)),
-        putForTenant: jest.fn(() => Promise.resolve()),
+        getForTenant: jest.fn((tenantId: string) =>
+          of(exampleGroups(tenantId))
+        ),
+        put: jest.fn(() => Promise.resolve()),
       }
+
       const service = new AgeGroupsApplicationService(repo)
 
       const group = await service.changeAgeGroupName(
-        ChangeAgeGroupNameCommand.create('sometenant', 'Tieners', 'Nieuwe Naam')
+        ChangeAgeGroupNameCommand.create(
+          'Tieners',
+          'Nieuwe Naam',
+          commandMetadata
+        )
       )
 
       expect(group.status).toEqual('accepted')
-      expect(repo.findForTenant).toHaveBeenCalledTimes(1)
-      expect(repo.putForTenant).toHaveBeenCalledTimes(1)
-      expect(repo.putForTenant.mock.calls[0]).toMatchSnapshot()
+      expect(repo.getForTenant).toHaveBeenCalledTimes(1)
+      expect(repo.put).toHaveBeenCalledTimes(1)
+      expect(repo.put.mock.calls[0]).toMatchSnapshot()
     })
   })
 })

@@ -39,6 +39,7 @@ AgeGroups {
       },
     ],
     "switchOverOn": "childs-birthday",
+    "tenantId": "my-tenant-id",
   },
 }
 `;
@@ -81,6 +82,7 @@ AgeGroups {
       },
     ],
     "switchOverOn": "childs-birthday",
+    "tenantId": "my-tenant-id",
   },
 }
 `;
@@ -122,6 +124,7 @@ AgeGroups {
       },
     ],
     "switchOverOn": "childs-birthday",
+    "tenantId": "my-tenant-id",
   },
 }
 `;

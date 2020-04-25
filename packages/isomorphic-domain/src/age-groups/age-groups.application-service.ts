@@ -1,5 +1,5 @@
 import { AgeGroupsRepository } from './age-groups.repository'
-import { CommandResult } from '../command/command'
+import { CommandResult } from '@hoepel.app/ddd-library'
 import { AddAgeGroupCommand } from './add-age-group.command'
 import { ChangeSwitchOverOnCommand } from './change-switch-over-on.command'
 import { RemoveAgeGroupCommand } from './remove-age-group.command'
@@ -14,12 +14,12 @@ export class AgeGroupsApplicationService {
   constructor(private readonly repo: AgeGroupsRepository) {}
 
   findAgeGroups(tenantId: string): Observable<AgeGroups> {
-    return this.repo.findForTenant(tenantId)
+    return this.repo.getForTenant(tenantId)
   }
 
   async addAgeGroup(command: AddAgeGroupCommand): Promise<CommandResult> {
     const ageGroups = await this.repo
-      .findForTenant(command.tenantId)
+      .getForTenant(command.tenantId)
       .pipe(first())
       .toPromise()
 
@@ -28,7 +28,8 @@ export class AgeGroupsApplicationService {
     }
 
     const newAgeGroups = ageGroups.withAddedAgeGroup(command.ageGroup)
-    await this.repo.putForTenant(command.tenantId, newAgeGroups)
+
+    await this.repo.put(newAgeGroups)
 
     return { status: 'accepted' }
   }
@@ -37,28 +38,22 @@ export class AgeGroupsApplicationService {
     command: ChangeSwitchOverOnCommand
   ): Promise<CommandResult> {
     const ageGroups = await this.repo
-      .findForTenant(command.tenantId)
+      .getForTenant(command.tenantId)
       .pipe(first())
       .toPromise()
 
-    await this.repo.putForTenant(
-      command.tenantId,
-      ageGroups.withSwitchOverOn(command.switchOverOn)
-    )
+    await this.repo.put(ageGroups.withSwitchOverOn(command.switchOverOn))
 
     return { status: 'accepted' }
   }
 
   async removeAgeGroup(command: RemoveAgeGroupCommand): Promise<CommandResult> {
     const ageGroups = await this.repo
-      .findForTenant(command.tenantId)
+      .getForTenant(command.tenantId)
       .pipe(first())
       .toPromise()
 
-    await this.repo.putForTenant(
-      command.tenantId,
-      ageGroups.withAgeGroupRemoved(command.ageGroupName)
-    )
+    await this.repo.put(ageGroups.withAgeGroupRemoved(command.ageGroupName))
 
     return { status: 'accepted' }
   }
@@ -67,12 +62,11 @@ export class AgeGroupsApplicationService {
     command: RemoveAgeFromAgeGroupCommand
   ): Promise<CommandResult> {
     const ageGroups = await this.repo
-      .findForTenant(command.tenantId)
+      .getForTenant(command.tenantId)
       .pipe(first())
       .toPromise()
 
-    await this.repo.putForTenant(
-      command.tenantId,
+    await this.repo.put(
       ageGroups.withAgeRemovedFromAgeGroup(command.ageGroupName, command.age)
     )
 
@@ -83,12 +77,11 @@ export class AgeGroupsApplicationService {
     command: AddAgeToAgeGroupCommand
   ): Promise<CommandResult> {
     const ageGroups = await this.repo
-      .findForTenant(command.tenantId)
+      .getForTenant(command.tenantId)
       .pipe(first())
       .toPromise()
 
-    await this.repo.putForTenant(
-      command.tenantId,
+    await this.repo.put(
       ageGroups.withAgeAddedToAgeGroup(command.ageGroupName, command.age)
     )
 
@@ -99,12 +92,11 @@ export class AgeGroupsApplicationService {
     command: ChangeAgeGroupNameCommand
   ): Promise<CommandResult> {
     const ageGroups = await this.repo
-      .findForTenant(command.tenantId)
+      .getForTenant(command.tenantId)
       .pipe(first())
       .toPromise()
 
-    await this.repo.putForTenant(
-      command.tenantId,
+    await this.repo.put(
       ageGroups.withAgeGroupRenamed(
         command.ageGroupCurrentName,
         command.ageGroupNewName
