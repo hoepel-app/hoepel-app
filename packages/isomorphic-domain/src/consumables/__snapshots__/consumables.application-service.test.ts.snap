@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConsumablesApplicationService addConsumable adds a new consumable 1`] = `
+Array [
+  Consumables {
+    "props": Object {
+      "consumables": Array [
+        Object {
+          "name": "Big Chocolate Cookie",
+          "priceCents": 100,
+        },
+        Object {
+          "name": "Water",
+          "priceCents": 0,
+        },
+        Object {
+          "name": "Soup",
+          "priceCents": 100,
+        },
+      ],
+      "tenantId": "some-tenant-id",
+    },
+  },
+]
+`;
+
+exports[`ConsumablesApplicationService changeConsumablePrice changes the price for a consumable 1`] = `
+Array [
+  Consumables {
+    "props": Object {
+      "consumables": Array [
+        Object {
+          "name": "Water",
+          "priceCents": 0,
+        },
+        Object {
+          "name": "Big Chocolate Cookie",
+          "priceCents": 50,
+        },
+      ],
+      "tenantId": "some-tenant-id",
+    },
+  },
+]
+`;
+
+exports[`ConsumablesApplicationService removeConsumable removes a consumable 1`] = `
+Array [
+  Consumables {
+    "props": Object {
+      "consumables": Array [
+        Object {
+          "name": "Water",
+          "priceCents": 0,
+        },
+      ],
+      "tenantId": "some-tenant-id",
+    },
+  },
+]
+`;

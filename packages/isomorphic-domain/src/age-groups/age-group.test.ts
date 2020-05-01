@@ -133,8 +133,9 @@ describe('AgeGroup', () => {
 
   describe('serializing then deserializing gives same object', () => {
     const group = AgeGroup.create('Tieners', new Set([10, 11, 12]))
+    const json = JSON.parse(JSON.stringify(group.toProps()))
 
-    expect(AgeGroup.fromProps(group.toProps())).toEqual(group)
+    expect(AgeGroup.fromProps(json)).toEqual(group)
   })
 
   describe('withAgeAdded', () => {

@@ -1,5 +1,5 @@
 import { CommandBase, CommandMetadata } from '@hoepel.app/ddd-library'
-import { SwitchOverOn } from './age-group'
+import { SwitchOverOn } from '../age-group'
 
 type Payload = {
   switchOverOn: SwitchOverOn

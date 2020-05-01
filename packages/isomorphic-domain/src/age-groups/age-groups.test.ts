@@ -231,4 +231,14 @@ describe('AgeGroups', () => {
       expect(exampleGroups.id).toEqual('my-tenant-id-agegroups')
     })
   })
+
+  describe('createEmpty', () => {
+    it('creates empty age group for a tenant id', () => {
+      const empty = AgeGroups.createEmpty('my-tenant-id-here')
+
+      expect(empty.switchOverOn).toEqual('childs-birthday')
+      expect(empty.ageGroups).toHaveLength(0)
+      expect(empty.tenantId).toEqual('my-tenant-id-here')
+    })
+  })
 })

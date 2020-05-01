@@ -1,5 +1,5 @@
 import { CommandBase, CommandMetadata } from '@hoepel.app/ddd-library'
-import { AgeGroupProps, AgeGroup } from './age-group'
+import { AgeGroupProps, AgeGroup } from '../age-group'
 
 type Payload = { ageGroupProps: AgeGroupProps }
 

@@ -1,14 +1,14 @@
 import { AgeGroupsRepository } from './age-groups.repository'
 import { CommandResult } from '@hoepel.app/ddd-library'
-import { AddAgeGroupCommand } from './add-age-group.command'
-import { ChangeSwitchOverOnCommand } from './change-switch-over-on.command'
-import { RemoveAgeGroupCommand } from './remove-age-group.command'
-import { AddAgeToAgeGroupCommand } from './add-age-to-age-group.command'
+import { AddAgeGroupCommand } from './commands/add-age-group.command'
+import { ChangeSwitchOverOnCommand } from './commands/change-switch-over-on.command'
+import { RemoveAgeGroupCommand } from './commands/remove-age-group.command'
+import { AddAgeToAgeGroupCommand } from './commands/add-age-to-age-group.command'
 import { AgeGroups } from './age-groups'
 import { Observable } from 'rxjs'
 import { first } from 'rxjs/operators'
-import { RemoveAgeFromAgeGroupCommand } from './remove-age-from-age-group.command'
-import { ChangeAgeGroupNameCommand } from './change-age-group-name.command'
+import { RemoveAgeFromAgeGroupCommand } from './commands/remove-age-from-age-group.command'
+import { ChangeAgeGroupNameCommand } from './commands/change-age-group-name.command'
 
 export class AgeGroupsApplicationService {
   constructor(private readonly repo: AgeGroupsRepository) {}
