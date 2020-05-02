@@ -1,6 +1,6 @@
 {
   "name": "@hoepel.app/ddd-library-test-utils",
-  "version": "0.3.19",
+  "version": "0.3.21",
   "main": "dist/index.js",
   "license": "GPL-3.0-or-later",
   "devDependencies": {
