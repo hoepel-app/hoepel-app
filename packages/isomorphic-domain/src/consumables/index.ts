@@ -3,6 +3,7 @@ export { ChangeConsumablePriceCommand } from './commands/change-consumable-price
 export { RemoveConsumableCommand } from './commands/remove-consumable.command'
 export { ConsumablesApplicationService } from './consumables.application-service'
 export { ConsumablesRepository } from './consumables.repository'
+export { RenameConsumableCommand } from './commands/rename-consumable.command'
 export {
   Consumables,
   ConsumablesProps,

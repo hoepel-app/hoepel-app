@@ -6,7 +6,7 @@ import { first } from 'rxjs/operators'
 import { CommandResult } from '@hoepel.app/ddd-library/src'
 import { ChangeConsumablePriceCommand } from './commands/change-consumable-price.command'
 import { RemoveConsumableCommand } from './commands/remove-consumable.command'
-import { RenameConsumableCommand } from './commands/change-consumable-name.command'
+import { RenameConsumableCommand } from './commands/rename-consumable.command'
 
 export class ConsumablesApplicationService {
   constructor(private readonly repo: ConsumablesRepository) {}
