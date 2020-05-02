@@ -10,6 +10,7 @@ import { RemoveAgeFromAgeGroupCommand } from './commands/remove-age-from-age-gro
 import { AddAgeToAgeGroupCommand } from './commands/add-age-to-age-group.command'
 import { ChangeAgeGroupNameCommand } from './commands/change-age-group-name.command'
 import { CommandMetadata } from '@hoepel.app/ddd-library'
+import '@hoepel.app/ddd-library-test-utils'
 
 describe('AgeGroupsApplicationService', () => {
   const exampleGroups = (tenantId: string): AgeGroups =>
@@ -47,7 +48,7 @@ describe('AgeGroupsApplicationService', () => {
 
       const commandResult = await service.addAgeGroup(command)
 
-      expect(commandResult).toEqual({ status: 'rejected' })
+      expect(commandResult).toBeRejected()
       expect(repo.put).not.toHaveBeenCalled()
     })
 
@@ -68,7 +69,7 @@ describe('AgeGroupsApplicationService', () => {
 
       const commandResult = await service.addAgeGroup(command)
 
-      expect(commandResult).toEqual({ status: 'accepted' })
+      expect(commandResult).toBeAccepted()
       expect(repo.put).toHaveBeenCalledTimes(1)
       expect(repo.put.mock.calls[0]).toMatchSnapshot()
     })
@@ -91,7 +92,7 @@ describe('AgeGroupsApplicationService', () => {
 
       const commandResult = await service.changeSwitchOverOn(command)
 
-      expect(commandResult).toEqual({ status: 'accepted' })
+      expect(commandResult).toBeAccepted()
       expect(repo.put).toHaveBeenCalledTimes(1)
       expect(repo.put.mock.calls[0]).toMatchSnapshot()
     })
@@ -112,7 +113,7 @@ describe('AgeGroupsApplicationService', () => {
 
       const commandResult = await service.removeAgeGroup(command)
 
-      expect(commandResult).toEqual({ status: 'accepted' })
+      expect(commandResult).toBeAccepted()
       expect(repo.put).toHaveBeenCalledTimes(1)
       expect(repo.put.mock.calls[0]).toMatchSnapshot()
     })
@@ -155,7 +156,7 @@ describe('AgeGroupsApplicationService', () => {
         RemoveAgeFromAgeGroupCommand.create('Tieners', 12, commandMetadata)
       )
 
-      expect(group.status).toEqual('accepted')
+      expect(group).toBeAccepted()
       expect(repo.getForTenant).toHaveBeenCalledTimes(1)
       expect(repo.put).toHaveBeenCalledTimes(1)
       expect(repo.put.mock.calls[0]).toMatchSnapshot()
@@ -177,7 +178,7 @@ describe('AgeGroupsApplicationService', () => {
         AddAgeToAgeGroupCommand.create('Tieners', 14, commandMetadata)
       )
 
-      expect(group.status).toEqual('accepted')
+      expect(group).toBeAccepted()
       expect(repo.getForTenant).toHaveBeenCalledTimes(1)
       expect(repo.put).toHaveBeenCalledTimes(1)
       expect(repo.put.mock.calls[0]).toMatchSnapshot()
@@ -203,7 +204,7 @@ describe('AgeGroupsApplicationService', () => {
         )
       )
 
-      expect(group.status).toEqual('accepted')
+      expect(group).toBeAccepted()
       expect(repo.getForTenant).toHaveBeenCalledTimes(1)
       expect(repo.put).toHaveBeenCalledTimes(1)
       expect(repo.put.mock.calls[0]).toMatchSnapshot()
