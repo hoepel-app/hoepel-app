@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`consumables withConsumableRenamed renames consumable 1`] = `
+Consumables {
+  "props": Object {
+    "consumables": Array [
+      Object {
+        "name": "Soft drink",
+        "priceCents": 50,
+      },
+      Object {
+        "name": "Soup",
+        "priceCents": 300,
+      },
+      Object {
+        "name": "Big Chocolate Cookie",
+        "priceCents": 250,
+      },
+    ],
+    "tenantId": "my-tenant-id-here",
+  },
+}
+`;

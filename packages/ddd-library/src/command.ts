@@ -6,7 +6,7 @@ export type CommandRequestedBy = {
   email: string
 }
 
-export type CommandRejected = { status: 'rejected' }
+export type CommandRejected = { status: 'rejected'; reason?: string }
 export type CommandAccepted = { status: 'accepted' }
 export type CommandResult = CommandAccepted | CommandRejected
 

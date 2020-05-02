@@ -13,5 +13,6 @@
     { "path": "./isomorphic-data" },
     { "path": "./isomorphic-domain" },
     { "path": "./ddd-library" },
+    { "path": "./ddd-library-test-utils" },
   ]
 }

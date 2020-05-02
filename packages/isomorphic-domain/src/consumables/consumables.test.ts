@@ -142,6 +142,34 @@ describe('consumables', () => {
       expect(consumables.withConsumableRemoved('Cooky')).toEqual(consumables)
     })
   })
+
+  describe('withConsumableRenamed', () => {
+    const exampleConsumables = Consumables.createEmpty('my-tenant-id-here')
+      .withConsumableAdded(Consumable.create('Cookie', 250))
+      .withConsumableAdded(Consumable.create('Soft drink', 50))
+      .withConsumableAdded(Consumable.create('Soup', 300))
+
+    it('renames consumable', () => {
+      expect(
+        exampleConsumables.withRenamedConsumable(
+          'Cookie',
+          'Big Chocolate Cookie'
+        )
+      ).toMatchSnapshot()
+    })
+
+    it('does nothing when renaming non-existing consumable', () => {
+      expect(
+        exampleConsumables.withRenamedConsumable('Blah', 'Something')
+      ).toEqual(exampleConsumables)
+    })
+
+    it('does nothing when renaming consumable to name already in use', () => {
+      expect(
+        exampleConsumables.withRenamedConsumable('Cookie', 'Soup')
+      ).toEqual(exampleConsumables)
+    })
+  })
 })
 
 describe('consumable', () => {

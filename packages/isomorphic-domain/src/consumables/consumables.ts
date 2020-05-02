@@ -77,6 +77,22 @@ export class Consumables implements Aggregate {
     })
   }
 
+  withRenamedConsumable(oldName: string, newName: string): Consumables {
+    const currentConsumable = this.findConsumableByName(oldName)
+
+    if (this.consumableWithNameExists(newName) || currentConsumable == null) {
+      return this
+    }
+
+    return Consumables.fromProps({
+      ...this.toProps(),
+      consumables: [
+        ...this.toProps().consumables.filter((c) => c.name !== oldName),
+        currentConsumable.withName(newName).toProps(),
+      ],
+    })
+  }
+
   findConsumableByName(name: string): Consumable | null {
     return (
       this.consumables.find((consumable) => consumable.name === name) ?? null
@@ -115,6 +131,13 @@ export class Consumable {
 
   static fromProps(props: ConsumableProps): Consumable {
     return new Consumable(props)
+  }
+
+  withName(newName: string): Consumable {
+    return Consumable.fromProps({
+      ...this.toProps(),
+      name: newName,
+    })
   }
 
   toProps(): ConsumableProps {

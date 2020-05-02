@@ -1,0 +1,15 @@
+{
+  "name": "@hoepel.app/ddd-library-test-utils",
+  "version": "0.3.19",
+  "main": "dist/index.js",
+  "license": "GPL-3.0-or-later",
+  "devDependencies": {
+    "typescript": "^3.7.2"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

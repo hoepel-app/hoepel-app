@@ -6,6 +6,8 @@ import { first } from 'rxjs/operators'
 import { AddConsumableCommand } from './commands/add-consumable.command'
 import { ChangeConsumablePriceCommand } from './commands/change-consumable-price.command'
 import { RemoveConsumableCommand } from './commands/remove-consumable.command'
+import { RenameConsumableCommand } from './commands/change-consumable-name.command'
+import '@hoepel.app/ddd-library-test-utils'
 
 describe('ConsumablesApplicationService', () => {
   const exampleConsumables = (tenantId: string): Consumables =>
@@ -64,7 +66,7 @@ describe('ConsumablesApplicationService', () => {
 
       const commandResult = await service.addConsumable(command)
 
-      expect(commandResult.status).toEqual('rejected')
+      expect(commandResult).toBeRejected()
       expect(repo.put).not.toHaveBeenCalled()
     })
 
@@ -85,7 +87,7 @@ describe('ConsumablesApplicationService', () => {
 
       const commandResult = await service.addConsumable(command)
 
-      expect(commandResult.status).toEqual('accepted')
+      expect(commandResult).toBeAccepted()
       expect(repo.put).toHaveBeenCalledTimes(1)
       expect(repo.put.mock.calls[0]).toMatchSnapshot()
     })
@@ -109,7 +111,7 @@ describe('ConsumablesApplicationService', () => {
 
       const commandResult = await service.changeConsumablePrice(command)
 
-      expect(commandResult.status).toEqual('rejected')
+      expect(commandResult).toBeRejected()
       expect(repo.put).not.toHaveBeenCalled()
     })
 
@@ -130,7 +132,7 @@ describe('ConsumablesApplicationService', () => {
 
       const commandResult = await service.changeConsumablePrice(command)
 
-      expect(commandResult.status).toEqual('accepted')
+      expect(commandResult).toBeAccepted()
       expect(repo.put).toHaveBeenCalledTimes(1)
       expect(repo.put.mock.calls[0]).toMatchSnapshot()
     })
@@ -153,7 +155,7 @@ describe('ConsumablesApplicationService', () => {
 
       const commandResult = await service.removeConsumable(command)
 
-      expect(commandResult.status).toEqual('rejected')
+      expect(commandResult).toBeRejected()
       expect(repo.put).not.toHaveBeenCalled()
     })
 
@@ -173,7 +175,76 @@ describe('ConsumablesApplicationService', () => {
 
       const commandResult = await service.removeConsumable(command)
 
-      expect(commandResult.status).toEqual('accepted')
+      expect(commandResult).toBeAccepted()
+      expect(repo.put).toHaveBeenCalledTimes(1)
+      expect(repo.put.mock.calls[0]).toMatchSnapshot()
+    })
+  })
+
+  describe('renameConsumable', () => {
+    it('does not rename when the consumable was not found', async () => {
+      const repo = {
+        getForTenant: jest.fn((tenantId: string) =>
+          of(exampleConsumables(tenantId))
+        ),
+        put: jest.fn(),
+      }
+
+      const service = new ConsumablesApplicationService(repo)
+      const command = RenameConsumableCommand.create(
+        'Lemonade',
+        'Something',
+        commandMetadata
+      )
+
+      const commandResult = await service.renameConsumable(command)
+
+      expect(commandResult).toBeRejected()
+      expect(commandResult).toBeRejectedWithReason('Consumable not found')
+      expect(repo.put).not.toHaveBeenCalled()
+    })
+
+    it('does not rename when a consumable with the new name exists', async () => {
+      const repo = {
+        getForTenant: jest.fn((tenantId: string) =>
+          of(exampleConsumables(tenantId))
+        ),
+        put: jest.fn(),
+      }
+
+      const service = new ConsumablesApplicationService(repo)
+      const command = RenameConsumableCommand.create(
+        'Big Chocolate Cookie',
+        'Water',
+        commandMetadata
+      )
+
+      const commandResult = await service.renameConsumable(command)
+
+      expect(commandResult).toBeRejectedWithReason(
+        'Consumable with new name exists'
+      )
+      expect(repo.put).not.toHaveBeenCalled()
+    })
+
+    it('renames consumable', async () => {
+      const repo = {
+        getForTenant: jest.fn((tenantId: string) =>
+          of(exampleConsumables(tenantId))
+        ),
+        put: jest.fn(),
+      }
+
+      const service = new ConsumablesApplicationService(repo)
+      const command = RenameConsumableCommand.create(
+        'Big Chocolate Cookie',
+        'Cookie',
+        commandMetadata
+      )
+
+      const commandResult = await service.renameConsumable(command)
+
+      expect(commandResult).toBeAccepted()
       expect(repo.put).toHaveBeenCalledTimes(1)
       expect(repo.put.mock.calls[0]).toMatchSnapshot()
     })

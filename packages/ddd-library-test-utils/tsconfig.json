@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "composite": true
+  },
+  "extends": "../../tsconfig.json",
+  "references": [
+    { "path": "../ddd-library" }
+  ]
+}

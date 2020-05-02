@@ -59,3 +59,23 @@ Array [
   },
 ]
 `;
+
+exports[`ConsumablesApplicationService renameConsumable renames consumable 1`] = `
+Array [
+  Consumables {
+    "props": Object {
+      "consumables": Array [
+        Object {
+          "name": "Water",
+          "priceCents": 0,
+        },
+        Object {
+          "name": "Cookie",
+          "priceCents": 100,
+        },
+      ],
+      "tenantId": "some-tenant-id",
+    },
+  },
+]
+`;

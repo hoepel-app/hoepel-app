@@ -6,6 +6,7 @@ import { first } from 'rxjs/operators'
 import { CommandResult } from '@hoepel.app/ddd-library/src'
 import { ChangeConsumablePriceCommand } from './commands/change-consumable-price.command'
 import { RemoveConsumableCommand } from './commands/remove-consumable.command'
+import { RenameConsumableCommand } from './commands/change-consumable-name.command'
 
 export class ConsumablesApplicationService {
   constructor(private readonly repo: ConsumablesRepository) {}
@@ -47,6 +48,28 @@ export class ConsumablesApplicationService {
         command.consumableName,
         command.price.totalCents
       )
+    )
+
+    return { status: 'accepted' }
+  }
+
+  async renameConsumable(
+    command: RenameConsumableCommand
+  ): Promise<CommandResult> {
+    const consumables = await this.findConsumables(command.tenantId)
+      .pipe(first())
+      .toPromise()
+
+    if (consumables.consumableWithNameExists(command.newName)) {
+      return { status: 'rejected', reason: 'Consumable with new name exists' }
+    }
+
+    if (!consumables.consumableWithNameExists(command.oldName)) {
+      return { status: 'rejected', reason: 'Consumable not found' }
+    }
+
+    await this.repo.put(
+      consumables.withRenamedConsumable(command.oldName, command.newName)
     )
 
     return { status: 'accepted' }
