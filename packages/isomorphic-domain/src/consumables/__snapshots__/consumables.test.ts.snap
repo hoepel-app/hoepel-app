@@ -1,5 +1,34 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`consumables consumables returns consumables in alphabetical order by name 1`] = `
+Array [
+  Consumable {
+    "props": Object {
+      "name": "Cookie",
+      "priceCents": 300,
+    },
+  },
+  Consumable {
+    "props": Object {
+      "name": "Soft drink",
+      "priceCents": 300,
+    },
+  },
+  Consumable {
+    "props": Object {
+      "name": "Soup",
+      "priceCents": 250,
+    },
+  },
+  Consumable {
+    "props": Object {
+      "name": "ZZZ",
+      "priceCents": 300,
+    },
+  },
+]
+`;
+
 exports[`consumables withConsumableRenamed renames consumable 1`] = `
 Consumables {
   "props": Object {

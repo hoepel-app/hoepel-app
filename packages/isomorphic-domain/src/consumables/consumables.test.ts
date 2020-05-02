@@ -19,8 +19,37 @@ describe('consumables', () => {
     expect(Consumables.fromProps(json)).toEqual(consumables)
   })
 
+  describe('consumables', () => {
+    it('returns consumables in alphabetical order by name', () => {
+      const consumables = Consumables.createEmpty('my-tenant-id-here')
+        .withConsumableAdded(Consumable.create('Soup', 250))
+        .withConsumableAdded(Consumable.create('Cookie', 300))
+        .withConsumableAdded(Consumable.create('ZZZ', 300))
+        .withConsumableAdded(Consumable.create('Soft drink', 300))
+
+      expect(consumables.consumables).toMatchSnapshot()
+    })
+  })
+
+  describe('namesSorted', () => {
+    it('returns consumable names in alphabetical order', () => {
+      const consumables = Consumables.createEmpty('my-tenant-id-here')
+        .withConsumableAdded(Consumable.create('Soup', 250))
+        .withConsumableAdded(Consumable.create('Cookie', 300))
+        .withConsumableAdded(Consumable.create('ZZZ', 300))
+        .withConsumableAdded(Consumable.create('Soft drink', 300))
+
+      expect(consumables.namesSorted).toEqual([
+        'Cookie',
+        'Soft drink',
+        'Soup',
+        'ZZZ',
+      ])
+    })
+  })
+
   describe('names', () => {
-    it('does not add consumable with same name twice', () => {
+    it('returns the names of added consumables', () => {
       const consumables = Consumables.createEmpty('my-tenant-id-here')
         .withConsumableAdded(Consumable.create('Cookie', 250))
         .withConsumableAdded(Consumable.create('Soft drink', 50))
@@ -168,6 +197,20 @@ describe('consumables', () => {
       expect(
         exampleConsumables.withRenamedConsumable('Cookie', 'Soup')
       ).toEqual(exampleConsumables)
+    })
+  })
+
+  describe('isEmpty', () => {
+    it('true when no consumables added', () => {
+      expect(Consumables.createEmpty('my-tenant-id').isEmpty).toEqual(true)
+    })
+
+    it('false when there are consumables added', () => {
+      const consumables = Consumables.createEmpty('my-tenant-id-here')
+        .withConsumableAdded(Consumable.create('Cookie', 250))
+        .withConsumableAdded(Consumable.create('Soup', 300))
+
+      expect(consumables.isEmpty).toEqual(false)
     })
   })
 })

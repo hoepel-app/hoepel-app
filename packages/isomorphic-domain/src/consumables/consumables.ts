@@ -38,8 +38,18 @@ export class Consumables implements Aggregate {
     return new Set(this.consumables.map((consumable) => consumable.name))
   }
 
+  get namesSorted(): readonly string[] {
+    return [...this.names].sort()
+  }
+
   get consumables(): readonly Consumable[] {
-    return this.props.consumables.map((props) => Consumable.fromProps(props))
+    return [
+      ...this.props.consumables.map((props) => Consumable.fromProps(props)),
+    ].sort((a, b) => a.name.localeCompare(b.name))
+  }
+
+  get isEmpty(): boolean {
+    return this.consumables.length === 0
   }
 
   withConsumableAdded(consumable: Consumable): Consumables {

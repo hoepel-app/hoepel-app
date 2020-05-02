@@ -241,4 +241,23 @@ describe('AgeGroups', () => {
       expect(empty.tenantId).toEqual('my-tenant-id-here')
     })
   })
+
+  describe('names', () => {
+    it('returns names for contained age groups', () => {
+      expect(exampleGroups.names).toEqual(
+        new Set(['Kleuters', 'Mini', 'Maxi', 'Tieners'])
+      )
+    })
+
+    describe('namesSorted', () => {
+      it('returns names sorted alphabetically for contained age groups', () => {
+        expect(exampleGroups.namesSorted).toEqual([
+          'Kleuters',
+          'Maxi',
+          'Mini',
+          'Tieners',
+        ])
+      })
+    })
+  })
 })

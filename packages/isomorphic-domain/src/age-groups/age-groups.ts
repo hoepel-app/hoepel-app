@@ -11,11 +11,17 @@ export class AgeGroups implements Aggregate {
   private constructor(private readonly props: AgeGroupsProps) {}
 
   get ageGroups(): readonly AgeGroup[] {
-    return this.props.ageGroups.map((ageGroup) => AgeGroup.fromProps(ageGroup))
+    return this.props.ageGroups
+      .map((ageGroup) => AgeGroup.fromProps(ageGroup))
+      .sort((a, b) => a.name.localeCompare(b.name))
   }
 
   get names(): ReadonlySet<string> {
     return new Set(this.ageGroups.map((group) => group.name))
+  }
+
+  get namesSorted(): readonly string[] {
+    return [...this.names].sort()
   }
 
   get switchOverOn(): SwitchOverOn {
