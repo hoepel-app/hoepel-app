@@ -3,7 +3,7 @@ export { ChangeSwitchOverOnCommand } from './commands/change-switch-over-on.comm
 export { RemoveAgeGroupCommand } from './commands/remove-age-group.command'
 export { RemoveAgeFromAgeGroupCommand } from './commands/remove-age-from-age-group.command'
 export { AddAgeToAgeGroupCommand } from './commands/add-age-to-age-group.command'
-export { ChangeAgeGroupNameCommand } from './commands/change-age-group-name.command'
+export { RenameAgeGroupCommand } from './commands/rename-age-group.command'
 export { AddAgeGroupCommand } from './commands/add-age-group.command'
 export { AgeGroup, SwitchOverOn } from './age-group'
 export { AgeGroups, AgeGroupsProps } from './age-groups'

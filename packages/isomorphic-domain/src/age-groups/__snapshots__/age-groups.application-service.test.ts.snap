@@ -97,7 +97,7 @@ Array [
 ]
 `;
 
-exports[`AgeGroupsApplicationService changeAgeGroupName changes the name of an age group and persists 1`] = `
+exports[`AgeGroupsApplicationService renameAgeGroup changes the name of an age group and persists 1`] = `
 Array [
   AgeGroups {
     "props": Object {

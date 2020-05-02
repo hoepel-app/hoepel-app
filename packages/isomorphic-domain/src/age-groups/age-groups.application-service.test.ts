@@ -8,7 +8,7 @@ import { of } from 'rxjs'
 import { first } from 'rxjs/operators'
 import { RemoveAgeFromAgeGroupCommand } from './commands/remove-age-from-age-group.command'
 import { AddAgeToAgeGroupCommand } from './commands/add-age-to-age-group.command'
-import { ChangeAgeGroupNameCommand } from './commands/change-age-group-name.command'
+import { RenameAgeGroupCommand } from './commands/rename-age-group.command'
 import { CommandMetadata } from '@hoepel.app/ddd-library'
 import '@hoepel.app/ddd-library-test-utils'
 
@@ -185,7 +185,7 @@ describe('AgeGroupsApplicationService', () => {
     })
   })
 
-  describe('changeAgeGroupName', () => {
+  describe('renameAgeGroup', () => {
     it('changes the name of an age group and persists', async () => {
       const repo = {
         getForTenant: jest.fn((tenantId: string) =>
@@ -196,12 +196,8 @@ describe('AgeGroupsApplicationService', () => {
 
       const service = new AgeGroupsApplicationService(repo)
 
-      const group = await service.changeAgeGroupName(
-        ChangeAgeGroupNameCommand.create(
-          'Tieners',
-          'Nieuwe Naam',
-          commandMetadata
-        )
+      const group = await service.renameAgeGroup(
+        RenameAgeGroupCommand.create('Tieners', 'Nieuwe Naam', commandMetadata)
       )
 
       expect(group).toBeAccepted()

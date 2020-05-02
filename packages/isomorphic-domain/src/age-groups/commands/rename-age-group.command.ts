@@ -5,15 +5,15 @@ type Payload = {
   ageGroupNewName: string
 }
 
-export class ChangeAgeGroupNameCommand extends CommandBase<Payload> {
-  name = 'change-age-group-name-command' as const
+export class RenameAgeGroupCommand extends CommandBase<Payload> {
+  name = 'rename-age-group-command' as const
 
   static create(
     ageGroupCurrentName: string,
     ageGroupNewName: string,
     commandMetadata: CommandMetadata
-  ): ChangeAgeGroupNameCommand {
-    return new ChangeAgeGroupNameCommand(
+  ): RenameAgeGroupCommand {
+    return new RenameAgeGroupCommand(
       {
         ageGroupCurrentName,
         ageGroupNewName,
