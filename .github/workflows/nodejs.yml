@@ -39,7 +39,7 @@ jobs:
       env:
         CI: true
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-    - name: Slack notification after deployment
+    - name: Slack notification after deployment success
       if: matrix.node-version == '13.x' && startsWith(github.ref, 'refs/tags/v') && success()
       env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
@@ -49,8 +49,8 @@ jobs:
       uses: Ilshidur/action-slack@master
       with:
           args: '{{ github.ref }} was deployed to Firebase!'
-    - name: Slack notification after deployment
-      if: matrix.node-version == '13.x' && startsWith(github.ref, 'refs/tags/v') && failure()
+    - name: Slack notification on build failure
+      if: failure()
       env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
         SLACK_USERNAME: GitHub Actions 
@@ -58,5 +58,5 @@ jobs:
         SLACK_AVATAR: repository
       uses: Ilshidur/action-slack@master
       with:
-          args: 'There was an error deploying {{ github.ref }} to Firebase.'
+          args: 'There was an error building or deploying {{ github.ref }}.'
       
