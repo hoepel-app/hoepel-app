@@ -13,15 +13,14 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-
     - name: Slack notification test
       env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-        SLACK_USERNAME: GitHub Actions 
+        SLACK_USERNAME: GitHub Actions
         SLACK_CHANNEL: build
         SLACK_AVATAR: repository
         SLACK_CUSTOM_PAYLOAD: 'There was an error building or deploying [`{{ EVENT_PAYLOAD.ref }}`](https://github.com/hoepel-app/hoepel-app/runs/{{ github.run_id }}).'
-
+      uses: Ilshidur/action-slack@master
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
