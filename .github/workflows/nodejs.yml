@@ -48,7 +48,7 @@ jobs:
         SLACK_AVATAR: repository
       uses: Ilshidur/action-slack@master
       with:
-          args: '{{ github.ref }} was deployed to Firebase!'
+          args: '{{ EVENT_PAYLOAD.ref }} was deployed to Firebase!'
     - name: Slack notification on build failure
       if: failure()
       env:
@@ -58,5 +58,5 @@ jobs:
         SLACK_AVATAR: repository
       uses: Ilshidur/action-slack@master
       with:
-          args: 'There was an error building or deploying {{ github.ref }}.'
+          args: 'There was an error building or deploying {{ EVENT_PAYLOAD.ref }}.'
       
