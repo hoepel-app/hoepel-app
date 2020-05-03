@@ -1,0 +1,102 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DiscountsApplicationService addDiscount can add a discount 1`] = `
+Array [
+  Array [
+    Discounts {
+      "props": Object {
+        "discounts": Array [
+          Object {
+            "discount": Object {
+              "discountCents": 100,
+              "kind": "absolute-discount",
+            },
+            "name": "1 euro korting",
+          },
+          Object {
+            "discount": Object {
+              "discountPercent": 60,
+              "kind": "relative-discount",
+            },
+            "name": "Kansentarief",
+          },
+          Object {
+            "discount": Object {
+              "discountPercent": 50,
+              "kind": "relative-discount",
+            },
+            "name": "Tweede kind",
+          },
+          Object {
+            "discount": Object {
+              "discountCents": 100,
+              "kind": "absolute-discount",
+            },
+            "name": "Test",
+          },
+        ],
+        "tenantId": "some-tenant-id",
+      },
+    },
+  ],
+]
+`;
+
+exports[`DiscountsApplicationService removeDiscount removes a discount 1`] = `
+Array [
+  Discounts {
+    "props": Object {
+      "discounts": Array [
+        Object {
+          "discount": Object {
+            "discountCents": 100,
+            "kind": "absolute-discount",
+          },
+          "name": "1 euro korting",
+        },
+        Object {
+          "discount": Object {
+            "discountPercent": 60,
+            "kind": "relative-discount",
+          },
+          "name": "Kansentarief",
+        },
+      ],
+      "tenantId": "some-tenant-id",
+    },
+  },
+]
+`;
+
+exports[`DiscountsApplicationService renameDiscount renames a discount 1`] = `
+Array [
+  Discounts {
+    "props": Object {
+      "discounts": Array [
+        Object {
+          "discount": Object {
+            "discountCents": 100,
+            "kind": "absolute-discount",
+          },
+          "name": "1 euro korting",
+        },
+        Object {
+          "discount": Object {
+            "discountPercent": 60,
+            "kind": "relative-discount",
+          },
+          "name": "Kansentarief",
+        },
+        Object {
+          "discount": Object {
+            "discountPercent": 50,
+            "kind": "relative-discount",
+          },
+          "name": "Nieuwe naam",
+        },
+      ],
+      "tenantId": "some-tenant-id",
+    },
+  },
+]
+`;

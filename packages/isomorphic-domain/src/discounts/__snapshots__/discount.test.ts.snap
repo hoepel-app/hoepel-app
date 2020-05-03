@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Discount createAbsoluteDiscount creates an absolute discount 1`] = `
+Discount {
+  "props": Object {
+    "discount": Object {
+      "discountCents": 100,
+      "kind": "absolute-discount",
+    },
+    "name": "Korting",
+  },
+}
+`;
+
+exports[`Discount createRelativeDiscount creates a relative discount 1`] = `
+Discount {
+  "props": Object {
+    "discount": Object {
+      "discountPercent": 30,
+      "kind": "relative-discount",
+    },
+    "name": "Korting",
+  },
+}
+`;
+
+exports[`Discount createRelativeDiscount rounds floating point percentages 1`] = `
+Discount {
+  "props": Object {
+    "discount": Object {
+      "discountPercent": 67,
+      "kind": "relative-discount",
+    },
+    "name": "Korting",
+  },
+}
+`;
+
+exports[`Discount createRelativeDiscount uses 0% as the minimum 1`] = `
+Discount {
+  "props": Object {
+    "discount": Object {
+      "discountPercent": 0,
+      "kind": "relative-discount",
+    },
+    "name": "Korting",
+  },
+}
+`;
+
+exports[`Discount createRelativeDiscount uses 100% as the maximum 1`] = `
+Discount {
+  "props": Object {
+    "discount": Object {
+      "discountPercent": 100,
+      "kind": "relative-discount",
+    },
+    "name": "Korting",
+  },
+}
+`;

@@ -1,6 +1,6 @@
 import { AgeGroupProps, AgeGroup, SwitchOverOn } from './age-group'
 import { DayDate } from '@hoepel.app/types'
-import { Aggregate } from '@hoepel.app/ddd-library/src'
+import { Aggregate } from '@hoepel.app/ddd-library'
 
 export type AgeGroupsProps = {
   ageGroups: readonly AgeGroupProps[]

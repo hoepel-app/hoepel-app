@@ -7,6 +7,7 @@ import { AddConsumableCommand } from './commands/add-consumable.command'
 import { ChangeConsumablePriceCommand } from './commands/change-consumable-price.command'
 import { RemoveConsumableCommand } from './commands/remove-consumable.command'
 import { RenameConsumableCommand } from './commands/rename-consumable.command'
+
 import '@hoepel.app/ddd-library-test-utils'
 
 describe('ConsumablesApplicationService', () => {

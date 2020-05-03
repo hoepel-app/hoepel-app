@@ -1,5 +1,5 @@
 import { Price } from '@hoepel.app/types'
-import { Aggregate } from '@hoepel.app/ddd-library/src'
+import { Aggregate } from '@hoepel.app/ddd-library'
 
 export type ConsumableProps = {
   readonly name: string

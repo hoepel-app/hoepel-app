@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Discounts withDiscountRemoved removes discount 1`] = `
+Discounts {
+  "props": Object {
+    "discounts": Array [
+      Object {
+        "discount": Object {
+          "discountCents": 100,
+          "kind": "absolute-discount",
+        },
+        "name": "1 euro korting",
+      },
+      Object {
+        "discount": Object {
+          "discountPercent": 60,
+          "kind": "relative-discount",
+        },
+        "name": "Kansentarief",
+      },
+    ],
+    "tenantId": "my-tenant-id",
+  },
+}
+`;
+
+exports[`Discounts withDiscountRenamed renames a discount 1`] = `
+Discounts {
+  "props": Object {
+    "discounts": Array [
+      Object {
+        "discount": Object {
+          "discountCents": 100,
+          "kind": "absolute-discount",
+        },
+        "name": "1 euro korting",
+      },
+      Object {
+        "discount": Object {
+          "discountPercent": 60,
+          "kind": "relative-discount",
+        },
+        "name": "Kansentarief",
+      },
+      Object {
+        "discount": Object {
+          "discountPercent": 50,
+          "kind": "relative-discount",
+        },
+        "name": "Derde kind",
+      },
+    ],
+    "tenantId": "my-tenant-id",
+  },
+}
+`;
