@@ -48,9 +48,9 @@ jobs:
         SLACK_AVATAR: repository
       uses: Ilshidur/action-slack@master
       with:
-          args: '{{ EVENT_PAYLOAD.ref }} was deployed to Firebase!'
+          args: '[`{{ EVENT_PAYLOAD.ref }}`](https://github.com/hoepel-app/hoepel-app/runs/{{ github.run_id }}) was deployed to Firebase!'
     - name: Slack notification on build failure
-      if: failure()
+      if: failure() && !startsWith(github.ref, 'refs/heads/dependabot/npm_and_yarn/')
       env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
         SLACK_USERNAME: GitHub Actions 
@@ -58,5 +58,5 @@ jobs:
         SLACK_AVATAR: repository
       uses: Ilshidur/action-slack@master
       with:
-          args: 'There was an error building or deploying {{ EVENT_PAYLOAD.ref }}.'
+          args: 'There was an error building or deploying [`{{ EVENT_PAYLOAD.ref }}`](https://github.com/hoepel-app/hoepel-app/runs/{{ github.run_id }}).'
       
