@@ -21,7 +21,7 @@ jobs:
         SLACK_AVATAR: repository
       uses: Ilshidur/action-slack@master
       with:
-        args: 'Current run is <https://github.com/hoepel-app/hoepel-app/runs/${{ github.job }}|`${{ github.ref }}`>. Job ${{ github.job }} Job id ${{ github.job_id }} Run number ${{ github.run_number }} Run id ${{ github.run_id }}.'
+        args: 'Current run is <https://github.com/hoepel-app/hoepel-app/runs/${{ github.run_id }}|`${{ github.ref }}`>..'
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
@@ -55,7 +55,8 @@ jobs:
         SLACK_USERNAME: GitHub Actions 
         SLACK_CHANNEL: build
         SLACK_AVATAR: repository
-        SLACK_CUSTOM_PAYLOAD: "[{{ EVENT_PAYLOAD.ref }}`](https://github.com/hoepel-app/hoepel-app/runs/{{ github.run_id }}) was deployed to Firebase!"
+      with:
+        args: 'Deployed <https://github.com/hoepel-app/hoepel-app/runs/${{ github.run_id }}|`${{ github.ref }}`> to Firebase.'
       uses: Ilshidur/action-slack@master
     - name: Slack notification on build failure
       if: failure() && !startsWith(github.ref, 'refs/heads/dependabot/npm_and_yarn/')
@@ -66,4 +67,4 @@ jobs:
         SLACK_AVATAR: repository
       uses: Ilshidur/action-slack@master
       with:
-        args: 'There was an error building or deploying [`${{ github.ref }}`](https://github.com/hoepel-app/hoepel-app/runs/${{ github.job }}).'
+        args: 'Build for <https://github.com/hoepel-app/hoepel-app/runs/${{ github.run_id }}|`${{ github.ref }}`> failed :crying_cat_face:'
