@@ -13,8 +13,8 @@ type GraphQLToken = {
   picture?: string
   isAdmin: boolean
   tenants: readonly string[]
-  email: string
-  emailVerified: boolean
+  email?: string
+  emailVerified?: boolean
   iss: string
   aud: string
   authTime: number
