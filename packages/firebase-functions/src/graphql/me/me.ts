@@ -42,8 +42,9 @@ export class Me {
       picture: token.picture,
       isAdmin: token.isAdmin || false,
       tenants: Object.keys(token.tenants || {}),
-      email: token.email,
-      emailVerified: token.email_verified,
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      email: token.email!,
+      emailVerified: token.email_verified ?? false,
       iss: token.iss,
       aud: token.aud,
       authTime: token.auth_time,

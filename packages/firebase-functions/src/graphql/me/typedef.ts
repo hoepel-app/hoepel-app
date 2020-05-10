@@ -13,7 +13,7 @@ export const typeDef = gql`
     iat: Int!
     exp: Int!
     email: String
-    emailVerified: String
+    emailVerified: Boolean
   }
 
   type User {

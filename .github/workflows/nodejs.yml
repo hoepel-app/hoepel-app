@@ -13,15 +13,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Slack notification on build failure
-      env:
-        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-        SLACK_USERNAME: GitHub Actions 
-        SLACK_CHANNEL: build
-        SLACK_AVATAR: repository
-      uses: Ilshidur/action-slack@master
-      with:
-        args: 'Current run is <https://github.com/hoepel-app/hoepel-app/runs/${{ github.run_id }}|`${{ github.ref }}`>..'
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
