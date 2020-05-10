@@ -33,7 +33,7 @@ $ firebase functions:config:get > .runtimeconfig.json
 
 Check the config - you may want to change keys (e.g. `environment`).
 
-Get a service account key and place it in this directory as `key.json`.
+[Get a service account key](https://console.cloud.google.com/iam-admin/serviceaccounts/details/101185394446109228819?organizationId=292417227209&project=hoepel-app) and place it in this directory as `key.json`.
 
 Then, serve using Firebase emulator:
 

@@ -12,8 +12,8 @@ export const typeDef = gql`
     uid: String!
     iat: Int!
     exp: Int!
-    email: String!
-    emailVerified: String!
+    email: String
+    emailVerified: String
   }
 
   type User {
