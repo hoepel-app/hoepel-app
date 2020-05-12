@@ -48,6 +48,10 @@ export class Discount {
     })
   }
 
+  static sorted(discounts: readonly Discount[]): readonly Discount[] {
+    return [...discounts].sort((a, b) => a.name.localeCompare(b.name))
+  }
+
   /**
    * Apply a list of discounts to a price. The discounts will be applied in the array order.
    *

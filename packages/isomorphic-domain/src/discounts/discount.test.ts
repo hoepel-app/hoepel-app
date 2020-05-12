@@ -116,6 +116,24 @@ describe('Discount', () => {
     })
   })
 
+  describe('sorted', () => {
+    it('sorts discounts', () => {
+      const discounts = [
+        relativeDiscount,
+        absoluteDiscount,
+        Discount.createRelativeDiscount('Test', 0),
+        Discount.createRelativeDiscount('Blah', 0),
+      ]
+
+      expect(Discount.sorted(discounts).map((d) => d.name)).toEqual([
+        'Blah',
+        'Kansentarief',
+        'Test',
+        'Tweede kind',
+      ])
+    })
+  })
+
   describe('isRelativeDiscount', () => {
     it('true for relative discount', () => {
       expect(relativeDiscount.isRelativeDiscount).toEqual(true)
