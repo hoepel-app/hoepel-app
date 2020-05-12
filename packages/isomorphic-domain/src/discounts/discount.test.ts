@@ -66,6 +66,56 @@ describe('Discount', () => {
     })
   })
 
+  describe('applyAllDiscounts', () => {
+    const halfOff = Discount.createRelativeDiscount('Half off', 50)
+    const noDiscount = Discount.createRelativeDiscount('No discount', 0)
+    const sixtyPercentOff = Discount.createRelativeDiscount('60% off', 60)
+    const allOff = Discount.createRelativeDiscount('Free!', 100)
+
+    it('applies multiple relative discounts', () => {
+      expect(
+        Discount.applyAllDiscounts(Price.fromCents(10000), [
+          halfOff,
+          noDiscount,
+          sixtyPercentOff,
+        ])
+      ).toEqual(Price.fromCents(2000))
+
+      expect(
+        Discount.applyAllDiscounts(Price.fromCents(100), [
+          halfOff,
+          noDiscount,
+          allOff,
+        ])
+      ).toEqual(Price.zero)
+    })
+
+    it('applies multiple absolute discounts', () => {
+      expect(
+        Discount.applyAllDiscounts(Price.fromCents(10000), [
+          Discount.createAbsoluteDiscount('Test1', Price.fromCents(50)),
+          Discount.createAbsoluteDiscount('Test2', Price.fromCents(50)),
+          Discount.createAbsoluteDiscount('Test3', Price.fromCents(0)),
+          Discount.createAbsoluteDiscount('Test4', Price.fromCents(111)),
+        ])
+      ).toEqual(Price.fromCents(9789))
+    })
+
+    it('applies mixed discounts', () => {
+      expect(
+        Discount.applyAllDiscounts(Price.fromCents(10000), [
+          halfOff,
+          Discount.createAbsoluteDiscount('Test1', Price.fromCents(50)),
+          sixtyPercentOff,
+          Discount.createAbsoluteDiscount('Test2', Price.fromCents(50)),
+          Discount.createAbsoluteDiscount('Test3', Price.fromCents(0)),
+          noDiscount,
+          Discount.createAbsoluteDiscount('Test4', Price.fromCents(111)),
+        ])
+      ).toEqual(Price.fromCents(1819))
+    })
+  })
+
   describe('isRelativeDiscount', () => {
     it('true for relative discount', () => {
       expect(relativeDiscount.isRelativeDiscount).toEqual(true)

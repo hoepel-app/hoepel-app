@@ -49,6 +49,20 @@ export class Discount {
   }
 
   /**
+   * Apply a list of discounts to a price. The discounts will be applied in the array order.
+   *
+   * The result will never be negative (always at least 0.00EUR)
+   *
+   * @param to The price to apply these discounts to
+   * @param discounts The list of discounts to be applied
+   */
+  static applyAllDiscounts(to: Price, discounts: readonly Discount[]): Price {
+    return discounts.reduce((acc, current) => {
+      return current.applyTo(acc)
+    }, to)
+  }
+
+  /**
    * Applies this discount to a price.
    * The result will never be negative (always at least 0.00EUR)
    */
