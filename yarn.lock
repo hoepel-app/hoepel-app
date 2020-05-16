@@ -715,9 +715,9 @@
     protobufjs "^6.8.6"
 
 "@hoepel.app/types@^1.11.0":
-  version "1.12.0"
-  resolved "https://registry.yarnpkg.com/@hoepel.app/types/-/types-1.12.0.tgz#350d8e1e6ca66a055b9e79709f414781ab695386"
-  integrity sha512-EAI0NcmHp4qOyCvB6rcApcunGZt5q0XTPnqGlRWF4P7vRMPqCWg7f4RVZSAetumavOKmboYZ15sGQrEYFi3D/A==
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/@hoepel.app/types/-/types-1.13.0.tgz#b7e8aa3856fddf28d131299c9572b41b75053fa8"
+  integrity sha512-LXt9AyA3NN0kqgUHJ9wo8aEXkUXBmzDVhp79PlFrqaOMtB9iMfHfet5jXTjm3BcZMAEgTq4oBYt9nnOMTjJzIw==
   dependencies:
     virginity-ts "^0.1.0"
 
