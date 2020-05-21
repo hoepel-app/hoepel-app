@@ -1,0 +1,109 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ShiftsPresetsApplicationService addShiftPreset adds a new shift preset 1`] = `
+Array [
+  ShiftPresets {
+    "props": Object {
+      "shiftPresets": Array [
+        Object {
+          "childrenCanBePresent": true,
+          "crewCanBePresent": true,
+          "description": "",
+          "location": "",
+          "name": "Afternoon",
+          "priceCents": 0,
+        },
+        Object {
+          "childrenCanBePresent": false,
+          "crewCanBePresent": true,
+          "description": "",
+          "location": "",
+          "name": "Crew activity",
+          "priceCents": 0,
+        },
+        Object {
+          "childrenCanBePresent": true,
+          "crewCanBePresent": true,
+          "description": "",
+          "location": "",
+          "name": "External activity",
+          "priceCents": 3000,
+        },
+        Object {
+          "childrenCanBePresent": true,
+          "crewCanBePresent": true,
+          "description": "",
+          "location": "",
+          "name": "Noon",
+          "priceCents": 0,
+        },
+      ],
+      "tenantId": "some-tenant-id",
+    },
+  },
+]
+`;
+
+exports[`ShiftsPresetsApplicationService removeShiftPreset removes a shift preset 1`] = `
+Array [
+  ShiftPresets {
+    "props": Object {
+      "shiftPresets": Array [
+        Object {
+          "childrenCanBePresent": true,
+          "crewCanBePresent": true,
+          "description": "",
+          "location": "",
+          "name": "Afternoon",
+          "priceCents": 0,
+        },
+        Object {
+          "childrenCanBePresent": true,
+          "crewCanBePresent": true,
+          "description": "",
+          "location": "",
+          "name": "External activity",
+          "priceCents": 3000,
+        },
+      ],
+      "tenantId": "some-tenant-id",
+    },
+  },
+]
+`;
+
+exports[`ShiftsPresetsApplicationService renameShiftPreset renames a shift preset 1`] = `
+Array [
+  ShiftPresets {
+    "props": Object {
+      "shiftPresets": Array [
+        Object {
+          "childrenCanBePresent": true,
+          "crewCanBePresent": true,
+          "description": "",
+          "location": "",
+          "name": "Afternoon",
+          "priceCents": 0,
+        },
+        Object {
+          "childrenCanBePresent": true,
+          "crewCanBePresent": true,
+          "description": "",
+          "location": "",
+          "name": "External activity",
+          "priceCents": 3000,
+        },
+        Object {
+          "childrenCanBePresent": false,
+          "crewCanBePresent": true,
+          "description": "",
+          "location": "",
+          "name": "My new name for Crew Activity",
+          "priceCents": 0,
+        },
+      ],
+      "tenantId": "some-tenant-id",
+    },
+  },
+]
+`;

@@ -1,5 +1,5 @@
 import * as firebase from '@firebase/testing'
-import { FirestoreAgeGroupsRepository } from './firestore-consumable-repository'
+import { FirestoreConsumablesRepository } from './firestore-consumables-repository'
 import { injectTestingAdaptor } from 'typesaurus/testing'
 import { Consumable, Consumables } from '@hoepel.app/isomorphic-domain'
 import { first } from 'rxjs/operators'
@@ -22,7 +22,7 @@ describe('FirestoreConsumablesRepository', () => {
   })
 
   it('returns default empty consumables when nothing was saved', async () => {
-    const repo = new FirestoreAgeGroupsRepository()
+    const repo = new FirestoreConsumablesRepository()
 
     const result = await repo
       .getForTenant('something-tenant')
@@ -32,8 +32,8 @@ describe('FirestoreConsumablesRepository', () => {
     expect(result).toEqual(Consumables.createEmpty('something-tenant'))
   })
 
-  it('can save and load age groups', async () => {
-    const repo = new FirestoreAgeGroupsRepository()
+  it('can save and load consumables', async () => {
+    const repo = new FirestoreConsumablesRepository()
 
     await repo.put(exampleConsumables)
 

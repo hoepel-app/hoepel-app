@@ -7,10 +7,10 @@ import {
   ConsumableProps,
 } from '@hoepel.app/isomorphic-domain'
 
-export class FirestoreAgeGroupsRepository implements ConsumablesRepository {
+export class FirestoreConsumablesRepository implements ConsumablesRepository {
   private readonly collection = collection<{
     readonly consumables: readonly ConsumableProps[]
-  }>('consumabels')
+  }>('consumables')
 
   getForTenant(tenantId: string): Observable<Consumables> {
     return from(get(this.collection, tenantId)).pipe(
