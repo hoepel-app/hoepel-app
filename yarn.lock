@@ -2751,9 +2751,9 @@
   integrity sha512-5tXH6Bx/kNGd3MgffdmP4dy2Z+G4eaXw0SE81Tq3BNadtnMR5/ySMzX4SLEzHJzSmPNn4HIdpQsBvXMUykr58w==
 
 "@types/mailgun-js@^0.22.4":
-  version "0.22.4"
-  resolved "https://registry.npmjs.org/@types/mailgun-js/-/mailgun-js-0.22.4.tgz#d18aeb0ed265cce31a55ac5329ae7613dab5b6a0"
-  integrity sha512-rkKNSHgSFc+Y78UvgjE3xJ3OClz/MDi/OjOmERl5ERyaK3J+sBo6UA3bHiy7LtHNvkqNj3tMKN0bKB5yLvxc3w==
+  version "0.22.7"
+  resolved "https://registry.npmjs.org/@types/mailgun-js/-/mailgun-js-0.22.7.tgz#ffddb68472afeeea5de70419a742b72ca47e06d8"
+  integrity sha512-rQN+adooy3flQ2TK29CwOtN6JvBY0494hccz3d6xM9JnlhEK1nsgNY5tvFDAMv1troqWek6RrsvuB24e2WdDKw==
   dependencies:
     "@types/node" "*"
     form-data "^2.5.0"
