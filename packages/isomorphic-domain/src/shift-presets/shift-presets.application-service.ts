@@ -6,6 +6,7 @@ import { AddShiftPresetCommand } from './commands/add-shift-preset.command'
 import { first } from 'rxjs/operators'
 import { RemoveShiftPresetCommand } from './commands/remove-shift-preset.command'
 import { RenameShiftPresetCommand } from './commands/rename-shift-preset.command'
+import { ChangeShiftPresetPriceCommand } from './commands/change-shift-preset-price.command'
 
 export class ShiftPresetsApplicationService {
   constructor(private readonly repo: ShiftPresetsRepository) {}
@@ -70,6 +71,27 @@ export class ShiftPresetsApplicationService {
 
     await this.repo.put(
       presets.withPresetRenamed(command.oldName, command.newName)
+    )
+
+    return { status: 'accepted' }
+  }
+
+  async changeShiftPresetPrice(
+    command: ChangeShiftPresetPriceCommand
+  ): Promise<CommandResult> {
+    const presets = await this.findShiftPresets(command.tenantId)
+      .pipe(first())
+      .toPromise()
+
+    if (!presets.hasPresetWithName(command.presetName)) {
+      return {
+        status: 'rejected',
+        reason: `A shift preset with the name '${command.presetName}' does not exist`,
+      }
+    }
+
+    await this.repo.put(
+      presets.withPresetPriceChanged(command.presetName, command.newPrice)
     )
 
     return { status: 'accepted' }

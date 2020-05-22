@@ -173,4 +173,24 @@ describe('ShiftPresets', () => {
       expect(shiftPresets.mayAddPreset(addMe)).toEqual(true)
     })
   })
+
+  describe('withPresetPriceChanged', () => {
+    it('does nothing when preset does not exist', () => {
+      const newPrice = Price.fromCents(1234)
+
+      expect(shiftPresets.withPresetPriceChanged('Blah', newPrice)).toEqual(
+        shiftPresets
+      )
+    })
+
+    it('does nothing when preset does not exist', () => {
+      const newPrice = Price.fromCents(1234)
+      const changed = shiftPresets.withPresetPriceChanged('My Preset', newPrice)
+
+      expect(changed.findPresetWithName('My Preset')?.price.totalCents).toEqual(
+        1234
+      )
+      expect(changed).not.toEqual(shiftPresets)
+    })
+  })
 })

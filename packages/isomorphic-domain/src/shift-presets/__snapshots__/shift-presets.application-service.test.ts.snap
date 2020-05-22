@@ -44,6 +44,42 @@ Array [
 ]
 `;
 
+exports[`ShiftsPresetsApplicationService changeShiftPresetPrice changes the price of a shift preset 1`] = `
+Array [
+  ShiftPresets {
+    "props": Object {
+      "shiftPresets": Array [
+        Object {
+          "childrenCanBePresent": true,
+          "crewCanBePresent": true,
+          "description": "",
+          "location": "",
+          "name": "Afternoon",
+          "priceCents": 0,
+        },
+        Object {
+          "childrenCanBePresent": true,
+          "crewCanBePresent": true,
+          "description": "",
+          "location": "",
+          "name": "External activity",
+          "priceCents": 3000,
+        },
+        Object {
+          "childrenCanBePresent": false,
+          "crewCanBePresent": true,
+          "description": "",
+          "location": "",
+          "name": "Crew activity",
+          "priceCents": 3450,
+        },
+      ],
+      "tenantId": "some-tenant-id",
+    },
+  },
+]
+`;
+
 exports[`ShiftsPresetsApplicationService removeShiftPreset removes a shift preset 1`] = `
 Array [
   ShiftPresets {

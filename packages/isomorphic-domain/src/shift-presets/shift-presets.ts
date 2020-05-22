@@ -1,5 +1,6 @@
 import { Aggregate } from '@hoepel.app/ddd-library'
 import { ShiftPresetProps, ShiftPreset } from './shift-preset'
+import { Price } from '@hoepel.app/types'
 
 export type ShiftPresetsProps = {
   readonly shiftPresets: readonly ShiftPresetProps[]
@@ -101,6 +102,24 @@ export class ShiftPresets implements Aggregate {
       shiftPresets: [
         ...this.presets
           .filter((preset) => preset.name !== oldName)
+          .map((preset) => preset.toProps()),
+        newPreset.toProps(),
+      ],
+    })
+  }
+
+  withPresetPriceChanged(presetName: string, newPrice: Price): ShiftPresets {
+    const newPreset = this.findPresetWithName(presetName)?.withPrice(newPrice)
+
+    if (newPreset == null) {
+      return this
+    }
+
+    return ShiftPresets.fromProps({
+      ...this.toProps(),
+      shiftPresets: [
+        ...this.presets
+          .filter((preset) => preset.name !== presetName)
           .map((preset) => preset.toProps()),
         newPreset.toProps(),
       ],

@@ -8,6 +8,7 @@ import { ShiftPresetsApplicationService } from './shift-presets.application-serv
 import { AddShiftPresetCommand } from './commands/add-shift-preset.command'
 import { RemoveShiftPresetCommand } from './commands/remove-shift-preset.command'
 import { RenameShiftPresetCommand } from './commands/rename-shift-preset.command'
+import { ChangeShiftPresetPriceCommand } from './commands/change-shift-preset-price.command'
 
 import '@hoepel.app/ddd-library-test-utils'
 
@@ -204,6 +205,52 @@ describe('ShiftsPresetsApplicationService', () => {
       )
 
       const commandResult = await service.renameShiftPreset(command)
+
+      expect(commandResult).toBeAccepted()
+      expect(repo.put).toHaveBeenCalledTimes(1)
+      expect(repo.put.mock.calls[0]).toMatchSnapshot()
+    })
+  })
+
+  describe('changeShiftPresetPrice', () => {
+    it('rejects when shift preset with name does not exist', async () => {
+      const repo = {
+        getForTenant: jest.fn((tenantId: string) =>
+          of(examplePresets(tenantId))
+        ),
+        put: jest.fn(),
+      }
+
+      const service = new ShiftPresetsApplicationService(repo)
+      const command = ChangeShiftPresetPriceCommand.create(
+        'Something here',
+        Price.fromCents(6666),
+        commandMetadata
+      )
+
+      const commandResult = await service.changeShiftPresetPrice(command)
+
+      expect(commandResult).toBeRejectedWithReason(
+        `A shift preset with the name 'Something here' does not exist`
+      )
+    })
+
+    it('changes the price of a shift preset', async () => {
+      const repo = {
+        getForTenant: jest.fn((tenantId: string) =>
+          of(examplePresets(tenantId))
+        ),
+        put: jest.fn(),
+      }
+
+      const service = new ShiftPresetsApplicationService(repo)
+      const command = ChangeShiftPresetPriceCommand.create(
+        'Crew activity',
+        Price.fromCents(3450),
+        commandMetadata
+      )
+
+      const commandResult = await service.changeShiftPresetPrice(command)
 
       expect(commandResult).toBeAccepted()
       expect(repo.put).toHaveBeenCalledTimes(1)
