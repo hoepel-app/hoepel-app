@@ -1,6 +1,6 @@
 {
   "name": "@hoepel.app/isomorphic-data",
-  "version": "0.3.35",
+  "version": "0.3.36",
   "main": "dist/index.js",
   "license": "GPL-3.0-or-later",
   "devDependencies": {
@@ -14,7 +14,7 @@
     "test": "firebase emulators:exec --only firestore 'yarn jest'"
   },
   "dependencies": {
-    "@hoepel.app/isomorphic-domain": "^0.3.35",
+    "@hoepel.app/isomorphic-domain": "^0.3.36",
     "rxjs": "^6.5.5",
     "typesaurus": "^6.0.0"
   },
