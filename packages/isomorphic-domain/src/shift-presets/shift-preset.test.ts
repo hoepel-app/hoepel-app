@@ -1,5 +1,5 @@
 import { ShiftPreset } from './shift-preset'
-import { Price } from '@hoepel.app/types'
+import { Price, StartAndEndTime } from '@hoepel.app/types'
 
 describe('ShiftPreset', () => {
   test('price', () => {
@@ -77,9 +77,11 @@ describe('ShiftPreset', () => {
             "childrenCanAttend": true,
             "crewMembersCanAttend": true,
             "description": "",
+            "endMinutesSinceMidnight": 1020,
             "location": "",
             "name": "My Name",
             "priceCents": 0,
+            "startMinutesSinceMidnight": 540,
           },
         }
       `)
@@ -93,6 +95,18 @@ describe('ShiftPreset', () => {
       .withPrice(Price.fromCents(1234))
       .withDescription('Hello description')
       .withLocation('Location here')
+      .withStartAndEndTime(
+        new StartAndEndTime({
+          start: {
+            hour: 9,
+            minute: 30,
+          },
+          end: {
+            hour: 17,
+            minute: 30,
+          },
+        })
+      )
 
     it('serializes object', () => {
       expect(preset.toProps()).toMatchInlineSnapshot(`
@@ -100,9 +114,11 @@ describe('ShiftPreset', () => {
           "childrenCanAttend": false,
           "crewMembersCanAttend": true,
           "description": "Hello description",
+          "endMinutesSinceMidnight": 1050,
           "location": "Location here",
           "name": "Something",
           "priceCents": 1234,
+          "startMinutesSinceMidnight": 570,
         }
       `)
     })
@@ -113,15 +129,31 @@ describe('ShiftPreset', () => {
           "childrenCanAttend": true,
           "crewMembersCanAttend": true,
           "description": "",
+          "endMinutesSinceMidnight": 1020,
           "location": "",
           "name": "Test",
           "priceCents": 0,
+          "startMinutesSinceMidnight": 540,
         }
       `)
     })
 
     test('ShiftPreset.fromProps(ShiftPreset#toProps) returns same object', () => {
       expect(ShiftPreset.fromProps(preset.toProps())).toEqual(preset)
+    })
+  })
+
+  describe('withStartAndEndTime', () => {
+    it('updates start and end time of the shift preset', () => {
+      const preset = ShiftPreset.createEmpty('Some Preset')
+      const startAndEnd = new StartAndEndTime({
+        start: { hour: 7, minute: 23 },
+        end: { hour: 19, minute: 55 },
+      })
+      const withStartAndEndTime = preset.withStartAndEndTime(startAndEnd)
+
+      expect(withStartAndEndTime).not.toEqual(preset)
+      expect(withStartAndEndTime.startAndEndTime).toEqual(startAndEnd)
     })
   })
 })

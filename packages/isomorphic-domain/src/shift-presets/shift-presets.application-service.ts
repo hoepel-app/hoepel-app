@@ -11,6 +11,7 @@ import { ChangeShiftPresetLocationCommand } from './commands/change-shift-preset
 import { ChangeShiftPresetDescriptionCommand } from './commands/change-shift-preset-description.command'
 import { ChangeCrewMembersCanAttendShiftPresetCommand } from './commands/change-crew-members-can-attend-shift-preset.command'
 import { ChangeChildrenCanAttendShiftPresetCommand } from './commands/change-children-can-attend-shift-preset.command'
+import { ChangeShiftPresetStartAndEndCommand } from './commands/change-shift-preset-start-and-end.command'
 
 export class ShiftPresetsApplicationService {
   constructor(private readonly repo: ShiftPresetsRepository) {}
@@ -188,6 +189,30 @@ export class ShiftPresetsApplicationService {
       presets.withPresetChildrenCanAttendChanged(
         command.presetName,
         command.childrenCanAttend
+      )
+    )
+
+    return { status: 'accepted' }
+  }
+
+  async changePresetStartAndEnd(
+    command: ChangeShiftPresetStartAndEndCommand
+  ): Promise<CommandResult> {
+    const presets = await this.findShiftPresets(command.tenantId)
+      .pipe(first())
+      .toPromise()
+
+    if (!presets.hasPresetWithName(command.presetName)) {
+      return {
+        status: 'rejected',
+        reason: `A shift preset with the name '${command.presetName}' does not exist`,
+      }
+    }
+
+    await this.repo.put(
+      presets.withPresetStartAndEndChanged(
+        command.presetName,
+        command.startAndEndTime
       )
     )
 

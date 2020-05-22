@@ -9,4 +9,5 @@ export { ChangeShiftPresetDescriptionCommand } from './commands/change-shift-pre
 export { ChangeShiftPresetLocationCommand } from './commands/change-shift-preset-location.command'
 export { ChangeChildrenCanAttendShiftPresetCommand } from './commands/change-children-can-attend-shift-preset.command'
 export { ChangeCrewMembersCanAttendShiftPresetCommand } from './commands/change-crew-members-can-attend-shift-preset.command'
+export { ChangeShiftPresetStartAndEndCommand } from './commands/change-shift-preset-start-and-end.command'
 export { ShiftPresetsApplicationService } from './shift-presets.application-service'

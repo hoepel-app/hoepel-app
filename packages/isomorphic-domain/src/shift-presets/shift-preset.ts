@@ -1,4 +1,4 @@
-import { Price } from '@hoepel.app/types'
+import { Price, StartAndEndTime } from '@hoepel.app/types'
 
 export type ShiftPresetProps = {
   readonly name: string
@@ -11,6 +11,12 @@ export type ShiftPresetProps = {
 
   /** Can be empty string */
   readonly description: string
+
+  /** Start time of shifts created using this shift preset, in minutes since midnight */
+  readonly startMinutesSinceMidnight: number
+
+  /** End time of shifts created using this shift preset, in minutes since midnight */
+  readonly endMinutesSinceMidnight: number
 }
 
 export class ShiftPreset {
@@ -40,6 +46,20 @@ export class ShiftPreset {
     return this.props.description
   }
 
+  get startAndEndTime(): StartAndEndTime {
+    // TODO extract this logic to LocalTime/StartAndEndTime
+    const startMinutes = this.props.startMinutesSinceMidnight % 60
+    const startHours =
+      (this.props.startMinutesSinceMidnight - startMinutes) / 60
+    const endMinutes = this.props.endMinutesSinceMidnight % 60
+    const endHours = (this.props.endMinutesSinceMidnight - endMinutes) / 60
+
+    return new StartAndEndTime({
+      start: { hour: startHours, minute: startMinutes },
+      end: { hour: endHours, minute: endMinutes },
+    })
+  }
+
   static createEmpty(name: string): ShiftPreset {
     return new ShiftPreset({
       priceCents: 0,
@@ -48,6 +68,8 @@ export class ShiftPreset {
       crewMembersCanAttend: true,
       description: '',
       location: '',
+      startMinutesSinceMidnight: 540, // 9:00
+      endMinutesSinceMidnight: 1020, // 17:00
     })
   }
 
@@ -100,8 +122,17 @@ export class ShiftPreset {
       description,
     })
   }
-}
 
-// export interface IShift {
-//     readonly startAndEnd?: IStartAndEndTime;
-// }
+  withStartAndEndTime(startAndEnd: StartAndEndTime): ShiftPreset {
+    const startMinutesSinceMidnight =
+      startAndEnd.start.minute + startAndEnd.start.hour * 60
+    const endMinutesSinceMidnight =
+      startAndEnd.end.minute + startAndEnd.end.hour * 60
+
+    return ShiftPreset.fromProps({
+      ...this.toProps(),
+      startMinutesSinceMidnight,
+      endMinutesSinceMidnight,
+    })
+  }
+}

@@ -3,7 +3,7 @@ import { of } from 'rxjs'
 import { first } from 'rxjs/operators'
 import { ShiftPresets } from './shift-presets'
 import { ShiftPreset } from './shift-preset'
-import { Price } from '@hoepel.app/types'
+import { Price, StartAndEndTime } from '@hoepel.app/types'
 import { ShiftPresetsApplicationService } from './shift-presets.application-service'
 import { AddShiftPresetCommand } from './commands/add-shift-preset.command'
 import { RemoveShiftPresetCommand } from './commands/remove-shift-preset.command'
@@ -15,6 +15,7 @@ import { ChangeShiftPresetLocationCommand } from './commands/change-shift-preset
 import { ChangeShiftPresetDescriptionCommand } from './commands/change-shift-preset-description.command'
 import { ChangeCrewMembersCanAttendShiftPresetCommand } from './commands/change-crew-members-can-attend-shift-preset.command'
 import { ChangeChildrenCanAttendShiftPresetCommand } from './commands/change-children-can-attend-shift-preset.command'
+import { ChangeShiftPresetStartAndEndCommand } from './commands/change-shift-preset-start-and-end.command'
 
 describe('ShiftsPresetsApplicationService', () => {
   const examplePresets = (tenantId: string): ShiftPresets =>
@@ -443,6 +444,62 @@ describe('ShiftsPresetsApplicationService', () => {
       )
 
       const commandResult = await service.changeChildrenCanAttendPreset(command)
+
+      expect(commandResult).toBeAccepted()
+      expect(repo.put).toHaveBeenCalledTimes(1)
+      expect(repo.put.mock.calls[0]).toMatchSnapshot()
+    })
+  })
+
+  describe('changePresetStartAndEnd', () => {
+    it('rejects when shift preset with name does not exist', async () => {
+      const repo = {
+        getForTenant: jest.fn((tenantId: string) =>
+          of(examplePresets(tenantId))
+        ),
+        put: jest.fn(),
+      }
+
+      const startAndEnd = new StartAndEndTime({
+        start: { hour: 5, minute: 55 },
+        end: { hour: 22, minute: 39 },
+      })
+
+      const service = new ShiftPresetsApplicationService(repo)
+      const command = ChangeShiftPresetStartAndEndCommand.create(
+        'Something here',
+        startAndEnd,
+        commandMetadata
+      )
+
+      const commandResult = await service.changePresetStartAndEnd(command)
+
+      expect(commandResult).toBeRejectedWithReason(
+        `A shift preset with the name 'Something here' does not exist`
+      )
+    })
+
+    it('changes whether children can attend a shift preset', async () => {
+      const repo = {
+        getForTenant: jest.fn((tenantId: string) =>
+          of(examplePresets(tenantId))
+        ),
+        put: jest.fn(),
+      }
+
+      const startAndEnd = new StartAndEndTime({
+        start: { hour: 5, minute: 55 },
+        end: { hour: 22, minute: 39 },
+      })
+
+      const service = new ShiftPresetsApplicationService(repo)
+      const command = ChangeShiftPresetStartAndEndCommand.create(
+        'Crew activity',
+        startAndEnd,
+        commandMetadata
+      )
+
+      const commandResult = await service.changePresetStartAndEnd(command)
 
       expect(commandResult).toBeAccepted()
       expect(repo.put).toHaveBeenCalledTimes(1)

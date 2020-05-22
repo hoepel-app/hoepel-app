@@ -1,6 +1,6 @@
 import { Aggregate } from '@hoepel.app/ddd-library'
 import { ShiftPresetProps, ShiftPreset } from './shift-preset'
-import { Price } from '@hoepel.app/types'
+import { Price, StartAndEndTime } from '@hoepel.app/types'
 
 export type ShiftPresetsProps = {
   readonly shiftPresets: readonly ShiftPresetProps[]
@@ -202,6 +202,29 @@ export class ShiftPresets implements Aggregate {
     const newPreset = this.findPresetWithName(
       presetName
     )?.withChildrenCanAttend(childrenCanAttend)
+
+    if (newPreset == null) {
+      return this
+    }
+
+    return ShiftPresets.fromProps({
+      ...this.toProps(),
+      shiftPresets: [
+        ...this.presets
+          .filter((preset) => preset.name !== presetName)
+          .map((preset) => preset.toProps()),
+        newPreset.toProps(),
+      ],
+    })
+  }
+
+  withPresetStartAndEndChanged(
+    presetName: string,
+    newTime: StartAndEndTime
+  ): ShiftPresets {
+    const newPreset = this.findPresetWithName(presetName)?.withStartAndEndTime(
+      newTime
+    )
 
     if (newPreset == null) {
       return this

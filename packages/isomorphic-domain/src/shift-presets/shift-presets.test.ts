@@ -1,6 +1,6 @@
 import { ShiftPresets } from './shift-presets'
 import { ShiftPreset } from './shift-preset'
-import { Price } from '@hoepel.app/types'
+import { Price, StartAndEndTime } from '@hoepel.app/types'
 
 describe('ShiftPresets', () => {
   const shiftPresets = ShiftPresets.createEmpty('my-tenant-id')
@@ -86,9 +86,11 @@ describe('ShiftPresets', () => {
                 "childrenCanAttend": true,
                 "crewMembersCanAttend": true,
                 "description": "",
+                "endMinutesSinceMidnight": 1020,
                 "location": "",
                 "name": "Some preset",
                 "priceCents": 0,
+                "startMinutesSinceMidnight": 540,
               },
             ],
             "tenantId": "something",
@@ -279,6 +281,36 @@ describe('ShiftPresets', () => {
       expect(
         changed.findPresetWithName('My Preset')?.childrenCanAttend
       ).toEqual(false)
+      expect(changed).not.toEqual(shiftPresets)
+    })
+  })
+
+  describe('withPresetStartAndEndChanged', () => {
+    it('does nothing when preset does not exist', () => {
+      const time = new StartAndEndTime({
+        start: { hour: 8, minute: 22 },
+        end: { hour: 11, minute: 44 },
+      })
+
+      expect(
+        shiftPresets.withPresetStartAndEndChanged('Some shift preset', time)
+      ).toEqual(shiftPresets)
+    })
+
+    it('changes shift preset location', () => {
+      const time = new StartAndEndTime({
+        start: { hour: 8, minute: 22 },
+        end: { hour: 11, minute: 44 },
+      })
+
+      const changed = shiftPresets.withPresetStartAndEndChanged(
+        'My Preset',
+        time
+      )
+
+      expect(changed.findPresetWithName('My Preset')?.startAndEndTime).toEqual(
+        time
+      )
       expect(changed).not.toEqual(shiftPresets)
     })
   })
