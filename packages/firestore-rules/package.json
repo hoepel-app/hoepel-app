@@ -1,7 +1,7 @@
 {
   "name": "@hoepel.app/firestore-rules",
   "description": "Generate and apply Firestore rules based on GraphQL schema",
-  "version": "0.3.30",
+  "version": "0.3.35",
   "main": "index.js",
   "license": "GPL-3.0-or-later",
   "scripts": {
@@ -11,7 +11,7 @@
     "check-rules-file-up-to-date": "yarn ts-node src/util/check-rules-file-up-to-date.ts"
   },
   "dependencies": {
-    "@hoepel.app/schema-firestore": "^0.3.30"
+    "@hoepel.app/schema-firestore": "^0.3.35"
   },
   "devDependencies": {
     "@types/jest": "^25.1.2",
