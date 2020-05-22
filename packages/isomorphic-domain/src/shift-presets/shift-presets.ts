@@ -125,4 +125,96 @@ export class ShiftPresets implements Aggregate {
       ],
     })
   }
+
+  withPresetLocationChanged(
+    presetName: string,
+    newLocation: string
+  ): ShiftPresets {
+    const newPreset = this.findPresetWithName(presetName)?.withLocation(
+      newLocation
+    )
+
+    if (newPreset == null) {
+      return this
+    }
+
+    return ShiftPresets.fromProps({
+      ...this.toProps(),
+      shiftPresets: [
+        ...this.presets
+          .filter((preset) => preset.name !== presetName)
+          .map((preset) => preset.toProps()),
+        newPreset.toProps(),
+      ],
+    })
+  }
+
+  withPresetDescriptionChanged(
+    presetName: string,
+    newDescription: string
+  ): ShiftPresets {
+    const newPreset = this.findPresetWithName(presetName)?.withDescription(
+      newDescription
+    )
+
+    if (newPreset == null) {
+      return this
+    }
+
+    return ShiftPresets.fromProps({
+      ...this.toProps(),
+      shiftPresets: [
+        ...this.presets
+          .filter((preset) => preset.name !== presetName)
+          .map((preset) => preset.toProps()),
+        newPreset.toProps(),
+      ],
+    })
+  }
+
+  withPresetCrewMembersCanAttendChanged(
+    presetName: string,
+    crewMembersCanAttend: boolean
+  ): ShiftPresets {
+    const newPreset = this.findPresetWithName(
+      presetName
+    )?.withCrewMembersCanAttend(crewMembersCanAttend)
+
+    if (newPreset == null) {
+      return this
+    }
+
+    return ShiftPresets.fromProps({
+      ...this.toProps(),
+      shiftPresets: [
+        ...this.presets
+          .filter((preset) => preset.name !== presetName)
+          .map((preset) => preset.toProps()),
+        newPreset.toProps(),
+      ],
+    })
+  }
+
+  withPresetChildrenCanAttendChanged(
+    presetName: string,
+    childrenCanAttend: boolean
+  ): ShiftPresets {
+    const newPreset = this.findPresetWithName(
+      presetName
+    )?.withChildrenCanAttend(childrenCanAttend)
+
+    if (newPreset == null) {
+      return this
+    }
+
+    return ShiftPresets.fromProps({
+      ...this.toProps(),
+      shiftPresets: [
+        ...this.presets
+          .filter((preset) => preset.name !== presetName)
+          .map((preset) => preset.toProps()),
+        newPreset.toProps(),
+      ],
+    })
+  }
 }

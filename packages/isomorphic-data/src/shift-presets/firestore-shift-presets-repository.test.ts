@@ -10,13 +10,13 @@ describe('FirestoreShiftPresetsGroupsRepository', () => {
   const examplePresets = ShiftPresets.createEmpty('my-tenant-id')
     .withPresetAdded(
       ShiftPreset.createEmpty('Noon')
-        .withCrewCanBePresent(false)
+        .withCrewMembersCanAttend(false)
         .withDescription('Food')
         .withLocation('Location')
     )
     .withPresetAdded(ShiftPreset.createEmpty('Swimming'))
     .withPresetAdded(
-      ShiftPreset.createEmpty('Crew activity').withChildrenCanBePresent(false)
+      ShiftPreset.createEmpty('Crew activity').withChildrenCanAttend(false)
     )
 
   beforeEach(() => {

@@ -6,35 +6,179 @@ Array [
     "props": Object {
       "shiftPresets": Array [
         Object {
-          "childrenCanBePresent": true,
-          "crewCanBePresent": true,
+          "childrenCanAttend": true,
+          "crewMembersCanAttend": true,
           "description": "",
           "location": "",
           "name": "Afternoon",
           "priceCents": 0,
         },
         Object {
-          "childrenCanBePresent": false,
-          "crewCanBePresent": true,
+          "childrenCanAttend": false,
+          "crewMembersCanAttend": true,
           "description": "",
           "location": "",
           "name": "Crew activity",
           "priceCents": 0,
         },
         Object {
-          "childrenCanBePresent": true,
-          "crewCanBePresent": true,
+          "childrenCanAttend": true,
+          "crewMembersCanAttend": true,
           "description": "",
           "location": "",
           "name": "External activity",
           "priceCents": 3000,
         },
         Object {
-          "childrenCanBePresent": true,
-          "crewCanBePresent": true,
+          "childrenCanAttend": true,
+          "crewMembersCanAttend": true,
           "description": "",
           "location": "",
           "name": "Noon",
+          "priceCents": 0,
+        },
+      ],
+      "tenantId": "some-tenant-id",
+    },
+  },
+]
+`;
+
+exports[`ShiftsPresetsApplicationService changeChildrenCanAttendPreset changes whether children can attend a shift preset 1`] = `
+Array [
+  ShiftPresets {
+    "props": Object {
+      "shiftPresets": Array [
+        Object {
+          "childrenCanAttend": true,
+          "crewMembersCanAttend": true,
+          "description": "",
+          "location": "",
+          "name": "Afternoon",
+          "priceCents": 0,
+        },
+        Object {
+          "childrenCanAttend": true,
+          "crewMembersCanAttend": true,
+          "description": "",
+          "location": "",
+          "name": "External activity",
+          "priceCents": 3000,
+        },
+        Object {
+          "childrenCanAttend": true,
+          "crewMembersCanAttend": true,
+          "description": "",
+          "location": "",
+          "name": "Crew activity",
+          "priceCents": 0,
+        },
+      ],
+      "tenantId": "some-tenant-id",
+    },
+  },
+]
+`;
+
+exports[`ShiftsPresetsApplicationService changeCrewMembersCanAttendPreset changes whether crew members can attend a shift preset 1`] = `
+Array [
+  ShiftPresets {
+    "props": Object {
+      "shiftPresets": Array [
+        Object {
+          "childrenCanAttend": true,
+          "crewMembersCanAttend": true,
+          "description": "",
+          "location": "",
+          "name": "Afternoon",
+          "priceCents": 0,
+        },
+        Object {
+          "childrenCanAttend": true,
+          "crewMembersCanAttend": true,
+          "description": "",
+          "location": "",
+          "name": "External activity",
+          "priceCents": 3000,
+        },
+        Object {
+          "childrenCanAttend": false,
+          "crewMembersCanAttend": false,
+          "description": "",
+          "location": "",
+          "name": "Crew activity",
+          "priceCents": 0,
+        },
+      ],
+      "tenantId": "some-tenant-id",
+    },
+  },
+]
+`;
+
+exports[`ShiftsPresetsApplicationService changeShiftPresetDescription changes the description of a shift preset 1`] = `
+Array [
+  ShiftPresets {
+    "props": Object {
+      "shiftPresets": Array [
+        Object {
+          "childrenCanAttend": true,
+          "crewMembersCanAttend": true,
+          "description": "",
+          "location": "",
+          "name": "Afternoon",
+          "priceCents": 0,
+        },
+        Object {
+          "childrenCanAttend": false,
+          "crewMembersCanAttend": true,
+          "description": "",
+          "location": "",
+          "name": "Crew activity",
+          "priceCents": 0,
+        },
+        Object {
+          "childrenCanAttend": true,
+          "crewMembersCanAttend": true,
+          "description": "Swimming",
+          "location": "",
+          "name": "External activity",
+          "priceCents": 3000,
+        },
+      ],
+      "tenantId": "some-tenant-id",
+    },
+  },
+]
+`;
+
+exports[`ShiftsPresetsApplicationService changeShiftPresetLocation changes the location of a shift preset 1`] = `
+Array [
+  ShiftPresets {
+    "props": Object {
+      "shiftPresets": Array [
+        Object {
+          "childrenCanAttend": true,
+          "crewMembersCanAttend": true,
+          "description": "",
+          "location": "",
+          "name": "Afternoon",
+          "priceCents": 0,
+        },
+        Object {
+          "childrenCanAttend": true,
+          "crewMembersCanAttend": true,
+          "description": "",
+          "location": "",
+          "name": "External activity",
+          "priceCents": 3000,
+        },
+        Object {
+          "childrenCanAttend": false,
+          "crewMembersCanAttend": true,
+          "description": "",
+          "location": "Bellewaerde",
+          "name": "Crew activity",
           "priceCents": 0,
         },
       ],
@@ -50,24 +194,24 @@ Array [
     "props": Object {
       "shiftPresets": Array [
         Object {
-          "childrenCanBePresent": true,
-          "crewCanBePresent": true,
+          "childrenCanAttend": true,
+          "crewMembersCanAttend": true,
           "description": "",
           "location": "",
           "name": "Afternoon",
           "priceCents": 0,
         },
         Object {
-          "childrenCanBePresent": true,
-          "crewCanBePresent": true,
+          "childrenCanAttend": true,
+          "crewMembersCanAttend": true,
           "description": "",
           "location": "",
           "name": "External activity",
           "priceCents": 3000,
         },
         Object {
-          "childrenCanBePresent": false,
-          "crewCanBePresent": true,
+          "childrenCanAttend": false,
+          "crewMembersCanAttend": true,
           "description": "",
           "location": "",
           "name": "Crew activity",
@@ -86,16 +230,16 @@ Array [
     "props": Object {
       "shiftPresets": Array [
         Object {
-          "childrenCanBePresent": true,
-          "crewCanBePresent": true,
+          "childrenCanAttend": true,
+          "crewMembersCanAttend": true,
           "description": "",
           "location": "",
           "name": "Afternoon",
           "priceCents": 0,
         },
         Object {
-          "childrenCanBePresent": true,
-          "crewCanBePresent": true,
+          "childrenCanAttend": true,
+          "crewMembersCanAttend": true,
           "description": "",
           "location": "",
           "name": "External activity",
@@ -114,24 +258,24 @@ Array [
     "props": Object {
       "shiftPresets": Array [
         Object {
-          "childrenCanBePresent": true,
-          "crewCanBePresent": true,
+          "childrenCanAttend": true,
+          "crewMembersCanAttend": true,
           "description": "",
           "location": "",
           "name": "Afternoon",
           "priceCents": 0,
         },
         Object {
-          "childrenCanBePresent": true,
-          "crewCanBePresent": true,
+          "childrenCanAttend": true,
+          "crewMembersCanAttend": true,
           "description": "",
           "location": "",
           "name": "External activity",
           "priceCents": 3000,
         },
         Object {
-          "childrenCanBePresent": false,
-          "crewCanBePresent": true,
+          "childrenCanAttend": false,
+          "crewMembersCanAttend": true,
           "description": "",
           "location": "",
           "name": "My new name for Crew Activity",

@@ -11,6 +11,10 @@ import { RenameShiftPresetCommand } from './commands/rename-shift-preset.command
 import { ChangeShiftPresetPriceCommand } from './commands/change-shift-preset-price.command'
 
 import '@hoepel.app/ddd-library-test-utils'
+import { ChangeShiftPresetLocationCommand } from './commands/change-shift-preset-location.command'
+import { ChangeShiftPresetDescriptionCommand } from './commands/change-shift-preset-description.command'
+import { ChangeCrewMembersCanAttendShiftPresetCommand } from './commands/change-crew-members-can-attend-shift-preset.command'
+import { ChangeChildrenCanAttendShiftPresetCommand } from './commands/change-children-can-attend-shift-preset.command'
 
 describe('ShiftsPresetsApplicationService', () => {
   const examplePresets = (tenantId: string): ShiftPresets =>
@@ -22,7 +26,7 @@ describe('ShiftsPresetsApplicationService', () => {
         )
       )
       .withPresetAdded(
-        ShiftPreset.createEmpty('Crew activity').withChildrenCanBePresent(false)
+        ShiftPreset.createEmpty('Crew activity').withChildrenCanAttend(false)
       )
 
   const commandMetadata: CommandMetadata = {
@@ -251,6 +255,194 @@ describe('ShiftsPresetsApplicationService', () => {
       )
 
       const commandResult = await service.changeShiftPresetPrice(command)
+
+      expect(commandResult).toBeAccepted()
+      expect(repo.put).toHaveBeenCalledTimes(1)
+      expect(repo.put.mock.calls[0]).toMatchSnapshot()
+    })
+  })
+
+  describe('changeShiftPresetLocation', () => {
+    it('rejects when shift preset with name does not exist', async () => {
+      const repo = {
+        getForTenant: jest.fn((tenantId: string) =>
+          of(examplePresets(tenantId))
+        ),
+        put: jest.fn(),
+      }
+
+      const service = new ShiftPresetsApplicationService(repo)
+      const command = ChangeShiftPresetLocationCommand.create(
+        'Something here',
+        'My new location',
+        commandMetadata
+      )
+
+      const commandResult = await service.changeShiftPresetLocation(command)
+
+      expect(commandResult).toBeRejectedWithReason(
+        `A shift preset with the name 'Something here' does not exist`
+      )
+    })
+
+    it('changes the location of a shift preset', async () => {
+      const repo = {
+        getForTenant: jest.fn((tenantId: string) =>
+          of(examplePresets(tenantId))
+        ),
+        put: jest.fn(),
+      }
+
+      const service = new ShiftPresetsApplicationService(repo)
+      const command = ChangeShiftPresetLocationCommand.create(
+        'Crew activity',
+        'Bellewaerde',
+        commandMetadata
+      )
+
+      const commandResult = await service.changeShiftPresetLocation(command)
+
+      expect(commandResult).toBeAccepted()
+      expect(repo.put).toHaveBeenCalledTimes(1)
+      expect(repo.put.mock.calls[0]).toMatchSnapshot()
+    })
+  })
+
+  describe('changeShiftPresetDescription', () => {
+    it('rejects when shift preset with name does not exist', async () => {
+      const repo = {
+        getForTenant: jest.fn((tenantId: string) =>
+          of(examplePresets(tenantId))
+        ),
+        put: jest.fn(),
+      }
+
+      const service = new ShiftPresetsApplicationService(repo)
+      const command = ChangeShiftPresetDescriptionCommand.create(
+        'Something here',
+        'My new location',
+        commandMetadata
+      )
+
+      const commandResult = await service.changeShiftPresetDescription(command)
+
+      expect(commandResult).toBeRejectedWithReason(
+        `A shift preset with the name 'Something here' does not exist`
+      )
+    })
+
+    it('changes the description of a shift preset', async () => {
+      const repo = {
+        getForTenant: jest.fn((tenantId: string) =>
+          of(examplePresets(tenantId))
+        ),
+        put: jest.fn(),
+      }
+
+      const service = new ShiftPresetsApplicationService(repo)
+      const command = ChangeShiftPresetDescriptionCommand.create(
+        'External activity',
+        'Swimming',
+        commandMetadata
+      )
+
+      const commandResult = await service.changeShiftPresetDescription(command)
+
+      expect(commandResult).toBeAccepted()
+      expect(repo.put).toHaveBeenCalledTimes(1)
+      expect(repo.put.mock.calls[0]).toMatchSnapshot()
+    })
+  })
+
+  describe('changeCrewMembersCanAttendPreset', () => {
+    it('rejects when shift preset with name does not exist', async () => {
+      const repo = {
+        getForTenant: jest.fn((tenantId: string) =>
+          of(examplePresets(tenantId))
+        ),
+        put: jest.fn(),
+      }
+
+      const service = new ShiftPresetsApplicationService(repo)
+      const command = ChangeCrewMembersCanAttendShiftPresetCommand.create(
+        'Something here',
+        false,
+        commandMetadata
+      )
+
+      const commandResult = await service.changeCrewMembersCanAttendPreset(
+        command
+      )
+
+      expect(commandResult).toBeRejectedWithReason(
+        `A shift preset with the name 'Something here' does not exist`
+      )
+    })
+
+    it('changes whether crew members can attend a shift preset', async () => {
+      const repo = {
+        getForTenant: jest.fn((tenantId: string) =>
+          of(examplePresets(tenantId))
+        ),
+        put: jest.fn(),
+      }
+
+      const service = new ShiftPresetsApplicationService(repo)
+      const command = ChangeCrewMembersCanAttendShiftPresetCommand.create(
+        'Crew activity',
+        false,
+        commandMetadata
+      )
+
+      const commandResult = await service.changeCrewMembersCanAttendPreset(
+        command
+      )
+
+      expect(commandResult).toBeAccepted()
+      expect(repo.put).toHaveBeenCalledTimes(1)
+      expect(repo.put.mock.calls[0]).toMatchSnapshot()
+    })
+  })
+
+  describe('changeChildrenCanAttendPreset', () => {
+    it('rejects when shift preset with name does not exist', async () => {
+      const repo = {
+        getForTenant: jest.fn((tenantId: string) =>
+          of(examplePresets(tenantId))
+        ),
+        put: jest.fn(),
+      }
+
+      const service = new ShiftPresetsApplicationService(repo)
+      const command = ChangeChildrenCanAttendShiftPresetCommand.create(
+        'Something here',
+        false,
+        commandMetadata
+      )
+
+      const commandResult = await service.changeChildrenCanAttendPreset(command)
+
+      expect(commandResult).toBeRejectedWithReason(
+        `A shift preset with the name 'Something here' does not exist`
+      )
+    })
+
+    it('changes whether children can attend a shift preset', async () => {
+      const repo = {
+        getForTenant: jest.fn((tenantId: string) =>
+          of(examplePresets(tenantId))
+        ),
+        put: jest.fn(),
+      }
+
+      const service = new ShiftPresetsApplicationService(repo)
+      const command = ChangeChildrenCanAttendShiftPresetCommand.create(
+        'Crew activity',
+        true,
+        commandMetadata
+      )
+
+      const commandResult = await service.changeChildrenCanAttendPreset(command)
 
       expect(commandResult).toBeAccepted()
       expect(repo.put).toHaveBeenCalledTimes(1)

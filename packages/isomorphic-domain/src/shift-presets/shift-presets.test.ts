@@ -6,7 +6,7 @@ describe('ShiftPresets', () => {
   const shiftPresets = ShiftPresets.createEmpty('my-tenant-id')
     .withPresetAdded(ShiftPreset.createEmpty('My Preset'))
     .withPresetAdded(
-      ShiftPreset.createEmpty('Another Preset').withChildrenCanBePresent(false)
+      ShiftPreset.createEmpty('Another Preset').withChildrenCanAttend(false)
     )
     .withPresetAdded(
       ShiftPreset.createEmpty('External activity').withPrice(
@@ -83,8 +83,8 @@ describe('ShiftPresets', () => {
           "props": Object {
             "shiftPresets": Array [
               Object {
-                "childrenCanBePresent": true,
-                "crewCanBePresent": true,
+                "childrenCanAttend": true,
+                "crewMembersCanAttend": true,
                 "description": "",
                 "location": "",
                 "name": "Some preset",
@@ -183,13 +183,102 @@ describe('ShiftPresets', () => {
       )
     })
 
-    it('does nothing when preset does not exist', () => {
+    it('changes shift preset price', () => {
       const newPrice = Price.fromCents(1234)
       const changed = shiftPresets.withPresetPriceChanged('My Preset', newPrice)
 
       expect(changed.findPresetWithName('My Preset')?.price.totalCents).toEqual(
         1234
       )
+      expect(changed).not.toEqual(shiftPresets)
+    })
+  })
+
+  describe('withPresetLocationChanged', () => {
+    it('does nothing when preset does not exist', () => {
+      expect(
+        shiftPresets.withPresetLocationChanged('Blah', 'New location')
+      ).toEqual(shiftPresets)
+    })
+
+    it('changes shift preset location', () => {
+      const changed = shiftPresets.withPresetLocationChanged(
+        'My Preset',
+        'New location'
+      )
+
+      expect(changed.findPresetWithName('My Preset')?.location).toEqual(
+        'New location'
+      )
+      expect(changed).not.toEqual(shiftPresets)
+    })
+  })
+
+  describe('withPresetDescriptionChanged', () => {
+    it('does nothing when preset does not exist', () => {
+      expect(
+        shiftPresets.withPresetDescriptionChanged(
+          'Some shift preset',
+          'New location'
+        )
+      ).toEqual(shiftPresets)
+    })
+
+    it('changes shift preset location', () => {
+      const changed = shiftPresets.withPresetDescriptionChanged(
+        'My Preset',
+        'New description'
+      )
+
+      expect(changed.findPresetWithName('My Preset')?.description).toEqual(
+        'New description'
+      )
+      expect(changed).not.toEqual(shiftPresets)
+    })
+  })
+
+  describe('withPresetCrewMembersCanAttendChanged', () => {
+    it('does nothing when preset does not exist', () => {
+      expect(
+        shiftPresets.withPresetCrewMembersCanAttendChanged(
+          'Some shift preset',
+          false
+        )
+      ).toEqual(shiftPresets)
+    })
+
+    it('changes shift preset location', () => {
+      const changed = shiftPresets.withPresetCrewMembersCanAttendChanged(
+        'My Preset',
+        false
+      )
+
+      expect(
+        changed.findPresetWithName('My Preset')?.crewMembersCanAttend
+      ).toEqual(false)
+      expect(changed).not.toEqual(shiftPresets)
+    })
+  })
+
+  describe('withPresetChildrenCanAttendChanged', () => {
+    it('does nothing when preset does not exist', () => {
+      expect(
+        shiftPresets.withPresetChildrenCanAttendChanged(
+          'Some shift preset',
+          false
+        )
+      ).toEqual(shiftPresets)
+    })
+
+    it('changes shift preset location', () => {
+      const changed = shiftPresets.withPresetChildrenCanAttendChanged(
+        'My Preset',
+        false
+      )
+
+      expect(
+        changed.findPresetWithName('My Preset')?.childrenCanAttend
+      ).toEqual(false)
       expect(changed).not.toEqual(shiftPresets)
     })
   })

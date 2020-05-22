@@ -7,6 +7,10 @@ import { first } from 'rxjs/operators'
 import { RemoveShiftPresetCommand } from './commands/remove-shift-preset.command'
 import { RenameShiftPresetCommand } from './commands/rename-shift-preset.command'
 import { ChangeShiftPresetPriceCommand } from './commands/change-shift-preset-price.command'
+import { ChangeShiftPresetLocationCommand } from './commands/change-shift-preset-location.command'
+import { ChangeShiftPresetDescriptionCommand } from './commands/change-shift-preset-description.command'
+import { ChangeCrewMembersCanAttendShiftPresetCommand } from './commands/change-crew-members-can-attend-shift-preset.command'
+import { ChangeChildrenCanAttendShiftPresetCommand } from './commands/change-children-can-attend-shift-preset.command'
 
 export class ShiftPresetsApplicationService {
   constructor(private readonly repo: ShiftPresetsRepository) {}
@@ -92,6 +96,99 @@ export class ShiftPresetsApplicationService {
 
     await this.repo.put(
       presets.withPresetPriceChanged(command.presetName, command.newPrice)
+    )
+
+    return { status: 'accepted' }
+  }
+
+  async changeShiftPresetLocation(
+    command: ChangeShiftPresetLocationCommand
+  ): Promise<CommandResult> {
+    const presets = await this.findShiftPresets(command.tenantId)
+      .pipe(first())
+      .toPromise()
+
+    if (!presets.hasPresetWithName(command.presetName)) {
+      return {
+        status: 'rejected',
+        reason: `A shift preset with the name '${command.presetName}' does not exist`,
+      }
+    }
+
+    await this.repo.put(
+      presets.withPresetLocationChanged(command.presetName, command.newLocation)
+    )
+
+    return { status: 'accepted' }
+  }
+
+  async changeShiftPresetDescription(
+    command: ChangeShiftPresetDescriptionCommand
+  ): Promise<CommandResult> {
+    const presets = await this.findShiftPresets(command.tenantId)
+      .pipe(first())
+      .toPromise()
+
+    if (!presets.hasPresetWithName(command.presetName)) {
+      return {
+        status: 'rejected',
+        reason: `A shift preset with the name '${command.presetName}' does not exist`,
+      }
+    }
+
+    await this.repo.put(
+      presets.withPresetDescriptionChanged(
+        command.presetName,
+        command.newDescription
+      )
+    )
+
+    return { status: 'accepted' }
+  }
+
+  async changeCrewMembersCanAttendPreset(
+    command: ChangeCrewMembersCanAttendShiftPresetCommand
+  ): Promise<CommandResult> {
+    const presets = await this.findShiftPresets(command.tenantId)
+      .pipe(first())
+      .toPromise()
+
+    if (!presets.hasPresetWithName(command.presetName)) {
+      return {
+        status: 'rejected',
+        reason: `A shift preset with the name '${command.presetName}' does not exist`,
+      }
+    }
+
+    await this.repo.put(
+      presets.withPresetCrewMembersCanAttendChanged(
+        command.presetName,
+        command.crewMembersCanAttend
+      )
+    )
+
+    return { status: 'accepted' }
+  }
+
+  async changeChildrenCanAttendPreset(
+    command: ChangeChildrenCanAttendShiftPresetCommand
+  ): Promise<CommandResult> {
+    const presets = await this.findShiftPresets(command.tenantId)
+      .pipe(first())
+      .toPromise()
+
+    if (!presets.hasPresetWithName(command.presetName)) {
+      return {
+        status: 'rejected',
+        reason: `A shift preset with the name '${command.presetName}' does not exist`,
+      }
+    }
+
+    await this.repo.put(
+      presets.withPresetChildrenCanAttendChanged(
+        command.presetName,
+        command.childrenCanAttend
+      )
     )
 
     return { status: 'accepted' }

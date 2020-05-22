@@ -3,8 +3,8 @@ import { Price } from '@hoepel.app/types'
 export type ShiftPresetProps = {
   readonly name: string
   readonly priceCents: number
-  readonly childrenCanBePresent: boolean
-  readonly crewCanBePresent: boolean
+  readonly childrenCanAttend: boolean
+  readonly crewMembersCanAttend: boolean
 
   /** Can be empty string */
   readonly location: string
@@ -24,12 +24,12 @@ export class ShiftPreset {
     return this.props.name
   }
 
-  get childrenCanBePresent(): boolean {
-    return this.props.childrenCanBePresent
+  get childrenCanAttend(): boolean {
+    return this.props.childrenCanAttend
   }
 
-  get crewCanBePresent(): boolean {
-    return this.props.crewCanBePresent
+  get crewMembersCanAttend(): boolean {
+    return this.props.crewMembersCanAttend
   }
 
   get location(): string {
@@ -44,8 +44,8 @@ export class ShiftPreset {
     return new ShiftPreset({
       priceCents: 0,
       name,
-      childrenCanBePresent: true,
-      crewCanBePresent: true,
+      childrenCanAttend: true,
+      crewMembersCanAttend: true,
       description: '',
       location: '',
     })
@@ -73,17 +73,17 @@ export class ShiftPreset {
     })
   }
 
-  withChildrenCanBePresent(childrenCanBePresent: boolean): ShiftPreset {
+  withChildrenCanAttend(childrenCanAttend: boolean): ShiftPreset {
     return ShiftPreset.fromProps({
       ...this.toProps(),
-      childrenCanBePresent,
+      childrenCanAttend,
     })
   }
 
-  withCrewCanBePresent(crewCanBePresent: boolean): ShiftPreset {
+  withCrewMembersCanAttend(crewMembersCanAttend: boolean): ShiftPreset {
     return ShiftPreset.fromProps({
       ...this.toProps(),
-      crewCanBePresent,
+      crewMembersCanAttend,
     })
   }
 

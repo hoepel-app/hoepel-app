@@ -24,22 +24,22 @@ describe('ShiftPreset', () => {
     expect(preset.price.totalCents).toEqual(666)
   })
 
-  test('withChildrenCanBePresent', () => {
+  test('withChildrenCanAttend', () => {
     const preset = ShiftPreset.createEmpty('My Shift Preset')
 
-    expect(preset.withChildrenCanBePresent(true).childrenCanBePresent).toEqual(
-      true
-    )
-    expect(preset.withChildrenCanBePresent(false).childrenCanBePresent).toEqual(
-      false
-    )
+    expect(preset.withChildrenCanAttend(true).childrenCanAttend).toEqual(true)
+    expect(preset.withChildrenCanAttend(false).childrenCanAttend).toEqual(false)
   })
 
-  test('withCrewCanBePresent', () => {
+  test('withCrewMembersCanAttend', () => {
     const preset = ShiftPreset.createEmpty('My Shift Preset')
 
-    expect(preset.withCrewCanBePresent(true).crewCanBePresent).toEqual(true)
-    expect(preset.withCrewCanBePresent(false).crewCanBePresent).toEqual(false)
+    expect(preset.withCrewMembersCanAttend(true).crewMembersCanAttend).toEqual(
+      true
+    )
+    expect(preset.withCrewMembersCanAttend(false).crewMembersCanAttend).toEqual(
+      false
+    )
   })
 
   test('withLocation', () => {
@@ -74,8 +74,8 @@ describe('ShiftPreset', () => {
       expect(ShiftPreset.createEmpty('My Name')).toMatchInlineSnapshot(`
         ShiftPreset {
           "props": Object {
-            "childrenCanBePresent": true,
-            "crewCanBePresent": true,
+            "childrenCanAttend": true,
+            "crewMembersCanAttend": true,
             "description": "",
             "location": "",
             "name": "My Name",
@@ -88,8 +88,8 @@ describe('ShiftPreset', () => {
 
   describe('toProps', () => {
     const preset = ShiftPreset.createEmpty('Something')
-      .withChildrenCanBePresent(false)
-      .withCrewCanBePresent(true)
+      .withChildrenCanAttend(false)
+      .withCrewMembersCanAttend(true)
       .withPrice(Price.fromCents(1234))
       .withDescription('Hello description')
       .withLocation('Location here')
@@ -97,8 +97,8 @@ describe('ShiftPreset', () => {
     it('serializes object', () => {
       expect(preset.toProps()).toMatchInlineSnapshot(`
         Object {
-          "childrenCanBePresent": false,
-          "crewCanBePresent": true,
+          "childrenCanAttend": false,
+          "crewMembersCanAttend": true,
           "description": "Hello description",
           "location": "Location here",
           "name": "Something",
@@ -110,8 +110,8 @@ describe('ShiftPreset', () => {
     it('serializes newly created object', () => {
       expect(ShiftPreset.createEmpty('Test').toProps()).toMatchInlineSnapshot(`
         Object {
-          "childrenCanBePresent": true,
-          "crewCanBePresent": true,
+          "childrenCanAttend": true,
+          "crewMembersCanAttend": true,
           "description": "",
           "location": "",
           "name": "Test",
