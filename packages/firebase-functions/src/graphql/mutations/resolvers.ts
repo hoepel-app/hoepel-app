@@ -1,4 +1,4 @@
-import { IResolvers } from 'graphql-tools'
+import { IResolvers } from 'apollo-server-express'
 import { Context } from '../index'
 import * as admin from 'firebase-admin'
 import {

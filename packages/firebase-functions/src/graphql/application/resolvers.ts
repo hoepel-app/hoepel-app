@@ -1,4 +1,4 @@
-import { IResolvers } from 'graphql-tools'
+import { IResolvers } from 'apollo-server-express'
 import { Application } from './application'
 
 export const resolvers: IResolvers = {

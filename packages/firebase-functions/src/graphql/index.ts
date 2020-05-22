@@ -1,7 +1,7 @@
 import { me } from './me'
 import { application } from './application'
 import { mutations } from './mutations'
-import { gql, ApolloServer } from 'apollo-server-express'
+import { gql, ApolloServer, IResolvers } from 'apollo-server-express'
 import * as admin from 'firebase-admin'
 import { UserService } from '../services/user.service'
 import { parseToken } from './parse-token'
@@ -60,7 +60,7 @@ const typeDef = gql`
   type Mutation
 `
 
-const resolvers = {
+const resolvers: IResolvers = {
   ReportType: {
     ALL_CHILDREN: 'all-children',
     ALL_CREW: 'all-crew',
