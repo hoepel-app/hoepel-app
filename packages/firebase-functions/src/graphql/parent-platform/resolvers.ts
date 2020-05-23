@@ -31,8 +31,7 @@ export const resolvers: IResolvers = {
   Query: {
     parentPlatform: async (
       obj,
-      { organisationId }: { organisationId: string },
-      context: Context
+      { organisationId }: { organisationId: string }
     ) => {
       return { organisationId }
     },
