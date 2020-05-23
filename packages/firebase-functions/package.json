@@ -21,6 +21,7 @@
     "@hoepel.app/firestore-events": "^0.3.40",
     "@hoepel.app/isomorphic-domain": "^0.3.43",
     "@hoepel.app/old-events": "^0.3.40",
+    "@hoepel.app/isomorphic-data": "^0.3.43",
     "@hoepel.app/types": "^1.16.0",
     "@sentry/node": "^5.10.1",
     "apollo-server-express": "^2.10.1",

@@ -1,6 +1,8 @@
 import * as admin from 'firebase-admin'
 import { Child, IChild } from '@hoepel.app/types'
 import { createTenantRepository } from '../../services/tenant.service'
+import { ChildOnRegistrationWaitingList } from '@hoepel.app/isomorphic-domain'
+import { FirestoreChildRegistrationWaitingListRepository } from '@hoepel.app/isomorphic-data'
 
 const db = admin.firestore()
 
@@ -27,21 +29,19 @@ export class ParentPlatform {
   }
 
   static async registerChildFromParentPlatform(
-    organisationId: string,
-    newChild: Child
+    newChild: ChildOnRegistrationWaitingList
   ): Promise<void> {
     // First check if organisation accepts external registrations
-    const tenant = await tenantRepo.get(organisationId)
+    const tenant = await tenantRepo.get(newChild.tenantId)
 
     if (tenant.enableOnlineRegistration !== true) {
       throw new Error(
-        `Organisation '${organisationId}' does not accept online registrations`
+        `Organisation '${newChild.tenantId}' does not accept online registrations`
       )
     }
 
     // Save child
-    const newChildWithTenant = { ...newChild, tenant: organisationId }
-    const serializedChild = JSON.parse(JSON.stringify(newChildWithTenant))
-    await db.collection('children').add(serializedChild)
+    const repo = new FirestoreChildRegistrationWaitingListRepository()
+    await repo.add(newChild)
   }
 }

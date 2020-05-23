@@ -4,6 +4,7 @@ import { ParentPlatform } from './parent-platform'
 import { AuthorizationService } from '../authorization-service'
 import { DayDate } from '@hoepel.app/types'
 import { ChildOnRegistrationWaitingList } from '@hoepel.app/isomorphic-domain'
+import { id } from 'typesaurus'
 
 type RegisterChildInput = {
   organisationId: string
@@ -66,13 +67,10 @@ export const resolvers: IResolvers = {
           createdByParentUid: context.user.uid,
         },
         tenantId: organisationId,
-        id: '',
-      }).makeChild()
+        id: await id(),
+      })
 
-      await ParentPlatform.registerChildFromParentPlatform(
-        organisationId,
-        child
-      )
+      await ParentPlatform.registerChildFromParentPlatform(child)
     },
   },
 }

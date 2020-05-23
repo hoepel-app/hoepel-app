@@ -11,6 +11,7 @@
     { "path": "../domain" },
     { "path": "../export-docx" },
     { "path": "../isomorphic-domain" },
+    { "path": "../isomorphic-data" },
   ],
   "extends": "../../tsconfig.json"
 }
