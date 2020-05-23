@@ -9,7 +9,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@hoepel.app/types": "^1.11.0"
+    "@hoepel.app/types": "^1.16.0"
   },
   "devDependencies": {
     "@types/jest": "^25.2.1",

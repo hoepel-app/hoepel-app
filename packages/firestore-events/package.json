@@ -6,7 +6,7 @@
   "license": "GPL-3.0-or-later",
   "dependencies": {
     "@hoepel.app/old-events": "^0.3.29",
-    "@hoepel.app/types": "^1.11.0",
+    "@hoepel.app/types": "^1.16.0",
     "firebase-admin": "^8.9.2",
     "firebase-functions": "^3.3.0"
   },
