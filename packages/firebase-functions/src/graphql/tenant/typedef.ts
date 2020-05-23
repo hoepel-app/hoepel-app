@@ -24,6 +24,9 @@ export const typeDef = gql`
     logoUrl: String
     logoSmallUrl: String
     privacyPolicyUrl: String
+
+    enableOnlineRegistration: Boolean!
+    enableOnlineEnrollment: Boolean!
   }
 
   extend type Query {
