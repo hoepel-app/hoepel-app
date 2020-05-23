@@ -8,16 +8,7 @@ export class Tenant {
   static async tenants(
     user: IUser | null
   ): Promise<readonly Partial<ITenant>[]> {
-    const tenantsRaw = await tenantRepo.getAll()
-
-    // TODO Create a tenant application service that handles this
-    const tenants = tenantsRaw.map((tenant) => {
-      return {
-        ...tenant,
-        enableOnlineEnrollment: tenant.enableOnlineEnrollment === true,
-        enableOnlineRegistration: tenant.enableOnlineRegistration === true,
-      }
-    })
+    const tenants = await tenantRepo.getAll()
 
     if (user == null) {
       return tenants.map(stripNonPublicFields)
@@ -30,14 +21,7 @@ export class Tenant {
     user: IUser | null,
     id: string
   ): Promise<Partial<ITenant>> {
-    const tenantRaw = await tenantRepo.get(id)
-
-    // TODO Create a tenant application service that handles this
-    const tenant = {
-      ...tenantRaw,
-      enableOnlineEnrollment: tenantRaw.enableOnlineEnrollment === true,
-      enableOnlineRegistration: tenantRaw.enableOnlineRegistration === true,
-    }
+    const tenant = await tenantRepo.get(id)
 
     if (user == null) {
       return stripNonPublicFields(tenant)
