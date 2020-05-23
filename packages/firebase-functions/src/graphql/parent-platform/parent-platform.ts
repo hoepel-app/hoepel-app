@@ -1,18 +1,33 @@
 import * as admin from 'firebase-admin'
 import { Child, IChild } from '@hoepel.app/types'
 import { createTenantRepository } from '../../services/tenant.service'
-import { ChildOnRegistrationWaitingList } from '@hoepel.app/isomorphic-domain'
+import {
+  ChildOnRegistrationWaitingList,
+  ChildRegistrationWaitingListApplicationService,
+} from '@hoepel.app/isomorphic-domain'
 import { FirestoreChildRegistrationWaitingListRepository } from '@hoepel.app/isomorphic-data'
+import { first } from 'rxjs/operators'
 
 const db = admin.firestore()
 
 const tenantRepo = createTenantRepository(db)
 
+const service = new ChildRegistrationWaitingListApplicationService(
+  new FirestoreChildRegistrationWaitingListRepository()
+)
+
 export class ParentPlatform {
   static async childrenManagedByMe(
     parentUid: string,
     organisationId: string
-  ): Promise<readonly Child[]> {
+  ): Promise<
+    readonly {
+      firstName: string
+      lastName: string
+      onRegistrationWaitingList: boolean
+      id: string
+    }[]
+  > {
     // TODO should be move to external service, e.g. ChildApplicationService
     const children: readonly Child[] = (
       await db
@@ -25,7 +40,30 @@ export class ParentPlatform {
         new Child({ ...(snapshot.data() as IChild), id: snapshot.id })
     )
 
-    return children
+    const childrenOnWaitingList = await service
+      .childrenOnRegistrationWaitingListForParent(organisationId, parentUid)
+      .pipe(first())
+      .toPromise()
+
+    return [
+      ...childrenOnWaitingList.map((child) => {
+        return {
+          id: child.id,
+          onRegistrationWaitingList: true,
+          firstName: child.firstName,
+          lastName: child.lastName,
+        }
+      }),
+      ...children.map((child) => {
+        return {
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          id: child.id!,
+          onRegistrationWaitingList: false,
+          firstName: child.firstName,
+          lastName: child.lastName,
+        }
+      }),
+    ]
   }
 
   static async registerChildFromParentPlatform(
@@ -41,7 +79,6 @@ export class ParentPlatform {
     }
 
     // Save child
-    const repo = new FirestoreChildRegistrationWaitingListRepository()
-    await repo.add(newChild)
+    await service.addChildToWaitingList(newChild)
   }
 }

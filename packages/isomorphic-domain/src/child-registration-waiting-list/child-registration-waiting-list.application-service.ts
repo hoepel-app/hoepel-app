@@ -22,4 +22,21 @@ export class ChildRegistrationWaitingListApplicationService {
   ): Promise<void> {
     return this.repo.delete(tenantId, childOnWaitingListId)
   }
+
+  addChildToWaitingList(child: ChildOnRegistrationWaitingList): Promise<void> {
+    return this.repo.add(child)
+  }
+
+  childrenOnRegistrationWaitingListForParent(
+    tenantId: string,
+    parentUid: string
+  ): Observable<readonly ChildOnRegistrationWaitingList[]> {
+    return this.repo
+      .getAll(tenantId)
+      .pipe(
+        map((list) =>
+          list.filter((child) => child.createdByParentUid === parentUid)
+        )
+      )
+  }
 }

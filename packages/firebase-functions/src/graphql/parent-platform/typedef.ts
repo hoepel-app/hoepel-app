@@ -29,6 +29,7 @@ export const typeDef = gql`
     id: String!
     firstName: String!
     lastName: String!
+    onRegistrationWaitingList: Boolean!
   }
 
   type ParentPlatform {

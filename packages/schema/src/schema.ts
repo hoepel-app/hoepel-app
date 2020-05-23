@@ -69,6 +69,10 @@ type Child @firestore(name:"children", type: INDEXED_BY_TENANT, readPermission:"
     #attendances: [ChildAttendance]
 }
 
+type Child @firestore(name:"child-registration-waiting-list", type: INDEXED_BY_TENANT, readPermission:"child:read", writePermission:"child:write", allowUpdate: true, allowDelete: true) {
+    id: ID!
+}
+
 type Consumable @firestore(name:"consumables", type:DOC_PER_TENANT, readPermission:"consumables:read", writePermission:"consumables:write") {
     id: ID!
     tenant: Tenant!
