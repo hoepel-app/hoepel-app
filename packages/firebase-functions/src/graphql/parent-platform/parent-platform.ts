@@ -1,10 +1,10 @@
 import * as admin from 'firebase-admin'
-// import { createChildRepository } from '../../services/child.service'
 import { Child, IChild } from '@hoepel.app/types'
+import { createTenantRepository } from '../../services/tenant.service'
 
 const db = admin.firestore()
 
-// const childRepo = createChildRepository(db)
+const tenantRepo = createTenantRepository(db)
 
 export class ParentPlatform {
   static async childrenManagedByMe(
@@ -24,5 +24,24 @@ export class ParentPlatform {
     )
 
     return children
+  }
+
+  static async registerChildFromParentPlatform(
+    organisationId: string,
+    newChild: Child
+  ): Promise<void> {
+    // First check if organisation accepts external registrations
+    const tenant = await tenantRepo.get(organisationId)
+
+    if (tenant.enableOnlineRegistration !== true) {
+      throw new Error(
+        `Organisation '${organisationId}' does not accept online registrations`
+      )
+    }
+
+    // Save child
+    const newChildWithTenant = { ...newChild, tenant: organisationId }
+    const serializedChild = JSON.parse(JSON.stringify(newChildWithTenant))
+    await db.collection('children').add(serializedChild)
   }
 }

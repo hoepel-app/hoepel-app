@@ -16,6 +16,8 @@ export const router = Router()
 
 const childRepo = createChildRepository(db)
 
+// TODO rm this whole file
+
 router.use(firebaseIsAuthenticatedSpeelpleinwerkingDotComMiddleware)
 
 router.get(
@@ -23,34 +25,6 @@ router.get(
   asyncMiddleware(async (req, res) => {
     const parentUid = res.locals.user.uid
     const organisationId = req.params.organisation
-
-    const children: ReadonlyArray<Child> = (
-      await db
-        .collection('children')
-        .where('managedByParents', 'array-contains', parentUid)
-        .where('tenant', '==', organisationId)
-        .get()
-    ).docs.map(
-      (snapshot) =>
-        new Child({ ...(snapshot.data() as IChild), id: snapshot.id })
-    )
-
-    res.json(children)
-  })
-)
-
-router.get(
-  '/organisation/:organisation/children/managed-by/:parentUid',
-  asyncMiddleware(async (req, res) => {
-    const parentUid = req.params.parentUid
-    const organisationId = req.params.organisation
-
-    if (parentUid !== res.locals.user.uid) {
-      res
-        .json(403)
-        .json({ error: 'You can only view children managed by yourself' })
-      return
-    }
 
     const children: ReadonlyArray<Child> = (
       await db

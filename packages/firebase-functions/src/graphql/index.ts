@@ -6,10 +6,11 @@ import { gql, ApolloServer, IResolvers } from 'apollo-server-express'
 import * as admin from 'firebase-admin'
 import { UserService } from '../services/user.service'
 import { parseToken } from './parse-token'
-import { IUser } from '@hoepel.app/types'
+import { IUser, DayDate } from '@hoepel.app/types'
 import * as Sentry from '@sentry/node'
 import { tenant } from './tenant'
 import { verifyJwt } from '../util/verify-jwt'
+import { GraphQLScalarType } from 'graphql'
 
 const db = admin.firestore()
 const auth = admin.auth()
@@ -17,6 +18,8 @@ const auth = admin.auth()
 const userService = new UserService(db, auth)
 
 const typeDef = gql`
+  scalar DayDate
+
   enum ReportType {
     ALL_CHILDREN
     ALL_CREW
@@ -75,6 +78,32 @@ const resolvers: IResolvers = {
     CHILD_FISCAL_CERTIFICATE: 'child-fiscal-certificate',
     CHILD_INVOICE: 'child-invoice',
   },
+  DayDate: new GraphQLScalarType({
+    name: 'DayDate',
+    parseValue(value) {
+      const parsed = DayDate.fromISO8601(value)
+
+      if (isNaN(parsed.year) || isNaN(parsed.month) || isNaN(parsed.day)) {
+        return null
+      }
+
+      return parsed
+    },
+    serialize(value: DayDate) {
+      return value.toISO8601()
+    },
+    parseLiteral(ast) {
+      if (ast.kind === 'StringValue') {
+        const parsed = DayDate.fromISO8601(ast.value)
+        if (isNaN(parsed.year) || isNaN(parsed.month) || isNaN(parsed.day)) {
+          return null
+        }
+        return parsed
+      }
+
+      return null
+    },
+  }),
 }
 
 export type Context = null | ParentPlatformUser | HoepelAppUser
