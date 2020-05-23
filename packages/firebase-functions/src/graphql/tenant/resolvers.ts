@@ -6,10 +6,12 @@ import { Tenant as TenantType } from '@hoepel.app/types'
 export const resolvers: IResolvers = {
   Query: {
     tenants: async (obj, args, context: Context) => {
-      return Tenant.tenants(context.user ?? null)
+      const user = context?.domain == 'hoepel.app' ? context : null
+      return Tenant.tenants(user)
     },
     tenant: async (obj, { id }, context: Context) => {
-      return Tenant.tenant(context.user ?? null, id)
+      const user = context?.domain == 'hoepel.app' ? context : null
+      return Tenant.tenant(user, id)
     },
   },
   Tenant: {

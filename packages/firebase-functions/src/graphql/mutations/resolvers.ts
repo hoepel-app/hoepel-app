@@ -87,11 +87,11 @@ const templateService = new TemplateService(
 export const resolvers: IResolvers = {
   Mutation: {
     acceptPrivacyPolicy: async (obj, args, context: Context) => {
-      AuthorizationService.assertLoggedIn(context)
+      AuthorizationService.assertLoggedInHoepelApp(context)
       await userService.acceptPrivacyPolicy(context.token.uid)
     },
     acceptTermsAndConditions: async (obj, args, context: Context) => {
-      AuthorizationService.assertLoggedIn(context)
+      AuthorizationService.assertLoggedInHoepelApp(context)
       await userService.acceptTermsAndConditions(context.token.uid)
     },
     changeDisplayName: async (
@@ -99,7 +99,7 @@ export const resolvers: IResolvers = {
       { name }: { name: string },
       context: Context
     ) => {
-      AuthorizationService.assertLoggedIn(context)
+      AuthorizationService.assertLoggedInHoepelApp(context)
       await userService.updateDisplayName(context.token.uid, name)
     },
     deleteReport: async (
@@ -107,7 +107,7 @@ export const resolvers: IResolvers = {
       { tenant, fileName }: { tenant: string; fileName: string },
       context: Context
     ) => {
-      AuthorizationService.assertLoggedIn(context)
+      AuthorizationService.assertLoggedInHoepelApp(context)
       await assertHasPermission(
         context.token.uid,
         tenant,
@@ -125,7 +125,7 @@ export const resolvers: IResolvers = {
       }: { tenant: string; type: string; format: string; year?: number },
       context: Context
     ) => {
-      AuthorizationService.assertLoggedIn(context)
+      AuthorizationService.assertLoggedInHoepelApp(context)
       await assertHasPermission(
         context.token.uid,
         tenant,
@@ -203,7 +203,7 @@ export const resolvers: IResolvers = {
       }: { tenant: string; format: string; dayId: string },
       context: Context
     ) => {
-      AuthorizationService.assertLoggedIn(context)
+      AuthorizationService.assertLoggedInHoepelApp(context)
       await assertHasPermission(
         context.token.uid,
         tenant,
@@ -230,7 +230,7 @@ export const resolvers: IResolvers = {
       args: { tenant: string; templateFileName: string },
       context: Context
     ) => {
-      AuthorizationService.assertLoggedIn(context)
+      AuthorizationService.assertLoggedInHoepelApp(context)
       await assertHasPermission(
         context.token.uid,
         args.tenant,
@@ -254,7 +254,7 @@ export const resolvers: IResolvers = {
       },
       context: Context
     ) => {
-      AuthorizationService.assertLoggedIn(context)
+      AuthorizationService.assertLoggedInHoepelApp(context)
       await assertHasPermission(
         context.token.uid,
         args.tenant,
@@ -279,7 +279,7 @@ export const resolvers: IResolvers = {
       args: { tenant: string; templateFileName: string },
       context: Context
     ) => {
-      AuthorizationService.assertLoggedIn(context)
+      AuthorizationService.assertLoggedInHoepelApp(context)
       await assertHasPermission(
         context.token.uid,
         args.tenant,

@@ -1,12 +1,13 @@
 import admin from 'firebase-admin'
-import { ITenant, IUser } from '@hoepel.app/types'
+import { ITenant } from '@hoepel.app/types'
 import { createTenantRepository } from '../../services/tenant.service'
+import { HoepelAppUser } from '..'
 
 const tenantRepo = createTenantRepository(admin.firestore())
 
 export class Tenant {
   static async tenants(
-    user: IUser | null
+    user: HoepelAppUser | null
   ): Promise<readonly Partial<ITenant>[]> {
     const tenants = await tenantRepo.getAll()
 
@@ -18,7 +19,7 @@ export class Tenant {
   }
 
   static async tenant(
-    user: IUser | null,
+    user: HoepelAppUser | null,
     id: string
   ): Promise<Partial<ITenant>> {
     const tenant = await tenantRepo.get(id)

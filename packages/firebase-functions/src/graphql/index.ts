@@ -1,6 +1,7 @@
 import { me } from './me'
 import { application } from './application'
 import { mutations } from './mutations'
+import { parentPlatform } from './parent-platform'
 import { gql, ApolloServer, IResolvers } from 'apollo-server-express'
 import * as admin from 'firebase-admin'
 import { UserService } from '../services/user.service'
@@ -8,6 +9,7 @@ import { parseToken } from './parse-token'
 import { IUser } from '@hoepel.app/types'
 import * as Sentry from '@sentry/node'
 import { tenant } from './tenant'
+import { verifyJwt } from '../util/verify-jwt'
 
 const db = admin.firestore()
 const auth = admin.auth()
@@ -75,18 +77,27 @@ const resolvers: IResolvers = {
   },
 }
 
-export type Context = {
-  token?: admin.auth.DecodedIdToken
-  user?: IUser
+export type Context = null | ParentPlatformUser | HoepelAppUser
+
+export type ParentPlatformUser = {
+  token: admin.auth.DecodedIdToken
+  domain: 'parent-platform'
+  user: {
+    email: string
+    uid: string
+  }
 }
 
-const getUserAndTokenFromHeader = async (
-  authorizationHeader: string | null
-): Promise<{ user: IUser; token: admin.auth.DecodedIdToken } | null> => {
-  if (authorizationHeader == null) {
-    return null
-  }
+export type HoepelAppUser = {
+  token: admin.auth.DecodedIdToken
+  domain: 'hoepel.app'
+  user: IUser
+}
 
+/** Verify a token from a hoepel.app user */
+const getHoepelAppUserAndTokenFromHeader = async (
+  authorizationHeader: string
+): Promise<HoepelAppUser | null> => {
   try {
     const decodedToken = await parseToken(authorizationHeader)
     const user = await userService.getUserFromDb(decodedToken.uid)
@@ -95,10 +106,61 @@ const getUserAndTokenFromHeader = async (
       return null
     }
 
-    return { token: decodedToken, user }
+    return { token: decodedToken, user, domain: 'hoepel.app' }
   } catch (err) {
     return null
   }
+}
+
+/** Verify a token from a speelpleinwerking.com user */
+const getSpeelpleinwerkingComUserAndTokenFromHeader = async (
+  authorizationHeader: string
+): Promise<ParentPlatformUser | null> => {
+  try {
+    const token = authorizationHeader.split(' ')
+    const decodedToken = await verifyJwt(token[1])
+
+    if (decodedToken == null || decodedToken.email == null) {
+      return null
+    }
+
+    return {
+      token: decodedToken,
+      domain: 'parent-platform',
+      user: {
+        email: decodedToken.email,
+        uid: decodedToken.user_id ?? decodedToken.uid,
+      },
+    }
+  } catch (err) {
+    return null
+  }
+}
+
+const getUserAndTokenFromHeader = async (
+  authorizationHeader: string | null
+): Promise<Context> => {
+  if (authorizationHeader == null) {
+    return null
+  }
+
+  const hoepelUser = await getHoepelAppUserAndTokenFromHeader(
+    authorizationHeader
+  )
+
+  if (hoepelUser != null) {
+    return hoepelUser
+  }
+
+  const speelpleinwerkingComUser = await getSpeelpleinwerkingComUserAndTokenFromHeader(
+    authorizationHeader
+  )
+
+  if (speelpleinwerkingComUser != null) {
+    return speelpleinwerkingComUser
+  }
+
+  return null
 }
 
 export const server = new ApolloServer({
@@ -113,12 +175,23 @@ export const server = new ApolloServer({
             const userInfo = await getUserAndTokenFromHeader(header)
 
             Sentry.configureScope((scope) => {
+              scope.setExtra('Authorization', header)
+
               if (userInfo != null) {
-                scope.setUser({
-                  email: userInfo.user.email,
-                  username: userInfo.user.displayName,
-                  id: userInfo.token.uid,
-                })
+                if (userInfo.domain === 'hoepel.app') {
+                  scope.setUser({
+                    email: userInfo.user.email,
+                    username: userInfo.user.displayName,
+                    id: userInfo.token.uid,
+                  })
+                }
+
+                if (userInfo.domain === 'parent-platform') {
+                  scope.setUser({
+                    email: userInfo.user.email,
+                    id: userInfo.token.uid,
+                  })
+                }
               }
 
               requestContext.errors.forEach((err) => {
@@ -137,6 +210,7 @@ export const server = new ApolloServer({
     mutations.typeDef,
     application.typeDef,
     tenant.typeDef,
+    parentPlatform.typeDef,
   ],
   resolvers: [
     resolvers,
@@ -144,15 +218,13 @@ export const server = new ApolloServer({
     mutations.resolvers,
     application.resolvers,
     tenant.resolvers,
+    parentPlatform.resolvers,
   ],
   introspection: true,
   playground: {
     endpoint: '/api/graphql',
   },
   tracing: true,
-  context: async ({ req }): Promise<Context> => {
-    return (
-      (await getUserAndTokenFromHeader(req.headers.authorization ?? null)) || {}
-    )
-  },
+  context: async ({ req }): Promise<Context> =>
+    getUserAndTokenFromHeader(req.headers.authorization ?? null),
 })

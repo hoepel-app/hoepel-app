@@ -31,7 +31,7 @@ export const firebaseIsAuthenticatedSpeelpleinwerkingDotComMiddleware: RequestHa
 
       try {
         const decodedToken = await verifyJwt(token[1])
-        if (!decodedToken) {
+        if (decodedToken == null) {
           throw new NotAuthenticatedError('Could not verify token')
         } else {
           res.locals.user = decodedToken

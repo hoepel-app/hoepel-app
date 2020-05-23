@@ -48,7 +48,7 @@ const aud = 'speelpleinwerking-com'
  */
 export const verifyJwt = async (
   token: string
-): Promise<false | admin.auth.DecodedIdToken> => {
+): Promise<admin.auth.DecodedIdToken | null> => {
   const jwtKeys = await getJwtKeys()
 
   const list: (
@@ -76,16 +76,6 @@ export const verifyJwt = async (
   })
 
   const verifiedToken = list.find((el) => el.token != null)?.token || null
-
-  if (verifiedToken == null) {
-    console.error(
-      `Invalid token! Token:\n ${token}\n\nKeys used:\n${jwtKeys.join(
-        '\n'
-      )}\n\nErrors: `,
-      JSON.stringify(list)
-    )
-    return false // Instead of returning false, this could reject the promise?
-  }
 
   return verifiedToken
 }
