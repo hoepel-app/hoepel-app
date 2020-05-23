@@ -43,6 +43,6 @@ export const typeDef = gql`
     registerChildFromParentPlatform(
       organisationId: ID!
       newChild: ChildManagedByParentInput
-    ): ID!
+    ): String
   }
 `
