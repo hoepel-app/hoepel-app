@@ -10,6 +10,7 @@
     { "path": "../export-xlsx" },
     { "path": "../domain" },
     { "path": "../export-docx" },
+    { "path": "../isomorphic-domain" },
   ],
   "extends": "../../tsconfig.json"
 }

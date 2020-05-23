@@ -2,7 +2,8 @@ import { IResolvers } from 'apollo-server-express'
 import { Context } from '../index'
 import { ParentPlatform } from './parent-platform'
 import { AuthorizationService } from '../authorization-service'
-import { DayDate, Child } from '@hoepel.app/types'
+import { DayDate } from '@hoepel.app/types'
+import { ChildOnRegistrationWaitingList } from '@hoepel.app/isomorphic-domain'
 
 type RegisterChildInput = {
   organisationId: string
@@ -21,7 +22,7 @@ type RegisterChildInput = {
     }[]
     email: readonly string[]
     gender?: string
-    birthDate: DayDate
+    birthDate?: DayDate
     remarks: string
     uitpasNumber?: string
   }
@@ -58,26 +59,15 @@ export const resolvers: IResolvers = {
     ) => {
       AuthorizationService.assertLoggedInParentPlatform(context)
 
-      const gender =
-        newChild.gender === 'male' ||
-        newChild.gender === 'female' ||
-        newChild.gender === 'other'
-          ? newChild.gender
-          : undefined
-
-      const child = new Child({
-        address: newChild.address,
-        firstName: newChild.firstName,
-        lastName: newChild.lastName,
-        contactPeople: [],
-        email: newChild.email,
-        phone: newChild.phone,
-        remarks: newChild.remarks,
-        birthDate: newChild.birthDate,
-        gender,
-        managedByParents: [context.user.uid],
-        uitpasNumber: newChild.uitpasNumber,
-      })
+      const child = ChildOnRegistrationWaitingList.create({
+        newChild: {
+          ...newChild,
+          birthDate: newChild.birthDate?.toISO8601(),
+          createdByParentUid: context.user.uid,
+        },
+        tenantId: organisationId,
+        id: '',
+      }).makeChild()
 
       await ParentPlatform.registerChildFromParentPlatform(
         organisationId,
