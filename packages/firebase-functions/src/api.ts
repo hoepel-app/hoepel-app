@@ -9,7 +9,6 @@ import * as Sentry from '@sentry/node'
 
 import { router as userRouter } from './routes/user.routes'
 import { router as organisationRouter } from './routes/organisation.routes'
-import { router as spwDotComRouter } from './routes/speelpleinwerking.com.routes'
 import admin from 'firebase-admin'
 
 const app = express()
@@ -29,7 +28,6 @@ app.use(logRequestStart)
 app.use(cors({ origin: true }))
 
 // Mount routes
-app.use('/speelpleinwerking.com', spwDotComRouter)
 app.use('/user', userRouter)
 app.use('/organisation', organisationRouter)
 
