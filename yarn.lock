@@ -1212,9 +1212,9 @@
     protobufjs "^6.8.6"
 
 "@hoepel.app/types@^1.16.0":
-  version "1.16.0"
-  resolved "https://registry.npmjs.org/@hoepel.app/types/-/types-1.16.0.tgz#32c6552288d64d5bbb5575405153d60a1e0e5368"
-  integrity sha512-EkrixpaEWyva2pj1wRrd7jRUCP3rsKqNpB9td6zUz7kzJOzroH9rUGG+ACckZQWMWI2bf2M/hwcP6hGW3dam3w==
+  version "1.17.0"
+  resolved "https://registry.npmjs.org/@hoepel.app/types/-/types-1.17.0.tgz#4bea036c7e316e1f1f0fab34cd83535a5883cb74"
+  integrity sha512-wJkRfQ+q+GZG2Cbo7gzSR9vEvWZW+Wl4bchTOc40jnmClMowt2zovwNJSAuHjZDL5VO00QOJJpwcmPhe2le2BQ==
   dependencies:
     virginity-ts "^0.1.0"
 
