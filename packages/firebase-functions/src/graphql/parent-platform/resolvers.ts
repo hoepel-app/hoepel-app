@@ -66,7 +66,7 @@ export const resolvers: IResolvers = {
           birthDate: newChild.birthDate?.toISO8601(),
           createdByParentUid: context.user.uid,
         },
-        tenantId: organisationId,
+        tenant: organisationId,
         id: await id(),
       })
 

@@ -4,7 +4,7 @@ import { ChildOnRegistrationWaitingList } from './child-on-registration-waiting-
 describe('ChildOnRegistrationWaitingList', () => {
   const childOnWaitingList = ChildOnRegistrationWaitingList.create({
     id: 'id-on-waiting-list',
-    tenantId: 'my-tenant-id',
+    tenant: 'my-tenant-id',
     newChild: {
       address: {
         street: 'NewStreet',
@@ -26,7 +26,7 @@ describe('ChildOnRegistrationWaitingList', () => {
 
   const minimalChild = ChildOnRegistrationWaitingList.create({
     id: 'id-on-waiting-list',
-    tenantId: 'my-tenant-id',
+    tenant: 'my-tenant-id',
     newChild: {
       address: {},
       createdByParentUid: 'new-parent-uid',
@@ -126,7 +126,7 @@ describe('ChildOnRegistrationWaitingList', () => {
               "phone": Array [],
               "remarks": "",
             },
-            "tenantId": "my-tenant-id",
+            "tenant": "my-tenant-id",
           },
         }
       `)

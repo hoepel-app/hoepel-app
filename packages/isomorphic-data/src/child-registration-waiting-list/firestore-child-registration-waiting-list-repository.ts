@@ -24,7 +24,7 @@ export class FirestoreChildRegistrationWaitingListRepository
   ): Observable<ChildOnRegistrationWaitingList | null> {
     return from(get(this.collection, id)).pipe(
       map((maybeChild) => {
-        if (maybeChild == null || maybeChild.data.tenantId != tenantId) {
+        if (maybeChild == null || maybeChild.data.tenant != tenantId) {
           return null
         }
 
@@ -51,9 +51,7 @@ export class FirestoreChildRegistrationWaitingListRepository
   getAll(
     tenantId: string
   ): Observable<readonly ChildOnRegistrationWaitingList[]> {
-    return from(
-      query(this.collection, [where('tenantId', '==', tenantId)])
-    ).pipe(
+    return from(query(this.collection, [where('tenant', '==', tenantId)])).pipe(
       map((docs) =>
         docs
           .map((doc) => {
