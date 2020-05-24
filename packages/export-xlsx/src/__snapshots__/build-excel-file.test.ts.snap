@@ -57,13 +57,9 @@ Object {
     "xmlns": "http://schemas.openxmlformats.org/package/2006/content-types",
   },
   "Props": Object {
-    "AppVersion": "",
     "Application": "SheetJS",
-    "Company": "",
-    "DocSecurity": "",
     "HyperlinksChanged": false,
     "LinksUpToDate": false,
-    "Manager": "",
     "ScaleCrop": false,
     "SharedDoc": false,
     "SheetNames": Array [
@@ -66201,13 +66197,9 @@ Object {
     "xmlns": "http://schemas.openxmlformats.org/package/2006/content-types",
   },
   "Props": Object {
-    "AppVersion": "",
     "Application": "SheetJS",
-    "Company": "",
-    "DocSecurity": "",
     "HyperlinksChanged": false,
     "LinksUpToDate": false,
-    "Manager": "",
     "ScaleCrop": false,
     "SharedDoc": false,
     "SheetNames": Array [
