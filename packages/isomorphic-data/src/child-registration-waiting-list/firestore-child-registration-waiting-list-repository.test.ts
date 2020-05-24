@@ -18,7 +18,7 @@ describe('FirestoreChildRegistrationWaitingListRepository', () => {
 
   const childOnWaitingList1 = ChildOnRegistrationWaitingList.create({
     id: 'id-on-waiting-list-1',
-    tenantId: 'my-tenant-id',
+    tenant: 'my-tenant-id',
     newChild: {
       address: {
         street: 'NewStreet',
@@ -40,7 +40,7 @@ describe('FirestoreChildRegistrationWaitingListRepository', () => {
 
   const childOnWaitingList2 = ChildOnRegistrationWaitingList.create({
     id: 'id-on-waiting-list-2',
-    tenantId: 'my-tenant-id',
+    tenant: 'my-tenant-id',
     newChild: {
       address: {
         street: 'NewStreet',
@@ -62,7 +62,7 @@ describe('FirestoreChildRegistrationWaitingListRepository', () => {
 
   const childOnWaitingList3 = ChildOnRegistrationWaitingList.create({
     id: 'id-on-waiting-list-3',
-    tenantId: 'other-tenant-id',
+    tenant: 'other-tenant-id',
     newChild: {
       address: {
         street: 'NewStreet',

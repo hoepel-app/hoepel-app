@@ -3,7 +3,7 @@ import { DayDate, Child, Address, IPhoneContact } from '@hoepel.app/types'
 
 export type ChildOnRegistrationWaitingListProps = {
   id: string
-  tenantId: string
+  tenant: string
   newChild: {
     firstName: string
     lastName: string
@@ -36,7 +36,7 @@ export class ChildOnRegistrationWaitingList implements Aggregate {
   }
 
   get tenantId(): string {
-    return this.props.tenantId
+    return this.props.tenant
   }
 
   get firstName(): string {
