@@ -1,3 +1,5 @@
+// TODO this needs more tests
+
 export {
   ChildOnRegistrationWaitingList,
   ChildOnRegistrationWaitingListProps,

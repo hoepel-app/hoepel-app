@@ -16,6 +16,7 @@ export class ChildRegistrationWaitingListApplicationService {
     return this.repo.getAll(tenantId)
   }
 
+  // TODO should be a command
   removeChildFromRegistrationWaitingList(
     tenantId: string,
     childOnWaitingListId: string
@@ -23,6 +24,7 @@ export class ChildRegistrationWaitingListApplicationService {
     return this.repo.delete(tenantId, childOnWaitingListId)
   }
 
+  // TODO should be a command
   addChildToWaitingList(child: ChildOnRegistrationWaitingList): Promise<void> {
     return this.repo.add(child)
   }
