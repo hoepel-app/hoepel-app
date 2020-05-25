@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "license": "GPL-3.0-or-later",
   "dependencies": {
-    "@hoepel.app/types": "^1.16.0"
+    "@hoepel.app/types": "^1.18.0"
   },
   "private": true
 }
