@@ -66,7 +66,9 @@ export class Bubbles implements Aggregate {
   }
 
   withChangedMaxChildrenForBubble(name: string, newCapacity: number): Bubbles {
-    if (!this.bubbleWithNameExists(name)) {
+    const bubble = this.findBubbleByName(name)
+
+    if (!bubble) {
       return this
     }
 
@@ -74,7 +76,7 @@ export class Bubbles implements Aggregate {
       ...this.toProps(),
       bubbles: [
         ...this.toProps().bubbles.filter((c) => c.name !== name),
-        Bubble.create(name, newCapacity, []).toProps(),
+        bubble.withMaxChildren(newCapacity).toProps(),
       ],
     })
   }

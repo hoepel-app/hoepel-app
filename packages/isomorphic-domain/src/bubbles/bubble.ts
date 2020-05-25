@@ -21,7 +21,7 @@ export class Bubble {
     childIds: readonly string[]
   ): Bubble {
     return this.fromProps({
-      maxChildren: Math.min(0, maxChildren),
+      maxChildren: Math.max(0, maxChildren),
       name,
       childIds,
     })
@@ -44,7 +44,7 @@ export class Bubble {
   }
 
   get isFull(): boolean {
-    return this.childIdsInBubble.length === this.maxChildren
+    return this.childIdsInBubble.length >= this.maxChildren
   }
 
   includesChild(childId: string): boolean {
@@ -67,7 +67,7 @@ export class Bubble {
 
   withChildAdded(childId: string): Bubble {
     const childIds = [
-      ...this.childIdsInBubble.filter((id) => id !== id),
+      ...this.childIdsInBubble.filter((id) => id !== childId),
       childId,
     ]
 
