@@ -1,6 +1,7 @@
 export type BubbleProps = {
   readonly name: string
   readonly maxChildren: number
+  readonly childIds: readonly string[]
 }
 
 export class Bubble {
@@ -14,10 +15,15 @@ export class Bubble {
     return this.props
   }
 
-  static create(name: string, maxChildren: number): Bubble {
+  static create(
+    name: string,
+    maxChildren: number,
+    childIds: readonly string[]
+  ): Bubble {
     return this.fromProps({
-      maxChildren,
+      maxChildren: Math.min(0, maxChildren),
       name,
+      childIds,
     })
   }
 
@@ -27,6 +33,22 @@ export class Bubble {
 
   get maxChildren(): number {
     return this.props.maxChildren
+  }
+
+  get childIdsInBubble(): readonly string[] {
+    return this.props.childIds
+  }
+
+  get isEmpty(): boolean {
+    return this.childIdsInBubble.length === 0
+  }
+
+  get isFull(): boolean {
+    return this.childIdsInBubble.length === this.maxChildren
+  }
+
+  includesChild(childId: string): boolean {
+    return this.childIdsInBubble.includes(childId)
   }
 
   withName(name: string): Bubble {
@@ -40,6 +62,25 @@ export class Bubble {
     return Bubble.fromProps({
       ...this.toProps(),
       maxChildren,
+    })
+  }
+
+  withChildAdded(childId: string): Bubble {
+    const childIds = [
+      ...this.childIdsInBubble.filter((id) => id !== id),
+      childId,
+    ]
+
+    return Bubble.fromProps({
+      ...this.toProps(),
+      childIds,
+    })
+  }
+
+  withChildRemoved(childId: string): Bubble {
+    return Bubble.fromProps({
+      ...this.toProps(),
+      childIds: this.childIdsInBubble.filter((id) => id !== childId),
     })
   }
 }

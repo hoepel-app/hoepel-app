@@ -74,7 +74,7 @@ export class Bubbles implements Aggregate {
       ...this.toProps(),
       bubbles: [
         ...this.toProps().bubbles.filter((c) => c.name !== name),
-        Bubble.create(name, newCapacity).toProps(),
+        Bubble.create(name, newCapacity, []).toProps(),
       ],
     })
   }
@@ -95,8 +95,48 @@ export class Bubbles implements Aggregate {
     })
   }
 
+  withChildAddedToBubble(bubbleName: string, childId: string): Bubbles {
+    const bubble = this.findBubbleByName(bubbleName)
+
+    if (bubble == null) {
+      return this
+    }
+
+    return Bubbles.fromProps({
+      ...this.toProps(),
+      bubbles: [
+        ...this.toProps().bubbles.filter((c) => c.name !== bubbleName),
+        bubble.withChildAdded(childId).toProps(),
+      ],
+    })
+  }
+
+  withChildRemovedFromBubble(bubbleName: string, childId: string): Bubbles {
+    const bubble = this.findBubbleByName(bubbleName)
+
+    if (bubble == null) {
+      return this
+    }
+
+    return Bubbles.fromProps({
+      ...this.toProps(),
+      bubbles: [
+        ...this.toProps().bubbles.filter((c) => c.name !== bubbleName),
+        bubble.withChildRemoved(childId).toProps(),
+      ],
+    })
+  }
+
   findBubbleByName(name: string): Bubble | null {
     return this.bubbles.find((bubble) => bubble.name === name) ?? null
+  }
+
+  findBubbleChildIsAssignedTo(childId: string): Bubble | null {
+    return this.bubbles.find((bubble) => bubble.includesChild(childId)) ?? null
+  }
+
+  childIsAssignedABubble(childId: string): boolean {
+    return this.findBubbleChildIsAssignedTo(childId) != null
   }
 
   mayAddBubble(bubble: Bubble): boolean {

@@ -1,94 +1,42 @@
 import { Bubbles } from './bubbles'
-import { Observable, combineLatest, of } from 'rxjs'
+import { Observable, of } from 'rxjs'
 import { BubblesRepository } from './bubbles.repository'
-import { map, first, switchMap } from 'rxjs/operators'
+import { map, first, flatMap } from 'rxjs/operators'
 import { Child } from '@hoepel.app/types'
 import { CommandResult } from '@hoepel.app/ddd-library'
 import { Bubble } from './bubble'
-import { ChildToBubbleRepository } from './child-to-bubble.repository'
 
 export class BubblesApplicationService {
-  constructor(
-    private readonly bubblesRepo: BubblesRepository,
-    private readonly childToBubbleRepo: ChildToBubbleRepository
-  ) {}
+  constructor(private readonly bubblesRepo: BubblesRepository) {}
 
   findBubbles(tenantId: string): Observable<Bubbles> {
     return this.bubblesRepo.getForTenant(tenantId)
   }
 
-  isBubbleFull(
+  childrenForBubble(
     tenantId: string,
-    bubbleName: string
-  ): Observable<boolean | null> {
-    return this.bubbleFillRate(tenantId, bubbleName).pipe(
-      map((fillRate) => {
-        if (fillRate == null) {
-          return null
-        }
-
-        return fillRate.currentChildren === fillRate.maxChildren
-      })
-    )
-  }
-
-  isBubbleEmpty(
-    tenantId: string,
-    bubbleName: string
-  ): Observable<boolean | null> {
-    return this.bubbleFillRate(tenantId, bubbleName).pipe(
-      map((fillRate) => {
-        if (fillRate == null) {
-          return null
-        }
-
-        return fillRate.currentChildren === 0
-      })
-    )
-  }
-
-  bubbleFillRate(
-    tenantId: string,
-    bubbleName: string
-  ): Observable<{ maxChildren: number; currentChildren: number } | null> {
-    return combineLatest([
-      this.childrenForBubble(tenantId, bubbleName),
-      this.findBubbles(tenantId),
-    ]).pipe(
-      map(([childrenForBubble, bubbles]) => {
+    bubbleName: string,
+    getManyChildrenByIds: (
+      childIds: readonly string[]
+    ) => Observable<readonly Child[]>
+  ): Observable<readonly Child[]> {
+    return this.bubblesRepo.getForTenant(tenantId).pipe(
+      flatMap((bubbles) => {
         const bubble = bubbles.findBubbleByName(bubbleName)
 
         if (bubble == null) {
-          return null
+          return of([])
         }
 
-        return {
-          maxChildren: bubble.maxChildren,
-          currentChildren: childrenForBubble.length,
-        }
+        return getManyChildrenByIds(bubble.childIdsInBubble)
       })
     )
-  }
-
-  childrenForBubble(
-    tenantId: string,
-    bubbleName: string
-  ): Observable<readonly Child[]> {
-    return this.childToBubbleRepo.childrenInBubble(tenantId, bubbleName)
   }
 
   bubbleForChild(tenantId: string, childId: string): Observable<Bubble | null> {
-    return this.childToBubbleRepo.bubbleForChild(tenantId, childId).pipe(
-      switchMap((bubbleName) => {
-        if (bubbleName == null) {
-          return of(null)
-        }
-
-        return this.findBubbles(tenantId).pipe(
-          map((bubbles) => bubbles.findBubbleByName(bubbleName))
-        )
-      })
-    )
+    return this.bubblesRepo
+      .getForTenant(tenantId)
+      .pipe(map((bubbles) => bubbles.findBubbleChildIsAssignedTo(childId)))
   }
 
   async addChildToBubble(
@@ -96,19 +44,20 @@ export class BubblesApplicationService {
     bubbleName: string,
     childId: string
   ): Promise<CommandResult> {
-    try {
-      await this.childToBubbleRepo.addChildToBubble(
-        tenantId,
-        childId,
-        bubbleName
-      )
-      return { status: 'accepted' }
-    } catch (err) {
+    const bubbles = await this.findBubbles(tenantId).pipe(first()).toPromise()
+
+    if (!bubbles.bubbleWithNameExists(bubbleName)) {
       return {
         status: 'rejected',
-        reason: `Failed while adding child to bubble: ${err}`,
+        reason: 'Can not add child to bubble: bubble with name does not exist',
       }
     }
+
+    await this.bubblesRepo.put(
+      bubbles.withChildAddedToBubble(bubbleName, childId)
+    )
+
+    return { status: 'accepted' }
   }
 
   async createBubble(
@@ -123,7 +72,7 @@ export class BubblesApplicationService {
     }
 
     await this.bubblesRepo.put(
-      bubbles.withBubbleAdded(Bubble.create(bubbleName, maxChildren))
+      bubbles.withBubbleAdded(Bubble.create(bubbleName, maxChildren, []))
     )
 
     return { status: 'accepted' }
