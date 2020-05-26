@@ -81,6 +81,12 @@ type Consumable @firestore(name:"consumables", type:DOC_PER_TENANT, readPermissi
     price: Int!
 }
 
+
+type Bubble @firestore(name:"bubbles", type:DOC_PER_TENANT, readPermission:"tenant:read", writePermission:"tenant:write") {
+    id: ID!
+    tenant: Tenant!
+}
+
 type Consumption @firestore(name:"consumptions", type:INDEXED_BY_TENANT, readPermission:"consumption:read", writePermission:"consumption:write", allowUpdate: true, allowDelete: true) {
     id: ID!
     tenant: Tenant!

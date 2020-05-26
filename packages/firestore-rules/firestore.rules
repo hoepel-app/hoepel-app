@@ -65,6 +65,17 @@ service cloud.firestore {
     allow delete: if false;
   }
   
+  // Generated permissions for collection 'bubbles' (collection contains docs with doc.id == tenant name)
+  match /databases/{database}/documents/bubbles/{document} {
+    function hasPermission(permission, tenant) {
+      return permission in get(/databases/$(database)/documents/users/$(request.auth.uid)/tenants/$(tenant)).data.permissions;
+    }
+    allow create: if hasPermission('tenant:write', document);
+    allow read  : if !exists(/databases/$(database)/documents/bubbles/$(document)) || hasPermission('tenant:read', document);
+    allow update: if hasPermission('tenant:write', document);
+    allow delete: if false;
+  }
+  
   // Generated permissions for collection 'consumptions' (collection contains docs with doc.tenant == tenant name)
   match /databases/{database}/documents/consumptions/{document} {
     function hasPermission(permission, tenant) {
