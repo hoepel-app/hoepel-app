@@ -47,7 +47,7 @@ jobs:
         SLACK_CHANNEL: build
         SLACK_AVATAR: repository
       with:
-        args: 'Deployed <https://github.com/hoepel-app/hoepel-app/runs/${{ github.run_id }}|`${{ github.ref }}`> to Firebase.'
+        args: 'Deployed <https://github.com/hoepel-app/hoepel-app/actions/runs/${{ github.run_id }}|`${{ github.ref }}`> to Firebase.'
       uses: Ilshidur/action-slack@master
     - name: Slack notification on build failure
       if: failure() && !startsWith(github.ref, 'refs/heads/dependabot/npm_and_yarn/')
