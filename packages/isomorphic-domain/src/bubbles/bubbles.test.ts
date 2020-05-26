@@ -133,8 +133,30 @@ describe('Bubbles', () => {
   })
 
   test('withRenamedBubble', () => {
-    expect(
-      exampleBubbles.withRenamedBubble('Bubbel Paars', 'Bubbel Groen')
-    ).toMatchInlineSnapshot()
+    expect(exampleBubbles.withRenamedBubble('Bubbel Paars', 'Bubbel Groen'))
+      .toMatchInlineSnapshot(`
+      Bubbles {
+        "props": Object {
+          "bubbles": Array [
+            Object {
+              "childIds": Array [
+                "child-id-1",
+                "child-id-2",
+              ],
+              "maxChildren": 40,
+              "name": "Bubbel Blauw",
+            },
+            Object {
+              "childIds": Array [
+                "child-id-3",
+              ],
+              "maxChildren": 45,
+              "name": "Bubbel Groen",
+            },
+          ],
+          "tenantId": "my-tenant-id",
+        },
+      }
+    `)
   })
 })
