@@ -47,6 +47,10 @@ export class Bubble {
     return this.childIdsInBubble.length >= this.maxChildren
   }
 
+  get numChildren(): number {
+    return this.childIdsInBubble.length
+  }
+
   includesChild(childId: string): boolean {
     return this.childIdsInBubble.includes(childId)
   }
