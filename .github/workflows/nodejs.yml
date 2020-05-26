@@ -58,4 +58,4 @@ jobs:
         SLACK_AVATAR: repository
       uses: Ilshidur/action-slack@master
       with:
-        args: 'Build for <https://github.com/hoepel-app/hoepel-app/runs/${{ github.run_id }}|`${{ github.ref }}`> failed :crying_cat_face:'
+        args: 'Build for <https://github.com/hoepel-app/hoepel-app/actions/runs/${{ github.run_id }}|`${{ github.ref }}`> failed :crying_cat_face:'
