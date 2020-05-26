@@ -1,6 +1,6 @@
 {
   "name": "@hoepel.app/schema",
-  "version": "0.3.50",
+  "version": "0.3.52",
   "main": "dist/index.js",
   "license": "GPL-3.0-or-later",
   "devDependencies": {
