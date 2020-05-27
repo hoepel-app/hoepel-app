@@ -82,7 +82,7 @@ type Consumable @firestore(name:"consumables", type:DOC_PER_TENANT, readPermissi
 }
 
 
-type Bubble @firestore(name:"bubbles", type:DOC_PER_TENANT, readPermission:"tenant:write", writePermission:"tenant:write") {
+type Bubble @firestore(name:"bubbles", type:DOC_PER_TENANT, readPermission:"child:read", writePermission:"tenant:write") {
     id: ID!
     tenant: Tenant!
 }
