@@ -78,6 +78,32 @@ export class BubblesApplicationService {
     return { status: 'accepted' }
   }
 
+  async deleteBubble(
+    tenantId: string,
+    bubbleName: string
+  ): Promise<CommandResult> {
+    const bubbles = await this.findBubbles(tenantId).pipe(first()).toPromise()
+
+    const bubble = bubbles.findBubbleByName(bubbleName)
+
+    if (bubble == null) {
+      return {
+        status: 'rejected',
+        reason: 'Bubble not found; could not remove it',
+      }
+    }
+
+    if (bubble.numChildren !== 0) {
+      return {
+        status: 'rejected',
+        reason: 'Could not remove bubble as there are children attached to it',
+      }
+    }
+
+    await this.bubblesRepo.put(bubbles.withBubbleRemoved(bubbleName))
+    return { status: 'accepted' }
+  }
+
   async renameBubble(
     tenantId: string,
     oldBubbleName: string,
@@ -89,7 +115,7 @@ export class BubblesApplicationService {
       return { status: 'rejected', reason: 'Bubble with name already exists' }
     }
 
-    if (!bubbles.bubbleWithNameExists(newBubbleName)) {
+    if (!bubbles.bubbleWithNameExists(oldBubbleName)) {
       return {
         status: 'rejected',
         reason: 'Bubble with name does not exist, can not rename',
