@@ -71,7 +71,7 @@ service cloud.firestore {
       return permission in get(/databases/$(database)/documents/users/$(request.auth.uid)/tenants/$(tenant)).data.permissions;
     }
     allow create: if hasPermission('tenant:write', document);
-    allow read  : if !exists(/databases/$(database)/documents/bubbles/$(document)) || hasPermission('tenant:read', document);
+    allow read  : if !exists(/databases/$(database)/documents/bubbles/$(document)) || hasPermission('child:read', document);
     allow update: if hasPermission('tenant:write', document);
     allow delete: if false;
   }
