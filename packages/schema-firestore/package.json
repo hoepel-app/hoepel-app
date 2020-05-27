@@ -1,6 +1,6 @@
 {
     "name": "@hoepel.app/schema-firestore",
-    "version": "0.3.52",
+    "version": "0.3.53",
     "main": "dist/index.js",
     "license": "GPL-3.0-or-later",
     "scripts": {
@@ -8,7 +8,7 @@
         "test": "yarn jest"
     },
     "dependencies": {
-        "@hoepel.app/schema": "^0.3.52",
+        "@hoepel.app/schema": "^0.3.53",
         "graphql": "^15.0.0"
     },
     "devDependencies": {
