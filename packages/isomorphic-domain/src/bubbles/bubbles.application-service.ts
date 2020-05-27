@@ -136,8 +136,8 @@ export class BubblesApplicationService {
   ): Promise<CommandResult> {
     const bubbles = await this.findBubbles(tenantId).pipe(first()).toPromise()
 
-    if (bubbles.bubbleWithNameExists(bubbleName)) {
-      return { status: 'rejected', reason: 'Bubble with name already exists' }
+    if (!bubbles.bubbleWithNameExists(bubbleName)) {
+      return { status: 'rejected', reason: 'Bubble with name not found' }
     }
 
     await this.bubblesRepo.put(
