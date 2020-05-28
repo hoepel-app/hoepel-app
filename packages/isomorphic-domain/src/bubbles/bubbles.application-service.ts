@@ -60,6 +60,35 @@ export class BubblesApplicationService {
     return { status: 'accepted' }
   }
 
+  async removeChildFromBubble(
+    tenantId: string,
+    bubbleName: string,
+    childId: string
+  ): Promise<CommandResult> {
+    const bubbles = await this.findBubbles(tenantId).pipe(first()).toPromise()
+
+    if (!bubbles.bubbleWithNameExists(bubbleName)) {
+      return {
+        status: 'rejected',
+        reason:
+          'Can not remove child from bubble: bubble with name does not exist',
+      }
+    }
+
+    if (bubbles.findBubbleByName(bubbleName)?.includesChild(childId) !== true) {
+      return {
+        status: 'rejected',
+        reason: 'Can not remove child from bubble: child is not in bubble',
+      }
+    }
+
+    await this.bubblesRepo.put(
+      bubbles.withChildRemovedFromBubble(bubbleName, childId)
+    )
+
+    return { status: 'accepted' }
+  }
+
   async createBubble(
     tenantId: string,
     bubbleName: string,
