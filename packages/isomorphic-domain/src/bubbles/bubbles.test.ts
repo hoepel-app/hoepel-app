@@ -159,4 +159,10 @@ describe('Bubbles', () => {
       }
     `)
   })
+
+  test('allChildIdsAssignedToABubble', () => {
+    expect(exampleBubbles.allChildIdsAssignedToABubble).toEqual(
+      new Set(['child-id-1', 'child-id-2', 'child-id-3'])
+    )
+  })
 })

@@ -148,4 +148,11 @@ export class Bubbles implements Aggregate {
   bubbleWithNameExists(name: string): boolean {
     return this.findBubbleByName(name) != null
   }
+
+  /** Returns all children (represented by their id) already assigned to a bubble */
+  get allChildIdsAssignedToABubble(): ReadonlySet<string> {
+    return this.bubbles.reduce((set, bubble) => {
+      return new Set([...bubble.childIdsInBubble, ...set.values()])
+    }, new Set<string>())
+  }
 }
