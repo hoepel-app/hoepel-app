@@ -9,13 +9,12 @@ import { AddShiftPresetCommand } from './commands/add-shift-preset.command'
 import { RemoveShiftPresetCommand } from './commands/remove-shift-preset.command'
 import { RenameShiftPresetCommand } from './commands/rename-shift-preset.command'
 import { ChangeShiftPresetPriceCommand } from './commands/change-shift-preset-price.command'
-
-import '@hoepel.app/ddd-library-test-utils'
 import { ChangeShiftPresetLocationCommand } from './commands/change-shift-preset-location.command'
 import { ChangeShiftPresetDescriptionCommand } from './commands/change-shift-preset-description.command'
 import { ChangeCrewMembersCanAttendShiftPresetCommand } from './commands/change-crew-members-can-attend-shift-preset.command'
 import { ChangeChildrenCanAttendShiftPresetCommand } from './commands/change-children-can-attend-shift-preset.command'
 import { ChangeShiftPresetStartAndEndCommand } from './commands/change-shift-preset-start-and-end.command'
+import '@hoepel.app/ddd-library-test-utils'
 
 describe('ShiftsPresetsApplicationService', () => {
   const examplePresets = (tenantId: string): ShiftPresets =>

@@ -11,9 +11,9 @@ import {
   ICrew,
   IDetailedChildAttendance,
   IDetailedCrewAttendance,
-  Shift,
 } from '@hoepel.app/types'
 import { AddressDomainService } from '@hoepel.app/domain'
+import { Shift } from '@hoepel.app/isomorphic-domain'
 import { SpreadsheetData } from './spreadsheet-types'
 import groupBy from 'lodash.groupby'
 import flatMap from 'lodash.flatmap'
@@ -217,7 +217,6 @@ export class XlsxExporter {
     }>,
     year: number
   ): SpreadsheetData {
-    const sortedShifts = Shift.sort(shifts)
     const richAttendances = new DetailedAttendancesOnShifts(
       attendances.map(
         (att) =>
@@ -252,7 +251,7 @@ export class XlsxExporter {
               width: 25,
             },
 
-            ...sortedShifts.map((shift) => {
+            ...shifts.map((shift) => {
               return {
                 values: [
                   DayDate.fromDayId(shift.dayId),
@@ -378,7 +377,6 @@ export class XlsxExporter {
     }>,
     year: number
   ): SpreadsheetData {
-    const sortedShifts = Shift.sort(shifts)
     const richAttendances = new DetailedAttendancesOnShifts(
       attendances.map(
         (att) =>
@@ -414,7 +412,7 @@ export class XlsxExporter {
               width: 25,
             },
 
-            ...sortedShifts.map((shift) => {
+            ...shifts.map((shift) => {
               return {
                 values: [
                   DayDate.fromDayId(shift.dayId),
@@ -444,7 +442,6 @@ export class XlsxExporter {
     }>,
     year: number
   ): SpreadsheetData {
-    const sortedShifts = Shift.sort(shifts)
     const richAttendances = new DetailedAttendancesOnShifts(
       attendances.map(
         (att) =>
@@ -568,7 +565,7 @@ export class XlsxExporter {
               width: 25,
               values: ['Dag', 'Type', 'Prijs'],
             },
-            ...sortedShifts.map((shift) => {
+            ...shifts.map((shift) => {
               return {
                 width: 22,
                 values: [
@@ -610,7 +607,7 @@ export class XlsxExporter {
     const list = Object.entries(groupBy(shifts, (shift) => shift.dayId))
       .map(([dayId, shiftsOnDay]) => {
         const uniqueAttendancesOnDay = detailedAttendances.uniqueChildAttendances(
-          shiftsOnDay.map((shift) => shift.id!)
+          shiftsOnDay.map((shift) => shift.id)
         )
 
         return {

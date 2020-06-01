@@ -6,6 +6,7 @@
   },
   "references": [
     { "path": "../domain" },
+    { "path": "../isomorphic-domain" },
   ],
   "extends": "../../tsconfig.json"
 }

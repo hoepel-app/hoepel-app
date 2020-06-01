@@ -5,9 +5,10 @@ import {
   ContactPerson,
   Crew,
   Price,
-  Shift,
   DayDate,
+  LocalTime,
 } from '@hoepel.app/types'
+import { Shift, ShiftPreset } from '@hoepel.app/isomorphic-domain'
 
 describe('XlsxExporter', () => {
   const exporter = new XlsxExporter()
@@ -86,42 +87,45 @@ describe('XlsxExporter', () => {
     .withFirstName('Animator 3')
     .withLastName('Achernaam')
 
-  const shift1 = new Shift({
-    id: 'shift-id-1',
-    childrenCanBePresent: true,
-    crewCanBePresent: true,
-    dayId: '2019-04-03',
-    price: new Price({ euro: 5, cents: 50 }),
-    kind: 'Voormiddag',
-    description: 'Omschrijving 1',
-    startAndEnd: {
-      start: { hour: 9, minute: 0 },
-      end: { hour: 12, minute: 0 },
-    },
-  })
-  const shift2 = new Shift({
-    id: 'shift-id-2',
-    childrenCanBePresent: true,
-    crewCanBePresent: true,
-    dayId: '2019-04-03',
-    price: new Price({ euro: 2, cents: 50 }),
-    kind: 'Namiddag',
-    description: 'Omschrijving 2',
-    startAndEnd: {
-      start: { hour: 13, minute: 0 },
-      end: { hour: 17, minute: 30 },
-    },
-    location: 'Gewoon op het speelplein',
-  })
-  const shift3 = new Shift({
-    id: 'shift-id-4',
-    childrenCanBePresent: true,
-    crewCanBePresent: true,
-    dayId: '2019-08-05',
-    price: new Price({ euro: 20, cents: 0 }),
-    kind: 'Externe activiteit',
-    description: 'Bellewaerde met de tieners',
-  })
+  const shift1 = Shift.createFromPreset(
+    'my-tenant-id',
+    'shift-id-1',
+    DayDate.fromDayId('2019-04-03'),
+    ShiftPreset.createEmpty('Voormiddag')
+  )
+    .withChildrenCanAttend(true)
+    .withCrewCanAttend(true)
+    .withPrice(Price.fromCents(550))
+    .withDescription('Omschrijving 1')
+    .withStartTime(new LocalTime({ hour: 9, minute: 0 }))
+    .withEndTime(new LocalTime({ hour: 12, minute: 0 }))
+
+  const shift2 = Shift.createFromPreset(
+    'my-tenant-id',
+    'shift-id-2',
+    DayDate.fromDayId('2019-04-03'),
+    ShiftPreset.createEmpty('Namiddag')
+  )
+    .withChildrenCanAttend(true)
+    .withCrewCanAttend(true)
+    .withPrice(Price.fromCents(250))
+    .withDescription('Omschrijving 2')
+    .withLocation('Gewoon op het speelplein')
+    .withStartTime(new LocalTime({ hour: 13, minute: 0 }))
+    .withEndTime(new LocalTime({ hour: 17, minute: 30 }))
+
+  const shift3 = Shift.createFromPreset(
+    'my-tenant-id',
+    'shift-id-3',
+    DayDate.fromDayId('2019-08-05'),
+    ShiftPreset.createEmpty('Externe activiteit')
+  )
+    .withChildrenCanAttend(true)
+    .withCrewCanAttend(true)
+    .withPrice(Price.fromCents(2000))
+    .withDescription('Bellewaerde met de tieners')
+    .withStartTime(new LocalTime({ hour: 13, minute: 0 }))
+    .withEndTime(new LocalTime({ hour: 17, minute: 30 }))
 
   const contactPerson1 = ContactPerson.empty()
     .withId('contact-id-1')
@@ -174,7 +178,7 @@ describe('XlsxExporter', () => {
   it('createCrewMembersAttendanceList', () => {
     const res = exporter.createCrewMembersAttendanceList(
       [crew1, crew2, crew3],
-      [shift2, shift1, shift3],
+      [shift1, shift2, shift3],
       [
         {
           shiftId: 'shift-id-2',
@@ -203,7 +207,7 @@ describe('XlsxExporter', () => {
   it('createChildAttendanceList', () => {
     const res = exporter.createChildAttendanceList(
       [child1, child2, child3],
-      [shift2, shift1, shift3],
+      [shift1, shift2, shift3],
       [
         {
           shiftId: 'shift-id-2',
@@ -246,7 +250,7 @@ describe('XlsxExporter', () => {
   it('createDayOverview', () => {
     const res = exporter.createDayOverview(
       [child1, child2, child3],
-      [shift2, shift1, shift3],
+      [shift1, shift2, shift3],
       [
         {
           shiftId: 'shift-id-2',
@@ -292,7 +296,7 @@ describe('XlsxExporter', () => {
     const res = exporter.createAllFiscalCertificates(
       [child1, child2, child3],
       [contactPerson1, contactPerson2],
-      [shift2, shift1, shift3],
+      [shift1, shift2, shift3],
       [
         {
           shiftId: 'shift-id-2',

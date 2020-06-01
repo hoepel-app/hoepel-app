@@ -659,8 +659,8 @@ Object {
         Object {
           "title": "Voornaam",
           "values": Array [
-            "Kind 2",
             "Kind 1",
+            "Kind 2",
             "Kind 1",
           ],
           "width": 20,
@@ -678,18 +678,18 @@ Object {
           "hideIfNoSetValues": true,
           "title": "Leeftijdsgroep",
           "values": Array [
-            undefined,
-            undefined,
             "Tieners",
+            undefined,
+            undefined,
           ],
           "width": 20,
         },
         Object {
           "title": "Soort",
           "values": Array [
-            "Namiddag",
-            "Namiddag",
             "Voormiddag",
+            "Namiddag",
+            "Namiddag",
           ],
           "width": 20,
         },
@@ -697,9 +697,9 @@ Object {
           "hideIfNoSetValues": true,
           "title": "Beschrijving",
           "values": Array [
-            "Omschrijving 2",
-            "Omschrijving 2",
             "Omschrijving 1",
+            "Omschrijving 2",
+            "Omschrijving 2",
           ],
           "width": 25,
         },
@@ -707,9 +707,9 @@ Object {
           "hideIfNoSetValues": true,
           "title": "Locatie",
           "values": Array [
+            "",
             "Gewoon op het speelplein",
             "Gewoon op het speelplein",
-            undefined,
           ],
           "width": 25,
         },

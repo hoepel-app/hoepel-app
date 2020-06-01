@@ -11,10 +11,6 @@ import { createChildRepository } from '../../services/child.service'
 import { createCrewRepository } from '../../services/crew.service'
 import { createContactPersonRepository } from '../../services/contact-person.service'
 import {
-  ShiftService,
-  createShiftRepository,
-} from '../../services/shift.service'
-import {
   ChildAttendanceService,
   createChildAttendanceByChildRepository,
   createChildAttendanceByShiftRepository,
@@ -27,6 +23,8 @@ import { TemplateService } from '../../services/template.service'
 import { assertHasPermission } from '../assert-has-permission'
 import { Permission, DayDate } from '@hoepel.app/types'
 import { AuthorizationService } from '../authorization-service'
+import { ShiftRepository } from '@hoepel.app/isomorphic-domain'
+import { FirestoreShiftRepository } from '@hoepel.app/isomorphic-data'
 
 const db = admin.firestore()
 const auth = admin.auth()
@@ -38,7 +36,7 @@ const userService = new UserService(db, auth)
 const childRepository = createChildRepository(db)
 const crewRepository = createCrewRepository(db)
 const contactPersonRepository = createContactPersonRepository(db)
-const shiftRepository = createShiftRepository(db)
+const shiftRepository: ShiftRepository = new FirestoreShiftRepository()
 const childAttendanceByChildRepository = createChildAttendanceByChildRepository(
   db
 )
@@ -52,7 +50,6 @@ const crewAttendanceByShiftRepository = createCrewAttendanceByShiftRepository(
 
 const addressService = new AddressDomainService(contactPersonRepository)
 const organisationService = new OrganisationService(db, auth)
-const shiftService = new ShiftService(shiftRepository)
 const childAttendanceService = new ChildAttendanceService(
   childAttendanceByChildRepository,
   childAttendanceByShiftRepository
@@ -66,7 +63,7 @@ const fileService = new FileService(
   childRepository,
   crewRepository,
   contactPersonRepository,
-  shiftService,
+  shiftRepository,
   childAttendanceService,
   crewAttendanceService,
   db,

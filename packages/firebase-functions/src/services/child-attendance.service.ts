@@ -4,11 +4,11 @@ import {
   ChildAttendancesByShiftDoc,
   DocumentNotFoundError,
   IDetailedChildAttendance,
-  IShift,
   store,
   TenantIndexedRepository,
 } from '@hoepel.app/types'
 import { FirebaseTenantIndexedRepository } from './repository'
+import { Shift } from '@hoepel.app/isomorphic-domain'
 
 export type IChildAttendanceByChildRepository = TenantIndexedRepository<
   ChildAttendancesByChildDoc & { id: string }
@@ -60,7 +60,7 @@ export class ChildAttendanceService {
 
   async getChildAttendancesOnShifts(
     tenant: string,
-    shifts: ReadonlyArray<IShift>
+    shifts: ReadonlyArray<Shift>
   ): Promise<
     ReadonlyArray<{
       shiftId: string

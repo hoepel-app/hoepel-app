@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs'
-import { Shift } from '.'
+import { Shift } from './shift'
 import { DayDate } from '@hoepel.app/types'
 
 export type SerializedShift = {

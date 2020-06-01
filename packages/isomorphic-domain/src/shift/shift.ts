@@ -68,6 +68,41 @@ export class Shift {
     })
   }
 
+  withPrice(price: Price): Shift {
+    return Shift.fromProps({
+      ...this.toProps(),
+      priceCents: price.totalCents,
+    })
+  }
+
+  withDescription(description: string): Shift {
+    return Shift.fromProps({
+      ...this.toProps(),
+      description,
+    })
+  }
+
+  withLocation(location: string): Shift {
+    return Shift.fromProps({
+      ...this.toProps(),
+      location,
+    })
+  }
+
+  withStartTime(start: LocalTime): Shift {
+    return Shift.fromProps({
+      ...this.toProps(),
+      startMinutesSinceMidnight: start.minutesSinceMidnight,
+    })
+  }
+
+  withEndTime(end: LocalTime): Shift {
+    return Shift.fromProps({
+      ...this.toProps(),
+      endMinutesSinceMidnight: end.minutesSinceMidnight,
+    })
+  }
+
   get id(): string {
     return this.props.id
   }

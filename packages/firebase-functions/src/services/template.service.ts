@@ -3,15 +3,7 @@ import * as admin from 'firebase-admin'
 import { IChildRepository } from './child.service'
 import { OrganisationService } from './organisation.service'
 import { ChildAttendanceService } from './child-attendance.service'
-import { IShiftRepository, ShiftService } from './shift.service'
-import {
-  DayDate,
-  FileType,
-  Price,
-  Shift,
-  IReport,
-  ITemplate,
-} from '@hoepel.app/types'
+import { DayDate, FileType, Price, IReport, ITemplate } from '@hoepel.app/types'
 import _ from 'lodash'
 import dropTenant from '../util/drop-tenant'
 import { IContactPersonRepository } from './contact-person.service'
@@ -22,6 +14,8 @@ import {
   fillIn,
 } from '@hoepel.app/export-docx'
 import { Bucket } from './bucket-type'
+import { ShiftRepository } from '@hoepel.app/isomorphic-domain'
+import { first } from 'rxjs/operators'
 
 interface CertificateTemplateFillInOptions {
   /**
@@ -68,7 +62,7 @@ export class TemplateService {
     private readonly addressService: AddressDomainService,
     private readonly organisationService: OrganisationService,
     private readonly childAttendanceService: ChildAttendanceService,
-    private readonly shiftRepository: IShiftRepository
+    private readonly shiftRepository: ShiftRepository
   ) {}
 
   /**
@@ -322,11 +316,15 @@ export class TemplateService {
       childId
     )
     const allShiftIds = Object.keys(allAttendances)
-    const shifts = Shift.sort(
-      await this.shiftRepository.getMany(tenant, allShiftIds)
-    ).filter((shift) => shift && DayDate.fromDayId(shift.dayId).year === year) // Only keep shifts in this year
+    const shifts = (
+      await this.shiftRepository
+        .findMany(tenant, allShiftIds)
+        .pipe(first())
+        .toPromise()
+    ).filter((shift) => shift.date.year === year)
 
-    const numberOfUniqueDays = ShiftService.numberOfUniqueDays(shifts)
+    const numberOfUniqueDays = new Set(shifts.map((shift) => shift.date.id))
+      .size
 
     const totalPricePaid = _.toPairs(allAttendances)
       .filter(([shiftId]) => shifts.map((s) => s.id).includes(shiftId)) // Only keep attendances in this year

@@ -2,7 +2,6 @@ import { FileType, IReport, DayDate } from '@hoepel.app/types'
 import * as admin from 'firebase-admin'
 import { IChildRepository } from './child.service'
 import { ICrewRepository } from './crew.service'
-import { ShiftService } from './shift.service'
 import { IContactPersonRepository } from './contact-person.service'
 import { ChildAttendanceService } from './child-attendance.service'
 import { CrewAttendanceService } from './crew-attendance.service'
@@ -13,6 +12,8 @@ import {
   LocalFile,
 } from '@hoepel.app/export-xlsx'
 import { Bucket } from './bucket-type'
+import { ShiftRepository } from '@hoepel.app/isomorphic-domain'
+import { first } from 'rxjs/operators'
 
 type FirestoreFileDocument = IReport & { id?: string; tenant: string }
 
@@ -22,7 +23,7 @@ export class FileService {
     private readonly childRepository: IChildRepository,
     private readonly crewRepository: ICrewRepository,
     private readonly contactPersonRepository: IContactPersonRepository,
-    private readonly shiftService: ShiftService,
+    private readonly shiftRepository: ShiftRepository,
     private readonly childAttendanceService: ChildAttendanceService,
     private readonly crewAttendanceService: CrewAttendanceService,
     private readonly db: admin.firestore.Firestore, // TODO refactor so this service does not use db directly
@@ -93,10 +94,11 @@ export class FileService {
       (crew) => crew.active
     )
 
-    const shiftsForCrewAtt = await this.shiftService.getShiftsInYear(
-      tenant,
-      year
-    )
+    const shiftsForCrewAtt = await this.shiftRepository
+      .findInYear(tenant, year)
+      .pipe(first())
+      .toPromise()
+
     const crewAttendances = await this.crewAttendanceService.getCrewAttendancesOnShifts(
       tenant,
       shiftsForCrewAtt
@@ -125,10 +127,11 @@ export class FileService {
   ): Promise<FirestoreFileDocument> {
     const allChildrenForChildAtt = await this.childRepository.getAll(tenant)
 
-    const shiftsForChildAtt = await this.shiftService.getShiftsInYear(
-      tenant,
-      year
-    )
+    const shiftsForChildAtt = await this.shiftRepository
+      .findInYear(tenant, year)
+      .pipe(first())
+      .toPromise()
+
     const childAttendancesForChildAtt = await this.childAttendanceService.getChildAttendancesOnShifts(
       tenant,
       shiftsForChildAtt
@@ -156,7 +159,10 @@ export class FileService {
     day: DayDate
   ): Promise<FirestoreFileDocument> {
     const allChildren = await this.childRepository.getAll(tenant)
-    const shifts = await this.shiftService.getShiftsOnDay(tenant, day)
+    const shifts = await this.shiftRepository
+      .findOnDay(tenant, day)
+      .pipe(first())
+      .toPromise()
 
     const childAttendances = await this.childAttendanceService.getChildAttendancesOnShifts(
       tenant,
@@ -190,10 +196,11 @@ export class FileService {
       tenant
     )
 
-    const shiftsForFiscalCerts = await this.shiftService.getShiftsInYear(
-      tenant,
-      year
-    )
+    const shiftsForFiscalCerts = await this.shiftRepository
+      .findInYear(tenant, year)
+      .pipe(first())
+      .toPromise()
+
     const childAttendancesForFiscalCerts = await this.childAttendanceService.getChildAttendancesOnShifts(
       tenant,
       shiftsForFiscalCerts
@@ -222,7 +229,11 @@ export class FileService {
     uid: string,
     year: number
   ): Promise<FirestoreFileDocument> {
-    const shifts = await this.shiftService.getShiftsInYear(tenant, year)
+    const shifts = await this.shiftRepository
+      .findInYear(tenant, year)
+      .pipe(first())
+      .toPromise()
+
     const childAttendances = await this.childAttendanceService.getChildAttendancesOnShifts(
       tenant,
       shifts

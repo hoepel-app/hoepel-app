@@ -4,11 +4,11 @@ import {
   CrewAttendancesByShiftDoc,
   DocumentNotFoundError,
   IDetailedCrewAttendance,
-  IShift,
   store,
   TenantIndexedRepository,
 } from '@hoepel.app/types'
 import { FirebaseTenantIndexedRepository } from './repository'
+import { Shift } from '@hoepel.app/isomorphic-domain'
 
 export type ICrewAttendanceByCrewRepository = TenantIndexedRepository<
   CrewAttendancesByCrewDoc & { id: string }
@@ -60,7 +60,7 @@ export class CrewAttendanceService {
 
   async getCrewAttendancesOnShifts(
     tenant: string,
-    shifts: ReadonlyArray<IShift>
+    shifts: ReadonlyArray<Shift>
   ): Promise<
     ReadonlyArray<{
       shiftId: string
