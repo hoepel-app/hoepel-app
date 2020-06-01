@@ -1373,10 +1373,10 @@
     lodash.camelcase "^4.3.0"
     protobufjs "^6.8.6"
 
-"@hoepel.app/types@^1.18.0":
-  version "1.18.0"
-  resolved "https://registry.npmjs.org/@hoepel.app/types/-/types-1.18.0.tgz#bc88ea047e1a21d72b75d2e12547caa44c4ccde7"
-  integrity sha512-gq0OlYmPJWqS+T7H6Wsg/dTFvicq5DJBidHoAakUXGNjHvQxKD2r9jU/DWms8a69yYjtaeouBYxcHkLxQzafPA==
+"@hoepel.app/types@^1.21.0":
+  version "1.21.0"
+  resolved "https://registry.npmjs.org/@hoepel.app/types/-/types-1.21.0.tgz#33e5e27f520fc70c05f0208557c5a0b05e9e58c5"
+  integrity sha512-buA+bkptrWzDoT34gf9M3EXyW9v6FvVU1OdMw5liNMxtVdpaXJK5W76i39HBn1S6OyLHKmmHpwMDNRKNjwDEPw==
   dependencies:
     virginity-ts "^0.1.0"
 

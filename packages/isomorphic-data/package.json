@@ -11,7 +11,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "firebase emulators:exec --only firestore 'yarn jest --detectOpenHandles --runInBand'"
+    "test": "firebase emulators:exec --only firestore 'yarn jest --detectOpenHandles --runInBand --collectCoverage'"
   },
   "dependencies": {
     "@hoepel.app/isomorphic-domain": "^0.3.58",

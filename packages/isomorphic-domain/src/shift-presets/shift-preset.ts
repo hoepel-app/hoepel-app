@@ -1,4 +1,4 @@
-import { Price, StartAndEndTime } from '@hoepel.app/types'
+import { Price, StartAndEndTime, LocalTime } from '@hoepel.app/types'
 
 export type ShiftPresetProps = {
   readonly name: string
@@ -47,16 +47,13 @@ export class ShiftPreset {
   }
 
   get startAndEndTime(): StartAndEndTime {
-    // TODO extract this logic to LocalTime/StartAndEndTime
-    const startMinutes = this.props.startMinutesSinceMidnight % 60
-    const startHours =
-      (this.props.startMinutesSinceMidnight - startMinutes) / 60
-    const endMinutes = this.props.endMinutesSinceMidnight % 60
-    const endHours = (this.props.endMinutesSinceMidnight - endMinutes) / 60
-
     return new StartAndEndTime({
-      start: { hour: startHours, minute: startMinutes },
-      end: { hour: endHours, minute: endMinutes },
+      start: LocalTime.fromMinutesSinceMidnight(
+        this.props.startMinutesSinceMidnight
+      ),
+      end: LocalTime.fromMinutesSinceMidnight(
+        this.props.endMinutesSinceMidnight
+      ),
     })
   }
 
