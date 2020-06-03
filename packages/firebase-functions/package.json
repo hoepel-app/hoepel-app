@@ -45,7 +45,7 @@
     "firebase-functions-test": "^0.2.1",
     "husky": "^4.2.3",
     "lerna": "^3.18.4",
-    "lint-staged": "^10.0.7",
+    "lint-staged": "^10.2.8",
     "ts-loader": "^7.0.0",
     "ts-node": "^8.5.4",
     "typescript": "^3.7.2",
