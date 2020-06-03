@@ -45,6 +45,8 @@ $ yarn shell
 $ yarn serve
 ```
 
+Open http://localhost:5000/hoepel-app/europe-west1/api/graphql
+
 ## Firestore backup
 
 Automatic backups are done through [BackupFire](https://backupfire.dev/). The keys are stored in the function runtime configuration.

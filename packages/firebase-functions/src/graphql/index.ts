@@ -19,6 +19,7 @@ const userService = new UserService(db, auth)
 
 const typeDef = gql`
   scalar DayDate
+  scalar DateTime
 
   enum ReportType {
     ALL_CHILDREN
@@ -98,6 +99,34 @@ const resolvers: IResolvers = {
         if (isNaN(parsed.year) || isNaN(parsed.month) || isNaN(parsed.day)) {
           return null
         }
+        return parsed
+      }
+
+      return null
+    },
+  }),
+  DateTime: new GraphQLScalarType({
+    name: 'DateTime',
+    parseValue(value: string): Date | null {
+      const parsed = new Date(value)
+
+      if (isNaN(parsed.getTime())) {
+        return null
+      }
+
+      return parsed
+    },
+    serialize(value: Date) {
+      return value.toISOString()
+    },
+    parseLiteral(ast): Date | null {
+      if (ast.kind === 'StringValue') {
+        const parsed = new Date(ast.value)
+
+        if (isNaN(parsed.getTime())) {
+          return null
+        }
+
         return parsed
       }
 

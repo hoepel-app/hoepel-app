@@ -1,16 +1,21 @@
 import * as admin from 'firebase-admin'
-import { Child, IChild } from '@hoepel.app/types'
+import { Child, IChild, DayDate } from '@hoepel.app/types'
 import { createTenantRepository } from '../../services/tenant.service'
 import {
   ChildOnRegistrationWaitingList,
   ChildRegistrationWaitingListApplicationService,
 } from '@hoepel.app/isomorphic-domain'
-import { FirestoreChildRegistrationWaitingListRepository } from '@hoepel.app/isomorphic-data'
+import {
+  FirestoreChildRegistrationWaitingListRepository,
+  FirestoreShiftRepository,
+} from '@hoepel.app/isomorphic-data'
 import { first } from 'rxjs/operators'
+import { groupBy } from 'lodash'
 
 const db = admin.firestore()
 
 const tenantRepo = createTenantRepository(db)
+const shiftRepo = new FirestoreShiftRepository()
 
 const service = new ChildRegistrationWaitingListApplicationService(
   new FirestoreChildRegistrationWaitingListRepository()
@@ -64,6 +69,48 @@ export class ParentPlatform {
         }
       }),
     ]
+  }
+
+  static async shiftsAvailable(
+    organisationId: string,
+    year: number
+  ): Promise<
+    readonly {
+      day: DayDate
+      shifts: readonly {
+        id: string
+        description: string
+        location: string
+        start: Date
+        end: Date
+        kind: string
+        price: string
+      }[]
+    }[]
+  > {
+    const shifts = await shiftRepo
+      .findInYear(organisationId, year)
+      .pipe(first())
+      .toPromise()
+
+    return Object.entries(groupBy(shifts, (shift) => shift.date.id)).map(
+      ([dayId, shifts]) => {
+        return {
+          day: DayDate.fromDayId(dayId),
+          shifts: shifts.map((shift) => {
+            return {
+              id: shift.id,
+              description: shift.description,
+              location: shift.location,
+              start: shift.start,
+              end: shift.end,
+              kind: shift.presetName,
+              price: shift.price.toString(),
+            }
+          }),
+        }
+      }
+    )
   }
 
   static async registerChildFromParentPlatform(

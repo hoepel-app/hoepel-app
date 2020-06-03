@@ -51,6 +51,15 @@ export const resolvers: IResolvers = {
         organisationId
       )
     },
+    shiftsAvailable: async (
+      { organisationId }: { organisationId: string },
+      { year }: { year: number },
+      context: Context
+    ) => {
+      AuthorizationService.assertLoggedInParentPlatform(context)
+
+      return ParentPlatform.shiftsAvailable(organisationId, year)
+    },
   },
   Mutation: {
     registerChildFromParentPlatform: async (

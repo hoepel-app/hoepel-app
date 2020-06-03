@@ -32,8 +32,24 @@ export const typeDef = gql`
     onRegistrationWaitingList: Boolean!
   }
 
+  type DayWithShiftsChildrenCanAttend {
+    day: DayDate!
+    shifts: [ShiftChildCanAttend!]!
+  }
+
+  type ShiftChildCanAttend {
+    id: ID!
+    description: String!
+    location: String!
+    start: DateTime!
+    end: DateTime!
+    kind: String!
+    price: String!
+  }
+
   type ParentPlatform {
     childrenManagedByMe: [ChildManagedByParent!]!
+    shiftsAvailable(year: Int!): [DayWithShiftsChildrenCanAttend!]!
   }
 
   extend type Query {
