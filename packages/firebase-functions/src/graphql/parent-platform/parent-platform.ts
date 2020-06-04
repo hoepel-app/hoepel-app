@@ -120,10 +120,9 @@ export class ParentPlatform {
       }[]
     }[]
   > {
-    const shifts = await shiftRepo
-      .findInYear(organisationId, year)
-      .pipe(first())
-      .toPromise()
+    const shifts = (
+      await shiftRepo.findInYear(organisationId, year).pipe(first()).toPromise()
+    ).filter((shift) => shift.childrenCanAttend)
 
     return Object.entries(
       groupBy(shifts, (shift) =>
