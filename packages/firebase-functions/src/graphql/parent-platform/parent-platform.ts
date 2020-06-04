@@ -11,6 +11,7 @@ import {
 } from '@hoepel.app/isomorphic-data'
 import { first } from 'rxjs/operators'
 import { groupBy } from 'lodash'
+import { getWeek } from 'date-fns'
 
 const db = admin.firestore()
 
@@ -76,15 +77,18 @@ export class ParentPlatform {
     year: number
   ): Promise<
     readonly {
-      day: DayDate
-      shifts: readonly {
-        id: string
-        description: string
-        location: string
-        start: Date
-        end: Date
-        kind: string
-        price: string
+      weekNumber: number
+      days: readonly {
+        day: DayDate
+        shifts: readonly {
+          id: string
+          description: string
+          location: string
+          start: Date
+          end: Date
+          kind: string
+          price: string
+        }[]
       }[]
     }[]
   > {
@@ -93,24 +97,35 @@ export class ParentPlatform {
       .pipe(first())
       .toPromise()
 
-    return Object.entries(groupBy(shifts, (shift) => shift.date.id)).map(
-      ([dayId, shifts]) => {
-        return {
-          day: DayDate.fromDayId(dayId),
-          shifts: shifts.map((shift) => {
+    return Object.entries(
+      groupBy(shifts, (shift) =>
+        getWeek(shift.date.nativeDate, {
+          weekStartsOn: 1,
+        })
+      )
+    ).map(([weekNumber, shifts]) => {
+      return {
+        weekNumber: parseInt(weekNumber, 10),
+        days: Object.entries(groupBy(shifts, (shift) => shift.date.id)).map(
+          ([dayId, shifts]) => {
             return {
-              id: shift.id,
-              description: shift.description,
-              location: shift.location,
-              start: shift.start,
-              end: shift.end,
-              kind: shift.presetName,
-              price: shift.price.toString(),
+              day: DayDate.fromDayId(dayId),
+              shifts: shifts.map((shift) => {
+                return {
+                  id: shift.id,
+                  description: shift.description,
+                  location: shift.location,
+                  start: shift.start,
+                  end: shift.end,
+                  kind: shift.presetName,
+                  price: shift.price.toString(),
+                }
+              }),
             }
-          }),
-        }
+          }
+        ),
       }
-    )
+    })
   }
 
   static async registerChildFromParentPlatform(

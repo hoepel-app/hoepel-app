@@ -32,11 +32,6 @@ export const typeDef = gql`
     onRegistrationWaitingList: Boolean!
   }
 
-  type DayWithShiftsChildrenCanAttend {
-    day: DayDate!
-    shifts: [ShiftChildCanAttend!]!
-  }
-
   type ShiftChildCanAttend {
     id: ID!
     description: String!
@@ -47,9 +42,19 @@ export const typeDef = gql`
     price: String!
   }
 
+  type DayWithShiftsChildrenCanAttend {
+    day: DayDate!
+    shifts: [ShiftChildCanAttend!]!
+  }
+
+  type ShiftsGroupedByWeek {
+    weekNumber: Int!
+    days: [DayWithShiftsChildrenCanAttend!]!
+  }
+
   type ParentPlatform {
     childrenManagedByMe: [ChildManagedByParent!]!
-    shiftsAvailable(year: Int!): [DayWithShiftsChildrenCanAttend!]!
+    shiftsAvailable(year: Int!): [ShiftsGroupedByWeek!]!
   }
 
   extend type Query {
