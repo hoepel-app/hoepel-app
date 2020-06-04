@@ -47,6 +47,9 @@ const formatDuration = (start: LocalTime, end: LocalTime): string => {
   return `${start.toString()}-${end.toString()}`
 }
 
+const capitalizeFirstLetter = (str: string): string =>
+  str.slice(0, 1).toLocaleUpperCase() + str.slice(1)
+
 export class ParentPlatform {
   static async childrenManagedByMe(
     parentUid: string,
@@ -139,13 +142,15 @@ export class ParentPlatform {
           weekDescription: weekDescription(weekNumber, year),
           days: Object.entries(groupBy(shifts, (shift) => shift.date.id)).map(
             ([dayId, shifts]) => {
+              const dayFormatted = capitalizeFirstLetter(
+                format(DayDate.fromDayId(dayId).nativeDate, 'EEEE d MMMM', {
+                  locale,
+                })
+              )
+
               return {
                 day: DayDate.fromDayId(dayId),
-                dayFormatted: format(
-                  DayDate.fromDayId(dayId).nativeDate,
-                  'EEEE d MMMM',
-                  { locale }
-                ),
+                dayFormatted,
                 shifts: shifts.map((shift) => {
                   return {
                     id: shift.id,
