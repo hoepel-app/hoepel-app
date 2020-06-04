@@ -143,7 +143,7 @@ export class ParentPlatform {
                 day: DayDate.fromDayId(dayId),
                 dayFormatted: format(
                   DayDate.fromDayId(dayId).nativeDate,
-                  'd MMMM',
+                  'EEEE d MMMM',
                   { locale }
                 ),
                 shifts: shifts.map((shift) => {
