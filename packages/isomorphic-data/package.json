@@ -1,6 +1,6 @@
 {
   "name": "@hoepel.app/isomorphic-data",
-  "version": "0.3.59",
+  "version": "0.3.67",
   "main": "dist/index.js",
   "license": "GPL-3.0-or-later",
   "devDependencies": {
