@@ -3,3 +3,4 @@ export { FirestoreChildRegistrationWaitingListRepository } from './child-registr
 export { FirestoreConsumablesRepository } from './consumables/firestore-consumables-repository'
 export { FirestoreShiftPresetsRepository } from './shift-presets/firestore-shift-presets-repository'
 export { FirestoreShiftRepository } from './shift/firestore-shift-repository'
+export { FirestoreBubblesRepository } from './bubbles/firestore-bubbles-repository'

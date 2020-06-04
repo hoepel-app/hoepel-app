@@ -49,9 +49,17 @@ export const typeDef = gql`
     shifts: [ShiftChildCanAttend!]!
   }
 
+  type SelectableBubbleForWeek {
+    name: String!
+    spotsLeft: Int
+    totalSpots: Int!
+  }
+
   type ShiftsGroupedByWeek {
     weekNumber: Int!
+    year: Int!
     weekDescription: String!
+    possibleBubbles: [SelectableBubbleForWeek!]!
     days: [DayWithShiftsChildrenCanAttend!]!
   }
 

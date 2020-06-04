@@ -61,6 +61,19 @@ export const resolvers: IResolvers = {
       return ParentPlatform.shiftsAvailable(organisationId, year)
     },
   },
+  ShiftsGroupedByWeek: {
+    possibleBubbles: async (parent: {
+      organisationId: string
+      year: number
+      weekNumber: number
+    }) => {
+      return ParentPlatform.findBubbles(
+        parent.organisationId,
+        parent.year,
+        parent.weekNumber
+      )
+    },
+  },
   Mutation: {
     registerChildFromParentPlatform: async (
       obj,

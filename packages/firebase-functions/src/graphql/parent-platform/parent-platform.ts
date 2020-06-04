@@ -4,10 +4,12 @@ import { createTenantRepository } from '../../services/tenant.service'
 import {
   ChildOnRegistrationWaitingList,
   ChildRegistrationWaitingListApplicationService,
+  BubblesApplicationService,
 } from '@hoepel.app/isomorphic-domain'
 import {
   FirestoreChildRegistrationWaitingListRepository,
   FirestoreShiftRepository,
+  FirestoreBubblesRepository,
 } from '@hoepel.app/isomorphic-data'
 import { first } from 'rxjs/operators'
 import { groupBy } from 'lodash'
@@ -26,7 +28,10 @@ const db = admin.firestore()
 const tenantRepo = createTenantRepository(db)
 const shiftRepo = new FirestoreShiftRepository()
 
-const service = new ChildRegistrationWaitingListApplicationService(
+const bubblesService = new BubblesApplicationService(
+  new FirestoreBubblesRepository()
+)
+const waitingListService = new ChildRegistrationWaitingListApplicationService(
   new FirestoreChildRegistrationWaitingListRepository()
 )
 
@@ -74,7 +79,7 @@ export class ParentPlatform {
         new Child({ ...(snapshot.data() as IChild), id: snapshot.id })
     )
 
-    const childrenOnWaitingList = await service
+    const childrenOnWaitingList = await waitingListService
       .childrenOnRegistrationWaitingListForParent(organisationId, parentUid)
       .pipe(first())
       .toPromise()
@@ -107,6 +112,8 @@ export class ParentPlatform {
     readonly {
       weekNumber: number
       weekDescription: string
+      year: number
+      organisationId: string
       days: readonly {
         day: DayDate
         dayFormatted: string
@@ -139,6 +146,8 @@ export class ParentPlatform {
 
         return {
           weekNumber,
+          year,
+          organisationId,
           weekDescription: weekDescription(weekNumber, year),
           days: Object.entries(groupBy(shifts, (shift) => shift.date.id)).map(
             ([dayId, shifts]) => {
@@ -187,6 +196,30 @@ export class ParentPlatform {
     }
 
     // Save child
-    await service.addChildToWaitingList(newChild)
+    await waitingListService.addChildToWaitingList(newChild)
+  }
+
+  static async findBubbles(
+    organisationId: string,
+    year: number,
+    weekNumber: number
+  ): Promise<
+    readonly {
+      name: string
+      spotsLeft?: number
+      totalSpots: number
+    }[]
+  > {
+    const bubbles = await bubblesService
+      .findBubbles(organisationId)
+      .pipe(first())
+      .toPromise()
+
+    return bubbles.bubbles.map((bubble) => {
+      return {
+        name: bubble.name,
+        totalSpots: bubble.numChildren,
+      }
+    })
   }
 }
