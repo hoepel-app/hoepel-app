@@ -49,6 +49,7 @@ export const typeDef = gql`
 
   type ShiftsGroupedByWeek {
     weekNumber: Int!
+    weekDescription: String!
     days: [DayWithShiftsChildrenCanAttend!]!
   }
 

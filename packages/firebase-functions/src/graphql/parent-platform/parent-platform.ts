@@ -11,7 +11,15 @@ import {
 } from '@hoepel.app/isomorphic-data'
 import { first } from 'rxjs/operators'
 import { groupBy } from 'lodash'
-import { getWeek } from 'date-fns'
+import {
+  getWeek,
+  setWeek,
+  setYear,
+  format,
+  lastDayOfWeek,
+  startOfWeek,
+} from 'date-fns'
+import { nl as locale } from 'date-fns/locale'
 
 const db = admin.firestore()
 
@@ -21,6 +29,19 @@ const shiftRepo = new FirestoreShiftRepository()
 const service = new ChildRegistrationWaitingListApplicationService(
   new FirestoreChildRegistrationWaitingListRepository()
 )
+
+const weekDescription = (weekNumber: number, year: number): string => {
+  const week = setWeek(setYear(new Date(0), year), weekNumber, {
+    locale,
+  })
+
+  const weekStart = format(startOfWeek(week, { locale }), 'd', { locale })
+  const weekEnd = format(lastDayOfWeek(week, { locale }), 'd MMMM', {
+    locale,
+  })
+
+  return `${weekStart} tot ${weekEnd}`
+}
 
 export class ParentPlatform {
   static async childrenManagedByMe(
@@ -78,6 +99,7 @@ export class ParentPlatform {
   ): Promise<
     readonly {
       weekNumber: number
+      weekDescription: string
       days: readonly {
         day: DayDate
         shifts: readonly {
@@ -100,32 +122,37 @@ export class ParentPlatform {
     return Object.entries(
       groupBy(shifts, (shift) =>
         getWeek(shift.date.nativeDate, {
-          weekStartsOn: 1,
+          locale,
         })
       )
-    ).map(([weekNumber, shifts]) => {
-      return {
-        weekNumber: parseInt(weekNumber, 10),
-        days: Object.entries(groupBy(shifts, (shift) => shift.date.id)).map(
-          ([dayId, shifts]) => {
-            return {
-              day: DayDate.fromDayId(dayId),
-              shifts: shifts.map((shift) => {
-                return {
-                  id: shift.id,
-                  description: shift.description,
-                  location: shift.location,
-                  start: shift.start,
-                  end: shift.end,
-                  kind: shift.presetName,
-                  price: shift.price.toString(),
-                }
-              }),
+    )
+      .map(([weekNum, shifts]) => {
+        const weekNumber = parseInt(weekNum, 10)
+
+        return {
+          weekNumber,
+          weekDescription: weekDescription(weekNumber, year),
+          days: Object.entries(groupBy(shifts, (shift) => shift.date.id)).map(
+            ([dayId, shifts]) => {
+              return {
+                day: DayDate.fromDayId(dayId),
+                shifts: shifts.map((shift) => {
+                  return {
+                    id: shift.id,
+                    description: shift.description,
+                    location: shift.location,
+                    start: shift.start,
+                    end: shift.end,
+                    kind: shift.presetName,
+                    price: shift.price.toString(),
+                  }
+                }),
+              }
             }
-          }
-        ),
-      }
-    })
+          ),
+        }
+      })
+      .sort((a, b) => b.weekNumber - a.weekNumber)
   }
 
   static async registerChildFromParentPlatform(
