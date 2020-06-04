@@ -102,6 +102,7 @@ export class ParentPlatform {
       weekDescription: string
       days: readonly {
         day: DayDate
+        dayFormatted: string
         shifts: readonly {
           id: string
           description: string
@@ -136,6 +137,11 @@ export class ParentPlatform {
             ([dayId, shifts]) => {
               return {
                 day: DayDate.fromDayId(dayId),
+                dayFormatted: format(
+                  DayDate.fromDayId(dayId).nativeDate,
+                  'd MMMM',
+                  { locale }
+                ),
                 shifts: shifts.map((shift) => {
                   return {
                     id: shift.id,

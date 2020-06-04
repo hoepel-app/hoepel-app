@@ -44,6 +44,7 @@ export const typeDef = gql`
 
   type DayWithShiftsChildrenCanAttend {
     day: DayDate!
+    dayFormatted: String!
     shifts: [ShiftChildCanAttend!]!
   }
 
