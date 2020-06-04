@@ -1,5 +1,5 @@
 import * as admin from 'firebase-admin'
-import { Child, IChild, DayDate } from '@hoepel.app/types'
+import { Child, IChild, DayDate, LocalTime } from '@hoepel.app/types'
 import { createTenantRepository } from '../../services/tenant.service'
 import {
   ChildOnRegistrationWaitingList,
@@ -41,6 +41,10 @@ const weekDescription = (weekNumber: number, year: number): string => {
   })
 
   return `${weekStart} tot ${weekEnd}`
+}
+
+const formatDuration = (start: LocalTime, end: LocalTime): string => {
+  return `${start.toString()}-${end.toString()}`
 }
 
 export class ParentPlatform {
@@ -109,6 +113,7 @@ export class ParentPlatform {
           location: string
           start: Date
           end: Date
+          durationFormatted: string
           kind: string
           price: string
         }[]
@@ -149,6 +154,10 @@ export class ParentPlatform {
                     location: shift.location,
                     start: shift.start,
                     end: shift.end,
+                    durationFormatted: formatDuration(
+                      shift.startTime,
+                      shift.endTime
+                    ),
                     kind: shift.presetName,
                     price: shift.price.toString(),
                   }

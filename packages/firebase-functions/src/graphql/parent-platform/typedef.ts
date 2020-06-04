@@ -38,6 +38,7 @@ export const typeDef = gql`
     location: String!
     start: DateTime!
     end: DateTime!
+    durationFormatted: String!
     kind: String!
     price: String!
   }
