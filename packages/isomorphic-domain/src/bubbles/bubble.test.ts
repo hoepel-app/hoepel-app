@@ -43,7 +43,7 @@ describe('Bubble', () => {
         .withChildAdded('week-40', 'child-5')
 
       expect(bubble.isFull('week-40')).toBe(true)
-      expect(bubble.isFull('week-42')).toBe(true)
+      expect(bubble.isFull('week-42')).toBe(false)
     })
 
     it('true if over capacity', () => {
@@ -67,10 +67,7 @@ describe('Bubble', () => {
       .withChildAdded('week-40', 'child-1')
       .withChildAdded('week-40', 'child-2')
 
-    expect(bubble.childIdsInBubble('week-40')).toEqual([
-      'my-child-id',
-      'another-child-id',
-    ])
+    expect(bubble.childIdsInBubble('week-40')).toEqual(['child-1', 'child-2'])
     expect(bubble.childIdsInBubble('week-42')).toEqual([])
   })
 

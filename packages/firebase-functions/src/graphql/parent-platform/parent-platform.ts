@@ -218,7 +218,7 @@ export class ParentPlatform {
     return bubbles.bubbles.map((bubble) => {
       return {
         name: bubble.name,
-        totalSpots: bubble.numChildren,
+        totalSpots: bubble.maxChildren,
       }
     })
   }

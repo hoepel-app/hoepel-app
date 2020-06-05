@@ -8,8 +8,13 @@ describe('FirestoreBubblesRepository', () => {
   let app: ReturnType<typeof firebase.initializeAdminApp> | undefined
 
   const exampleGroups = Bubbles.createEmpty('my-tenant-id')
-    .withBubbleAdded(Bubble.create('My bubble name', 40, []))
-    .withBubbleAdded(Bubble.create('Another bubble', 10, ['child-id-1']))
+    .withBubbleAdded(Bubble.create('My bubble name', 40))
+    .withBubbleAdded(
+      Bubble.create('Another bubble', 10).withChildAdded(
+        'week-40',
+        'child-id-1'
+      )
+    )
 
   beforeEach(() => {
     app = firebase.initializeAdminApp({ projectId: 'project-id' })

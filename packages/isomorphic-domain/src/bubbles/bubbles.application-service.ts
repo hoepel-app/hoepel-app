@@ -16,6 +16,7 @@ export class BubblesApplicationService {
   childrenForBubble(
     tenantId: string,
     bubbleName: string,
+    weekIdentifier: string,
     getManyChildrenByIds: (
       childIds: readonly string[]
     ) => Observable<readonly Child[]>
@@ -28,20 +29,29 @@ export class BubblesApplicationService {
           return of([])
         }
 
-        return getManyChildrenByIds(bubble.childIdsInBubble)
+        return getManyChildrenByIds(bubble.childIdsInBubble(weekIdentifier))
       })
     )
   }
 
-  bubbleForChild(tenantId: string, childId: string): Observable<Bubble | null> {
+  bubbleForChild(
+    tenantId: string,
+    weekIdentifier: string,
+    childId: string
+  ): Observable<Bubble | null> {
     return this.bubblesRepo
       .getForTenant(tenantId)
-      .pipe(map((bubbles) => bubbles.findBubbleChildIsAssignedTo(childId)))
+      .pipe(
+        map((bubbles) =>
+          bubbles.findBubbleChildIsAssignedTo(weekIdentifier, childId)
+        )
+      )
   }
 
   async addChildToBubble(
     tenantId: string,
     bubbleName: string,
+    weekIdentifier: string,
     childId: string
   ): Promise<CommandResult> {
     const bubbles = await this.findBubbles(tenantId).pipe(first()).toPromise()
@@ -53,8 +63,15 @@ export class BubblesApplicationService {
       }
     }
 
+    if (bubbles.childIsAssignedABubble(weekIdentifier, childId)) {
+      return {
+        status: 'rejected',
+        reason: 'Child is already assigned to a bubble',
+      }
+    }
+
     await this.bubblesRepo.put(
-      bubbles.withChildAddedToBubble(bubbleName, childId)
+      bubbles.withChildAddedToBubble(bubbleName, weekIdentifier, childId)
     )
 
     return { status: 'accepted' }
@@ -63,6 +80,7 @@ export class BubblesApplicationService {
   async removeChildFromBubble(
     tenantId: string,
     bubbleName: string,
+    weekIdentifier: string,
     childId: string
   ): Promise<CommandResult> {
     const bubbles = await this.findBubbles(tenantId).pipe(first()).toPromise()
@@ -75,7 +93,11 @@ export class BubblesApplicationService {
       }
     }
 
-    if (bubbles.findBubbleByName(bubbleName)?.includesChild(childId) !== true) {
+    if (
+      bubbles
+        .findBubbleByName(bubbleName)
+        ?.includesChild(weekIdentifier, childId) !== true
+    ) {
       return {
         status: 'rejected',
         reason: 'Can not remove child from bubble: child is not in bubble',
@@ -83,7 +105,7 @@ export class BubblesApplicationService {
     }
 
     await this.bubblesRepo.put(
-      bubbles.withChildRemovedFromBubble(bubbleName, childId)
+      bubbles.withChildRemovedFromBubble(bubbleName, weekIdentifier, childId)
     )
 
     return { status: 'accepted' }
@@ -101,7 +123,7 @@ export class BubblesApplicationService {
     }
 
     await this.bubblesRepo.put(
-      bubbles.withBubbleAdded(Bubble.create(bubbleName, maxChildren, []))
+      bubbles.withBubbleAdded(Bubble.create(bubbleName, maxChildren))
     )
 
     return { status: 'accepted' }
@@ -122,7 +144,7 @@ export class BubblesApplicationService {
       }
     }
 
-    if (bubble.numChildren !== 0) {
+    if (bubble.numChildrenTotal !== 0) {
       return {
         status: 'rejected',
         reason: 'Could not remove bubble as there are children attached to it',

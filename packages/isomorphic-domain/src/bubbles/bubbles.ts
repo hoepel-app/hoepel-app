@@ -97,7 +97,11 @@ export class Bubbles implements Aggregate {
     })
   }
 
-  withChildAddedToBubble(bubbleName: string, childId: string): Bubbles {
+  withChildAddedToBubble(
+    bubbleName: string,
+    weekIdentifier: string,
+    childId: string
+  ): Bubbles {
     const bubble = this.findBubbleByName(bubbleName)
 
     if (bubble == null) {
@@ -108,12 +112,16 @@ export class Bubbles implements Aggregate {
       ...this.toProps(),
       bubbles: [
         ...this.toProps().bubbles.filter((c) => c.name !== bubbleName),
-        bubble.withChildAdded(childId).toProps(),
+        bubble.withChildAdded(weekIdentifier, childId).toProps(),
       ],
     })
   }
 
-  withChildRemovedFromBubble(bubbleName: string, childId: string): Bubbles {
+  withChildRemovedFromBubble(
+    bubbleName: string,
+    weekIdentifier: string,
+    childId: string
+  ): Bubbles {
     const bubble = this.findBubbleByName(bubbleName)
 
     if (bubble == null) {
@@ -124,7 +132,7 @@ export class Bubbles implements Aggregate {
       ...this.toProps(),
       bubbles: [
         ...this.toProps().bubbles.filter((c) => c.name !== bubbleName),
-        bubble.withChildRemoved(childId).toProps(),
+        bubble.withChildRemoved(weekIdentifier, childId).toProps(),
       ],
     })
   }
@@ -133,12 +141,19 @@ export class Bubbles implements Aggregate {
     return this.bubbles.find((bubble) => bubble.name === name) ?? null
   }
 
-  findBubbleChildIsAssignedTo(childId: string): Bubble | null {
-    return this.bubbles.find((bubble) => bubble.includesChild(childId)) ?? null
+  findBubbleChildIsAssignedTo(
+    weekIdentifier: string,
+    childId: string
+  ): Bubble | null {
+    return (
+      this.bubbles.find((bubble) =>
+        bubble.includesChild(weekIdentifier, childId)
+      ) ?? null
+    )
   }
 
-  childIsAssignedABubble(childId: string): boolean {
-    return this.findBubbleChildIsAssignedTo(childId) != null
+  childIsAssignedABubble(weekIdentifier: string, childId: string): boolean {
+    return this.findBubbleChildIsAssignedTo(weekIdentifier, childId) != null
   }
 
   mayAddBubble(bubble: Bubble): boolean {
@@ -149,10 +164,36 @@ export class Bubbles implements Aggregate {
     return this.findBubbleByName(name) != null
   }
 
+  assignmentsForChild(
+    childId: string
+  ): readonly {
+    weekIdentifier: string
+    bubbleName: string
+  }[] {
+    return this.bubbles.reduce(
+      (acc, bubble) => [
+        ...acc,
+        ...bubble.weeksForChild(childId).map((weekIdentifier) => {
+          return {
+            weekIdentifier,
+            bubbleName: bubble.name,
+          }
+        }),
+      ],
+      [] as {
+        weekIdentifier: string
+        bubbleName: string
+      }[]
+    )
+  }
+
   /** Returns all children (represented by their id) already assigned to a bubble */
-  get allChildIdsAssignedToABubble(): ReadonlySet<string> {
+  allChildIdsAssignedToABubble(weekIdentifier: string): ReadonlySet<string> {
     return this.bubbles.reduce((set, bubble) => {
-      return new Set([...bubble.childIdsInBubble, ...set.values()])
+      return new Set([
+        ...bubble.childIdsInBubble(weekIdentifier),
+        ...set.values(),
+      ])
     }, new Set<string>())
   }
 }

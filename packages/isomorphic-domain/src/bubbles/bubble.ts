@@ -34,6 +34,20 @@ export class Bubble {
     return this.props.maxChildren
   }
 
+  get numChildrenTotal(): number {
+    return this.props.childAssignments.reduce(
+      (acc, curr) => new Set([...acc, ...curr.childIds]),
+      new Set<string>()
+    ).size
+  }
+
+  /** Returns the identifiers of the weeks a child is assigned to this bubble */
+  weeksForChild(childId: string): readonly string[] {
+    return this.props.childAssignments
+      .filter((ass) => ass.childIds.includes(childId))
+      .map((ass) => ass.weekIdentifier)
+  }
+
   childIdsInBubble(weekIdentifier: string): readonly string[] {
     return (
       this.props.childAssignments.find(
