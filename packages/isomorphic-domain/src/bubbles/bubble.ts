@@ -1,7 +1,10 @@
 export type BubbleProps = {
   readonly name: string
   readonly maxChildren: number
-  readonly childIds: readonly string[]
+  readonly childAssignments: readonly {
+    readonly weekIdentifier: string
+    readonly childIds: readonly string[]
+  }[]
 }
 
 export class Bubble {
@@ -15,15 +18,11 @@ export class Bubble {
     return this.props
   }
 
-  static create(
-    name: string,
-    maxChildren: number,
-    childIds: readonly string[]
-  ): Bubble {
+  static create(name: string, maxChildren: number): Bubble {
     return this.fromProps({
       maxChildren: Math.max(0, maxChildren),
       name,
-      childIds,
+      childAssignments: [],
     })
   }
 
@@ -35,24 +34,28 @@ export class Bubble {
     return this.props.maxChildren
   }
 
-  get childIdsInBubble(): readonly string[] {
-    return this.props.childIds
+  childIdsInBubble(weekIdentifier: string): readonly string[] {
+    return (
+      this.props.childAssignments.find(
+        (week) => week.weekIdentifier === weekIdentifier
+      )?.childIds ?? []
+    )
   }
 
-  get isEmpty(): boolean {
-    return this.childIdsInBubble.length === 0
+  isEmpty(weekIdentifier: string): boolean {
+    return this.childIdsInBubble(weekIdentifier).length === 0
   }
 
-  get isFull(): boolean {
-    return this.childIdsInBubble.length >= this.maxChildren
+  isFull(weekIdentifier: string): boolean {
+    return this.childIdsInBubble(weekIdentifier).length >= this.maxChildren
   }
 
-  get numChildren(): number {
-    return this.childIdsInBubble.length
+  numChildren(weekIdentifier: string): number {
+    return this.childIdsInBubble(weekIdentifier).length
   }
 
-  includesChild(childId: string): boolean {
-    return this.childIdsInBubble.includes(childId)
+  includesChild(weekIdentifier: string, childId: string): boolean {
+    return this.childIdsInBubble(weekIdentifier).includes(childId)
   }
 
   withName(name: string): Bubble {
@@ -69,22 +72,36 @@ export class Bubble {
     })
   }
 
-  withChildAdded(childId: string): Bubble {
+  withChildAdded(weekIdentifier: string, childId: string): Bubble {
     const childIds = [
-      ...this.childIdsInBubble.filter((id) => id !== childId),
+      ...this.childIdsInBubble(weekIdentifier).filter((id) => id !== childId),
       childId,
     ]
 
     return Bubble.fromProps({
       ...this.toProps(),
-      childIds,
+      childAssignments: [
+        ...this.toProps().childAssignments.filter(
+          (week) => week.weekIdentifier !== weekIdentifier
+        ),
+        { weekIdentifier, childIds },
+      ],
     })
   }
 
-  withChildRemoved(childId: string): Bubble {
+  withChildRemoved(weekIdentifier: string, childId: string): Bubble {
+    const childIds = this.childIdsInBubble(weekIdentifier).filter(
+      (id) => id !== childId
+    )
+
     return Bubble.fromProps({
       ...this.toProps(),
-      childIds: this.childIdsInBubble.filter((id) => id !== childId),
+      childAssignments: [
+        ...this.toProps().childAssignments.filter(
+          (week) => week.weekIdentifier !== weekIdentifier
+        ),
+        { weekIdentifier, childIds },
+      ],
     })
   }
 }
