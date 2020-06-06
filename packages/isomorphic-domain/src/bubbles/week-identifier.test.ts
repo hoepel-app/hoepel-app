@@ -15,6 +15,13 @@ describe('WeekIdentifier', () => {
     expect(weekId.value).toEqual('2020-23')
   })
 
+  it('can create a week identifier from string id', () => {
+    const date = DayDate.fromNative(new Date(1591430154000))
+    const weekId = WeekIdentifier.forDate(date)
+
+    expect(WeekIdentifier.fromWeekIdentifier(weekId.value)).toEqual(weekId)
+  })
+
   it('gives a range of day dates for a week', () => {
     const date = DayDate.fromNative(new Date(1591430154000))
     const weekId = WeekIdentifier.forDate(date)

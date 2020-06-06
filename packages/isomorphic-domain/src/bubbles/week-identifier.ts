@@ -35,6 +35,12 @@ export class WeekIdentifier {
     return new WeekIdentifier(day.year, getWeek(day.nativeDate))
   }
 
+  static fromWeekIdentifier(id: string): WeekIdentifier {
+    const split = id.split('-')
+
+    return new WeekIdentifier(parseInt(split[0], 10), parseInt(split[1], 10))
+  }
+
   static get allSummer2020(): readonly WeekIdentifier[] {
     return [
       new WeekIdentifier(2020, 27),
