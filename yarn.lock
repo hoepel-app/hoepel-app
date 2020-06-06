@@ -1414,10 +1414,10 @@
     lodash.camelcase "^4.3.0"
     protobufjs "^6.8.6"
 
-"@hoepel.app/types@^1.21.0":
-  version "1.21.0"
-  resolved "https://registry.npmjs.org/@hoepel.app/types/-/types-1.21.0.tgz#33e5e27f520fc70c05f0208557c5a0b05e9e58c5"
-  integrity sha512-buA+bkptrWzDoT34gf9M3EXyW9v6FvVU1OdMw5liNMxtVdpaXJK5W76i39HBn1S6OyLHKmmHpwMDNRKNjwDEPw==
+"@hoepel.app/types@^1.22.0":
+  version "1.22.0"
+  resolved "https://registry.npmjs.org/@hoepel.app/types/-/types-1.22.0.tgz#ba5b09c9bdd5fcf4c4523a178297a55d70e314b6"
+  integrity sha512-5LyZ0OkjMsf7aDnjxWUm6b0Q2ik8EZs8bU+ENSGElkJx+IpxmcspZ2cRFAYo1/N6/s05W4ruS89dZXSv6BsILA==
   dependencies:
     virginity-ts "^0.1.0"
 
@@ -5672,7 +5672,7 @@ date-and-time@^0.13.0:
   resolved "https://registry.npmjs.org/date-and-time/-/date-and-time-0.13.1.tgz#d12ba07ac840d5b112dc4c83f8a03e8a51f78dd6"
   integrity sha512-/Uge9DJAT+s+oAcDxtBhyR8+sKjUnZbYmyhbmWjTHNtX7B7oWD8YyYdeXcBRbwSj6hVvj+IQegJam7m7czhbFw==
 
-date-fns@^2.12.0, date-fns@^2.14.0:
+date-fns@^2.14.0:
   version "2.14.0"
   resolved "https://registry.npmjs.org/date-fns/-/date-fns-2.14.0.tgz#359a87a265bb34ef2e38f93ecf63ac453f9bc7ba"
   integrity sha512-1zD+68jhFgDIM0rF05rcwYO8cExdNqxjq4xP1QKM60Q45mnO6zaMWB4tOzrIr4M4GSLntsKeE4c9Bdl2jhL/yw==

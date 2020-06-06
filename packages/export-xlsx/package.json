@@ -11,7 +11,7 @@
   "dependencies": {
     "@hoepel.app/domain": "^0.3.59",
     "@hoepel.app/isomorphic-domain": "^0.3.59",
-    "@hoepel.app/types": "^1.21.0",
+    "@hoepel.app/types": "^1.22.0",
     "@types/lodash.groupby": "^4.6.6",
     "lodash.flatmap": "^4.5.0",
     "lodash.groupby": "^4.6.0",

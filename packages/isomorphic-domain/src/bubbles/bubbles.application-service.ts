@@ -5,6 +5,7 @@ import { map, first, flatMap } from 'rxjs/operators'
 import { Child } from '@hoepel.app/types'
 import { CommandResult } from '@hoepel.app/ddd-library'
 import { Bubble } from './bubble'
+import { WeekIdentifier } from './week-identifier'
 
 export class BubblesApplicationService {
   constructor(private readonly bubblesRepo: BubblesRepository) {}
@@ -16,7 +17,7 @@ export class BubblesApplicationService {
   childrenForBubble(
     tenantId: string,
     bubbleName: string,
-    weekIdentifier: string,
+    weekIdentifier: WeekIdentifier,
     getManyChildrenByIds: (
       childIds: readonly string[]
     ) => Observable<readonly Child[]>
@@ -29,21 +30,23 @@ export class BubblesApplicationService {
           return of([])
         }
 
-        return getManyChildrenByIds(bubble.childIdsInBubble(weekIdentifier))
+        return getManyChildrenByIds(
+          bubble.childIdsInBubble(weekIdentifier.value)
+        )
       })
     )
   }
 
   bubbleForChild(
     tenantId: string,
-    weekIdentifier: string,
+    weekIdentifier: WeekIdentifier,
     childId: string
   ): Observable<Bubble | null> {
     return this.bubblesRepo
       .getForTenant(tenantId)
       .pipe(
         map((bubbles) =>
-          bubbles.findBubbleChildIsAssignedTo(weekIdentifier, childId)
+          bubbles.findBubbleChildIsAssignedTo(weekIdentifier.value, childId)
         )
       )
   }
@@ -51,7 +54,7 @@ export class BubblesApplicationService {
   async addChildToBubble(
     tenantId: string,
     bubbleName: string,
-    weekIdentifier: string,
+    weekIdentifier: WeekIdentifier,
     childId: string
   ): Promise<CommandResult> {
     const bubbles = await this.findBubbles(tenantId).pipe(first()).toPromise()
@@ -63,7 +66,7 @@ export class BubblesApplicationService {
       }
     }
 
-    if (bubbles.childIsAssignedABubble(weekIdentifier, childId)) {
+    if (bubbles.childIsAssignedABubble(weekIdentifier.value, childId)) {
       return {
         status: 'rejected',
         reason: 'Child is already assigned to a bubble',
@@ -71,7 +74,7 @@ export class BubblesApplicationService {
     }
 
     await this.bubblesRepo.put(
-      bubbles.withChildAddedToBubble(bubbleName, weekIdentifier, childId)
+      bubbles.withChildAddedToBubble(bubbleName, weekIdentifier.value, childId)
     )
 
     return { status: 'accepted' }
@@ -80,7 +83,7 @@ export class BubblesApplicationService {
   async removeChildFromBubble(
     tenantId: string,
     bubbleName: string,
-    weekIdentifier: string,
+    weekIdentifier: WeekIdentifier,
     childId: string
   ): Promise<CommandResult> {
     const bubbles = await this.findBubbles(tenantId).pipe(first()).toPromise()
@@ -96,7 +99,7 @@ export class BubblesApplicationService {
     if (
       bubbles
         .findBubbleByName(bubbleName)
-        ?.includesChild(weekIdentifier, childId) !== true
+        ?.includesChild(weekIdentifier.value, childId) !== true
     ) {
       return {
         status: 'rejected',
@@ -105,7 +108,11 @@ export class BubblesApplicationService {
     }
 
     await this.bubblesRepo.put(
-      bubbles.withChildRemovedFromBubble(bubbleName, weekIdentifier, childId)
+      bubbles.withChildRemovedFromBubble(
+        bubbleName,
+        weekIdentifier.value,
+        childId
+      )
     )
 
     return { status: 'accepted' }

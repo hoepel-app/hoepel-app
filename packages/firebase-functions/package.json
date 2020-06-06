@@ -22,7 +22,7 @@
     "@hoepel.app/isomorphic-data": "^0.3.67",
     "@hoepel.app/isomorphic-domain": "^0.3.59",
     "@hoepel.app/old-events": "^0.3.59",
-    "@hoepel.app/types": "^1.21.0",
+    "@hoepel.app/types": "^1.22.0",
     "@sentry/node": "^5.10.1",
     "apollo-server-express": "^2.10.1",
     "cors": "^2.8.5",
