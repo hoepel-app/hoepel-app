@@ -149,8 +149,8 @@ export class ParentPlatform {
           year,
           organisationId,
           weekDescription: weekDescription(weekNumber, year),
-          days: Object.entries(groupBy(shifts, (shift) => shift.date.id)).map(
-            ([dayId, shifts]) => {
+          days: Object.entries(groupBy(shifts, (shift) => shift.date.id))
+            .map(([dayId, shifts]) => {
               const dayFormatted = capitalizeFirstLetter(
                 format(DayDate.fromDayId(dayId).nativeDate, 'EEEE d MMMM', {
                   locale,
@@ -176,8 +176,8 @@ export class ParentPlatform {
                   }
                 }),
               }
-            }
-          ),
+            })
+            .sort((a, b) => a.day.compareTo(b.day)),
         }
       })
       .sort((a, b) => b.weekNumber - a.weekNumber)
