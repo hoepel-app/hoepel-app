@@ -301,4 +301,27 @@ export class ParentPlatform {
       attendanceIntention
     )
   }
+
+  static async unregisterPendingChildAttendanceIntentionFromParentPlatform(
+    organisationId: string,
+    parentUid: string,
+    childId: string,
+    week: WeekIdentifier
+  ): Promise<void> {
+    // Check if parent manages child
+    const managedByParent = await ParentPlatform.childrenManagedByMe(
+      parentUid,
+      organisationId
+    )
+
+    if (!managedByParent.map((child) => child.id).includes(childId)) {
+      throw new Error(`Parent ${parentUid} can not acces child ${childId}`)
+    }
+
+    await attendanceIntentionService.unregisterPendingChildAttendanceIntentionForWeek(
+      organisationId,
+      childId,
+      week
+    )
+  }
 }

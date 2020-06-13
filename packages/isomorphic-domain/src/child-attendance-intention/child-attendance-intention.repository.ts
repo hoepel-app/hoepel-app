@@ -17,4 +17,5 @@ export type ChildAttendanceIntentionRepository = {
     week: WeekIdentifier
   ): Observable<ChildAttendanceIntention | null>
   put(entity: ChildAttendanceIntention): Promise<void>
+  remove(tenantId: string, childId: string, week: WeekIdentifier): Promise<void>
 }

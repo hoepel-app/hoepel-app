@@ -4,7 +4,7 @@ import {
   ChildAttendanceIntentionProps,
   WeekIdentifier,
 } from '@hoepel.app/isomorphic-domain'
-import { collection, upset, query, where, get } from 'typesaurus'
+import { remove, collection, upset, query, where, get } from 'typesaurus'
 import { Observable, from } from 'rxjs'
 import { map } from 'rxjs/operators'
 
@@ -74,5 +74,16 @@ export class FirestoreChildAttendanceIntentionRepository
 
   put(entity: ChildAttendanceIntention): Promise<void> {
     return upset(this.collection, entity.id, entity.toProps())
+  }
+
+  async remove(
+    tenantId: string,
+    childId: string,
+    week: WeekIdentifier
+  ): Promise<void> {
+    await remove(
+      this.collection,
+      `${tenantId}-${childId}-${week.year}-${week.weekNumber}`
+    )
   }
 }

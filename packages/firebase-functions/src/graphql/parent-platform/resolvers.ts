@@ -150,5 +150,24 @@ export const resolvers: IResolvers = {
         }
       )
     },
+    unregisterPendingChildAttendanceIntentionFromParentPlatform: async (
+      parent,
+      args: {
+        organisationId: string
+        childId: string
+        weekNumber: number
+        year: number
+      },
+      context: Context
+    ) => {
+      AuthorizationService.assertLoggedInParentPlatform(context)
+
+      await ParentPlatform.unregisterPendingChildAttendanceIntentionFromParentPlatform(
+        args.organisationId,
+        context.user.uid,
+        args.childId,
+        new WeekIdentifier(args.year, args.weekNumber)
+      )
+    },
   },
 }

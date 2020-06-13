@@ -104,5 +104,12 @@ export const typeDef = gql`
       year: Int!
       shifts: [ID!]!
     ): String
+
+    unregisterPendingChildAttendanceIntentionFromParentPlatform(
+      organisationId: ID!
+      childId: ID!
+      weekNumber: Int!
+      year: Int!
+    ): String
   }
 `

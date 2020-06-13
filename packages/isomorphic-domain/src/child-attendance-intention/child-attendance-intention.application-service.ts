@@ -56,6 +56,37 @@ export class ChildAttendanceIntentionApplicationService {
     }
   }
 
+  async unregisterPendingChildAttendanceIntentionForWeek(
+    tenantId: string,
+    childId: string,
+    week: WeekIdentifier
+  ): Promise<CommandResult> {
+    const attendanceForWeek = await this.repo
+      .findForChildInWeek(tenantId, childId, week)
+      .pipe(first())
+      .toPromise()
+
+    if (attendanceForWeek == null) {
+      return {
+        status: 'rejected',
+        reason: 'Not registered for this week',
+      }
+    }
+
+    if (attendanceForWeek.status !== 'pending') {
+      return {
+        status: 'rejected',
+        reason: 'This attendance intention is not in the pending state',
+      }
+    }
+
+    await this.repo.remove(tenantId, childId, week)
+
+    return {
+      status: 'accepted',
+    }
+  }
+
   async approveChildAttendanceIntentionForWeek(
     tenantId: string,
     intentionId: string,
