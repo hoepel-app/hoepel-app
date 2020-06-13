@@ -56,7 +56,7 @@ export const typeDef = gql`
   }
 
   enum ChildAttendanceIntentionStatus {
-    new
+    pending
     rejected
     accepted
   }
