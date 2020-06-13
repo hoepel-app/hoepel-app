@@ -15,6 +15,14 @@ export class ChildAttendanceIntentionApplicationService {
     return this.repo.findForChild(tenantId, childId)
   }
 
+  getAttendanceIntentionsForChildInWeek(
+    tenantId: string,
+    childId: string,
+    week: WeekIdentifier
+  ): Observable<ChildAttendanceIntention | null> {
+    return this.repo.findForChildInWeek(tenantId, childId, week)
+  }
+
   getAttendanceIntentionsForWeek(
     tenantId: string,
     weekIdentifier: WeekIdentifier

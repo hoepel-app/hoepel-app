@@ -83,6 +83,17 @@ export class ChildAttendanceIntention implements Aggregate {
     return new Date(this.props.edited)
   }
 
+  get status(): 'new' | 'rejected' | 'accepted' {
+    return this.props.status
+  }
+
+  get shifts(): readonly {
+    readonly id: string
+    readonly didAttend: boolean
+  }[] {
+    return this.props.shifts
+  }
+
   get weekStart(): DayDate {
     const dateZero = new Date(0)
     const date = startOfWeek(

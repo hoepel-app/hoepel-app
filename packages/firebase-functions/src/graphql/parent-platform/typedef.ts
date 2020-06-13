@@ -55,12 +55,30 @@ export const typeDef = gql`
     totalSpots: Int!
   }
 
+  enum ChildAttendanceIntentionStatus {
+    new
+    rejected
+    accepted
+  }
+
+  type ChildAttendanceIntentionShift {
+    id: ID!
+  }
+
+  type ChildAttendanceIntentionForWeek {
+    childId: ID!
+    status: ChildAttendanceIntentionStatus!
+    preferredBubbleName: String
+    shifts: [ChildAttendanceIntentionShift!]!
+  }
+
   type ShiftsGroupedByWeek {
     weekNumber: Int!
     year: Int!
     weekDescription: String!
     possibleBubbles: [SelectableBubbleForWeek!]!
     days: [DayWithShiftsChildrenCanAttend!]!
+    attendanceIntentionsForChild(childId: ID!): ChildAttendanceIntentionForWeek
   }
 
   type ParentPlatform {

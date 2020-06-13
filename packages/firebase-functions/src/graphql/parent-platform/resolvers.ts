@@ -8,6 +8,7 @@ import {
   WeekIdentifier,
 } from '@hoepel.app/isomorphic-domain'
 import { id } from 'typesaurus'
+import { ShiftsGroupedByWeek } from './shifts-grouped-by-week'
 
 type RegisterChildInput = {
   organisationId: string
@@ -83,6 +84,24 @@ export const resolvers: IResolvers = {
         parent.organisationId,
         parent.year,
         parent.weekNumber
+      )
+    },
+    attendanceIntentionsForChild: async (
+      parent: {
+        organisationId: string
+        year: number
+        weekNumber: number
+      },
+      { childId }: { childId: string },
+      context: Context
+    ) => {
+      AuthorizationService.assertLoggedInParentPlatform(context)
+
+      return ShiftsGroupedByWeek.attendanceIntentionsForChild(
+        parent.organisationId,
+        new WeekIdentifier(parent.year, parent.weekNumber),
+        childId,
+        context.user.uid
       )
     },
   },
