@@ -187,7 +187,7 @@ export class ParentPlatform {
             .sort((a, b) => a.day.compareTo(b.day)),
         }
       })
-      .sort((a, b) => b.weekNumber - a.weekNumber)
+      .sort((a, b) => a.weekNumber - b.weekNumber)
   }
 
   static async registerChildFromParentPlatform(
