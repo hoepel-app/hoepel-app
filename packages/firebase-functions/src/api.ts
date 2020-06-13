@@ -25,7 +25,7 @@ app.use(Sentry.Handlers.requestHandler())
 app.use(logRequestStart)
 
 // Automatically allow cross-origin requests
-app.use(cors({ origin: true }))
+app.use(cors({ origin: true, maxAge: 3600 }))
 
 // Mount routes
 app.use('/user', userRouter)
