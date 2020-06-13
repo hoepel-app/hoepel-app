@@ -47,7 +47,7 @@ const weekDescription = (weekNumber: number, year: number): string => {
     locale,
   })
 
-  const weekStart = format(startOfWeek(week, { locale }), 'd', { locale })
+  const weekStart = format(startOfWeek(week, { locale }), 'd MMMM', { locale })
   const weekEnd = format(lastDayOfWeek(week, { locale }), 'd MMMM', {
     locale,
   })
