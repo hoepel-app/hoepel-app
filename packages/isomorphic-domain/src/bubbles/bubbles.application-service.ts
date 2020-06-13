@@ -5,7 +5,7 @@ import { map, first, flatMap } from 'rxjs/operators'
 import { Child } from '@hoepel.app/types'
 import { CommandResult } from '@hoepel.app/ddd-library'
 import { Bubble } from './bubble'
-import { WeekIdentifier } from './week-identifier'
+import { WeekIdentifier } from '../week-identifier/week-identifier'
 
 export class BubblesApplicationService {
   constructor(private readonly bubblesRepo: BubblesRepository) {}

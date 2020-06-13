@@ -3,7 +3,10 @@ import { Context } from '../index'
 import { ParentPlatform } from './parent-platform'
 import { AuthorizationService } from '../authorization-service'
 import { DayDate } from '@hoepel.app/types'
-import { ChildOnRegistrationWaitingList } from '@hoepel.app/isomorphic-domain'
+import {
+  ChildOnRegistrationWaitingList,
+  WeekIdentifier,
+} from '@hoepel.app/isomorphic-domain'
 import { id } from 'typesaurus'
 
 type RegisterChildInput = {
@@ -27,6 +30,15 @@ type RegisterChildInput = {
     remarks: string
     uitpasNumber?: string
   }
+}
+
+type ChildAttendanceIntentionInput = {
+  organisationId: string
+  childId: string
+  preferredBubbleName?: string
+  weekNumber: number
+  year: number
+  shifts: readonly string[]
 }
 
 export const resolvers: IResolvers = {
@@ -93,6 +105,31 @@ export const resolvers: IResolvers = {
       })
 
       await ParentPlatform.registerChildFromParentPlatform(child)
+    },
+    registerChildAttendanceIntentionFromParentPlatform: async (
+      parent,
+      {
+        organisationId,
+        childId,
+        shifts,
+        weekNumber,
+        year,
+        preferredBubbleName,
+      }: ChildAttendanceIntentionInput,
+      context: Context
+    ) => {
+      AuthorizationService.assertLoggedInParentPlatform(context)
+
+      await ParentPlatform.registerChildAttendanceIntentionFromParentPlatform(
+        organisationId,
+        context.user.uid,
+        {
+          childId,
+          preferredBubbleName: preferredBubbleName || null,
+          shifts,
+          week: new WeekIdentifier(year, weekNumber),
+        }
+      )
     },
   },
 }

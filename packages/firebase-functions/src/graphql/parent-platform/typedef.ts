@@ -77,5 +77,14 @@ export const typeDef = gql`
       organisationId: ID!
       newChild: ChildManagedByParentInput
     ): String
+
+    registerChildAttendanceIntentionFromParentPlatform(
+      organisationId: ID!
+      childId: ID!
+      preferredBubbleName: String
+      weekNumber: Int!
+      year: Int!
+      shifts: [ID!]!
+    ): String
   }
 `

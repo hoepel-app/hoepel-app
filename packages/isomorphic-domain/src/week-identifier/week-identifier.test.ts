@@ -8,8 +8,8 @@ describe('WeekIdentifier', () => {
 
     expect(weekId).toMatchInlineSnapshot(`
       WeekIdentifier {
-        "weekNumber": 23,
-        "year": 2020,
+        "_weekNumber": 23,
+        "_year": 2020,
       }
     `)
     expect(weekId.value).toEqual('2020-23')

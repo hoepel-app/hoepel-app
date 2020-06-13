@@ -5,11 +5,15 @@ import {
   ChildOnRegistrationWaitingList,
   ChildRegistrationWaitingListApplicationService,
   BubblesApplicationService,
+  ChildAttendanceIntention,
+  WeekIdentifier,
+  ChildAttendanceIntentionApplicationService,
 } from '@hoepel.app/isomorphic-domain'
 import {
   FirestoreChildRegistrationWaitingListRepository,
   FirestoreShiftRepository,
   FirestoreBubblesRepository,
+  FirestoreChildAttendanceIntentionRepository,
 } from '@hoepel.app/isomorphic-data'
 import { first } from 'rxjs/operators'
 import { groupBy } from 'lodash'
@@ -33,6 +37,9 @@ const bubblesService = new BubblesApplicationService(
 )
 const waitingListService = new ChildRegistrationWaitingListApplicationService(
   new FirestoreChildRegistrationWaitingListRepository()
+)
+const attendanceIntentionService = new ChildAttendanceIntentionApplicationService(
+  new FirestoreChildAttendanceIntentionRepository()
 )
 
 const weekDescription = (weekNumber: number, year: number): string => {
@@ -221,5 +228,77 @@ export class ParentPlatform {
         totalSpots: bubble.maxChildren,
       }
     })
+  }
+
+  static async registerChildAttendanceIntentionFromParentPlatform(
+    organisationId: string,
+    parentUid: string,
+    {
+      childId,
+      preferredBubbleName,
+      week,
+      shifts: shiftIds,
+    }: {
+      childId: string
+      preferredBubbleName: string | null
+      week: WeekIdentifier
+      shifts: readonly string[]
+    }
+  ): Promise<void> {
+    // First check if organisation accepts external registrations
+    const tenant = await tenantRepo.get(organisationId)
+
+    if (tenant.enableOnlineEnrollment !== true) {
+      throw new Error(
+        `Organisation '${organisationId}' does not accept online registrations`
+      )
+    }
+
+    // Check if parent manages child
+    const managedByParent = await ParentPlatform.childrenManagedByMe(
+      parentUid,
+      organisationId
+    )
+
+    if (!managedByParent.map((child) => child.id).includes(childId)) {
+      throw new Error(`Parent ${parentUid} can not acces child ${childId}`)
+    }
+
+    // Verify shifts
+    const shifts = await shiftRepo
+      .findMany(organisationId, shiftIds)
+      .pipe(first())
+      .toPromise()
+
+    if (shifts.length !== shiftIds.length) {
+      throw new Error(
+        'Could not find all shifts - they may not exist or be assigned to a different tenant'
+      )
+    }
+
+    const shiftsNotInWeek = shifts
+      .filter((shift) => !week.belongsToThisWeek(shift.date))
+      .map((shift) => shift.id)
+    if (shiftsNotInWeek.length > 0) {
+      throw new Error(
+        `The following shifts are not in week ${
+          week.value
+        }: ${shiftsNotInWeek.join(', ')}`
+      )
+    }
+
+    const attendanceIntention = ChildAttendanceIntention.create(
+      organisationId,
+      childId,
+      preferredBubbleName || null,
+      week.year,
+      week.weekNumber,
+      shiftIds,
+      new Date()
+    )
+
+    await attendanceIntentionService.registerChildAttendanceIntentionForWeek(
+      attendanceIntention
+    )
   }
 }

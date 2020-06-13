@@ -2,9 +2,9 @@ import { DayDateRange, DayDate } from '@hoepel.app/types'
 import { getWeek, startOfWeek, endOfWeek, setWeek, setYear } from 'date-fns'
 
 export class WeekIdentifier {
-  private constructor(
-    private readonly year: number,
-    private readonly weekNumber: number
+  constructor(
+    private readonly _year: number,
+    private readonly _weekNumber: number
   ) {}
 
   get value(): string {
@@ -27,8 +27,20 @@ export class WeekIdentifier {
     })
   }
 
+  get year(): number {
+    return this._year
+  }
+
+  get weekNumber(): number {
+    return this._weekNumber
+  }
+
   belongsToThisWeek(date: DayDate): boolean {
     return this.range.containsInclusive(date)
+  }
+
+  equals(other: WeekIdentifier): boolean {
+    return this.value === other.value
   }
 
   static forDate(day: DayDate): WeekIdentifier {

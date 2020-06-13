@@ -4,3 +4,4 @@ export { FirestoreConsumablesRepository } from './consumables/firestore-consumab
 export { FirestoreShiftPresetsRepository } from './shift-presets/firestore-shift-presets-repository'
 export { FirestoreShiftRepository } from './shift/firestore-shift-repository'
 export { FirestoreBubblesRepository } from './bubbles/firestore-bubbles-repository'
+export { FirestoreChildAttendanceIntentionRepository } from './child-attendance-intention/firestore-child-attendance-intention.repository'
