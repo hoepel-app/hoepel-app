@@ -5,7 +5,7 @@
   "license": "GPL-3.0-or-later",
   "devDependencies": {
     "@firebase/testing": "^0.20.0",
-    "@types/jest": "^25.2.1",
+    "@types/jest": "^26.0.0",
     "jest": "^25.0.1",
     "typescript": "^3.7.2"
   },

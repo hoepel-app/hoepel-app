@@ -4,7 +4,7 @@
   "main": "dist/index.js",
   "license": "GPL-3.0-or-later",
   "devDependencies": {
-    "@types/jest": "^25.2.1",
+    "@types/jest": "^26.0.0",
     "jest": "^26.0.1",
     "typescript": "^3.7.2"
   },
