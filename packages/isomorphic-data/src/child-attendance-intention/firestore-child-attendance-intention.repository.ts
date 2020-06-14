@@ -20,7 +20,7 @@ export class FirestoreChildAttendanceIntentionRepository
   ): Observable<ChildAttendanceIntention[]> {
     return from(
       query(this.collection, [
-        where('tenantId', '==', tenantId),
+        where('tenant', '==', tenantId),
         where('year', '==', week.year),
         where('weekNumber', '==', week.weekNumber),
       ])
@@ -39,7 +39,7 @@ export class FirestoreChildAttendanceIntentionRepository
   ): Observable<ChildAttendanceIntention[]> {
     return from(
       query(this.collection, [
-        where('tenantId', '==', tenantId),
+        where('tenant', '==', tenantId),
         where('childId', '==', childId),
       ])
     ).pipe(

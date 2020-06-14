@@ -4,7 +4,7 @@ import { DayDate } from '@hoepel.app/types'
 import { WeekIdentifier } from '../week-identifier'
 
 export type ChildAttendanceIntentionProps = {
-  readonly tenantId: string
+  readonly tenant: string
   readonly childId: string
   readonly created: number
   readonly edited: number | null
@@ -46,7 +46,7 @@ export class ChildAttendanceIntention implements Aggregate {
     created: Date
   ): ChildAttendanceIntention {
     return new ChildAttendanceIntention({
-      tenantId,
+      tenant: tenantId,
       childId,
       preferredBubbleName,
       created: created.getTime(),
@@ -114,7 +114,7 @@ export class ChildAttendanceIntention implements Aggregate {
   }
 
   get tenantId(): string {
-    return this.props.tenantId
+    return this.props.tenant
   }
 
   get childId(): string {
