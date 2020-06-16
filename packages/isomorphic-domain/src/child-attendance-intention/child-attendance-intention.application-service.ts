@@ -87,6 +87,41 @@ export class ChildAttendanceIntentionApplicationService {
     }
   }
 
+  /**
+   * After moving a child from the registration waiting list, call this method to move attendance intentions
+   *
+   * Does nothing when child is not on registration waiting list
+   */
+  async moveChildFromRegistrationWaitingList(
+    tenantId: string,
+    childOnRegistrationWaitingListId: string,
+    newChildId: string
+  ): Promise<void> {
+    const attendances = (
+      await this.getAttendanceIntentionsForChild(
+        tenantId,
+        childOnRegistrationWaitingListId
+      )
+        .pipe(first())
+        .toPromise()
+    ).filter((att) => att.status === 'child-on-registration-waiting-list')
+
+    if (attendances.length === 0) {
+      return
+    }
+
+    await Promise.all(
+      attendances.map(async (att) => {
+        await this.repo.remove(
+          tenantId,
+          childOnRegistrationWaitingListId,
+          att.weekIdentifier
+        )
+        await this.repo.put(att.withStatus('pending').withChildId(newChildId))
+      })
+    )
+  }
+
   async approveChildAttendanceIntentionForWeek(
     tenantId: string,
     intentionId: string,

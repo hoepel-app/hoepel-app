@@ -96,6 +96,26 @@ export class ChildAttendanceIntention implements Aggregate {
     return this.props.status
   }
 
+  withStatus(
+    status:
+      | 'pending'
+      | 'rejected'
+      | 'accepted'
+      | 'child-on-registration-waiting-list'
+  ): ChildAttendanceIntention {
+    return ChildAttendanceIntention.fromProps({
+      ...this.toProps(),
+      status,
+    })
+  }
+
+  withChildId(childId: string): ChildAttendanceIntention {
+    return ChildAttendanceIntention.fromProps({
+      ...this.toProps(),
+      childId,
+    })
+  }
+
   get shifts(): readonly {
     readonly id: string
     readonly didAttend: boolean
