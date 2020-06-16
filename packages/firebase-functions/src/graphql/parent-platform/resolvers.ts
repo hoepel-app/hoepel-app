@@ -105,11 +105,13 @@ export const resolvers: IResolvers = {
       )
 
       if (attendance == null) {
-        return attendance
+        return null
       } else {
         return {
-          ...attendance,
+          childId: attendance.childId,
+          preferredBubbleName: attendance.preferredBubbleName,
           status: attendance.status.replace(/\-/g, '_'),
+          shifts: attendance.shifts,
         }
       }
     },
