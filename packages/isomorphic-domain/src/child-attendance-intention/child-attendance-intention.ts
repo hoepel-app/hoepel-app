@@ -8,7 +8,11 @@ export type ChildAttendanceIntentionProps = {
   readonly childId: string
   readonly created: number
   readonly edited: number | null
-  readonly status: 'pending' | 'rejected' | 'accepted'
+  readonly status:
+    | 'pending'
+    | 'rejected'
+    | 'accepted'
+    | 'child-on-registration-waiting-list'
   readonly preferredBubbleName: string | null
   readonly year: number
   readonly weekNumber: number
@@ -43,14 +47,15 @@ export class ChildAttendanceIntention implements Aggregate {
     year: number,
     weekNumber: number,
     shiftIds: readonly string[],
-    created: Date
+    created: Date,
+    status: 'pending' | 'child-on-registration-waiting-list' = 'pending'
   ): ChildAttendanceIntention {
     return new ChildAttendanceIntention({
       tenant: tenantId,
       childId,
       preferredBubbleName,
       created: created.getTime(),
-      status: 'pending',
+      status,
       edited: null,
       year,
       weekNumber,
@@ -83,7 +88,11 @@ export class ChildAttendanceIntention implements Aggregate {
     return new Date(this.props.edited)
   }
 
-  get status(): 'pending' | 'rejected' | 'accepted' {
+  get status():
+    | 'pending'
+    | 'rejected'
+    | 'accepted'
+    | 'child-on-registration-waiting-list' {
     return this.props.status
   }
 

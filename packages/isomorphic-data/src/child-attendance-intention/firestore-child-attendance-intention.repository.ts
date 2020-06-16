@@ -33,6 +33,25 @@ export class FirestoreChildAttendanceIntentionRepository
     )
   }
 
+  findForChildOnRegistrationWaitingList(
+    tenantId: string,
+    childId: string
+  ): Observable<ChildAttendanceIntention[]> {
+    return from(
+      query(this.collection, [
+        where('tenant', '==', tenantId),
+        where('childId', '==', childId),
+        where('status', '==', 'child-on-registration-waiting-list'),
+      ])
+    ).pipe(
+      map((data) => {
+        return data.map((props) =>
+          ChildAttendanceIntention.fromProps(props.data)
+        )
+      })
+    )
+  }
+
   findForChild(
     tenantId: string,
     childId: string

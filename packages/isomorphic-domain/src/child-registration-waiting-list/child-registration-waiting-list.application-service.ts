@@ -10,6 +10,13 @@ export class ChildRegistrationWaitingListApplicationService {
     return this.repo.getAll(tenantId).pipe(map((list) => list.length))
   }
 
+  isOnRegistrationWaitingList(
+    tenantId: string,
+    childId: string
+  ): Observable<boolean> {
+    return this.repo.getById(tenantId, childId).pipe(map((c) => c !== null))
+  }
+
   childrenOnWaitingList(
     tenantId: string
   ): Observable<readonly ChildOnRegistrationWaitingList[]> {

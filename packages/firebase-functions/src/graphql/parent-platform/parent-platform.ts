@@ -276,6 +276,11 @@ export class ParentPlatform {
       )
     }
 
+    const onRegistrationWaitingList = await waitingListService
+      .isOnRegistrationWaitingList(organisationId, childId)
+      .pipe(first())
+      .toPromise()
+
     const shiftsNotInWeek = shifts
       .filter((shift) => !week.belongsToThisWeek(shift.date))
       .map((shift) => shift.id)
@@ -294,7 +299,10 @@ export class ParentPlatform {
       week.year,
       week.weekNumber,
       shiftIds,
-      new Date()
+      new Date(),
+      onRegistrationWaitingList
+        ? 'child-on-registration-waiting-list'
+        : 'pending'
     )
 
     await attendanceIntentionService.registerChildAttendanceIntentionForWeek(
