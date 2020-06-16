@@ -59,6 +59,7 @@ export const typeDef = gql`
     pending
     rejected
     accepted
+    child_on_registration_waiting_list
   }
 
   type ChildAttendanceIntentionShift {

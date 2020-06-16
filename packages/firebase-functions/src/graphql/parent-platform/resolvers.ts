@@ -97,12 +97,21 @@ export const resolvers: IResolvers = {
     ) => {
       AuthorizationService.assertLoggedInParentPlatform(context)
 
-      return ShiftsGroupedByWeek.attendanceIntentionsForChild(
+      const attendance = await ShiftsGroupedByWeek.attendanceIntentionsForChild(
         parent.organisationId,
         new WeekIdentifier(parent.year, parent.weekNumber),
         childId,
         context.user.uid
       )
+
+      if (attendance == null) {
+        return attendance
+      } else {
+        return {
+          ...attendance,
+          status: attendance.status.replace(/\-/g, '_'),
+        }
+      }
     },
   },
   Mutation: {
