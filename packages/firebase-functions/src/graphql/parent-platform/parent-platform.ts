@@ -168,7 +168,7 @@ export class ParentPlatform {
               return {
                 day: DayDate.fromDayId(dayId),
                 dayFormatted,
-                shifts: Shift.sorted(shifts).map((shift) => {
+                shifts: [...Shift.sorted(shifts)].reverse().map((shift) => {
                   return {
                     id: shift.id,
                     description: shift.description,
