@@ -38,7 +38,7 @@ export class ParentPlatformAuthServiceImpl {
       }
     } catch (err) {
       console.error(
-        'Error while getting parent details from parent details project',
+        'Error while getting parent details from parent platform project',
         err
       )
       return null

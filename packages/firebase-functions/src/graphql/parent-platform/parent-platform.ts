@@ -8,6 +8,7 @@ import {
   ChildAttendanceIntention,
   WeekIdentifier,
   ChildAttendanceIntentionApplicationService,
+  Shift,
 } from '@hoepel.app/isomorphic-domain'
 import {
   FirestoreChildRegistrationWaitingListRepository,
@@ -167,7 +168,7 @@ export class ParentPlatform {
               return {
                 day: DayDate.fromDayId(dayId),
                 dayFormatted,
-                shifts: shifts.map((shift) => {
+                shifts: Shift.sorted(shifts).map((shift) => {
                   return {
                     id: shift.id,
                     description: shift.description,
