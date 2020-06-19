@@ -295,6 +295,24 @@ Object {
           "width": 25,
         },
         Object {
+          "title": "Geregistreerd door",
+          "values": Array [
+            "",
+            "",
+            "My display name",
+          ],
+          "width": 25,
+        },
+        Object {
+          "title": "Geregistreerd door (emailadres)",
+          "values": Array [
+            "",
+            "test@email.com",
+            "my@email.com",
+          ],
+          "width": 25,
+        },
+        Object {
           "title": "Emailadres",
           "values": Array [
             "aoeu@test.com, test@hello.com",
@@ -417,6 +435,20 @@ Object {
           "title": "Telefoonnummer",
           "values": Array [
             "+1111, +2222 (comment)",
+          ],
+          "width": 25,
+        },
+        Object {
+          "title": "Geregistreerd door",
+          "values": Array [
+            "Name",
+          ],
+          "width": 25,
+        },
+        Object {
+          "title": "Geregistreerd door (emailadres)",
+          "values": Array [
+            "test@mail.com",
           ],
           "width": 25,
         },

@@ -19,7 +19,12 @@ import groupBy from 'lodash.groupby'
 import flatMap from 'lodash.flatmap'
 
 export class XlsxExporter {
-  createChildList(list: ReadonlyArray<IChild>): SpreadsheetData {
+  createChildList(
+    list: readonly {
+      child: IChild
+      parent: null | { displayName: string | null; email: string }
+    }[]
+  ): SpreadsheetData {
     return {
       worksheets: [
         {
@@ -27,25 +32,25 @@ export class XlsxExporter {
           columns: [
             {
               title: 'Voornaam',
-              values: list.map((row) => row.firstName),
+              values: list.map(({ child }) => child.firstName),
               width: 20,
             },
             {
               title: 'Familienaam',
-              values: list.map((row) => row.lastName),
+              values: list.map(({ child }) => child.lastName),
               width: 25,
             },
             {
               title: 'Geboortedatum',
-              values: list.map((row) =>
-                row.birthDate ? new DayDate(row.birthDate) : undefined
+              values: list.map(({ child }) =>
+                child.birthDate ? new DayDate(child.birthDate) : undefined
               ),
               width: 15,
             },
             {
               title: 'Telefoonnummer',
-              values: list.map((row) => {
-                return row.phone
+              values: list.map(({ child }) => {
+                return child.phone
                   .map(
                     (p) => p.phoneNumber + (p.comment ? ` (${p.comment})` : '')
                   )
@@ -54,19 +59,31 @@ export class XlsxExporter {
               width: 25,
             },
             {
+              title: 'Geregistreerd door',
+              values: list.map(({ parent }) => parent?.displayName ?? ''),
+              width: 25,
+            },
+            {
+              title: 'Geregistreerd door (emailadres)',
+              values: list.map(({ parent }) => parent?.email ?? ''),
+              width: 25,
+            },
+            {
               title: 'Emailadres',
-              values: list.map((row) => row.email.join(', ')),
+              values: list.map(({ child }) => child.email.join(', ')),
               width: 25,
             },
             {
               title: 'Adres',
-              values: list.map((row) => new Address(row.address).formatted()),
+              values: list.map(({ child }) =>
+                new Address(child.address).formatted()
+              ),
               width: 30,
             },
             {
               title: 'Gender',
-              values: list.map((row) => {
-                switch (row.gender) {
+              values: list.map(({ child }) => {
+                switch (child.gender) {
                   case 'male':
                     return 'Man'
                   case 'female':
@@ -80,12 +97,12 @@ export class XlsxExporter {
             },
             {
               title: 'Uitpasnummer',
-              values: list.map((row) => row.uitpasNumber || ''),
+              values: list.map(({ child }) => child.uitpasNumber || ''),
               width: 25,
             },
             {
               title: 'Opmerkingen',
-              values: list.map((row) => row.remarks),
+              values: list.map(({ child }) => child.remarks),
               width: 75,
             },
           ],
@@ -190,7 +207,12 @@ export class XlsxExporter {
     }
   }
 
-  createChildrenWithCommentList(list: ReadonlyArray<IChild>): SpreadsheetData {
+  createChildrenWithCommentList(
+    list: readonly {
+      child: IChild
+      parent: null | { displayName: string | null; email: string }
+    }[]
+  ): SpreadsheetData {
     const childList = this.createChildList(list)
 
     return {

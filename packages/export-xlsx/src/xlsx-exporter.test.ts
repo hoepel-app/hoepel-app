@@ -143,7 +143,14 @@ describe('XlsxExporter', () => {
     .withLastName('Contact')
 
   it('createChildList', () => {
-    const res = exporter.createChildList([child1, child2, child3])
+    const res = exporter.createChildList([
+      { child: child1, parent: null },
+      { child: child2, parent: { displayName: null, email: 'test@email.com' } },
+      {
+        child: child3,
+        parent: { displayName: 'My display name', email: 'my@email.com' },
+      },
+    ])
 
     expect(res.filename).toBe('Alle kinderen')
     expect(res.worksheets).toHaveLength(1)
@@ -154,7 +161,12 @@ describe('XlsxExporter', () => {
   })
 
   it('createChildrenWithCommentList', () => {
-    const res = exporter.createChildrenWithCommentList([child1])
+    const res = exporter.createChildrenWithCommentList([
+      {
+        child: child1,
+        parent: { displayName: 'Name', email: 'test@mail.com' },
+      },
+    ])
 
     expect(res.filename).toBe('Kinderen met opmerking')
     expect(res.worksheets).toHaveLength(1)

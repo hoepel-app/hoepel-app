@@ -19,7 +19,12 @@ Set these keys using `firebase functions:config`.
     "token": "...",
     "password": "..."
   },
-  "environment": "production"
+  "environment": "production",
+  "parentplatform": {
+    "key": {
+      // Service account key from https://console.firebase.google.com/project/speelpleinwerking-com/settings/serviceaccounts/adminsdk
+    }
+  }
 }
 ```
 

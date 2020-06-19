@@ -14,6 +14,7 @@ import {
 import { Bucket } from './bucket-type'
 import { ShiftRepository } from '@hoepel.app/isomorphic-domain'
 import { first } from 'rxjs/operators'
+import { ParentPlatformAuthService } from './parent-platform-auth.service'
 
 type FirestoreFileDocument = IReport & { id?: string; tenant: string }
 
@@ -24,6 +25,7 @@ export class FileService {
     private readonly crewRepository: ICrewRepository,
     private readonly contactPersonRepository: IContactPersonRepository,
     private readonly shiftRepository: ShiftRepository,
+    private readonly parentPlatformAuthService: ParentPlatformAuthService,
     private readonly childAttendanceService: ChildAttendanceService,
     private readonly crewAttendanceService: CrewAttendanceService,
     private readonly db: admin.firestore.Firestore, // TODO refactor so this service does not use db directly
@@ -35,9 +37,27 @@ export class FileService {
     createdBy: string,
     uid: string
   ): Promise<FirestoreFileDocument> {
-    const spreadsheet = this.xlsxExporter.createChildList(
-      await this.childRepository.getAll(tenant)
+    const children = await this.childRepository.getAll(tenant)
+
+    const childrenWithParent = await Promise.all(
+      children.map(async (child) => {
+        if (
+          child.managedByParents == null ||
+          child.managedByParents.length === 0
+        ) {
+          return { child, parent: null }
+        }
+
+        return {
+          child,
+          parent: await this.parentPlatformAuthService.getDetailsForParent(
+            child.managedByParents[0]
+          ),
+        }
+      })
     )
+
+    const spreadsheet = this.xlsxExporter.createChildList(childrenWithParent)
     return await this.saveXlsxFile(
       spreadsheet,
       tenant,
@@ -70,10 +90,29 @@ export class FileService {
     uid: string
   ): Promise<FirestoreFileDocument> {
     const children = (await this.childRepository.getAll(tenant)).filter(
-      (child) => child.remarks
+      (child) => child.remarks !== null && child.remarks !== ''
     )
+
+    const childrenWithParent = await Promise.all(
+      children.map(async (child) => {
+        if (
+          child.managedByParents == null ||
+          child.managedByParents.length === 0
+        ) {
+          return { child, parent: null }
+        }
+
+        return {
+          child,
+          parent: await this.parentPlatformAuthService.getDetailsForParent(
+            child.managedByParents[0]
+          ),
+        }
+      })
+    )
+
     const spreadsheet = this.xlsxExporter.createChildrenWithCommentList(
-      children
+      childrenWithParent
     )
     return await this.saveXlsxFile(
       spreadsheet,

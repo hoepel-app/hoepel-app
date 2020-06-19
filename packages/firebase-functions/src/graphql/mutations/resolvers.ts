@@ -25,6 +25,7 @@ import { Permission, DayDate } from '@hoepel.app/types'
 import { AuthorizationService } from '../authorization-service'
 import { ShiftRepository } from '@hoepel.app/isomorphic-domain'
 import { FirestoreShiftRepository } from '@hoepel.app/isomorphic-data'
+import { ParentPlatformAuthServiceImpl } from '../../services/parent-platform-auth.service'
 
 const db = admin.firestore()
 const auth = admin.auth()
@@ -64,6 +65,7 @@ const fileService = new FileService(
   crewRepository,
   contactPersonRepository,
   shiftRepository,
+  new ParentPlatformAuthServiceImpl(),
   childAttendanceService,
   crewAttendanceService,
   db,
