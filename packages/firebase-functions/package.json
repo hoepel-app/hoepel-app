@@ -14,7 +14,7 @@
   },
   "private": true,
   "dependencies": {
-    "@backupfire/firebase": "^0.15.0",
+    "@backupfire/firebase": "0.16.0",
     "@hoepel.app/cloud-build-notifier": "^0.3.29",
     "@hoepel.app/domain": "^0.3.68",
     "@hoepel.app/export-docx": "^0.3.38",
@@ -29,7 +29,7 @@
     "cors": "^2.8.5",
     "date-fns": "^2.14.0",
     "express": "^4.17.1",
-    "firebase-admin": "^8.6.0",
+    "firebase-admin": "^8.12.1",
     "firebase-functions": "^3.3.0",
     "graphql": "15.0.0",
     "graphql-tools": "^6.0.0",
