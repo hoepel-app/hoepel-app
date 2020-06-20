@@ -189,7 +189,7 @@ export class ChildAttendanceIntentionApplicationService {
     if (attendance == null) {
       return {
         status: 'rejected',
-        reason: `Could not find attendance for ${childId}, can't reject`,
+        reason: `Could not find attendance for ${childId}, can't reject attendance`,
       }
     }
 
