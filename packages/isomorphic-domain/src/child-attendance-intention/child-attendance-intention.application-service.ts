@@ -4,9 +4,13 @@ import { Observable } from 'rxjs'
 import { first } from 'rxjs/operators'
 import { WeekIdentifier } from '../week-identifier'
 import { CommandResult } from '@hoepel.app/ddd-library'
+import { BubblesApplicationService } from '../bubbles'
 
 export class ChildAttendanceIntentionApplicationService {
-  constructor(private readonly repo: ChildAttendanceIntentionRepository) {}
+  constructor(
+    private readonly repo: ChildAttendanceIntentionRepository,
+    private readonly bubblesApplicationService: BubblesApplicationService
+  ) {}
 
   getAttendanceIntentionsForChild(
     tenantId: string,
@@ -96,7 +100,7 @@ export class ChildAttendanceIntentionApplicationService {
     tenantId: string,
     childOnRegistrationWaitingListId: string,
     newChildId: string
-  ): Promise<void> {
+  ): Promise<CommandResult> {
     const attendances = (
       await this.getAttendanceIntentionsForChild(
         tenantId,
@@ -107,7 +111,10 @@ export class ChildAttendanceIntentionApplicationService {
     ).filter((att) => att.status === 'child-on-registration-waiting-list')
 
     if (attendances.length === 0) {
-      return
+      // No attendance intentions => not a failure
+      return {
+        status: 'accepted',
+      }
     }
 
     await Promise.all(
@@ -120,23 +127,76 @@ export class ChildAttendanceIntentionApplicationService {
         await this.repo.put(att.withStatus('pending').withChildId(newChildId))
       })
     )
+
+    return {
+      status: 'accepted',
+    }
   }
 
   async approveChildAttendanceIntentionForWeek(
     tenantId: string,
-    intentionId: string,
+    childId: string,
+    week: WeekIdentifier,
     bubbleName?: string
-  ): Promise<void> {
-    // Check if child in bubble for week
-    // ...
-    // Update attendance intention
-    // ...
+  ): Promise<CommandResult> {
+    const attendance = await this.getAttendanceIntentionsForChildInWeek(
+      tenantId,
+      childId,
+      week
+    )
+      .pipe(first())
+      .toPromise()
+
+    if (attendance == null) {
+      return {
+        status: 'rejected',
+        reason: `No attendance found to approve for ${childId} in week ${week}`,
+      }
+    }
+
+    const bubbleForChild = await this.bubblesApplicationService
+      .bubbleForChild(tenantId, week, childId)
+      .pipe(first())
+      .toPromise()
+
+    if (bubbleName != null && bubbleForChild?.name != bubbleName) {
+      return {
+        status: 'rejected',
+        reason: `Child ${childId} is not in bubble ${bubbleName}, can't approve attendance`,
+      }
+    }
+
+    await this.repo.put(attendance.withStatus('accepted'))
+
+    return {
+      status: 'accepted',
+    }
   }
 
   async rejectChildAttendanceIntentionForWeek(
     tenantId: string,
-    intentionId: string
-  ): Promise<void> {
-    // TODO
+    childId: string,
+    week: WeekIdentifier
+  ): Promise<CommandResult> {
+    const attendance = await this.getAttendanceIntentionsForChildInWeek(
+      tenantId,
+      childId,
+      week
+    )
+      .pipe(first())
+      .toPromise()
+
+    if (attendance == null) {
+      return {
+        status: 'rejected',
+        reason: `Could not find attendance for ${childId}, can't reject`,
+      }
+    }
+
+    await this.repo.put(attendance.withStatus('rejected'))
+
+    return {
+      status: 'accepted',
+    }
   }
 }
