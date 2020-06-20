@@ -2,13 +2,21 @@ import {
   ChildAttendanceIntention,
   WeekIdentifier,
   ChildAttendanceIntentionApplicationService,
+  BubblesApplicationService,
 } from '@hoepel.app/isomorphic-domain'
-import { FirestoreChildAttendanceIntentionRepository } from '@hoepel.app/isomorphic-data'
+import {
+  FirestoreChildAttendanceIntentionRepository,
+  FirestoreBubblesRepository,
+} from '@hoepel.app/isomorphic-data'
 import { first } from 'rxjs/operators'
 import { ParentPlatform } from './parent-platform'
 
+const bubblesService = new BubblesApplicationService(
+  new FirestoreBubblesRepository()
+)
 const attendanceIntentionService = new ChildAttendanceIntentionApplicationService(
-  new FirestoreChildAttendanceIntentionRepository()
+  new FirestoreChildAttendanceIntentionRepository(),
+  bubblesService
 )
 export class ShiftsGroupedByWeek {
   static async attendanceIntentionsForChild(

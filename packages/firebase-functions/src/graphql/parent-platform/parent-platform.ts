@@ -40,7 +40,8 @@ const waitingListService = new ChildRegistrationWaitingListApplicationService(
   new FirestoreChildRegistrationWaitingListRepository()
 )
 const attendanceIntentionService = new ChildAttendanceIntentionApplicationService(
-  new FirestoreChildAttendanceIntentionRepository()
+  new FirestoreChildAttendanceIntentionRepository(),
+  bubblesService
 )
 
 const weekDescription = (weekNumber: number, year: number): string => {
