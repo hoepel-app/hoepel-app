@@ -627,7 +627,7 @@ export class XlsxExporter {
     return {
       worksheets: [
         {
-          name: 'Alle kinderen',
+          name: 'Inschrijvingen',
           columns: [
             {
               title: 'Voornaam',
@@ -683,7 +683,7 @@ export class XlsxExporter {
           ],
         },
       ],
-      filename: 'Alle kinderen',
+      filename: 'Inschrijvingen',
     }
   }
 
@@ -697,7 +697,7 @@ export class XlsxExporter {
     return {
       worksheets: [
         {
-          name: 'Alle kinderen',
+          name: 'Bubbels',
           columns: [
             {
               title: 'Voornaam',
@@ -722,7 +722,7 @@ export class XlsxExporter {
           ],
         },
       ],
-      filename: 'Alle kinderen',
+      filename: 'Bubbels',
     }
   }
 
