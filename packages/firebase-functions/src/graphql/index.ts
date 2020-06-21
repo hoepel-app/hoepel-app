@@ -32,6 +32,8 @@ const typeDef = gql`
     CHILD_FISCAL_CERTIFICATE
     CHILD_INVOICE
     CHILDREN_PER_DAY
+    BUBBLE_ASSIGNMENTS
+    CHILD_ATTENDANCE_INTENTIONS
   }
 
   enum ReportFileFormat {

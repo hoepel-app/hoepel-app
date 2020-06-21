@@ -13,7 +13,11 @@ import {
   IDetailedCrewAttendance,
 } from '@hoepel.app/types'
 import { AddressDomainService } from '@hoepel.app/domain'
-import { Shift } from '@hoepel.app/isomorphic-domain'
+import {
+  Shift,
+  WeekIdentifier,
+  ChildAttendanceIntention,
+} from '@hoepel.app/isomorphic-domain'
 import { SpreadsheetData } from './spreadsheet-types'
 import groupBy from 'lodash.groupby'
 import flatMap from 'lodash.flatmap'
@@ -604,6 +608,121 @@ export class XlsxExporter {
           ],
         },
       ],
+    }
+  }
+
+  createChildAttendanceIntentionList(
+    list: readonly {
+      attendance: ChildAttendanceIntention
+      week: WeekIdentifier
+      child: Child | null
+      parent: null | {
+        displayName: string | null
+        email: string
+      }
+      bubbleName: string | null
+      shift: Shift | null
+    }[]
+  ): SpreadsheetData {
+    return {
+      worksheets: [
+        {
+          name: 'Alle kinderen',
+          columns: [
+            {
+              title: 'Voornaam',
+              values: list.map(({ child }) => child?.firstName),
+              width: 20,
+            },
+            {
+              title: 'Familienaam',
+              values: list.map(({ child }) => child?.lastName),
+              width: 25,
+            },
+            {
+              title: 'Dag',
+              width: 15,
+              values: list.map(({ shift }) => shift?.date?.toDDMMYYYY()),
+            },
+            {
+              title: 'Activiteit',
+              width: 15,
+              values: list.map(({ shift }) => shift?.kind),
+            },
+            {
+              title: 'Status',
+              width: 25,
+              values: list.map(({ attendance }) => {
+                switch (attendance.status) {
+                  case 'accepted':
+                    return 'Aanvaard'
+                  case 'rejected':
+                    return 'Geweigerd'
+                  case 'pending':
+                    return 'Nog niet aanvaard/geweigerd'
+                  default:
+                    return ''
+                }
+              }),
+            },
+            {
+              title: 'Bubbel',
+              values: list.map(({ bubbleName }) => bubbleName || ''),
+              width: 20,
+            },
+            {
+              title: 'Naam ouder',
+              values: list.map(({ parent }) => parent?.displayName || ''),
+              width: 20,
+            },
+            {
+              title: 'Email ouder',
+              values: list.map(({ parent }) => parent?.email || ''),
+              width: 20,
+            },
+          ],
+        },
+      ],
+      filename: 'Alle kinderen',
+    }
+  }
+
+  createBubbleAssignmentList(
+    children: readonly {
+      week: WeekIdentifier
+      bubbleName: string
+      child: Child
+    }[]
+  ): SpreadsheetData {
+    return {
+      worksheets: [
+        {
+          name: 'Alle kinderen',
+          columns: [
+            {
+              title: 'Voornaam',
+              values: children.map(({ child }) => child.firstName),
+              width: 20,
+            },
+            {
+              title: 'Familienaam',
+              values: children.map(({ child }) => child.lastName),
+              width: 25,
+            },
+            {
+              title: 'Week',
+              values: children.map(({ week }) => week.range.from.toDDMMYYYY()),
+              width: 20,
+            },
+            {
+              title: 'Bubbel',
+              values: children.map(({ bubbleName }) => bubbleName),
+              width: 20,
+            },
+          ],
+        },
+      ],
+      filename: 'Alle kinderen',
     }
   }
 

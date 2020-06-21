@@ -12,7 +12,12 @@ import {
   LocalFile,
 } from '@hoepel.app/export-xlsx'
 import { Bucket } from './bucket-type'
-import { ShiftRepository } from '@hoepel.app/isomorphic-domain'
+import {
+  ShiftRepository,
+  BubblesApplicationService,
+  WeekIdentifier,
+  ChildAttendanceIntentionApplicationService,
+} from '@hoepel.app/isomorphic-domain'
 import { first } from 'rxjs/operators'
 import { ParentPlatformAuthService } from './parent-platform-auth.service'
 
@@ -28,6 +33,8 @@ export class FileService {
     private readonly parentPlatformAuthService: ParentPlatformAuthService,
     private readonly childAttendanceService: ChildAttendanceService,
     private readonly crewAttendanceService: CrewAttendanceService,
+    private readonly bubblesService: BubblesApplicationService,
+    private readonly childAttendanceIntentionService: ChildAttendanceIntentionApplicationService,
     private readonly db: admin.firestore.Firestore, // TODO refactor so this service does not use db directly
     private readonly storage: Bucket
   ) {}
@@ -259,6 +266,118 @@ export class FileService {
       createdBy,
       uid,
       'crew-attendances'
+    )
+  }
+
+  async exportBubbleAssignments(
+    tenant: string,
+    createdBy: string,
+    uid: string
+  ): Promise<FirestoreFileDocument> {
+    const bubbles = await this.bubblesService
+      .findBubbles(tenant)
+      .pipe(first())
+      .toPromise()
+
+    const children = await Promise.all(
+      WeekIdentifier.allSummer2020.flatMap((week) => {
+        return bubbles.bubbles.flatMap((bubble) => {
+          return bubble.childIdsInBubble(week.value).map(async (childId) => {
+            const child = await this.childRepository.get(tenant, childId)
+            return {
+              week,
+              bubbleName: bubble.name,
+              child,
+            }
+          })
+        })
+      })
+    )
+
+    const spreadsheet = this.xlsxExporter.createBubbleAssignmentList(children)
+
+    return await this.saveXlsxFile(
+      spreadsheet,
+      tenant,
+      createdBy,
+      uid,
+      'bubble-assignments'
+    )
+  }
+
+  async exportChildAttendanceIntentions(
+    tenant: string,
+    createdBy: string,
+    uid: string
+  ): Promise<FirestoreFileDocument> {
+    const allShifts = await this.shiftRepository
+      .findAll(tenant)
+      .pipe(first())
+      .toPromise()
+
+    const bubbles = await this.bubblesService
+      .findBubbles(tenant)
+      .pipe(first())
+      .toPromise()
+
+    const allAttendances = (
+      await Promise.all(
+        WeekIdentifier.allSummer2020.map((week) =>
+          this.childAttendanceIntentionService
+            .getAttendanceIntentionsForWeek(tenant, week)
+            .pipe(first())
+            .toPromise()
+        )
+      )
+    )
+      .flat()
+      .filter((att) => att.status !== 'child-on-registration-waiting-list')
+
+    const richChildren = (
+      await Promise.all(
+        allAttendances.map(async (attendance) => {
+          const child = await this.childRepository.get(
+            tenant,
+            attendance.childId
+          )
+          const parentId = child?.managedByParents?.[0] || null
+          const parent =
+            parentId == null
+              ? null
+              : await this.parentPlatformAuthService.getDetailsForParent(
+                  parentId
+                )
+
+          const bubbleName =
+            bubbles.findBubbleChildIsAssignedTo(
+              attendance.weekIdentifier.value,
+              attendance.childId
+            )?.name || null
+
+          return attendance.shiftIds.map((shiftId) => {
+            return {
+              week: attendance.weekIdentifier,
+              attendance,
+              child,
+              parent,
+              shift: allShifts.find((shift) => shift.id === shiftId) || null,
+              bubbleName,
+            }
+          })
+        })
+      )
+    ).flat()
+
+    const spreadsheet = this.xlsxExporter.createChildAttendanceIntentionList(
+      richChildren
+    )
+
+    return await this.saveXlsxFile(
+      spreadsheet,
+      tenant,
+      createdBy,
+      uid,
+      'child-attendance-intentions'
     )
   }
 

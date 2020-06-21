@@ -21,10 +21,18 @@ import { OrganisationService } from '../../services/organisation.service'
 import { FileService } from '../../services/file.service'
 import { TemplateService } from '../../services/template.service'
 import { assertHasPermission } from '../assert-has-permission'
-import { Permission, DayDate } from '@hoepel.app/types'
+import { Permission, DayDate, FileType } from '@hoepel.app/types'
 import { AuthorizationService } from '../authorization-service'
-import { ShiftRepository } from '@hoepel.app/isomorphic-domain'
-import { FirestoreShiftRepository } from '@hoepel.app/isomorphic-data'
+import {
+  ShiftRepository,
+  BubblesApplicationService,
+  ChildAttendanceIntentionApplicationService,
+} from '@hoepel.app/isomorphic-domain'
+import {
+  FirestoreShiftRepository,
+  FirestoreBubblesRepository,
+  FirestoreChildAttendanceIntentionRepository,
+} from '@hoepel.app/isomorphic-data'
 import { ParentPlatformAuthServiceImpl } from '../../services/parent-platform-auth.service'
 
 const db = admin.firestore()
@@ -59,6 +67,14 @@ const crewAttendanceService = new CrewAttendanceService(
   crewAttendanceByCrewRepository,
   crewAttendanceByShiftRepository
 )
+const bubblesService = new BubblesApplicationService(
+  new FirestoreBubblesRepository()
+)
+const childAttendanceIntentionService = new ChildAttendanceIntentionApplicationService(
+  new FirestoreChildAttendanceIntentionRepository(),
+  bubblesService
+)
+
 const fileService = new FileService(
   new XlsxExporter(),
   childRepository,
@@ -68,6 +84,8 @@ const fileService = new FileService(
   new ParentPlatformAuthServiceImpl(),
   childAttendanceService,
   crewAttendanceService,
+  bubblesService,
+  childAttendanceIntentionService,
   db,
   reportsStorage
 )
@@ -121,7 +139,7 @@ export const resolvers: IResolvers = {
         type,
         format,
         year,
-      }: { tenant: string; type: string; format: string; year?: number },
+      }: { tenant: string; type: FileType; format: string; year?: number },
       context: Context
     ) => {
       AuthorizationService.assertLoggedInHoepelApp(context)
@@ -184,6 +202,18 @@ export const resolvers: IResolvers = {
             createdBy,
             context.token.uid,
             reportYear
+          )
+        case 'bubble-assignments':
+          return await fileService.exportBubbleAssignments(
+            tenant,
+            createdBy,
+            context.token.uid
+          )
+        case 'child-attendance-intentions':
+          return await fileService.exportChildAttendanceIntentions(
+            tenant,
+            createdBy,
+            context.token.uid
           )
         case 'day-overview':
           throw new Error(
