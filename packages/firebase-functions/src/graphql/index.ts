@@ -80,6 +80,8 @@ const resolvers: IResolvers = {
     CHILD_HEALTH_INSURANCE_CERTIFICATE: 'child-health-insurance-certificate',
     CHILD_FISCAL_CERTIFICATE: 'child-fiscal-certificate',
     CHILD_INVOICE: 'child-invoice',
+    BUBBLE_ASSIGNMENTS: 'bubble-assignments',
+    CHILD_ATTENDANCE_INTENTIONS: 'child-attendance-intentions',
   },
   DayDate: new GraphQLScalarType({
     name: 'DayDate',
