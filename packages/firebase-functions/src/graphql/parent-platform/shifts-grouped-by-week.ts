@@ -1,5 +1,4 @@
 import {
-  ChildAttendanceIntention,
   WeekIdentifier,
   ChildAttendanceIntentionApplicationService,
   BubblesApplicationService,
@@ -7,9 +6,15 @@ import {
 import {
   FirestoreChildAttendanceIntentionRepository,
   FirestoreBubblesRepository,
+  FirestoreShiftRepository,
 } from '@hoepel.app/isomorphic-data'
 import { first } from 'rxjs/operators'
 import { ParentPlatform } from './parent-platform'
+import { LocalTime } from '@hoepel.app/types'
+
+const formatDuration = (start: LocalTime, end: LocalTime): string => {
+  return `${start.toString()}-${end.toString()}`
+}
 
 const bubblesService = new BubblesApplicationService(
   new FirestoreBubblesRepository()
@@ -18,13 +23,32 @@ const attendanceIntentionService = new ChildAttendanceIntentionApplicationServic
   new FirestoreChildAttendanceIntentionRepository(),
   bubblesService
 )
+const shiftRepo = new FirestoreShiftRepository()
+
 export class ShiftsGroupedByWeek {
   static async attendanceIntentionsForChild(
     organisationId: string,
     week: WeekIdentifier,
     childId: string,
     parentUid: string
-  ): Promise<ChildAttendanceIntention | null> {
+  ): Promise<{
+    year: number
+    weekNumber: number
+    childId: string
+    preferredBubbleName: string | null
+    status: string
+    shifts: readonly {
+      id: string
+      description: string
+      location: string
+      start: Date
+      end: Date
+      durationFormatted: string
+      kind: string
+      price: string
+    }[]
+    organisationId: string
+  } | null> {
     // Check if parent manages child
     const managedByParent = await ParentPlatform.childrenManagedByMe(
       parentUid,
@@ -35,13 +59,41 @@ export class ShiftsGroupedByWeek {
       throw new Error(`Parent ${parentUid} can not acces child ${childId}`)
     }
 
-    const res = await attendanceIntentionService
+    const attendance = await attendanceIntentionService
       .getAttendanceIntentionsForChildInWeek(organisationId, childId, week)
       .pipe(first())
       .toPromise()
 
-    console.log(res)
+    if (attendance == null) {
+      return null
+    } else {
+      const shifts = (
+        await shiftRepo
+          .findMany(organisationId, attendance.shiftIds)
+          .pipe(first())
+          .toPromise()
+      ).map((shift) => {
+        return {
+          id: shift.id,
+          description: shift.description,
+          location: shift.location,
+          start: shift.start,
+          end: shift.end,
+          durationFormatted: formatDuration(shift.startTime, shift.endTime),
+          kind: shift.presetName,
+          price: shift.price.toString(),
+        }
+      })
 
-    return res
+      return {
+        childId: attendance.childId,
+        preferredBubbleName: attendance.preferredBubbleName,
+        status: attendance.status.replace(/\-/g, '_'),
+        shifts,
+        organisationId,
+        year: week.year,
+        weekNumber: week.weekNumber,
+      }
+    }
   }
 }

@@ -62,15 +62,14 @@ export const typeDef = gql`
     child_on_registration_waiting_list
   }
 
-  type ChildAttendanceIntentionShift {
-    id: ID!
-  }
-
   type ChildAttendanceIntentionForWeek {
+    weekNumber: Int!
+    year: Int!
     childId: ID!
     status: ChildAttendanceIntentionStatus!
     preferredBubbleName: String
-    shifts: [ChildAttendanceIntentionShift!]!
+    assignedBubbleName: String
+    shifts: [ShiftChildCanAttend!]!
   }
 
   type ShiftsGroupedByWeek {
@@ -80,6 +79,7 @@ export const typeDef = gql`
     possibleBubbles: [SelectableBubbleForWeek!]!
     days: [DayWithShiftsChildrenCanAttend!]!
     attendanceIntentionsForChild(childId: ID!): ChildAttendanceIntentionForWeek
+    organisationId: String!
   }
 
   type ParentPlatform {

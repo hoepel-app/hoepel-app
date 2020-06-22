@@ -9,6 +9,7 @@ import {
 } from '@hoepel.app/isomorphic-domain'
 import { id } from 'typesaurus'
 import { ShiftsGroupedByWeek } from './shifts-grouped-by-week'
+import { ChildAttendanceIntentionForWeek } from './child-attendance-intention-for-week'
 
 type RegisterChildInput = {
   organisationId: string
@@ -97,23 +98,32 @@ export const resolvers: IResolvers = {
     ) => {
       AuthorizationService.assertLoggedInParentPlatform(context)
 
-      const attendance = await ShiftsGroupedByWeek.attendanceIntentionsForChild(
+      return ShiftsGroupedByWeek.attendanceIntentionsForChild(
         parent.organisationId,
         new WeekIdentifier(parent.year, parent.weekNumber),
         childId,
         context.user.uid
       )
+    },
+  },
+  ChildAttendanceIntentionForWeek: {
+    assignedBubbleName: async (
+      parent: {
+        weekNumber: number
+        year: number
+        organisationId: string
+        childId: string
+      },
+      _,
+      context: Context
+    ): Promise<string | null> => {
+      AuthorizationService.assertLoggedInParentPlatform(context)
 
-      if (attendance == null) {
-        return null
-      } else {
-        return {
-          childId: attendance.childId,
-          preferredBubbleName: attendance.preferredBubbleName,
-          status: attendance.status.replace(/\-/g, '_'),
-          shifts: attendance.shifts,
-        }
-      }
+      return ChildAttendanceIntentionForWeek.assignedBubbleName(
+        parent.organisationId,
+        parent.childId,
+        new WeekIdentifier(parent.year, parent.weekNumber)
+      )
     },
   },
   Mutation: {
