@@ -24,18 +24,28 @@ export type ParentPlatformAuthService = {
 }
 
 export class ParentPlatformAuthServiceImpl {
+  private readonly cache = new Map<string, ParentDetails>()
+
   async getDetailsForParent(uid: string): Promise<ParentDetails> {
+    if (this.cache.has(uid)) {
+      return this.cache.get(uid) || null
+    }
+
     try {
-      const record = await pTimeout(parentPlatformApp.auth().getUser(uid), 1000)
+      const record = await pTimeout(parentPlatformApp.auth().getUser(uid), 3000)
 
       if (record == null || record.email == null) {
+        this.cache.set(uid, null)
         return null
       }
 
-      return {
+      const details = {
         displayName: record.displayName ?? null,
         email: record.email ?? null,
       }
+      this.cache.set(uid, details)
+
+      return details
     } catch (err) {
       console.error(
         'Error while getting parent details from parent platform project',
