@@ -10,7 +10,7 @@ import {
 } from '@hoepel.app/isomorphic-data'
 import { first } from 'rxjs/operators'
 import { ParentPlatform } from './parent-platform'
-import { LocalTime } from '@hoepel.app/types'
+import { LocalTime, DayDate } from '@hoepel.app/types'
 
 const formatDuration = (start: LocalTime, end: LocalTime): string => {
   return `${start.toString()}-${end.toString()}`
@@ -43,6 +43,7 @@ export class ShiftsGroupedByWeek {
       location: string
       start: Date
       end: Date
+      date: DayDate
       durationFormatted: string
       kind: string
       price: string
@@ -82,6 +83,7 @@ export class ShiftsGroupedByWeek {
           durationFormatted: formatDuration(shift.startTime, shift.endTime),
           kind: shift.presetName,
           price: shift.price.toString(),
+          date: shift.date,
         }
       })
 

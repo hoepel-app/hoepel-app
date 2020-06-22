@@ -134,6 +134,7 @@ export class ParentPlatform {
           end: Date
           durationFormatted: string
           kind: string
+          date: DayDate
           price: string
         }[]
       }[]
@@ -180,6 +181,7 @@ export class ParentPlatform {
                       shift.startTime,
                       shift.endTime
                     ),
+                    date: shift.date,
                     kind: shift.presetName,
                     price: shift.price.toString(),
                   }

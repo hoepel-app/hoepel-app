@@ -34,6 +34,7 @@ export const typeDef = gql`
 
   type ShiftChildCanAttend {
     id: ID!
+    date: DayDate!
     description: String!
     location: String!
     start: DateTime!
