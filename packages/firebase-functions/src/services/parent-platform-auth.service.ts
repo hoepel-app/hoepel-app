@@ -32,7 +32,10 @@ export class ParentPlatformAuthServiceImpl {
     }
 
     try {
-      const record = await pTimeout(parentPlatformApp.auth().getUser(uid), 3000)
+      const record = await pTimeout(
+        parentPlatformApp.auth().getUser(uid),
+        15000
+      )
 
       if (record == null || record.email == null) {
         this.cache.set(uid, null)
