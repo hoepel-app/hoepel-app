@@ -23,14 +23,7 @@ const getTenant = (
   beforeDoc?: unknown,
   afterDoc?: unknown
 ): string | undefined => {
-  const collectionsWithTenantIds = Object.entries(store)
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    .map(
-      ([key, collection]: [
-        string,
-        Collection<{ readonly [key: string]: unknown }>
-      ]) => collection
-    )
+  const collectionsWithTenantIds = Object.values(store)
     .filter((collection) => collection.docIdIsTenantName)
     .map((collection) => collection.collectionName)
 
@@ -52,12 +45,9 @@ const getTenant = (
  */
 const firestoreEventCreators: ReadonlyArray<FirestoreCollectionEvents<
   unknown
->> = Object.entries(store).map(
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  ([field, collection]: [
-    string,
-    Collection<{ readonly [key: string]: unknown }>
-  ]) => new FirestoreCollectionEvents(collection)
+>> = Object.values(store).map(
+  (collection: Collection<{ readonly [key: string]: unknown }>) =>
+    new FirestoreCollectionEvents(collection)
 )
 
 /**
