@@ -9,6 +9,9 @@ const db = admin.firestore()
 
 export const onCrewAttendanceCreate = functions
   .region('europe-west1')
+  .runWith({
+    maxInstances: 1,
+  })
   .firestore.document('crew-attendances-add/{docId}')
   .onCreate(async (snap, context) => {
     const value = snap.data() as CrewAttendanceAddDoc & { tenant: string }
@@ -88,6 +91,9 @@ export const onCrewAttendanceCreate = functions
 
 export const onCrewAttendanceDelete = functions
   .region('europe-west1')
+  .runWith({
+    maxInstances: 1,
+  })
   .firestore.document('crew-attendances-delete/{docId}')
   .onCreate(async (snap, context) => {
     const value = snap.data()

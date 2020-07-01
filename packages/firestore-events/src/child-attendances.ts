@@ -9,6 +9,9 @@ const db = admin.firestore()
 
 export const onChildAttendanceCreate = functions
   .region('europe-west1')
+  .runWith({
+    maxInstances: 1,
+  })
   .firestore.document('child-attendances-add/{docId}')
   .onCreate(async (snap, context) => {
     const value = snap.data() as ChildAttendanceAddDoc & { tenant: string }
@@ -90,6 +93,9 @@ export const onChildAttendanceCreate = functions
 
 export const onChildAttendanceDelete = functions
   .region('europe-west1')
+  .runWith({
+    maxInstances: 1,
+  })
   .firestore.document('child-attendances-delete/{docId}')
   .onCreate(async (snap, context) => {
     const value = snap.data()

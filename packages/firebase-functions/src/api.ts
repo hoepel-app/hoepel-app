@@ -83,4 +83,9 @@ const errorRequestHandler: ErrorRequestHandler = (err, req, res) => {
 
 app.use(errorRequestHandler)
 
-export const api = functions.region('europe-west1').https.onRequest(app)
+export const api = functions
+  .region('europe-west1')
+  .runWith({
+    memory: '512MB',
+  })
+  .https.onRequest(app)

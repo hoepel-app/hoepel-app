@@ -15,4 +15,4 @@ export const backupfire = backupfireAgent({
   region: 'europe-west3',
 })
 
-export * from './api'
+export { api } from './api'
