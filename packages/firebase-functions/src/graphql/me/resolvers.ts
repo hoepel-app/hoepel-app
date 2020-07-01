@@ -10,7 +10,7 @@ export const resolvers: IResolvers = {
       return Me.me(context.token, context.user)
     },
   },
-  User: {
+  Me: {
     token: async (obj, args, context: Context) => {
       AuthorizationService.assertLoggedInHoepelApp(context)
       return Me.token(context.token)

@@ -2,6 +2,7 @@ import { me } from './me'
 import { application } from './application'
 import { mutations } from './mutations'
 import { parentPlatform } from './parent-platform'
+import { user } from './user'
 import { gql, ApolloServer, IResolvers } from 'apollo-server-express'
 import * as admin from 'firebase-admin'
 import { UserService } from '../services/user.service'
@@ -273,6 +274,7 @@ export const server = new ApolloServer({
     application.typeDef,
     tenant.typeDef,
     parentPlatform.typeDef,
+    user.typeDef,
   ],
   resolvers: [
     resolvers,
@@ -281,6 +283,7 @@ export const server = new ApolloServer({
     application.resolvers,
     tenant.resolvers,
     parentPlatform.resolvers,
+    user.resolvers,
   ],
   introspection: true,
   playground: {

@@ -28,8 +28,12 @@ export class UserService {
     return this.auth.listUsers(maxResults, pageToken)
   }
 
-  getUser(uid: string): Promise<admin.auth.UserRecord> {
-    return this.auth.getUser(uid)
+  async getUser(uid: string): Promise<admin.auth.UserRecord | null> {
+    try {
+      return await this.auth.getUser(uid)
+    } catch (err) {
+      return null
+    }
   }
 
   async getUserFromDb(uid: string): Promise<IUser | null> {

@@ -16,7 +16,7 @@ export const typeDef = gql`
     emailVerified: Boolean
   }
 
-  type User {
+  type Me {
     id: ID!
     token: UserToken
     displayName: String
@@ -26,6 +26,6 @@ export const typeDef = gql`
   }
 
   extend type Query {
-    me: User
+    me: Me
   }
 `

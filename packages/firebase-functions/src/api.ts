@@ -7,7 +7,6 @@ import { ENVIRONMENT } from './environment'
 import { server } from './graphql'
 import * as Sentry from '@sentry/node'
 
-import { router as userRouter } from './routes/user.routes'
 import { router as organisationRouter } from './routes/organisation.routes'
 import admin from 'firebase-admin'
 
@@ -28,7 +27,6 @@ app.use(logRequestStart)
 app.use(cors({ origin: true, maxAge: 3600 }))
 
 // Mount routes
-app.use('/user', userRouter)
 app.use('/organisation', organisationRouter)
 
 server.applyMiddleware({ path: '/graphql', app })

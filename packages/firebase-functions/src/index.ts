@@ -3,7 +3,7 @@ import * as admin from 'firebase-admin'
 import backupfireAgent from '@backupfire/firebase'
 
 // Init firebase app
-admin.initializeApp(functions.config().firebase)
+admin.initializeApp(functions.config().firebase) // TODO this config key is undefined?
 const db = admin.firestore()
 db.settings({ timestampsInSnapshots: true })
 
