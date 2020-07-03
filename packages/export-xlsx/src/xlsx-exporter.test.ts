@@ -274,6 +274,7 @@ describe('XlsxExporter', () => {
             'child-id-1': {
               didAttend: true,
               amountPaid: { euro: 6, cents: 0 },
+              bubbleName: 'Bubbel Rood',
             },
             'child-id-3': {
               didAttend: false,
