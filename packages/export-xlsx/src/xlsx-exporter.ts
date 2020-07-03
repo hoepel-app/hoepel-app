@@ -321,6 +321,7 @@ export class XlsxExporter {
       firstName: string
       lastName: string
       ageGroupName?: string
+      bubbleName?: string
       shift: Shift
     }[] = flatMap(
       relevantShifts.map((shift) => {
@@ -343,6 +344,7 @@ export class XlsxExporter {
             firstName: child.firstName,
             lastName: child.lastName,
             ageGroupName: childAttendancesForShift[child.id!]?.ageGroupName,
+            bubbleName: childAttendancesForShift[child.id!]?.bubbleName,
             shift,
           }
         })
@@ -385,6 +387,12 @@ export class XlsxExporter {
             {
               title: 'Locatie',
               values: rows.map((row) => row.shift.location),
+              width: 25,
+              hideIfNoSetValues: true,
+            },
+            {
+              title: 'Bubbel',
+              values: rows.map((row) => row.bubbleName),
               width: 25,
               hideIfNoSetValues: true,
             },
