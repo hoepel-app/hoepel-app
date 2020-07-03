@@ -745,6 +745,16 @@ Object {
           ],
           "width": 25,
         },
+        Object {
+          "hideIfNoSetValues": true,
+          "title": "Bubbel",
+          "values": Array [
+            undefined,
+            undefined,
+            "Bubbel Rood",
+          ],
+          "width": 25,
+        },
       ],
       "name": "Aanwezigheden kinderen",
     },
