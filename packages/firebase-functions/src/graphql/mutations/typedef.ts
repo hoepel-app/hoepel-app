@@ -1,18 +1,14 @@
 import { gql } from 'apollo-server-express'
 
 export const typeDef = gql`
-  input RequestOrganisationInput {
-    test: String!
-  }
-
   type TestTemplateOutput {
     path: String
   }
 
   extend type Mutation {
-    acceptPrivacyPolicy: User
-    acceptTermsAndConditions: User
-    changeDisplayName(name: String!): User
+    acceptPrivacyPolicy: Void
+    acceptTermsAndConditions: Void
+    changeDisplayName(name: String!): Void
 
     deleteReport(tenant: ID!, fileName: String!): Report
     createReport(
@@ -28,17 +24,16 @@ export const typeDef = gql`
     ): Report!
 
     testTemplate(tenant: ID!, templateFileName: String!): TestTemplateOutput!
+
     fillInTemplate(
       tenant: ID!
       childId: ID!
       templateFileName: String!
       year: Int
     ): Report!
+
     deleteTemplate(tenant: ID!, templateFileName: String!): Template!
 
-    requestOrganisation(input: RequestOrganisationInput!): String
-    removeMemberFromOrganisation(tenant: ID!, uidToRemove: ID!): User!
-    addUserToOrganisation(tenant: ID!, uidToAdd: ID!): User! # TODO addUser... => addMember...
-    throwTestException: String
+    throwTestException: Void
   }
 `

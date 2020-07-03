@@ -18,6 +18,7 @@ export const typeDef = gql`
 
   type Me {
     id: ID!
+    uid: ID!
     token: UserToken
     displayName: String
     acceptedPrivacyPolicy: String

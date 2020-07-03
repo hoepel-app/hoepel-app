@@ -1,5 +1,5 @@
 import * as admin from 'firebase-admin'
-import { IUser } from '@hoepel.app/types'
+import { IUser, Permission } from '@hoepel.app/types'
 
 export class UserService {
   constructor(
@@ -26,6 +26,33 @@ export class UserService {
     pageToken?: string
   ): Promise<admin.auth.ListUsersResult> {
     return this.auth.listUsers(maxResults, pageToken)
+  }
+
+  async assertUserManagesOrganisation(
+    uid: string,
+    organisationId: string
+  ): Promise<void> {
+    const doc = await this.db
+      .collection('users')
+      .doc(uid)
+      .collection('tenants')
+      .doc(organisationId)
+      .get()
+
+    if (!doc.exists) {
+      throw new Error(`User ${uid} is not a member of ${organisationId}`)
+    }
+
+    const permissions = doc.data()?.permissions
+
+    if (
+      !Array.isArray(permissions) ||
+      !permissions.includes(Permission.TenantWrite)
+    ) {
+      throw new Error(
+        `User ${uid} does not manage ${organisationId}: does not have ${Permission.TenantWrite} permission`
+      )
+    }
   }
 
   async getUser(uid: string): Promise<admin.auth.UserRecord | null> {

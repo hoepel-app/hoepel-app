@@ -21,6 +21,7 @@ const userService = new UserService(db, auth)
 const typeDef = gql`
   scalar DayDate
   scalar DateTime
+  scalar Void
 
   enum ReportType {
     ALL_CHILDREN
@@ -135,6 +136,19 @@ const resolvers: IResolvers = {
         return parsed
       }
 
+      return null
+    },
+  }),
+  Void: new GraphQLScalarType({
+    name: 'Void',
+    description: 'Used for mutations/commands that do not return anything',
+    serialize() {
+      return null
+    },
+    parseValue() {
+      return null
+    },
+    parseLiteral() {
       return null
     },
   }),

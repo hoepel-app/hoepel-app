@@ -22,7 +22,7 @@ export class OrganisationService {
     return organisation.exists ? (organisation.data() as Tenant) : null
   }
 
-  async removeUserFromOrganisation(
+  async unassignMemberFromOrganisation(
     organisationId: string,
     uid: string
   ): Promise<void> {
@@ -46,7 +46,7 @@ export class OrganisationService {
     await this.auth.setCustomUserClaims(uid, newClaims)
   }
 
-  async addUserToOrganisation(
+  async assignMemberToOrganisation(
     organisationId: string,
     uid: string
   ): Promise<void> {

@@ -96,8 +96,7 @@ export const typeDef = gql`
     registerChildFromParentPlatform(
       organisationId: ID!
       newChild: ChildManagedByParentInput
-    ): String
-
+    ): String # TODO Void
     registerChildAttendanceIntentionFromParentPlatform(
       organisationId: ID!
       childId: ID!
@@ -105,13 +104,12 @@ export const typeDef = gql`
       weekNumber: Int!
       year: Int!
       shifts: [ID!]!
-    ): String
-
+    ): String # TODO Void
     unregisterPendingChildAttendanceIntentionFromParentPlatform(
       organisationId: ID!
       childId: ID!
       weekNumber: Int!
       year: Int!
-    ): String
+    ): String # Void
   }
 `

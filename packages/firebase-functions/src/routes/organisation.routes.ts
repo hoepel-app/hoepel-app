@@ -29,30 +29,6 @@ router.post(
   })
 )
 
-router.delete(
-  '/:tenant/members/:uid',
-  firebaseHasPermissionMiddleware(db, 'tenant:remove-member'), // TODO should also allow to delete self!
-  asyncMiddleware(async (req, res) => {
-    await organisationService.removeUserFromOrganisation(
-      req.params.tenant,
-      req.params.uid
-    )
-    res.json({})
-  })
-)
-
-router.put(
-  '/:tenant/members/:uid',
-  firebaseHasPermissionMiddleware(db, 'tenant:add-member'),
-  asyncMiddleware(async (req, res) => {
-    await organisationService.addUserToOrganisation(
-      req.params.tenant,
-      req.params.uid
-    )
-    res.json({})
-  })
-)
-
 router.get(
   '/:tenant/members',
   firebaseHasPermissionMiddleware(db, 'tenant:list-members'),

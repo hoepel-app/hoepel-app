@@ -15,5 +15,6 @@ export const resolvers: IResolvers = {
       AuthorizationService.assertLoggedInHoepelApp(context)
       return Me.token(context.token)
     },
+    uid: ({ id }: { id: string }) => id,
   },
 }

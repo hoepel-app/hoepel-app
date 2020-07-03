@@ -1,6 +1,10 @@
 import { gql } from 'apollo-server-express'
 
 export const typeDef = gql`
+  input RequestOrganisationInput {
+    test: String!
+  }
+
   type TenantAddress {
     streetAndNumber: String
     zipCode: Int
@@ -32,5 +36,16 @@ export const typeDef = gql`
   extend type Query {
     tenants: [Tenant!]!
     tenant(id: ID!): Tenant
+  }
+
+  extend type Mutation {
+    requestOrganisation(input: RequestOrganisationInput!): Void
+
+    unassignMemberFromOrganisation(
+      organisationId: ID!
+      uidToUnassign: ID!
+    ): Void
+
+    assignMemberToOrganisation(organisationId: ID!, uidToAssign: ID!): Void
   }
 `

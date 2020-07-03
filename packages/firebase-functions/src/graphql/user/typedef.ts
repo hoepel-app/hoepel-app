@@ -2,6 +2,7 @@ import { gql } from 'apollo-server-express'
 
 export const typeDef = gql`
   type User {
+    id: ID!
     uid: ID!
     email: String!
     emailVerified: Boolean!

@@ -65,4 +65,7 @@ export const resolvers: IResolvers = {
       return userRecordToUser(user)
     },
   },
+  User: {
+    id: ({ uid }: User) => uid,
+  },
 }
