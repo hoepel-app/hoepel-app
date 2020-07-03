@@ -9,8 +9,6 @@ export const assertHasPermission = async (
   tenant: string,
   permission: Permission
 ): Promise<void> => {
-  console.log(`Checking if ${uid} has permission ${permission}`)
-
   if (!uid) {
     throw new NoPermissionError('Uid not set')
   }
