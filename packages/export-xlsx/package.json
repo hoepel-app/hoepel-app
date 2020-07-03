@@ -1,6 +1,6 @@
 {
   "name": "@hoepel.app/export-xlsx",
-  "version": "0.3.102",
+  "version": "0.3.103",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "license": "GPL-3.0-or-later",
