@@ -54,7 +54,7 @@ export const resolvers: IResolvers = {
     },
     assignMemberToOrganisation: async (
       obj,
-      args: { organisationId: string; uidToUnassign: string },
+      args: { organisationId: string; uidToAssign: string },
       context: Context
     ) => {
       AuthorizationService.assertLoggedInHoepelApp(context)
@@ -65,7 +65,7 @@ export const resolvers: IResolvers = {
 
       await organisationService.assignMemberToOrganisation(
         args.organisationId,
-        args.uidToUnassign
+        args.uidToAssign
       )
     },
   },
