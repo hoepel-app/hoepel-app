@@ -68,5 +68,17 @@ export const resolvers: IResolvers = {
         args.uidToAssign
       )
     },
+    assignSelfToOrganisation: async (
+      obj,
+      args: { organisationId: string },
+      context: Context
+    ) => {
+      AuthorizationService.assertLoggedInAdmin(context)
+
+      await organisationService.assignMemberToOrganisation(
+        args.organisationId,
+        context.token.uid
+      )
+    },
   },
 }

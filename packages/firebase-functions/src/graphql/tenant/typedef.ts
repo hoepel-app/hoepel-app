@@ -47,5 +47,7 @@ export const typeDef = gql`
     ): Void
 
     assignMemberToOrganisation(organisationId: ID!, uidToAssign: ID!): Void
+
+    assignSelfToOrganisation(organisationId: ID!): Void
   }
 `
