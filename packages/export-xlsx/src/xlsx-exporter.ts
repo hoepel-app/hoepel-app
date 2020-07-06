@@ -624,6 +624,7 @@ export class XlsxExporter {
       attendance: ChildAttendanceIntention
       week: WeekIdentifier
       child: Child | null
+      ageGroupName: string | null
       parent: null | {
         displayName: string | null
         email: string
@@ -677,6 +678,13 @@ export class XlsxExporter {
               title: 'Bubbel',
               values: list.map(({ bubbleName }) => bubbleName || ''),
               width: 20,
+              hideIfNoSetValues: true,
+            },
+            {
+              title: 'Leeftijdsgroep',
+              values: list.map(({ ageGroupName }) => ageGroupName || ''),
+              width: 20,
+              hideIfNoSetValues: true,
             },
             {
               title: 'Naam ouder',

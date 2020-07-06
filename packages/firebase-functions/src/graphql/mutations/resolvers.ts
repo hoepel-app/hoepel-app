@@ -27,11 +27,13 @@ import {
   ShiftRepository,
   BubblesApplicationService,
   ChildAttendanceIntentionApplicationService,
+  AgeGroupsApplicationService,
 } from '@hoepel.app/isomorphic-domain'
 import {
   FirestoreShiftRepository,
   FirestoreBubblesRepository,
   FirestoreChildAttendanceIntentionRepository,
+  FirestoreAgeGroupsRepository,
 } from '@hoepel.app/isomorphic-data'
 import { ParentPlatformAuthServiceImpl } from '../../services/parent-platform-auth.service'
 
@@ -70,6 +72,9 @@ const crewAttendanceService = new CrewAttendanceService(
 const bubblesService = new BubblesApplicationService(
   new FirestoreBubblesRepository()
 )
+const ageGroupsService = new AgeGroupsApplicationService(
+  new FirestoreAgeGroupsRepository()
+)
 const childAttendanceIntentionService = new ChildAttendanceIntentionApplicationService(
   new FirestoreChildAttendanceIntentionRepository(),
   bubblesService
@@ -86,6 +91,7 @@ const fileService = new FileService(
   crewAttendanceService,
   bubblesService,
   childAttendanceIntentionService,
+  ageGroupsService,
   db,
   reportsStorage
 )

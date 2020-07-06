@@ -17,6 +17,7 @@ import {
   BubblesApplicationService,
   WeekIdentifier,
   ChildAttendanceIntentionApplicationService,
+  AgeGroupsApplicationService,
 } from '@hoepel.app/isomorphic-domain'
 import { first } from 'rxjs/operators'
 import { ParentPlatformAuthService } from './parent-platform-auth.service'
@@ -35,6 +36,7 @@ export class FileService {
     private readonly crewAttendanceService: CrewAttendanceService,
     private readonly bubblesService: BubblesApplicationService,
     private readonly childAttendanceIntentionService: ChildAttendanceIntentionApplicationService,
+    private readonly ageGroupsService: AgeGroupsApplicationService,
     private readonly db: admin.firestore.Firestore, // TODO refactor so this service does not use db directly
     private readonly storage: Bucket
   ) {}
@@ -320,6 +322,11 @@ export class FileService {
       .pipe(first())
       .toPromise()
 
+    const ageGroups = await this.ageGroupsService
+      .findAgeGroups(tenant)
+      .pipe(first())
+      .toPromise()
+
     const allAttendances = (
       await Promise.all(
         WeekIdentifier.allSummer2020.map((week) =>
@@ -354,12 +361,18 @@ export class FileService {
               attendance.childId
             )?.name || null
 
+          const ageGroup =
+            child.birthDate == null
+              ? null
+              : ageGroups.classifyPerson(child.birthDate, DayDate.today())
+
           return attendance.shiftIds.map((shiftId) => {
             return {
               week: attendance.weekIdentifier,
               attendance,
               child,
               parent,
+              ageGroupName: ageGroup == null ? null : ageGroup.name,
               shift: allShifts.find((shift) => shift.id === shiftId) || null,
               bubbleName,
             }
