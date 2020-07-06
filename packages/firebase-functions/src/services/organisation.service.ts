@@ -118,10 +118,8 @@ export class OrganisationService {
    * List all possible members of an organisation (users that can be added to the organisation)
    */
   async listPossibleMembers(
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     organisationId: string
   ): Promise<ReadonlyArray<IUser & { uid: string }>> {
-    // TODO should filter out users that are already part of organisation
     const allUsers = (await this.db.collection('users').get()).docs.map(
       (user) => {
         return ({
