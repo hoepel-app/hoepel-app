@@ -17,6 +17,18 @@ export const typeDef = gql`
     email: String
   }
 
+  type TenantMember {
+    permissions: [String!]!
+    email: String!
+    displayName: String
+  }
+
+  type PossibleTenantMember {
+    email: String!
+    uid: ID!
+    displayName: String
+  }
+
   type Tenant {
     id: ID!
     name: String
@@ -31,6 +43,9 @@ export const typeDef = gql`
 
     enableOnlineRegistration: Boolean!
     enableOnlineEnrollment: Boolean!
+
+    members: [TenantMember!]!
+    possibleMembers: [PossibleTenantMember!]!
   }
 
   extend type Query {

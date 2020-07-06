@@ -31,6 +31,20 @@ export const resolvers: IResolvers = {
     enableOnlineRegistration: (obj: TenantType) => {
       return obj.enableOnlineRegistration === true
     },
+    members: async (obj: TenantType & { id: string }) => {
+      const currentMembers = await organisationService.listMembers(obj.id)
+
+      return currentMembers.map((member) => {
+        return {
+          permissions: member.permissions,
+          email: member.user.email,
+          displayName: member.user.displayName,
+        }
+      })
+    },
+    possibleMembers: async (obj: TenantType & { id: string }) => {
+      return organisationService.listPossibleMembers(obj.id)
+    },
   },
   Mutation: {
     requestOrganisation: async (obj, args, context: Context) => {

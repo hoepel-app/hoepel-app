@@ -120,14 +120,22 @@ export class OrganisationService {
   async listPossibleMembers(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     organisationId: string
-  ): Promise<ReadonlyArray<IUser>> {
+  ): Promise<ReadonlyArray<IUser & { uid: string }>> {
     // TODO should filter out users that are already part of organisation
-    return (await this.db.collection('users').get()).docs.map((user) => {
-      return ({
-        ...user.data(),
-        uid: user.id,
-      } as unknown) as IUser
-    })
+    const allUsers = (await this.db.collection('users').get()).docs.map(
+      (user) => {
+        return ({
+          ...user.data(),
+          uid: user.id,
+        } as unknown) as IUser & { uid: string }
+      }
+    )
+
+    const currentMembers = (await this.listMembers(organisationId)).map(
+      (member) => member.user.email
+    )
+
+    return allUsers.filter((user) => !currentMembers.includes(user.email))
   }
 
   /**
