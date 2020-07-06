@@ -266,7 +266,7 @@ export const server = new ApolloServer({
                 if (userInfo.domain === 'parent-platform') {
                   scope.setUser({
                     email: userInfo.user.email,
-                    id: userInfo.token.uid,
+                    id: userInfo.user.uid,
                   })
                 }
               }
