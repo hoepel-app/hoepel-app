@@ -91,6 +91,30 @@ export class ChildAttendanceIntentionApplicationService {
     }
   }
 
+  async unregisterChildAttendanceIntentionForWeek(
+    tenantId: string,
+    childId: string,
+    week: WeekIdentifier
+  ): Promise<CommandResult> {
+    const attendanceForWeek = await this.repo
+      .findForChildInWeek(tenantId, childId, week)
+      .pipe(first())
+      .toPromise()
+
+    if (attendanceForWeek == null) {
+      return {
+        status: 'rejected',
+        reason: 'Not registered for this week',
+      }
+    }
+
+    await this.repo.remove(tenantId, childId, week)
+
+    return {
+      status: 'accepted',
+    }
+  }
+
   /**
    * After moving a child from the registration waiting list, call this method to move attendance intentions
    *
