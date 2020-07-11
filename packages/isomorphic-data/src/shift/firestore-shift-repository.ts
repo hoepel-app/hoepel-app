@@ -61,7 +61,7 @@ export class FirestoreShiftRepository implements ShiftRepository {
     }
 
     const { id, shift: serialized } = serializeShift(shift)
-    update(this.collection, id, serialized)
+    await update(this.collection, id, serialized)
   }
 
   getById(tenantId: string, id: string): Observable<Shift | null> {
