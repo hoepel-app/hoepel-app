@@ -50,7 +50,7 @@
     "husky": "^4.2.3",
     "lerna": "^3.18.4",
     "lint-staged": "^10.2.8",
-    "ts-loader": "^7.0.0",
+    "ts-loader": "^8.0.0",
     "ts-node": "^8.5.4",
     "typescript": "^3.7.2",
     "webpack": "^4.42.1",
