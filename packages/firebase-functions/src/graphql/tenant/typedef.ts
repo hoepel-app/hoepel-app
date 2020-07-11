@@ -21,6 +21,7 @@ export const typeDef = gql`
     permissions: [String!]!
     email: String!
     displayName: String
+    uid: ID!
   }
 
   type PossibleTenantMember {

@@ -39,6 +39,7 @@ export const resolvers: IResolvers = {
           permissions: member.permissions,
           email: member.user.email,
           displayName: member.user.displayName,
+          uid: member.user.uid,
         }
       })
     },

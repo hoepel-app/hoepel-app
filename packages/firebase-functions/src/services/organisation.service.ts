@@ -82,17 +82,13 @@ export class OrganisationService {
     organisationId: string
   ): Promise<
     ReadonlyArray<{
-      user: IUser
+      user: IUser & { uid: string }
       permissions: ReadonlyArray<string>
     }>
   > {
     const allUsers = await this.db.collection('users').get()
 
-    const members: ReadonlyArray<{
-      belongsToTenant: boolean
-      user: IUser
-      permissions: ReadonlyArray<string>
-    }> = await Promise.all(
+    const members = await Promise.all(
       allUsers.docs.map((userDoc) =>
         userDoc.ref
           .collection('tenants')
@@ -101,10 +97,10 @@ export class OrganisationService {
           .then((tenantDoc) => {
             return {
               belongsToTenant: tenantDoc.exists,
-              user: ({
-                ...userDoc.data(),
+              user: {
+                ...(userDoc.data() as IUser),
                 uid: userDoc.id,
-              } as unknown) as IUser,
+              },
               permissions: (tenantDoc.data()?.permissions as string[]) ?? [],
             }
           })
