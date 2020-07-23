@@ -3,6 +3,7 @@
     "rules": "packages/firestore-rules/firestore.rules"
   },
   "functions": {
+    "runtime": "nodejs12",
     "source": "packages/firebase-functions/dist-webpack",
     "predeploy": [
       "yarn run build:functions-bundle"
