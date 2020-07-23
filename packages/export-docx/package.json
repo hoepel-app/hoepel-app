@@ -5,8 +5,8 @@
   "license": "GPL-3.0-or-later",
   "devDependencies": {
     "@types/jest": "^25.2.1",
-    "jest": "^26.0.1",
-    "typescript": "^3.9.6"
+    "jest": "^26.1.0",
+    "typescript": "^3.9.7"
   },
   "scripts": {
     "build": "tsc",
