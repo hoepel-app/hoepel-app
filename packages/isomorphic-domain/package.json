@@ -1,10 +1,10 @@
 {
   "name": "@hoepel.app/isomorphic-domain",
-  "version": "0.3.110",
+  "version": "0.3.113",
   "main": "dist/index.js",
   "license": "GPL-3.0-or-later",
   "devDependencies": {
-    "@hoepel.app/ddd-library-test-utils": "^0.3.110",
+    "@hoepel.app/ddd-library-test-utils": "^0.3.113",
     "@types/jest": "^26.0.7",
     "jest": "^26.1.0",
     "typescript": "^3.9.7"
@@ -14,7 +14,7 @@
     "test": "jest --collect-coverage"
   },
   "dependencies": {
-    "@hoepel.app/ddd-library": "^0.3.110",
+    "@hoepel.app/ddd-library": "^0.3.113",
     "@hoepel.app/types": "^1.22.0",
     "date-fns": "^2.14.0",
     "rxjs": "^6.6.0"
