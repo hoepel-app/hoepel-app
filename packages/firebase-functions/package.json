@@ -24,13 +24,13 @@
     "@hoepel.app/isomorphic-domain": "^0.3.110",
     "@hoepel.app/old-events": "^0.3.68",
     "@hoepel.app/types": "^1.22.0",
-    "@sentry/node": "^5.19.1",
+    "@sentry/node": "^5.20.1",
     "apollo-server-express": "^2.10.1",
     "cors": "^2.8.5",
     "date-fns": "^2.14.0",
     "express": "^4.17.1",
     "firebase-admin": "^8.12.1",
-    "firebase-functions": "^3.3.0",
+    "firebase-functions": "^3.8.0",
     "graphql": "15.3.0",
     "graphql-tools": "^6.0.12",
     "jsonwebtoken": "^8.5.1",
@@ -53,7 +53,7 @@
     "ts-loader": "^8.0.1",
     "ts-node": "^8.5.4",
     "typescript": "^3.9.7",
-    "webpack": "^4.42.1",
+    "webpack": "^4.44.0",
     "webpack-cli": "^3.3.11"
   }
 }

@@ -5,7 +5,7 @@
   "license": "GPL-3.0-or-later",
   "devDependencies": {
     "@hoepel.app/ddd-library-test-utils": "^0.3.110",
-    "@types/jest": "^26.0.6",
+    "@types/jest": "^26.0.7",
     "jest": "^26.1.0",
     "typescript": "^3.9.7"
   },
