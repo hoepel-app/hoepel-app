@@ -13624,9 +13624,9 @@ typedarray@^0.0.6:
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
 typesaurus@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.npmjs.org/typesaurus/-/typesaurus-6.0.0.tgz#25d05223f8427712fa34f4b3b42edfa2ff97339c"
-  integrity sha512-N4Hw0cJ4exL4Ga+d9RApH/B4rswhVCTJ+gxsRyZubrbnPEASJa8MgFsYb25FzEGUcXuSLSAsaxSczDAKmUshkQ==
+  version "6.1.0"
+  resolved "https://registry.npmjs.org/typesaurus/-/typesaurus-6.1.0.tgz#0de4e632068c94ae866adc5ca1226feb05d3676b"
+  integrity sha512-0eMn3BI/uAuL9jLEoqsRQg1nycEUc1ZxjwPaHvXIz6oJsIMO+PSCr+FTwjYfXIeJcGbklHuRCOeHwT/uesTv5g==
 
 typescript@^3.9.7:
   version "3.9.7"
