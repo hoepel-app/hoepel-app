@@ -1456,9 +1456,9 @@
     protobufjs "^6.8.6"
 
 "@hoepel.app/types@^1.22.0":
-  version "1.23.0"
-  resolved "https://registry.npmjs.org/@hoepel.app/types/-/types-1.23.0.tgz#117a26636546e1e36e65b771bf3072e23ce63126"
-  integrity sha512-+tKx1sZ/dAT3vGrt8jt2zts6X+hpI/zynkakWB8zi5w+rwn2Klg0DWWwg5xKEDWW3fDDceEMkh/DOFYcPHs35w==
+  version "1.24.0"
+  resolved "https://registry.npmjs.org/@hoepel.app/types/-/types-1.24.0.tgz#49c97b5811fdc1f3db61e1d3b459d59e8bd6c4aa"
+  integrity sha512-M89PnFBv8EQjKX+joe0gkWig12nVsFVxo5W+dZrcITOjrokmb1ROJynL2y6DdedSxH6W/XHjoqMM9Zri32Dlrg==
   dependencies:
     virginity-ts "^0.1.0"
 
