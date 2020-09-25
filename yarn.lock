@@ -5923,9 +5923,9 @@ doctrine@^3.0.0:
     esutils "^2.0.2"
 
 docxtemplater@^3.17.5:
-  version "3.17.9"
-  resolved "https://registry.npmjs.org/docxtemplater/-/docxtemplater-3.17.9.tgz#23d064c3e32235eab2e1aefbce0145e126d75004"
-  integrity sha512-ZWyWffQjNQzTEGZW5JvCJZQKSBC1xGZqvRsDs93Aes/oz3ksnHFIfSnn1LzHPLcdwnHApcNjAtaTEICPx09PPw==
+  version "3.19.5"
+  resolved "https://registry.npmjs.org/docxtemplater/-/docxtemplater-3.19.5.tgz#5c695ad0c28ad6bfd22504b7d33e4ff2a9e54081"
+  integrity sha512-T6mLQK8rnBOU4EmsJ/DLrZdlWFxHoG5nOy7LY6Wjd1nww0Osu5BFPCTgtcFwrj3EfLb5wz5HiReoz9rV9NBfng==
   dependencies:
     xmldom "^0.3.0"
 
