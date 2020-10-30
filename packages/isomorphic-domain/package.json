@@ -7,7 +7,7 @@
     "@hoepel.app/ddd-library-test-utils": "^0.3.113",
     "@types/jest": "^26.0.7",
     "jest": "^26.1.0",
-    "typescript": "^3.9.7"
+    "typescript": "^4.0.5"
   },
   "scripts": {
     "build": "tsc",
