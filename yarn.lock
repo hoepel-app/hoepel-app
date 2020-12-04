@@ -6973,9 +6973,9 @@ firebase-functions-test@^0.2.1:
     lodash "^4.17.5"
 
 firebase-functions@^3.8.0:
-  version "3.8.0"
-  resolved "https://registry.npmjs.org/firebase-functions/-/firebase-functions-3.8.0.tgz#ac53c615ef365cd9a19604f84ec9835a340c7b76"
-  integrity sha512-RFvoS7ZcXrk2sQ918czsjv94p4hnSoD0/e4cZ86XFpa1HbNZBI7ZuSgBCzRvlv6dJ1ArytAL13NpB1Bp2tJ6Yg==
+  version "3.12.0"
+  resolved "https://registry.npmjs.org/firebase-functions/-/firebase-functions-3.12.0.tgz#4f5ae31a214f2725eda4db91dded1e795b0c340e"
+  integrity sha512-C6XfFlnL9JPo2tRNpncxkXeXIpViLzKxBsfNTMB3M2i33mJFvkrLhxp9rhsCRSrcwxraBKmpeSvyh3FJkka54w==
   dependencies:
     "@types/express" "4.17.3"
     cors "^2.8.5"
