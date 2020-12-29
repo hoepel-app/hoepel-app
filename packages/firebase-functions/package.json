@@ -14,7 +14,6 @@
   },
   "private": true,
   "dependencies": {
-    "@backupfire/firebase": "0.19.0",
     "@hoepel.app/cloud-build-notifier": "^0.3.115",
     "@hoepel.app/domain": "^0.3.115",
     "@hoepel.app/export-docx": "^0.3.115",

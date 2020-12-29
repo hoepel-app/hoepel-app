@@ -37,6 +37,5 @@ module.exports = {
     "firebase-functions",
     "express",
     "apollo-server-express",
-    "@backupfire/firebase",
   ],
 };
