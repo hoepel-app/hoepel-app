@@ -14006,10 +14006,10 @@ typedarray@^0.0.6:
   resolved "https://registry.npmjs.org/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typesaurus@^6.0.0:
-  version "6.1.0"
-  resolved "https://registry.npmjs.org/typesaurus/-/typesaurus-6.1.0.tgz#0de4e632068c94ae866adc5ca1226feb05d3676b"
-  integrity sha512-0eMn3BI/uAuL9jLEoqsRQg1nycEUc1ZxjwPaHvXIz6oJsIMO+PSCr+FTwjYfXIeJcGbklHuRCOeHwT/uesTv5g==
+typesaurus@^7.1.0:
+  version "7.1.0"
+  resolved "https://registry.npmjs.org/typesaurus/-/typesaurus-7.1.0.tgz#f030083a201f6e4d02e7f3287bec271d84fba229"
+  integrity sha512-2Az/QN4FprxtT/6Grr3gFb8v6dY1NkSkGvEt6l0b4/cY28p6HmNY/VaZP9p9wQP2GdU8lAbOi+Ip6j1gehCarA==
 
 typescript@^4.1.3:
   version "4.1.3"

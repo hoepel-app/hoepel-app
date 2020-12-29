@@ -38,7 +38,7 @@
     "mailgun-js": "^0.22.0",
     "p-timeout": "^4.1.0",
     "rxjs": "^6.6.3",
-    "typesaurus": "^6.0.0"
+    "typesaurus": "^7.1.0"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^8.3.7",
