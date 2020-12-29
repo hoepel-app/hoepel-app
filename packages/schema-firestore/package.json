@@ -1,6 +1,6 @@
 {
     "name": "@hoepel.app/schema-firestore",
-    "version": "0.3.113",
+    "version": "0.3.114",
     "main": "dist/index.js",
     "license": "GPL-3.0-or-later",
     "scripts": {
