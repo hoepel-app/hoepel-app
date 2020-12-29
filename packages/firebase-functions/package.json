@@ -14,7 +14,7 @@
   },
   "private": true,
   "dependencies": {
-    "@backupfire/firebase": "0.18.0",
+    "@backupfire/firebase": "0.19.0",
     "@hoepel.app/cloud-build-notifier": "^0.3.114",
     "@hoepel.app/domain": "^0.3.114",
     "@hoepel.app/export-docx": "^0.3.114",
@@ -36,15 +36,15 @@
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.19",
     "mailgun-js": "^0.22.0",
-    "p-timeout": "^3.2.0",
+    "p-timeout": "^4.1.0",
     "rxjs": "^6.6.3",
     "typesaurus": "^6.0.0"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^8.3.7",
-    "@types/lodash": "^4.14.158",
-    "@types/mailgun-js": "^0.22.4",
-    "@types/node": "^12.0.0",
+    "@types/lodash": "^4.14.166",
+    "@types/mailgun-js": "^0.22.11",
+    "@types/node": "^14.14.16",
     "firebase-functions-test": "^0.2.1",
     "firebase-tools": "^8.4.1",
     "husky": "^4.3.6",

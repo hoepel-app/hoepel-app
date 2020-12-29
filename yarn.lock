@@ -730,10 +730,10 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@backupfire/firebase@0.18.0":
-  version "0.18.0"
-  resolved "https://registry.npmjs.org/@backupfire/firebase/-/firebase-0.18.0.tgz#50d64a3af613fd0dd1e74f1af158910b911de969"
-  integrity sha512-9Qj8tLnacDcqs6iT7qwRNGM5U2TWeCoBE3TrIfgcwVaUYpcdUyjfPi2XW6CDTZ1AViV+7f70/JJJrqaVANfFjA==
+"@backupfire/firebase@0.19.0":
+  version "0.19.0"
+  resolved "https://registry.npmjs.org/@backupfire/firebase/-/firebase-0.19.0.tgz#9824127e9de5cc3fd4b970b64969730156c067e3"
+  integrity sha512-lWrryMD73bYx1a0mLM9djuGHhnt1slGSqNl46y3BF0lEhgem8YWjMfBqEQxeBBpaXcdsIcnp9O3BgL84oXV3+w==
   dependencies:
     "@google-cloud/firestore" "3"
     "@google-cloud/storage" "^4.1.2"
@@ -3079,20 +3079,20 @@
   resolved "https://registry.npmjs.org/@types/lodash/-/lodash-4.14.155.tgz#e2b4514f46a261fd11542e47519c20ebce7bc23a"
   integrity sha512-vEcX7S7aPhsBCivxMwAANQburHBtfN9RdyXFk84IJmu2Z4Hkg1tOFgaslRiEqqvoLtbCBi6ika1EMspE+NZ9Lg==
 
-"@types/lodash@^4.14.158":
-  version "4.14.158"
-  resolved "https://registry.npmjs.org/@types/lodash/-/lodash-4.14.158.tgz#b38ea8b6fe799acd076d7a8d7ab71c26ef77f785"
-  integrity sha512-InCEXJNTv/59yO4VSfuvNrZHt7eeNtWQEgnieIA+mIC+MOWM9arOWG2eQ8Vhk6NbOre6/BidiXhkZYeDY9U35w==
+"@types/lodash@^4.14.166":
+  version "4.14.166"
+  resolved "https://registry.npmjs.org/@types/lodash/-/lodash-4.14.166.tgz#07e7f2699a149219dbc3c35574f126ec8737688f"
+  integrity sha512-A3YT/c1oTlyvvW/GQqG86EyqWNrT/tisOIh2mW3YCgcx71TNjiTZA3zYZWA5BCmtsOTXjhliy4c4yEkErw6njA==
 
 "@types/long@^4.0.0", "@types/long@^4.0.1":
   version "4.0.1"
   resolved "https://registry.npmjs.org/@types/long/-/long-4.0.1.tgz#459c65fa1867dafe6a8f322c4c51695663cc55e9"
   integrity sha512-5tXH6Bx/kNGd3MgffdmP4dy2Z+G4eaXw0SE81Tq3BNadtnMR5/ySMzX4SLEzHJzSmPNn4HIdpQsBvXMUykr58w==
 
-"@types/mailgun-js@^0.22.4":
-  version "0.22.9"
-  resolved "https://registry.npmjs.org/@types/mailgun-js/-/mailgun-js-0.22.9.tgz#2dfc49d4956fda8058bd9a07d50bc74cb84994fc"
-  integrity sha512-4UnlgPRDfUfU1k63Y2ygKcCPDqRs1mCfY1jOOoam++feJLVA6WS12CeIjKg2fAgaNTbv37H5DrQb+nFEYsdnnA==
+"@types/mailgun-js@^0.22.11":
+  version "0.22.11"
+  resolved "https://registry.npmjs.org/@types/mailgun-js/-/mailgun-js-0.22.11.tgz#d34d0d01bf02fb791cbf3432e9ac5fecd9983044"
+  integrity sha512-aaUVSoWuVE5KpSfg1wkbdgZuMqycZnocBEdX5W39l80wZR+cLOhOHEbvQVLLY40ZhM7+tERRPCR+nVmCyAmE7w==
   dependencies:
     "@types/node" "*"
     form-data "^2.5.0"
@@ -3143,15 +3143,15 @@
   resolved "https://registry.npmjs.org/@types/node/-/node-10.17.50.tgz#7a20902af591282aa9176baefc37d4372131c32d"
   integrity sha512-vwX+/ija9xKc/z9VqMCdbf4WYcMTGsI0I/L/6shIF3qXURxZOhPQlPRHtjTpiNhAwn0paMJzlOQqw6mAGEQnTA==
 
-"@types/node@^12.0.0":
-  version "12.12.51"
-  resolved "https://registry.npmjs.org/@types/node/-/node-12.12.51.tgz#446a67af8c5ff98947d7cef296484c6ad47ddb16"
-  integrity sha512-6ILqt8iNThALrxDv2Q4LyYFQxULQz96HKNIFd4s9QRQaiHINYeUpLqeU/2IU7YMtvipG1fQVAy//vY8/fX1Y9w==
-
 "@types/node@^12.12.47":
   version "12.19.11"
   resolved "https://registry.npmjs.org/@types/node/-/node-12.19.11.tgz#9220ab4b20d91169eb78f456dbfcbabee89dfb50"
   integrity sha512-bwVfNTFZOrGXyiQ6t4B9sZerMSShWNsGRw8tC5DY1qImUNczS9SjT4G6PnzjCnxsu5Ubj6xjL2lgwddkxtQl5w==
+
+"@types/node@^14.14.16":
+  version "14.14.16"
+  resolved "https://registry.npmjs.org/@types/node/-/node-14.14.16.tgz#3cc351f8d48101deadfed4c9e4f116048d437b4b"
+  integrity sha512-naXYePhweTi+BMv11TgioE2/FXU4fSl29HAH1ffxVciNsH3rYXjNP2yM8wqmSm7jS20gM8TIklKiTen+1iVncw==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -11323,12 +11323,10 @@ p-reduce@^1.0.0:
   resolved "https://registry.npmjs.org/p-reduce/-/p-reduce-1.0.0.tgz#18c2b0dd936a4690a529f8231f58a0fdb6a47dfa"
   integrity sha1-GMKw3ZNqRpClKfgjH1ig/bakffo=
 
-p-timeout@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.npmjs.org/p-timeout/-/p-timeout-3.2.0.tgz#c7e17abc971d2a7962ef83626b35d635acf23dfe"
-  integrity sha512-rhIwUycgwwKcP9yTOOFK/AKsAopjjCakVqLHePO3CC6Mir1Z99xT+R63jZxAT5lFZLa2inS5h+ZS2GvR99/FBg==
-  dependencies:
-    p-finally "^1.0.0"
+p-timeout@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.npmjs.org/p-timeout/-/p-timeout-4.1.0.tgz#788253c0452ab0ffecf18a62dff94ff1bd09ca0a"
+  integrity sha512-+/wmHtzJuWii1sXn3HCuH/FTwGhrp4tmJTxSKJbfS+vkipci6osxXM5mY0jUiRzWKMTgUT8l7HFbeSwZAynqHw==
 
 p-try@^1.0.0:
   version "1.0.0"
