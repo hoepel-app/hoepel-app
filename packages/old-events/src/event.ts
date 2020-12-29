@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/interface-name-prefix */
-
 /**
  * Identifiers of objects an event relates to
  */

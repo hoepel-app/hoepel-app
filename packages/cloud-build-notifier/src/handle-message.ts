@@ -29,7 +29,6 @@ const createSlackMessage = (build: Build): IncomingWebhookSendArguments => {
     attachments: [
       {
         title: 'Build logs',
-        // eslint-disable-next-line @typescript-eslint/camelcase
         title_link: build.logUrl,
         fields: [
           {

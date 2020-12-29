@@ -10,7 +10,6 @@ type ConstructorOptions = {
   nullGetter: (part: { module: string }) => string
 }
 
-// eslint-disable-next-line @typescript-eslint/class-name-casing
 declare class docxtemplater {
   constructor(zip: pizzip, options?: ConstructorOptions)
 

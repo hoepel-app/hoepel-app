@@ -35,6 +35,7 @@ module.exports = {
           "warn",
           { ignoreRestSiblings: true },
         ],
+        "@typescript-eslint/explicit-module-boundary-types": "off",
       },
       env: {
         jest: true,

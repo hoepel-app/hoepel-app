@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import * as admin from 'firebase-admin'
 import { IChildRepository } from './child.service'
 import { OrganisationService } from './organisation.service'

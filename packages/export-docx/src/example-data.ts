@@ -1,7 +1,5 @@
 import { CertificateTemplateFillInData } from './data'
 
-/* eslint-disable @typescript-eslint/camelcase */
-
 /** Example data to fill in a template - used when a user wants to test a template works */
 export const exampleData: CertificateTemplateFillInData = {
   kind_naam: 'Voornaam Achternaam',

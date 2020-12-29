@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 declare module 'pizzip' {
   export = pizzip
 }
@@ -35,7 +34,6 @@ type LoadOptions = {
   decodeFileName?: FilenameDecoder
 }
 
-// eslint-disable-next-line @typescript-eslint/class-name-casing
 declare class pizzip {
   constructor(data: string | ArrayBuffer | Uint8Array, options?: LoadOptions)
 

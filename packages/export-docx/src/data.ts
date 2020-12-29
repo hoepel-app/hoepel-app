@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
-
 /** Data that can be filled in to a template file */
 export type CertificateTemplateFillInData = {
   readonly kind_naam: string
