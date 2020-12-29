@@ -5,9 +5,7 @@ type Payload = {
   childrenCanAttend: boolean
 }
 
-export class ChangeChildrenCanAttendShiftPresetCommand extends CommandBase<
-  Payload
-> {
+export class ChangeChildrenCanAttendShiftPresetCommand extends CommandBase<Payload> {
   name = 'change-children-can-attend-shift-preset-command' as const
 
   static create(

@@ -5,7 +5,7 @@
   "license": "GPL-3.0-or-later",
   "devDependencies": {
     "@firebase/testing": "^0.20.9",
-    "@types/jest": "^26.0.7",
+    "@types/jest": "^26.0.19",
     "jest": "^26.1.0",
     "typescript": "^3.9.7"
   },
@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@hoepel.app/isomorphic-domain": "^0.3.113",
-    "rxjs": "^6.6.0",
+    "rxjs": "^6.6.3",
     "typesaurus": "^6.0.0"
   },
   "private": true

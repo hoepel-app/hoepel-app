@@ -5,9 +5,7 @@ type Payload = {
   crewMembersCanAttend: boolean
 }
 
-export class ChangeCrewMembersCanAttendShiftPresetCommand extends CommandBase<
-  Payload
-> {
+export class ChangeCrewMembersCanAttendShiftPresetCommand extends CommandBase<Payload> {
   name = 'change-crew-members-can-attend-shift-preset-command' as const
 
   static create(

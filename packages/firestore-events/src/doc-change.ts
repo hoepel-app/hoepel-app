@@ -43,9 +43,9 @@ const getTenant = (
 /**
  * For every Firestore collection, create a class that allows us to create common events
  */
-const firestoreEventCreators: ReadonlyArray<FirestoreCollectionEvents<
-  unknown
->> = Object.values(store).map(
+const firestoreEventCreators: ReadonlyArray<
+  FirestoreCollectionEvents<unknown>
+> = Object.values(store).map(
   (collection: Collection<{ readonly [key: string]: unknown }>) =>
     new FirestoreCollectionEvents(collection)
 )
