@@ -305,5 +305,8 @@ export const server = new ApolloServer({
   },
   tracing: true,
   context: async ({ req }): Promise<Context> =>
+    // TODO
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
     getUserAndTokenFromHeader(req.headers.authorization ?? null),
 })
