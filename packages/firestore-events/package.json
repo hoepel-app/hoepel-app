@@ -7,8 +7,8 @@
   "dependencies": {
     "@hoepel.app/old-events": "^0.3.68",
     "@hoepel.app/types": "^1.22.0",
-    "firebase-admin": "^8.12.1",
-    "firebase-functions": "^3.8.0"
+    "firebase-admin": "^9.4.2",
+    "firebase-functions": "^3.13.0"
   },
   "private": true
 }
