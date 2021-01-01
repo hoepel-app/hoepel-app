@@ -3343,17 +3343,17 @@
     "@webassemblyjs/wast-parser" "1.9.1"
     "@xtuc/long" "4.2.2"
 
-"@webpack-cli/info@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.npmjs.org/@webpack-cli/info/-/info-1.2.0.tgz#6051d6adf3618df664f4945a2b76355c00f83f0d"
-  integrity sha512-+wA8lBKopgKmN76BSGJVJby5ZXDlsrO6p/nm7fUBsHznRNWB/ozotJP7Yfcz8JPfqeG2LxwYlTH2u6D9a/0XAw==
+"@webpack-cli/info@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.npmjs.org/@webpack-cli/info/-/info-1.2.1.tgz#af98311f983d0b9fce7284cfcf1acaf1e9f4879c"
+  integrity sha512-fLnDML5HZ5AEKzHul8xLAksoKN2cibu6MgonkUj8R9V7bbeVRkd1XbGEGWrAUNYHbX1jcqCsDEpBviE5StPMzQ==
   dependencies:
     envinfo "^7.7.3"
 
-"@webpack-cli/serve@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.npmjs.org/@webpack-cli/serve/-/serve-1.2.0.tgz#8cb2c1e95426f5caed1f3bf9d7ccf3ea41d85f52"
-  integrity sha512-jI3P7jMp/AXDSPkM+ClwRcJZbxnlvNC8bVZBmyRr4scMMZ4p5WQcXkw3Q+Hc7RQekomJlBMN+UQGliT4hhG8Vw==
+"@webpack-cli/serve@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.npmjs.org/@webpack-cli/serve/-/serve-1.2.1.tgz#7513d7a769e3f97958de799b5b49874425ae3396"
+  integrity sha512-Zj1z6AyS+vqV6Hfi7ngCjFGdHV5EwZNIHo6QfFTNe9PyW+zBU1zJ9BiOW1pmUEq950RC4+Dym6flyA/61/vhyw==
 
 "@wry/context@^0.5.2":
   version "0.5.2"
@@ -3534,11 +3534,6 @@ ansi-align@^3.0.0:
   integrity sha512-ZpClVKqXN3RGBmKibdfWzqCY4lnjEuoNzU5T0oEFpfd/z5qJHVarukridD4juLO2FXMiwUQxr9WqQtaYa8XRYw==
   dependencies:
     string-width "^3.0.0"
-
-ansi-colors@^3.2.1:
-  version "3.2.4"
-  resolved "https://registry.npmjs.org/ansi-colors/-/ansi-colors-3.2.4.tgz#e3a3da4bfbae6c86a9c285625de124a234026fbf"
-  integrity sha512-hHUXGagefjN2iRrID63xckIvotOXOojhQKWIPUZ4mNUZ9nLZW+7FMNoE1lOkEhNWYsx/7ysGIuJYCiMAA9FnrA==
 
 ansi-colors@^4.1.1:
   version "4.1.1"
@@ -5298,7 +5293,7 @@ cross-spawn@^6.0.0, cross-spawn@^6.0.5:
     shebang-command "^1.2.0"
     which "^1.2.9"
 
-cross-spawn@^7.0.0, cross-spawn@^7.0.1, cross-spawn@^7.0.2:
+cross-spawn@^7.0.0, cross-spawn@^7.0.1, cross-spawn@^7.0.2, cross-spawn@^7.0.3:
   version "7.0.3"
   resolved "https://registry.npmjs.org/cross-spawn/-/cross-spawn-7.0.3.tgz#f73a85b9d5d41d045551c177e2882d4ac85728a6"
   integrity sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==
@@ -5844,14 +5839,7 @@ enhanced-resolve@^5.3.1:
     graceful-fs "^4.2.4"
     tapable "^2.2.0"
 
-enquirer@^2.3.5:
-  version "2.3.5"
-  resolved "https://registry.npmjs.org/enquirer/-/enquirer-2.3.5.tgz#3ab2b838df0a9d8ab9e7dff235b0e8712ef92381"
-  integrity sha512-BNT1C08P9XD0vNg3J475yIUG+mVdp9T6towYFHUv897X0KoHBjB1shyrNmhmtHWKP17iSWgo7Gqh7BBuzLZMSA==
-  dependencies:
-    ansi-colors "^3.2.1"
-
-enquirer@^2.3.6:
+enquirer@^2.3.5, enquirer@^2.3.6:
   version "2.3.6"
   resolved "https://registry.npmjs.org/enquirer/-/enquirer-2.3.6.tgz#2a7fe5dd634a1e4125a975ec994ff5456dc3734d"
   integrity sha512-yjNnPr315/FjS4zIsUxYguYUPP2e1NK4d7E7ZOLiyYCcbFBiTMyID+2wvm2w6+pZ/odMA7cRkjhsPbltwBOrLg==
@@ -6293,22 +6281,7 @@ execa@^1.0.0:
     signal-exit "^3.0.0"
     strip-eof "^1.0.0"
 
-execa@^4.0.0:
-  version "4.0.3"
-  resolved "https://registry.npmjs.org/execa/-/execa-4.0.3.tgz#0a34dabbad6d66100bd6f2c576c8669403f317f2"
-  integrity sha512-WFDXGHckXPWZX19t1kCsXzOpqX9LWYNqn4C+HqZlk/V0imTkzJZqf87ZBhvpHaftERYknpk0fjSylnXVlVgI0A==
-  dependencies:
-    cross-spawn "^7.0.0"
-    get-stream "^5.0.0"
-    human-signals "^1.1.1"
-    is-stream "^2.0.0"
-    merge-stream "^2.0.0"
-    npm-run-path "^4.0.0"
-    onetime "^5.1.0"
-    signal-exit "^3.0.2"
-    strip-final-newline "^2.0.0"
-
-execa@^4.1.0:
+execa@^4.0.0, execa@^4.1.0:
   version "4.1.0"
   resolved "https://registry.npmjs.org/execa/-/execa-4.1.0.tgz#4e5491ad1572f2f17a77d388c6c857135b22847a"
   integrity sha512-j5W0//W7f8UxAn8hXVnwG8tLwdiUy4FJLcSupCg6maBYZDpyBvTApK7KyuI4bKj8KOh1r2YH+6ucuYtJv1bTZA==
@@ -6321,6 +6294,21 @@ execa@^4.1.0:
     npm-run-path "^4.0.0"
     onetime "^5.1.0"
     signal-exit "^3.0.2"
+    strip-final-newline "^2.0.0"
+
+execa@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.npmjs.org/execa/-/execa-5.0.0.tgz#4029b0007998a841fbd1032e5f4de86a3c1e3376"
+  integrity sha512-ov6w/2LCiuyO4RLYGdpFGjkcs0wMTgGE8PrkTHikeUy5iJekXyPIKUjifk5CsE0pt7sMCrMZ3YNqoCj6idQOnQ==
+  dependencies:
+    cross-spawn "^7.0.3"
+    get-stream "^6.0.0"
+    human-signals "^2.1.0"
+    is-stream "^2.0.0"
+    merge-stream "^2.0.0"
+    npm-run-path "^4.0.1"
+    onetime "^5.1.2"
+    signal-exit "^3.0.3"
     strip-final-newline "^2.0.0"
 
 exegesis-express@^2.0.0:
@@ -7779,6 +7767,11 @@ human-signals@^1.1.1:
   version "1.1.1"
   resolved "https://registry.npmjs.org/human-signals/-/human-signals-1.1.1.tgz#c5b1cd14f50aeae09ab6c59fe63ba3395fe4dfa3"
   integrity sha512-SEQu7vl8KjNL2eoGBLF3+wAjpsNfA9XMlXAYj/3EdaNfAlxKthD1xjEQfGOUhllCGGJVNY34bRr6lPINhNjyZw==
+
+human-signals@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.npmjs.org/human-signals/-/human-signals-2.1.0.tgz#dc91fcba42e4d06e4abaed33b3e7a3c02f514ea0"
+  integrity sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==
 
 humanize-ms@^1.2.1:
   version "1.2.1"
@@ -10353,7 +10346,7 @@ npm-run-path@^2.0.0:
   dependencies:
     path-key "^2.0.0"
 
-npm-run-path@^4.0.0:
+npm-run-path@^4.0.0, npm-run-path@^4.0.1:
   version "4.0.1"
   resolved "https://registry.npmjs.org/npm-run-path/-/npm-run-path-4.0.1.tgz#b7ecd1e5ed53da8e37a55e1c2269e0b97ed748ea"
   integrity sha512-S48WzZW777zhNIrn7gxOlISNAqi9ZC/uQFnRdbeIHhZhCA6UqpkOT8T1G7BvfdgP4Er8gF4sUbaS0i7QvIfCWw==
@@ -10501,6 +10494,13 @@ onetime@^5.1.0:
   version "5.1.0"
   resolved "https://registry.npmjs.org/onetime/-/onetime-5.1.0.tgz#fff0f3c91617fe62bb50189636e99ac8a6df7be5"
   integrity sha512-5NcSkPHhwTVFIQN+TUqXoS5+dlElHXdpAWu9I0HP20YOtIi+aZ0Ct82jdlILDxjLEAWwvm+qj1m6aEtsDVmm6Q==
+  dependencies:
+    mimic-fn "^2.1.0"
+
+onetime@^5.1.2:
+  version "5.1.2"
+  resolved "https://registry.npmjs.org/onetime/-/onetime-5.1.2.tgz#d0e96ebb56b07476df1dd9c4806e5237985ca45e"
+  integrity sha512-kbpaSSGJTWdAY5KPVeMOKXSrPtr8C8C7wodJbcsd51jRnmD+GZu8Y0VoU6Dm5Z4vWr0Ig/1NKuWRKf7j5aaYSg==
   dependencies:
     mimic-fn "^2.1.0"
 
@@ -12115,7 +12115,7 @@ shellwords@^0.1.1:
   resolved "https://registry.npmjs.org/shellwords/-/shellwords-0.1.1.tgz#d6b9181c1a48d397324c84871efbcfc73fc0654b"
   integrity sha512-vFwSUfQvqybiICwZY5+DAWIPLKsWO31Q91JSKl3UYv+K5c2QRPzn0qzec6QPu1Qc9eHYItiP3NdJqNVqetYAww==
 
-signal-exit@^3.0.0, signal-exit@^3.0.2:
+signal-exit@^3.0.0, signal-exit@^3.0.2, signal-exit@^3.0.3:
   version "3.0.3"
   resolved "https://registry.npmjs.org/signal-exit/-/signal-exit-3.0.3.tgz#a1410c2edd8f077b08b4e253c8eacfcaf057461c"
   integrity sha512-VUJ49FC8U1OxwZLxIbTTrDvLnf/6TDgxZcK8wxR8zs13xpx7xbG60ndBlhNrFi2EMuFRoeDoJO7wthSLq42EjA==
@@ -13451,12 +13451,7 @@ uuid@^8.3.0:
   resolved "https://registry.npmjs.org/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
   integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
 
-v8-compile-cache@^2.0.3:
-  version "2.1.1"
-  resolved "https://registry.npmjs.org/v8-compile-cache/-/v8-compile-cache-2.1.1.tgz#54bc3cdd43317bca91e35dcaf305b1a7237de745"
-  integrity sha512-8OQ9CL+VWyt3JStj7HX7/ciTL2V3Rl1Wf5OL+SNTm0yK1KvtReVulksyeRnCANHHuUxHlQig+JJDlUhBt1NQDQ==
-
-v8-compile-cache@^2.2.0:
+v8-compile-cache@^2.0.3, v8-compile-cache@^2.2.0:
   version "2.2.0"
   resolved "https://registry.npmjs.org/v8-compile-cache/-/v8-compile-cache-2.2.0.tgz#9471efa3ef9128d2f7c6a7ca39c4dd6b5055b132"
   integrity sha512-gTpR5XQNKFwOd4clxfnhaqvfqMpqEwr4tOtCyz4MtYZX2JYhfr1JvBFKdS+7K/9rfpZR3VLX+YWBbKoxCgS43Q==
@@ -13569,17 +13564,17 @@ webidl-conversions@^6.1.0:
   integrity sha512-qBIvFLGiBpLjfwmYAaHPXsn+ho5xZnGvyGvsarywGNc8VyQJUMHJ8OBKGGrPER0okBeMDaan4mNBlgBROxuI8w==
 
 webpack-cli@^4.3.0:
-  version "4.3.0"
-  resolved "https://registry.npmjs.org/webpack-cli/-/webpack-cli-4.3.0.tgz#e39303bf9f8002de122903e97029f3443d0f9174"
-  integrity sha512-gve+BBKrzMPTOYDjupzV8JchUznhVWMKtWM1hFIQWi6XoeLvGNoQwkrtMWVb+aJ437GgCKdta7sIn10v621pKA==
+  version "4.3.1"
+  resolved "https://registry.npmjs.org/webpack-cli/-/webpack-cli-4.3.1.tgz#87a7873bc9c6a4708aa657759274b691e72a04a8"
+  integrity sha512-/F4+9QNZM/qKzzL9/06Am8NXIkGV+/NqQ62Dx7DSqudxxpAgBqYn6V7+zp+0Y7JuWksKUbczRY3wMTd+7Uj6OA==
   dependencies:
     "@discoveryjs/json-ext" "^0.5.0"
-    "@webpack-cli/info" "^1.2.0"
-    "@webpack-cli/serve" "^1.2.0"
+    "@webpack-cli/info" "^1.2.1"
+    "@webpack-cli/serve" "^1.2.1"
     colorette "^1.2.1"
     commander "^6.2.0"
     enquirer "^2.3.6"
-    execa "^4.1.0"
+    execa "^5.0.0"
     fastest-levenshtein "^1.0.12"
     import-local "^3.0.2"
     interpret "^2.2.0"
