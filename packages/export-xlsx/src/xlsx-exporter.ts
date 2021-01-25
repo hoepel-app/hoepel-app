@@ -35,6 +35,12 @@ export class XlsxExporter {
           name: 'Alle kinderen',
           columns: [
             {
+              title: 'Id',
+              values: list.map(({ child }) => child.id),
+              width: 20,
+              hideColumn: true,
+            },
+            {
               title: 'Voornaam',
               values: list.map(({ child }) => child.firstName),
               width: 20,

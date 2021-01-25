@@ -37,20 +37,19 @@ export const buildExcelFile = (data: SpreadsheetData): LocalFile => {
     column: SpreadsheetWorksheetColumn
   ): boolean => {
     return (
-      column.hideIfNoSetValues === true &&
-      column.values.filter((value) => value != null && value !== '').length ===
-        0
+      column.hideColumn ||
+      (column.hideIfNoSetValues === true &&
+        column.values.filter((value) => value != null && value !== '')
+          .length === 0)
     )
   }
 
   const createWorksheet = (ws: SpreadsheetWorksheet): XLSX.WorkSheet => {
     const result: XLSX.WorkSheet = {}
 
-    const filteredColumns = ws.columns.filter(
-      (column) => !columnShouldBeDropped(column)
-    )
+    const columns = ws.columns
 
-    filteredColumns.forEach((column, columnIdx) => {
+    columns.forEach((column, columnIdx) => {
       const columnValues =
         column.title == null ? column.values : [column.title, ...column.values]
 
@@ -61,16 +60,18 @@ export const buildExcelFile = (data: SpreadsheetData): LocalFile => {
       })
     })
 
-    // Set column widths
-    result['!cols'] = filteredColumns.map((column) =>
-      column.width ? { wch: column.width } : {}
-    )
+    // Set column widths and visibility
+    result['!cols'] = columns.map((column) => {
+      if (column.width == null) {
+        return { hidden: columnShouldBeDropped(column) }
+      } else {
+        return { hidden: columnShouldBeDropped(column), wch: column.width }
+      }
+    })
 
     // Set sheet range
-    const numColumns = filteredColumns.length
-    const numRows = Math.max(
-      ...filteredColumns.map((column) => column.values.length)
-    )
+    const numColumns = columns.length
+    const numRows = Math.max(...columns.map((column) => column.values.length))
     result['!ref'] =
       XLSX.utils.encode_cell({ c: 0, r: 0 }) +
       ':' +

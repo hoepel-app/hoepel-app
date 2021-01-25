@@ -14,6 +14,7 @@ export type SpreadsheetWorksheetColumn = {
   values: ReadonlyArray<SpreadsheetCellValue>
   width?: number
   hideIfNoSetValues?: boolean
+  hideColumn?: boolean
 }
 
 /** Represents an Excel/spreadsheet worksheet (a "tab" in a spreadsheet) */

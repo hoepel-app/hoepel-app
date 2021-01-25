@@ -103,7 +103,7 @@ Object {
   ],
   "Sheets": Object {
     "Data fiscale attesten 2019": Object {
-      "!ref": "A1:N8",
+      "!ref": "A1:O8",
       "A1": Object {
         "h": "",
         "t": "s",
@@ -503,6 +503,18 @@ Object {
         "t": "n",
         "v": 0,
         "w": "0",
+      },
+      "M1": Object {
+        "h": "This column has no set values",
+        "t": "s",
+        "v": "This column has no set values",
+        "w": "This column has no set values",
+      },
+      "M5": Object {
+        "h": "",
+        "t": "s",
+        "v": "",
+        "w": "",
       },
     },
   },

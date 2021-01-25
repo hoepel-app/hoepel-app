@@ -255,6 +255,16 @@ Object {
     Object {
       "columns": Array [
         Object {
+          "hideColumn": true,
+          "title": "Id",
+          "values": Array [
+            "child-id-1",
+            "child-id-2",
+            "child-id-3",
+          ],
+          "width": 20,
+        },
+        Object {
           "title": "Voornaam",
           "values": Array [
             "Kind 1",
@@ -406,6 +416,14 @@ Object {
   "worksheets": Array [
     Object {
       "columns": Array [
+        Object {
+          "hideColumn": true,
+          "title": "Id",
+          "values": Array [
+            "child-id-1",
+          ],
+          "width": 20,
+        },
         Object {
           "title": "Voornaam",
           "values": Array [

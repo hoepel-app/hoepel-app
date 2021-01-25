@@ -2,6 +2,7 @@ import { buildExcelFile } from './build-excel-file'
 import { SpreadsheetData } from './spreadsheet-types'
 import { Price, DayDate } from '@hoepel.app/types'
 import { read } from 'xlsx'
+import { writeFileSync } from 'fs'
 
 const spreadSheetData: SpreadsheetData = {
   filename: 'Data fiscale attesten 2019',
@@ -158,6 +159,8 @@ describe('buildExcelFile', () => {
   test('built Excel file contains expected data', () => {
     const res = buildExcelFile(spreadSheetData)
     const readFile = read(res.file)
+
+    writeFileSync('/tmp/test2.xls', res.file)
 
     expect(readFile).toMatchSnapshot()
   })
