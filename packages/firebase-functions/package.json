@@ -23,7 +23,7 @@
     "@hoepel.app/isomorphic-domain": "^0.3.115",
     "@hoepel.app/old-events": "^0.3.115",
     "@hoepel.app/types": "^1.22.0",
-    "@sentry/node": "^5.29.2",
+    "@sentry/node": "^6.2.1",
     "apollo-server-express": "^2.19.1",
     "cors": "^2.8.5",
     "date-fns": "^2.16.1",
