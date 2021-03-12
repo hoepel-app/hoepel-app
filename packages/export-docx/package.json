@@ -14,7 +14,7 @@
   },
   "private": true,
   "dependencies": {
-    "docxtemplater": "^3.19.7",
+    "docxtemplater": "^3.21.1",
     "pizzip": "^3.0.6"
   }
 }
