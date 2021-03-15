@@ -53,18 +53,20 @@ export class WeekIdentifier {
     return new WeekIdentifier(parseInt(split[0], 10), parseInt(split[1], 10))
   }
 
-  static get allSummer2020(): readonly WeekIdentifier[] {
+  static get all2021(): readonly WeekIdentifier[] {
     return [
-      new WeekIdentifier(2020, 27),
-      new WeekIdentifier(2020, 28),
-      new WeekIdentifier(2020, 29),
-      new WeekIdentifier(2020, 30),
-      new WeekIdentifier(2020, 31),
-      new WeekIdentifier(2020, 32),
-      new WeekIdentifier(2020, 33),
-      new WeekIdentifier(2020, 34),
-      new WeekIdentifier(2020, 35),
-      new WeekIdentifier(2020, 36),
+      new WeekIdentifier(2021, 14),
+      new WeekIdentifier(2021, 15),
+      new WeekIdentifier(2021, 26),
+      new WeekIdentifier(2021, 27),
+      new WeekIdentifier(2021, 28),
+      new WeekIdentifier(2021, 29),
+      new WeekIdentifier(2021, 30),
+      new WeekIdentifier(2021, 31),
+      new WeekIdentifier(2021, 32),
+      new WeekIdentifier(2021, 33),
+      new WeekIdentifier(2021, 34),
+      new WeekIdentifier(2021, 35),
     ]
   }
 }

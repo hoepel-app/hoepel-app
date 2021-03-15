@@ -282,7 +282,7 @@ export class FileService {
       .toPromise()
 
     const children = await Promise.all(
-      WeekIdentifier.allSummer2020.flatMap((week) => {
+      WeekIdentifier.all2021.flatMap((week) => {
         return bubbles.bubbles.flatMap((bubble) => {
           return bubble.childIdsInBubble(week.value).map(async (childId) => {
             const child = await this.childRepository.get(tenant, childId)
