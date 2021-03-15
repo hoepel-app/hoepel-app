@@ -1,5 +1,13 @@
 import { DayDateRange, DayDate } from '@hoepel.app/types'
-import { getWeek, startOfWeek, endOfWeek, setWeek, setYear } from 'date-fns'
+import {
+  getWeek,
+  startOfWeek,
+  endOfWeek,
+  setWeek,
+  setYear,
+  setDay,
+} from 'date-fns'
+import { nlBE as locale } from 'date-fns/locale'
 
 export class WeekIdentifier {
   constructor(
@@ -12,14 +20,14 @@ export class WeekIdentifier {
   }
 
   get range(): DayDateRange {
-    const weekStartsOn = 1
     const dateZero = new Date(0)
-    const week = setYear(
-      setWeek(dateZero, this.weekNumber, { weekStartsOn }),
-      this.year
+    const week = setWeek(
+      setYear(setDay(dateZero, 2, { locale }), this.year),
+      this.weekNumber,
+      { locale }
     )
-    const start = startOfWeek(week, { weekStartsOn })
-    const end = endOfWeek(week, { weekStartsOn })
+    const start = startOfWeek(week, { locale })
+    const end = endOfWeek(week, { locale })
 
     return new DayDateRange({
       from: DayDate.fromNative(start),
@@ -44,7 +52,7 @@ export class WeekIdentifier {
   }
 
   static forDate(day: DayDate): WeekIdentifier {
-    return new WeekIdentifier(day.year, getWeek(day.nativeDate))
+    return new WeekIdentifier(day.year, getWeek(day.nativeDate, { locale }))
   }
 
   static fromWeekIdentifier(id: string): WeekIdentifier {

@@ -2,6 +2,7 @@ import { Aggregate } from '@hoepel.app/ddd-library'
 import { setWeek, setYear, startOfWeek } from 'date-fns'
 import { DayDate } from '@hoepel.app/types'
 import { WeekIdentifier } from '../week-identifier'
+import { nlBE as locale } from 'date-fns/locale'
 
 export type ChildAttendanceIntentionProps = {
   readonly tenant: string
@@ -128,8 +129,9 @@ export class ChildAttendanceIntention implements Aggregate {
     const date = startOfWeek(
       setWeek(setYear(dateZero, this.props.year), this.weekNumber, {
         weekStartsOn: 1,
+        locale,
       }),
-      { weekStartsOn: 1 }
+      { weekStartsOn: 1, locale }
     )
     return DayDate.fromNative(date)
   }

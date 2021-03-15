@@ -329,7 +329,7 @@ export class FileService {
 
     const allAttendances = (
       await Promise.all(
-        WeekIdentifier.allSummer2020.map((week) =>
+        WeekIdentifier.all2021.map((week) =>
           this.childAttendanceIntentionService
             .getAttendanceIntentionsForWeek(tenant, week)
             .pipe(first())

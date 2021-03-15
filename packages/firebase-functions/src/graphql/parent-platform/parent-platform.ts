@@ -26,7 +26,7 @@ import {
   lastDayOfWeek,
   startOfWeek,
 } from 'date-fns'
-import { nl as locale } from 'date-fns/locale'
+import { nlBE as locale } from 'date-fns/locale'
 
 const db = admin.firestore()
 
@@ -288,6 +288,7 @@ export class ParentPlatform {
     const shiftsNotInWeek = shifts
       .filter((shift) => !week.belongsToThisWeek(shift.date))
       .map((shift) => shift.id)
+
     if (shiftsNotInWeek.length > 0) {
       throw new Error(
         `The following shifts are not in week ${
