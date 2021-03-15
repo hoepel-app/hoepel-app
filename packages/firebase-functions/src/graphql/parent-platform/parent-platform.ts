@@ -25,6 +25,7 @@ import {
   format,
   lastDayOfWeek,
   startOfWeek,
+  setDay,
 } from 'date-fns'
 import { nlBE as locale } from 'date-fns/locale'
 
@@ -45,9 +46,13 @@ const attendanceIntentionService = new ChildAttendanceIntentionApplicationServic
 )
 
 const weekDescription = (weekNumber: number, year: number): string => {
-  const week = setWeek(setYear(new Date(0), year), weekNumber, {
-    locale,
-  })
+  const week = setWeek(
+    setYear(setDay(new Date(0), 2, { locale }), year),
+    weekNumber,
+    {
+      locale,
+    }
+  )
 
   const weekStart = format(startOfWeek(week, { locale }), 'd MMMM', { locale })
   const weekEnd = format(lastDayOfWeek(week, { locale }), 'd MMMM', {
