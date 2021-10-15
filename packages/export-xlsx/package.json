@@ -15,7 +15,7 @@
     "@types/lodash.groupby": "^4.6.6",
     "lodash.flatmap": "^4.5.0",
     "lodash.groupby": "^4.6.0",
-    "xlsx": "^0.16.9"
+    "xlsx": "^0.17.3"
   },
   "devDependencies": {
     "@types/jest": "^26.0.20",
