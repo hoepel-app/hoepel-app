@@ -14,7 +14,7 @@
     "@hoepel.app/schema-firestore": "^0.3.120"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.20",
+    "@types/jest": "^27.0.2",
     "@types/node": "^14.14.34",
     "jest": "^26.6.3",
     "ts-jest": "^26.5.3",
