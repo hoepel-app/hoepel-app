@@ -4739,13 +4739,10 @@ code-point-at@^1.0.0:
   resolved "https://registry.npmjs.org/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
   integrity sha1-DQcLTQQ6W+ozovGkDi7bPZpMz3c=
 
-codepage@~1.14.0:
-  version "1.14.0"
-  resolved "https://registry.npmjs.org/codepage/-/codepage-1.14.0.tgz#8cbe25481323559d7d307571b0fff91e7a1d2f99"
-  integrity sha1-jL4lSBMjVZ19MHVxsP/5HnodL5k=
-  dependencies:
-    commander "~2.14.1"
-    exit-on-epipe "~1.0.1"
+codepage@~1.15.0:
+  version "1.15.0"
+  resolved "https://registry.npmjs.org/codepage/-/codepage-1.15.0.tgz#2e00519024b39424ec66eeb3ec07227e692618ab"
+  integrity sha512-3g6NUTPd/YtuuGrhMnOMRjFc+LJw/bnMp3+0r/Wcz3IXUuCosKRJvMphm5+Q+bvTVGcJJuRvVLuYba+WojaFaA==
 
 collect-v8-coverage@^1.0.0:
   version "1.0.1"
@@ -4862,11 +4859,6 @@ commander@^7.0.0:
   version "7.0.0"
   resolved "https://registry.npmjs.org/commander/-/commander-7.0.0.tgz#3e2bbfd8bb6724760980988fb5b22b7ee6b71ab2"
   integrity sha512-ovx/7NkTrnPuIV8sqk/GjUIIM1+iUQeqA3ye2VNpq9sVoiZsooObWlQy+OPWGI17GDaEoybuAGJm6U8yC077BA==
-
-commander@~2.14.1:
-  version "2.14.1"
-  resolved "https://registry.npmjs.org/commander/-/commander-2.14.1.tgz#2235123e37af8ca3c65df45b026dbd357b01b9aa"
-  integrity sha512-+YR16o3rK53SmWHU3rEM3tPAh2rwb1yPcQX5irVn7mb0gXbwuCCrnkbV5+PBfETdfg1vui07nM6PCG1zndcjQw==
 
 commander@~2.17.1:
   version "2.17.1"
@@ -6464,10 +6456,10 @@ fecha@^2.3.3:
   resolved "https://registry.npmjs.org/fecha/-/fecha-2.3.3.tgz#948e74157df1a32fd1b12c3a3c3cdcb6ec9d96cd"
   integrity sha512-lUGBnIamTAwk4znq5BcqsDaxSmZ9nDVJaij6NvRt/Tg4R69gERA+otPKbS86ROw9nxVMw2/mp1fnaiWqbs6Sdg==
 
-fflate@^0.3.8:
-  version "0.3.11"
-  resolved "https://registry.npmjs.org/fflate/-/fflate-0.3.11.tgz#2c440d7180fdeb819e64898d8858af327b042a5d"
-  integrity sha512-Rr5QlUeGN1mbOHlaqcSYMKVpPbgLy0AWT/W0EHxA6NGI12yO1jpoui2zBBvU2G824ltM6Ut8BFgfHSBGfkmS0A==
+fflate@^0.7.1:
+  version "0.7.1"
+  resolved "https://registry.npmjs.org/fflate/-/fflate-0.7.1.tgz#56e87e87c3f2fe01b025fbb1c4ea835990c02fa2"
+  integrity sha512-VYM2Xy1gSA5MerKzCnmmuV2XljkpKwgJBKezW+495TTnTCh1x5HcYa1aH8wRU/MfTGhW4ziXqgwprgQUVl3Ohw==
 
 figures@^2.0.0:
   version "2.0.0"
@@ -13645,18 +13637,18 @@ xdg-basedir@^4.0.0:
   resolved "https://registry.npmjs.org/xdg-basedir/-/xdg-basedir-4.0.0.tgz#4bc8d9984403696225ef83a1573cbbcb4e79db13"
   integrity sha512-PSNhEJDejZYV7h50BohL09Er9VaIefr2LMAf3OEmpCkjOi34eYyQYAXUTjEQtZJTKcF0E2UKTh+osDLsgNim9Q==
 
-xlsx@^0.16.9:
-  version "0.16.9"
-  resolved "https://registry.npmjs.org/xlsx/-/xlsx-0.16.9.tgz#dacd5bb46bda6dd3743940c9c3dc1e2171826256"
-  integrity sha512-gxi1I3EasYvgCX1vN9pGyq920Ron4NO8PNfhuoA3Hpq6Y8f0ECXiy4OLrK4QZBnj1jx3QD+8Fq5YZ/3mPZ5iXw==
+xlsx@^0.17.3:
+  version "0.17.3"
+  resolved "https://registry.npmjs.org/xlsx/-/xlsx-0.17.3.tgz#1c2dd36ff1cecb0ebdf79ba4f268e945d0070849"
+  integrity sha512-dGZKfyPSXfnoITruwisuDVZkvnxhjgqzWJXBJm2Khmh01wcw8//baRUvhroVRhW2SLbnlpGcCZZbeZO1qJgMIw==
   dependencies:
     adler-32 "~1.2.0"
     cfb "^1.1.4"
-    codepage "~1.14.0"
+    codepage "~1.15.0"
     commander "~2.17.1"
     crc-32 "~1.2.0"
     exit-on-epipe "~1.0.1"
-    fflate "^0.3.8"
+    fflate "^0.7.1"
     ssf "~0.11.2"
     wmf "~1.0.1"
     word "~0.3.0"
