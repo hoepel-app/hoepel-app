@@ -1,6 +1,6 @@
 {
   "name": "@hoepel.app/domain",
-  "version": "0.3.120",
+  "version": "0.3.124",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "license": "GPL-3.0-or-later",
