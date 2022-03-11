@@ -282,7 +282,7 @@ export class FileService {
       .toPromise()
 
     const children = await Promise.all(
-      WeekIdentifier.all2021.flatMap((week) => {
+      WeekIdentifier.all2022.flatMap((week) => {
         return bubbles.bubbles.flatMap((bubble) => {
           return bubble.childIdsInBubble(week.value).map(async (childId) => {
             const child = await this.childRepository.get(tenant, childId)
@@ -329,7 +329,7 @@ export class FileService {
 
     const allAttendances = (
       await Promise.all(
-        WeekIdentifier.all2021.map((week) =>
+        WeekIdentifier.all2022.map((week) =>
           this.childAttendanceIntentionService
             .getAttendanceIntentionsForWeek(tenant, week)
             .pipe(first())

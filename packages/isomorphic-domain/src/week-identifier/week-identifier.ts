@@ -77,4 +77,21 @@ export class WeekIdentifier {
       new WeekIdentifier(2021, 35),
     ]
   }
+
+  static get all2022(): readonly WeekIdentifier[] {
+    return [
+      new WeekIdentifier(2022, 14),
+      new WeekIdentifier(2022, 15),
+      new WeekIdentifier(2022, 26),
+      new WeekIdentifier(2022, 27),
+      new WeekIdentifier(2022, 28),
+      new WeekIdentifier(2022, 29),
+      new WeekIdentifier(2022, 30),
+      new WeekIdentifier(2022, 31),
+      new WeekIdentifier(2022, 32),
+      new WeekIdentifier(2022, 33),
+      new WeekIdentifier(2022, 34),
+      new WeekIdentifier(2022, 35),
+    ]
+  }
 }
