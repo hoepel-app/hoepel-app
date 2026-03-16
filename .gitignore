@@ -16,4 +16,5 @@ key.json
 packages/firebase-functions/key.json
 packages/firebase-functions/dist-webpack/
 coverage/
-
+.envrc
+.pip/
